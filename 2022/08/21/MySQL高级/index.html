@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MySQL高级  一、distinct关键字 distinct能够去除查询结果中重复的记录 注意：数据表中的数据并没有被修改，实际上所有的DQL查询语句都不会修改原始数据，只是对查询结果进行处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL高级">
+<meta property="og:url" content="https://examples.com/2022/08/21/MySQL%E9%AB%98%E7%BA%A7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="MySQL高级  一、distinct关键字 distinct能够去除查询结果中重复的记录 注意：数据表中的数据并没有被修改，实际上所有的DQL查询语句都不会修改原始数据，只是对查询结果进行处理">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-21T05:09:02.000Z">
+<meta property="article:modified_time" content="2022-09-05T13:37:37.223Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://examples.com/2022/08/21/MySQL高级/"/>
+
+
+
+
+
+  <title>MySQL高级 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://examples.com/2022/08/21/MySQL%E9%AB%98%E7%BA%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL高级</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-08-21T13:09:02+08:00">
+                2022-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="MySQL高级">MySQL高级</h3>
+<hr>
+<h4 id="一、distinct关键字">一、distinct关键字</h4>
+<p>distinct能够去除查询结果中重复的记录</p>
+<p>注意：数据表中的数据并没有被修改，实际上所有的DQL查询语句都不会修改原始数据，只是对查询结果进行处理 <span id="more"></span></p>
+
+    <pre><code class="lang-language-mysql"># 准备工作
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> task;
+use task;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> emp (
+	id <span class="hljs-type">int</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>),
+    age <span class="hljs-type">int</span>,
+    sex <span class="hljs-type">char</span>(<span class="hljs-number">20</span>),
+    salary <span class="hljs-type">double</span>
+);
+<span class="hljs-keyword">alter</span> <span class="hljs-keyword">table</span> emp modify sex <span class="hljs-type">char</span>(<span class="hljs-number">20</span>) <span class="hljs-type">character</span> <span class="hljs-keyword">set</span> gbk;
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> emp <span class="hljs-keyword">values</span>
+(<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-number">19</span>,<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-number">3500</span>),
+(<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-number">22</span>,<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-number">5600</span>),
+(<span class="hljs-number">3</span>,<span class="hljs-string">&#x27;c&#x27;</span>,<span class="hljs-number">34</span>,<span class="hljs-string">&#x27;女&#x27;</span>,<span class="hljs-number">7700</span>),
+(<span class="hljs-number">4</span>,<span class="hljs-string">&#x27;d&#x27;</span>,<span class="hljs-number">16</span>,<span class="hljs-string">&#x27;男&#x27;</span>,<span class="hljs-number">4300</span>),
+(<span class="hljs-number">5</span>,<span class="hljs-string">&#x27;e&#x27;</span>,<span class="hljs-number">51</span>,<span class="hljs-string">&#x27;女&#x27;</span>,<span class="hljs-number">4300</span>),
+(<span class="hljs-number">6</span>,<span class="hljs-string">&#x27;f&#x27;</span>,<span class="hljs-number">23</span>,<span class="hljs-string">&#x27;女&#x27;</span>,<span class="hljs-number">4300</span>);
+
+# 格式: <span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> 字段名 <span class="hljs-keyword">from</span> 数据表名;
+# <span class="hljs-keyword">distinct</span>关键字写在所有字段前面
+# 查询salary的值有哪几种情况,不重复列出相同的情况
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> salary <span class="hljs-keyword">from</span> emp;
+# 对于多个字段,则需要在多个字段的值均重复的条件下才会去重
+# 查询数据表中存在的不重复的sex和salary的组合有哪几种情况
+<span class="hljs-keyword">select</span> <span class="hljs-keyword">distinct</span> salary,sex <span class="hljs-keyword">from</span> emp;
+</code></pre>
+<h4 id="二、连接查询">二、连接查询</h4>
+<h5 id="连接查询的概念">连接查询的概念</h5>
+<p>针对一张数据表进行查询，称为单表查询。<strong>join关键字</strong></p>
+<p>将两张及以上的数据表联合起来进行查询，获取到多张数据表组合出来的数据，称为连接查询。</p>
+<h5 id="连接查询的分类">连接查询的分类</h5>
+<pre><code>根据表连接的方式分类
+├── 内连接
+│   ├── 等值连接
+│   ├── 非等值连接
+│   └── 自连接
+|
+├── 外连接
+│   ├── 左外连接
+│   └── 右外连接
+</code></pre>
+<h5 id="笛卡尔积现象">笛卡尔积现象</h5>
+<p>一般是由于没有加任何限制条件直接联合多张表进行查询。查询结果的数量是多张表的乘积，但一般这样的查询没有太大意义，要避免这种情况需要设计好限制条件。</p>
+<h5 id="内连接">内连接</h5>
+
+    <pre><code class="lang-language-mysql"># 准备数据
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">database</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> data;
+use data;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> employee(
+	id <span class="hljs-type">int</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>),
+    salary <span class="hljs-type">double</span>,
+    department_id <span class="hljs-type">int</span>
+);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> employee <span class="hljs-keyword">values</span>
+(<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;apple&#x27;</span>,<span class="hljs-number">5469</span>,<span class="hljs-number">101</span>),
+(<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;grape&#x27;</span>,<span class="hljs-number">4465</span>,<span class="hljs-number">101</span>),
+(<span class="hljs-number">3</span>,<span class="hljs-string">&#x27;orange&#x27;</span>,<span class="hljs-number">6544</span>,<span class="hljs-number">102</span>),
+(<span class="hljs-number">4</span>,<span class="hljs-string">&#x27;mango&#x27;</span>,<span class="hljs-number">4987</span>,<span class="hljs-number">102</span>),
+(<span class="hljs-number">5</span>,<span class="hljs-string">&#x27;banana&#x27;</span>,<span class="hljs-number">5323</span>,<span class="hljs-number">102</span>),
+(<span class="hljs-number">6</span>,<span class="hljs-string">&#x27;peach&#x27;</span>,<span class="hljs-number">6743</span>,<span class="hljs-number">103</span>);
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> department(
+	id <span class="hljs-type">int</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>)
+);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> department <span class="hljs-keyword">values</span>
+(<span class="hljs-number">101</span>,<span class="hljs-string">&#x27;develop&#x27;</span>),
+(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;operate&#x27;</span>),
+(<span class="hljs-number">103</span>,<span class="hljs-string">&#x27;loaf&#x27;</span>);
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> salary_level(
+	grade <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>),
+    min <span class="hljs-type">int</span>,
+    max <span class="hljs-type">int</span>
+);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> salary_level <span class="hljs-keyword">values</span>
+(<span class="hljs-string">&#x27;A&#x27;</span>,<span class="hljs-number">5501</span>,<span class="hljs-number">7000</span>),
+(<span class="hljs-string">&#x27;B&#x27;</span>,<span class="hljs-number">4001</span>,<span class="hljs-number">5500</span>),
+(<span class="hljs-string">&#x27;C&#x27;</span>,<span class="hljs-number">2500</span>,<span class="hljs-number">4000</span>);
+# 等值连接,<span class="hljs-keyword">where</span>后的条件是等值判断
+# 查询enployee表中每条记录所对应的department的<span class="hljs-type">name</span>
+# <span class="hljs-keyword">join</span>前加<span class="hljs-keyword">inner</span>关键字能直接表明这是内连接,当然<span class="hljs-keyword">inner</span>本身可以省略不写
+# <span class="hljs-keyword">on</span>关键字类似于<span class="hljs-keyword">where</span>,但<span class="hljs-keyword">on</span>是表示多表的连接条件,而<span class="hljs-keyword">where</span>是表示对连接结果进一步筛选的条件,<span class="hljs-keyword">where</span>写在<span class="hljs-keyword">on</span>的后面
+<span class="hljs-keyword">select</span> e.name,d.name <span class="hljs-keyword">from</span> employee e <span class="hljs-keyword">join</span> department d <span class="hljs-keyword">on</span> e.department_id=d.id;
+
+# 非等值连接,<span class="hljs-keyword">where</span>后的条件一般是在某个范围内判断
+# 查询employee表中每条记录所对应的salary_level的grade
+<span class="hljs-keyword">select</span> e.name,e.salary,s.grade <span class="hljs-keyword">from</span> employee e <span class="hljs-keyword">inner</span> <span class="hljs-keyword">join</span> salary_level s <span class="hljs-keyword">on</span> e.salary <span class="hljs-keyword">between</span> s.min <span class="hljs-keyword">and</span> s.max;
+
+# 自连接,本质上是一张表,但进行了重复使用
+# 新增数据
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> employee (id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span>
+(<span class="hljs-number">101</span>,<span class="hljs-string">&#x27;leader_jackson&#x27;</span>),
+(<span class="hljs-number">102</span>,<span class="hljs-string">&#x27;leader_vim&#x27;</span>),
+(<span class="hljs-number">103</span>,<span class="hljs-string">&#x27;leader_fish&#x27;</span>);
+# 查询employee表中department_id对应leader_name和<span class="hljs-type">name</span>记录
+<span class="hljs-keyword">select</span> e1.name <span class="hljs-string">&#x27;emp&#x27;</span>,e2.name <span class="hljs-string">&#x27;leader&#x27;</span> <span class="hljs-keyword">from</span> employee e1 <span class="hljs-keyword">join</span> employee e2 <span class="hljs-keyword">on</span> e1.department_id=e2.id;
+# 一般需要使用自连接查询的话,说明表的设计还能进一步优化
+</code></pre>
+<h5 id="外连接">外连接</h5>
+
+    <pre><code class="lang-language-mysql"># 内连接的多张表并没有主次关系,也就是说不需要考虑查询语句书写的先后顺序
+# 外连接分左外连接<span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span>和右外连接<span class="hljs-keyword">right</span> <span class="hljs-keyword">join</span>,<span class="hljs-keyword">left</span>或<span class="hljs-keyword">right</span>关键字不可省略,表示将<span class="hljs-keyword">join</span>关键字左右的数据表视为主表,当然也可以通过调整语句书写的先后顺序改变主次关系
+# 主表指定的数据会全部被查询,在此基础上再查询部分相关的次表的数据,也就是说指定查询的主表数据不会因为<span class="hljs-keyword">on</span>的连接条件而有所缺失,但会受到<span class="hljs-keyword">where</span>筛选条件的影响
+
+# 以employee为主表查询所有记录数
+<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> employee e <span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> department d <span class="hljs-keyword">on</span> e.department_id<span class="hljs-operator">=</span>d.id;
+# 以department为主表查询所有记录数
+<span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> employee e <span class="hljs-keyword">right</span> <span class="hljs-keyword">join</span> department d <span class="hljs-keyword">on</span> e.department_id<span class="hljs-operator">=</span>d.id;
+
+# 通过对比相同的数据表在内外连接两种情况下的不同查询结果,可以找到主表中还未与次表建立逻辑关系的单独的数据
+</code></pre>
+<h5 id="更多表连接（三张表）">更多表连接（三张表）</h5>
+
+    <pre><code class="lang-language-mysql"># 三张及以上数据表连接查询,多个连接条件一般都与第一张表相关联,内外连接可以混合使用
+# 查询employee、department、salary_level的联合数据
+# 查询employee中department_id对应的department表数据,salary对应的salary_level表数据
+<span class="hljs-keyword">select</span> <span class="hljs-built_in">e</span>.name,<span class="hljs-built_in">e</span>.salary,d.name,s.grade <span class="hljs-keyword">from</span> employee <span class="hljs-built_in">e</span> <span class="hljs-keyword">join</span> department d <span class="hljs-keyword">on</span> <span class="hljs-built_in">e</span>.department_id=d.id <span class="hljs-keyword">join</span> salary_level s <span class="hljs-keyword">on</span> <span class="hljs-built_in">e</span>.salary <span class="hljs-keyword">between</span> s.<span class="hljs-built_in">min</span> <span class="hljs-keyword">and</span> s.<span class="hljs-built_in">max</span>;
+</code></pre>
+<h4 id="三、子查询">三、子查询</h4>
+<h5 id="子查询的概念">子查询的概念</h5>
+<p>DQL语句中嵌套DQL语句，被嵌套的DQL语句称为子查询。</p>
+<h5 id="子查询的使用">子查询的使用</h5>
+<p>子查询可写在<strong>select</strong>、<strong>from</strong>、<strong>where</strong>关键字后面。</p>
+
+    <pre><code class="lang-language-mysql"># where子句中的子查询,一般子查询结果是某个值
+# 查询employee表中大于平均值的salary记录,先查询出avg(salary)的值
+<span class="hljs-keyword">select</span> salary <span class="hljs-keyword">from</span> employee <span class="hljs-keyword">where</span> salary&gt;(<span class="hljs-keyword">select</span> <span class="hljs-built_in">avg</span>(salary) <span class="hljs-keyword">from</span> employee);
+
+# from子句中的子查询,把子查询结果视为一张新的数据表
+# 查询employee表中每个department_id对应的avg(salary)的grade,先查询出每个department_id的avg(salary)
+<span class="hljs-keyword">select</span> <span class="hljs-built_in">e</span>.*,s.grade <span class="hljs-keyword">from</span> (<span class="hljs-keyword">select</span> department_id,<span class="hljs-built_in">avg</span>(salary) <span class="hljs-built_in">avg</span> <span class="hljs-keyword">from</span> employee <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> department_id) <span class="hljs-built_in">e</span> <span class="hljs-keyword">join</span> salary_level s <span class="hljs-keyword">on</span> <span class="hljs-built_in">avg</span> <span class="hljs-keyword">between</span> s.<span class="hljs-built_in">min</span> <span class="hljs-keyword">and</span> s.<span class="hljs-built_in">max</span>;
+
+# <span class="hljs-keyword">select</span>后的子查询,一般不经常使用,了解即可
+# 该子查询只能返回一条记录
+<span class="hljs-keyword">select</span> <span class="hljs-built_in">e</span>.name,<span class="hljs-built_in">e</span>.salary,(<span class="hljs-keyword">select</span> <span class="hljs-built_in">avg</span>(salary) <span class="hljs-keyword">from</span> employee) <span class="hljs-built_in">avg</span> <span class="hljs-keyword">from</span> employee <span class="hljs-built_in">e</span>;
+</code></pre>
+<h4 id="四、union关键字">四、union关键字</h4>
+<p><strong>union关键字</strong>能合并结果集，将多表查询的结果直接拼接起来，但多张表必须保持字段数一致。字段值在没有特殊逻辑关系下也要对应起来。</p>
+
+    <pre><code class="lang-language-mysql"># <span class="hljs-keyword">union</span>和<span class="hljs-keyword">join</span>
+# 将employee中salary大于<span class="hljs-number">5000</span>的结果集和department_id为<span class="hljs-number">101</span>的结果集合并起来,会自动去重
+<span class="hljs-keyword">select</span> <span class="hljs-type">name</span> <span class="hljs-keyword">from</span> employee <span class="hljs-keyword">where</span> salary &gt; <span class="hljs-number">5000</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-type">name</span> <span class="hljs-keyword">from</span> employee <span class="hljs-keyword">where</span> department_id=<span class="hljs-number">101</span>;
+
+# 关于<span class="hljs-keyword">union</span>和<span class="hljs-keyword">or</span>关键字的区别
+# <span class="hljs-keyword">union</span>能够实现多表查询(前提多张表的字段能够对应),而<span class="hljs-keyword">or</span>只能在一张表里使用
+# <span class="hljs-keyword">union</span>会自动去重,<span class="hljs-keyword">or</span>不会去重而是直接取查询结果的并集(实际大部分情况下两者结果区别不大)
+# <span class="hljs-keyword">union</span>能够使用不同的索引查询,索引即<span class="hljs-keyword">where</span>后面所用到的字段,而<span class="hljs-keyword">or</span>因为是针对一张表所以只能使用一个索引,一个<span class="hljs-keyword">where</span>后仅能有一个索引,有多个字段时取其一作为索引
+
+# 一般情况下,数据量较大时(包括单表的数据量和数据表的数量)推荐使用<span class="hljs-keyword">union</span>,多个查询条件涉及到的是同一个字段时推荐使用<span class="hljs-keyword">or</span>
+</code></pre>
+<h4 id="五、limit关键字">五、limit关键字</h4>
+<h5 id="limit的作用">limit的作用</h5>
+<p>将结果集的部分数据展示出来，常用于网页开发分页查询中</p>
+<h5 id="关键字执行优先级">关键字执行优先级</h5>
+<p>执行优先级：from$\rarr$where$\rarr$group by$\rarr$having$\rarr$select$\rarr$order by$\rarr$<strong>limit</strong></p>
+<h5 id="limit的使用">limit的使用</h5>
+
+    <pre><code class="lang-language-mysql"># 格式:<span class="hljs-keyword">limit</span> 开始下标(缺省的话,默认从<span class="hljs-number">0</span>开始),长度(即数据条数)
+# 查询employee表前<span class="hljs-number">2</span>条数据
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> employee <span class="hljs-keyword">limit</span> <span class="hljs-number">2</span>; # 简写,实际上是<span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">2</span>;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> employee <span class="hljs-keyword">limit</span> <span class="hljs-number">0</span>,<span class="hljs-number">2</span>;
+# 查询employee表第<span class="hljs-number">2</span><span class="hljs-number">-4</span>条数据,下标从<span class="hljs-number">1</span>开始起的<span class="hljs-number">3</span>条数据
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> employee <span class="hljs-keyword">limit</span> <span class="hljs-number">1</span>,<span class="hljs-number">3</span>;
+
+# <span class="hljs-keyword">limit</span>在<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span>之后执行,所以<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span>的依据和排序方式会一定程度上影响<span class="hljs-keyword">limit</span>的结果集
+# 查询以<span class="hljs-type">name</span>升序排序之后的结果集的前<span class="hljs-number">2</span>条数据
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> employee <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> <span class="hljs-type">name</span> <span class="hljs-keyword">asc</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">2</span>;
+# 查询以salary降序排序之后的结果集的前<span class="hljs-number">2</span>条数据
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> employee <span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> salary <span class="hljs-keyword">desc</span> <span class="hljs-keyword">limit</span> <span class="hljs-number">2</span>;
+
+# 分页查询的公式:<span class="hljs-keyword">limit</span> (pageNum<span class="hljs-number">-1</span>)*pageSize,pageSize
+</code></pre>
+<h4 id="六、约束">六、约束</h4>
+<h5 id="约束的概念">约束的概念</h5>
+<p>约束（constraint）是用于保证数据完整性、有效性的一种规则。</p>
+<h5 id="多种约束规则">多种约束规则</h5>
+<p>非空：not null</p>
+<p>唯一：unique</p>
+<p>主键：primary key（PK）</p>
+<p>外键：foreign key（FK）</p>
+<p>检查：check（MySQL不支持，Oracle支持）</p>
+<h5 id="约束的使用">约束的使用</h5>
+
+    <pre><code class="lang-language-mysql"># 非空 <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+# 非空约束的字段不能为<span class="hljs-keyword">null</span>
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> con;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> con(
+	id <span class="hljs-type">int</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>
+);
+
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;a&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">2</span>,<span class="hljs-keyword">null</span>); # 出错,<span class="hljs-type">name</span>不能为<span class="hljs-keyword">null</span>
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id) <span class="hljs-keyword">values</span> (<span class="hljs-number">3</span>); # 出错,<span class="hljs-type">name</span>没有默认值
+
+# 唯一性 <span class="hljs-keyword">unique</span>
+# 唯一性约束的字段不能重复
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> con;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> con(
+	id <span class="hljs-type">int</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">unique</span>
+);
+
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;a&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;a&#x27;</span>); # <span class="hljs-type">name</span>不能出现重复的值
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id) <span class="hljs-keyword">values</span> (<span class="hljs-number">3</span>,<span class="hljs-keyword">null</span>); # <span class="hljs-type">name</span>可以为<span class="hljs-keyword">null</span>,且<span class="hljs-keyword">null</span>不属于值重复
+
+# 多字段各自唯一(列级约束,每个约束仅对单个字段有效)
+# <span class="hljs-type">name</span>不能重复且email也不能重复
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> con;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> con(
+	id <span class="hljs-type">int</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">unique</span>,
+    email <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">unique</span>
+);
+# 测试数据可以直接用下面的
+
+# 多字段组合唯一(表级约束,每个约束对整张表有效,多用于给多个字段添加联合约束)
+# <span class="hljs-type">name</span>和email的组合不能重复
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> con;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> con(
+	id <span class="hljs-type">int</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>),
+    email <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>),
+    <span class="hljs-keyword">unique</span>(<span class="hljs-type">name</span>,email)
+);
+
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>,email) <span class="hljs-keyword">values</span> (<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;a@123.com&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>,email) <span class="hljs-keyword">values</span> (<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;a@456.com&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>,email) <span class="hljs-keyword">values</span> (<span class="hljs-number">3</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;b@123.com&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>,email) <span class="hljs-keyword">values</span> (<span class="hljs-number">4</span>,<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;a@456.com&#x27;</span>);
+
+# <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>和<span class="hljs-keyword">unique</span>联合
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> con;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> con(
+	id <span class="hljs-type">int</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>) <span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span> <span class="hljs-keyword">unique</span>
+);
+<span class="hljs-keyword">desc</span> con;
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;abc&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;abc&#x27;</span>); # 出错,<span class="hljs-type">name</span>不能重复
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">3</span>,<span class="hljs-keyword">null</span>); # 出错,<span class="hljs-type">name</span>不能为<span class="hljs-keyword">null</span>
+
+# 主键 <span class="hljs-keyword">primary key</span>
+# 主键字段不能重复且不能为<span class="hljs-keyword">null</span>,类似于<span class="hljs-keyword">unique</span>联合<span class="hljs-keyword">not</span> <span class="hljs-keyword">null</span>但不完全相同
+# 根据设计规范,一张表应该存在且只能存在一个主键,主键通常是<span class="hljs-type">int</span>、<span class="hljs-type">bigint</span>、<span class="hljs-type">char</span>等类型的字段,不建议使用<span class="hljs-type">varchar</span>类型字段作为主键
+# 单一主键,列级约束,一般开发中经常使用
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> con;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> con(
+	id <span class="hljs-type">int</span> <span class="hljs-keyword">primary key</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>)
+);
+<span class="hljs-keyword">desc</span> con;
+# 测试数据可以直接用下面的
+
+# 复合主键,表级约束,由于复合主键涉及多字段,逻辑比较复杂,一般开发中不会使用
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> con;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> con(
+	id <span class="hljs-type">int</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>),
+    <span class="hljs-keyword">primary key</span>(id,<span class="hljs-type">name</span>)
+);
+<span class="hljs-keyword">desc</span> con;
+
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;a&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;a&#x27;</span>); 
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">1</span>,<span class="hljs-string">&#x27;b&#x27;</span>); 
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">2</span>,<span class="hljs-string">&#x27;a&#x27;</span>); 
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(id,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">3</span>,<span class="hljs-keyword">null</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-keyword">null</span>,<span class="hljs-string">&#x27;a&#x27;</span>);
+
+# 主键自动递增,这里主键值默认从<span class="hljs-number">1</span>开始,按<span class="hljs-number">1</span>递增
+# 如果<span class="hljs-keyword">insert</span>中途指定了主键值,则从该主键值开始按<span class="hljs-number">1</span>递增,如果指定了较小的主键值,会自动升序排序
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> con;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> con( 
+	id <span class="hljs-type">int</span> <span class="hljs-keyword">primary key</span> auto_increment,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>)
+);
+<span class="hljs-keyword">desc</span> con;
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;a&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;b&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> con(<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;c&#x27;</span>);
+# 此外,主键还能分为自然主键和业务主键,自然主键使用较多,业务主键较少
+
+# 外键 <span class="hljs-keyword">foreign key</span>
+# 外键涉及到两张相互有逻辑关系的数据表,主要是为了保证两张表的逻辑关系有效
+# 外键关联的两张表有父表和子表之分
+# 删除数据时先子表后父表,新增数据时先父表后子表,删除表时先子表后父表,创建表时先父表后子表
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> son;
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> dad;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> dad(
+	<span class="hljs-keyword">no</span> <span class="hljs-type">int</span> <span class="hljs-keyword">primary key</span>,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>)
+);
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> son(
+	id <span class="hljs-type">int</span> <span class="hljs-keyword">primary key</span> auto_increment,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>),
+    dad_no <span class="hljs-type">int</span>,
+    <span class="hljs-keyword">foreign key</span>(dad_no) <span class="hljs-keyword">references</span> dad(<span class="hljs-keyword">no</span>)
+);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> dad(<span class="hljs-keyword">no</span>,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">001</span>,<span class="hljs-string">&#x27;fruit&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> dad(<span class="hljs-keyword">no</span>,<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-number">002</span>,<span class="hljs-string">&#x27;animal&#x27;</span>);
+
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> son(<span class="hljs-type">name</span>,dad_no) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;apple&#x27;</span>,<span class="hljs-number">001</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> son(<span class="hljs-type">name</span>,dad_no) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;pear&#x27;</span>,<span class="hljs-number">001</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> son(<span class="hljs-type">name</span>,dad_no) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;cat&#x27;</span>,<span class="hljs-number">002</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> son(<span class="hljs-type">name</span>,dad_no) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;rabbit&#x27;</span>,<span class="hljs-number">002</span>);
+# 另外被子表<span class="hljs-keyword">references</span>的父表字段不一定是主键,但至少具有<span class="hljs-keyword">unique</span>的约束
+</code></pre>
+<h4 id="七、存储引擎">七、存储引擎</h4>
+<h5 id="存储引擎的概念">存储引擎的概念</h5>
+<p>存储引擎是MySQL中特有的术语，表示一个数据表存储、组织数据的方式。不同的存储引擎，数据表存储数据的方式不同。</p>
+<h5 id="存储引擎的使用">存储引擎的使用</h5>
+
+    <pre><code class="lang-language-mysql"># 准备工作
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> engine;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">exists</span> engine(
+	id <span class="hljs-type">int</span> <span class="hljs-keyword">primary key</span> auto_increment,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>)
+);
+# 查看存储引擎,MySQL默认存储引擎为InnoDB
+<span class="hljs-keyword">show</span> <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> engine;
+
+# 在创建表时指定存储引擎
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> engine;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> engine(
+	id <span class="hljs-type">int</span> <span class="hljs-keyword">primary key</span> auto_increment,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>)
+)engine=innodb <span class="hljs-keyword">default</span> charset=gbk;
+<span class="hljs-keyword">show</span> <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> engine;
+
+# 查看MySQL版本
+<span class="hljs-keyword">select</span> version();
+# 查看支持的存储引擎,不同的MySQL版本支持的存储引擎可能不一样
+<span class="hljs-keyword">show</span> engines;
+</code></pre>
+<h5 id="常用存储引擎介绍">常用存储引擎介绍</h5>
+<h6 id="MyISAM存储引擎">MyISAM存储引擎</h6>
+<p>使用三种文件来表示每个数据表：</p>
+<ul>
+<li>格式文件(.frm)：存储表结构的定义</li>
+<li>数据文件(.myd)：存储表行的内容</li>
+<li>索引文件(.myi)：存储表上索引（主键或unique约束字段会自动创建索引）</li>
+</ul>
+<p>特点：可以被转换为压缩，只读表里节省空间，但不支持事务，安全性低</p>
+<h6 id="InnoDB存储引擎">InnoDB存储引擎</h6>
+<p><strong>一般开发中最优先考虑的存储引擎</strong>，重量级的存储引擎，管理的数据表有以下特征：</p>
+<ul>
+<li>每个数据表在数据库目录中以.frm格式的文件表示</li>
+<li>提供一组用于记录事务性获得的日志文件</li>
+<li>通过commit、savepoint和rollback支持事务处理</li>
+<li>提供全ACID兼容</li>
+<li>在MySQL服务器崩溃后能够自动恢复</li>
+<li>多版本MVCC和行级锁定</li>
+<li>支持外键级引用的完整性，包括级联删除和更新</li>
+</ul>
+<p>特点：支持事务，以保证数据的安全性，但效率不高，不能压缩不能转换为只读，比较占存储空间</p>
+<h6 id="MEMORY存储引擎">MEMORY存储引擎</h6>
+<p>MEMORY存储引擎以前称为heap存储引擎，管理数据库有以下特征：</p>
+<ul>
+<li>在数据库目录内，每个数据表均以.frm格式的文件表示</li>
+<li>表的数据以及索引被存储在内存中（这显著提升了查询速度）</li>
+<li>表级锁机制</li>
+<li>不支持text和blob字段</li>
+</ul>
+<p>特点：字段长度固定，数据存储在内存，这使得它的数据处理效率非常高，但同时一旦MySQL服务重启，存储数据就会丢失，<strong>一般开发中只用于临时存储数据</strong>。</p>
+<h4 id="八、事务、视图、数据库设计">八、事务、视图、数据库设计</h4>
+<h5 id="事务-transaction">事务(transaction)</h5>
+<ol>
+<li>
+<p>事务的概念：一个事务就是一个完整的业务逻辑，是一个不可再分的最小的工作单元。例如，银行转账，A向B转账1000，A扣除1000，B增加1000。可以用两个update语句实现，但它们必须同时成功或者失败，而不能单独拆分，否则就不构成一个完整的业务逻辑，这就是一个最小的工作单元。</p>
+</li>
+<li>
+<p>只有在使用DML语句时才会涉及到事务，因为只有DML语句会增加、删除、修改数据表的数据，这就离不开事务安全性的考虑。</p>
+</li>
+<li>
+<p>简单理解事务：就是要使多条DML语句同时成功或失败的一种规则。</p>
+</li>
+<li>
+<p>如何实现事务</p>
+
+    <pre><code class="lang-language-mysql"># InnoDB存储引擎提供了一组用来记录事务性活动的日志文件
+# 在事务的执行过程中,每一条DML的操作都会记录到“事务性活动的日志文件”中
+# 在事务的执行过程通过提交事务或者回滚事务就能实现事务要求的规则
+
+# MySQL默认是自动提交事务,即每执行一条DML语句就提交一次,但这不符合开发习惯
+# 关闭自动提交机制 <span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>(仅对一次事务有效)
+# 或者直接设置开启或关闭自动提交(对所有事务有效)
+<span class="hljs-keyword">set</span> autocommit=<span class="hljs-number">0</span>; # 关闭自动提交
+<span class="hljs-keyword">set</span> autocommit=<span class="hljs-number">1</span>; # 开启自动提交
+# 提交事务<span class="hljs-keyword">commit</span>,回滚事务<span class="hljs-keyword">rollback</span>
+# 准备工作
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> test;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> test(
+	id <span class="hljs-type">int</span> <span class="hljs-keyword">primary key</span> auto_increment,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>)
+);
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> test;
+
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>; # 关闭自动提交机制,<span class="hljs-keyword">commit</span>之后需要重新执行
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> test(<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;a&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> test(<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;b&#x27;</span>);
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> test(<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;c&#x27;</span>);
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> test;
+
+<span class="hljs-keyword">rollback</span>; # 回滚事务
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> test; # 未提交的事务消失
+
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> test(<span class="hljs-type">name</span>) <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;d&#x27;</span>);
+<span class="hljs-keyword">commit</span>; # 提交事务
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> test;
+
+<span class="hljs-keyword">rollback</span>;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> test; # 已经提交的事务,无法回滚
+</code></pre>
+</li>
+<li>
+<p>事务的4个特性（ACID）</p>
+<p>A：原子性，事务是最小的工作单元，不可再分。</p>
+<p>C：一致性，在同一个事务中，所有操作必须同时成功或者失败，保证数据的一致性。</p>
+<p>I：隔离性，A事务与B事务之间存在一定的隔离，根据隔离性可分成4个隔离级别。</p>
+<ul>
+<li>
+<p>读未提交：read uncommitted（隔离级别最低）</p>
+<p>事务A能够读取事务B<strong>未提交的数据</strong>，这种隔离级别存在读取到脏数据的问题，即读取到并不需要的数据。一般开发中不会使用这个隔离级别。</p>
+</li>
+<li>
+<p>读已提交：read committed</p>
+<p>事务A只能读取事务B<strong>已提交的数据</strong>，这种隔离级别避免了脏读问题，但存在不可重复读取数据的问题，事务B再做任何提交操作之后，事务A读取的数据就会相应地发生改变。读取的数据是比较真实的数据，这是<strong>Oracle数据库默认的隔离级别</strong>。</p>
+</li>
+<li>
+<p>可重复读：repeatable read</p>
+<p>事务B开启后，每次从事务B读取的数据都是一致的，即使事务B的数据修改并提交，事务A所<strong>读取到的数据都是事务B刚开始事务时的数据</strong>。这种隔离级别避免了不可重复读的问题，但出现了幻影读的问题，即每次读取到的数据都不是当前的真实数据，这是<strong>MySQL默认的隔离级别</strong>。</p>
+</li>
+<li>
+<p>序列化/串行化：serializable（最高隔离级别）</p>
+<p>效率最低，但解决了上面存在的所有问题。这种隔离级别的事务需要排队，不能并发。synchronized线程同步（事务同步），每次读取到的数据都是最真实的，效率也是最低的。</p>
+</li>
+</ul>
+<p>D：持久性，事务完成的保障，事务提交之后，数据就被持久地保存下来。</p>
+</li>
+<li>
+<p>隔离级别验证</p>
+
+    <pre><code class="lang-language-mysql"># 在同一个命令行或同一个查询下可能无法展示出隔离级别的效果,建议事务A和事务B各打开一个命令行或者在navicat下各新建一个查询
+# 建议每次重新设置隔离级别之后重启命令行或navicat刷新
+# 查看隔离级别
+<span class="hljs-keyword">select</span> @@tx_isolation;
+
+# 准备工作
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> isolation_level(
+	<span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>)
+);
+
+# <span class="hljs-keyword">read</span> <span class="hljs-keyword">uncommitted</span> 读未提交
+# 设置全局隔离级别为<span class="hljs-keyword">read</span> <span class="hljs-keyword">uncommitted</span>
+<span class="hljs-keyword">set</span> <span class="hljs-keyword">global</span> <span class="hljs-keyword">transaction</span> <span class="hljs-keyword">isolation</span> <span class="hljs-keyword">level</span> <span class="hljs-keyword">read</span> <span class="hljs-keyword">uncommitted</span>;
+# 事务A
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level;
+# 事务B
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>;
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> isolation_level <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;hello&#x27;</span>);
+# 事务A
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level; # 读取到了未提交的数据
+
+# <span class="hljs-keyword">read</span> <span class="hljs-keyword">committed</span> 读已提交
+# 设置全局隔离级别为<span class="hljs-keyword">read</span> <span class="hljs-keyword">committed</span>
+<span class="hljs-keyword">set</span> <span class="hljs-keyword">global</span> <span class="hljs-keyword">transaction</span> <span class="hljs-keyword">isolation</span> <span class="hljs-keyword">level</span> <span class="hljs-keyword">read</span> <span class="hljs-keyword">committed</span>;
+# 事务A
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level;
+# 事务B
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>;
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> isolation_level <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;world&#x27;</span>);
+# 事务A
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level; # 未读取到事务B的数据
+# 事务B
+<span class="hljs-keyword">commit</span>;
+# 事务A
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level; # 读取到了事务B提交的数据
+
+# <span class="hljs-keyword">repeatable</span> <span class="hljs-keyword">read</span> 可重复读
+# 设置全局隔离级别为<span class="hljs-keyword">repeatable</span> <span class="hljs-keyword">read</span>
+<span class="hljs-keyword">set</span> <span class="hljs-keyword">global</span> <span class="hljs-keyword">transaction</span> <span class="hljs-keyword">isolation</span> <span class="hljs-keyword">level</span> <span class="hljs-keyword">repeatable</span> <span class="hljs-keyword">read</span>;
+# 事务A
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level;
+# 事务B
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>; # 第一次开启事务
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> isolation_level <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;read&#x27;</span>);
+# 事务A
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level;
+# 事务B
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> isolation_level <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;repeat&#x27;</span>);
+# 事务A
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level;
+# 事务B
+<span class="hljs-keyword">commit</span>;
+# 事务A
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level; # 事务A读取到的始终是事务B第一次开启事务时的数据
+# 事务A
+<span class="hljs-keyword">commit</span>;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level; # 事务A也提交后再查询,就能获取事务B的最近一次事务提交的数据
+# 补充说明:事务B第一次开启事务这个概念是以事务A开启事务后事务B第一次执行<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>为准,也就是当事务A提交之后再次开启事务,重新计算事务B第一次开启事务
+
+# <span class="hljs-keyword">serializable</span> 序列化
+# 设置全局隔离级别为<span class="hljs-keyword">serializable</span>
+<span class="hljs-keyword">set</span> <span class="hljs-keyword">global</span> <span class="hljs-keyword">transaction</span> <span class="hljs-keyword">isolation</span> <span class="hljs-keyword">level</span> <span class="hljs-keyword">serializable</span>;
+# 事务A
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level;
+# 事务B
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>;
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> isolation_level <span class="hljs-keyword">values</span> (<span class="hljs-string">&#x27;serializable&#x27;</span>); # 卡住,因为事务A没有提交
+# 事务A
+<span class="hljs-keyword">commit</span>; # 提交事务A后事务B新增数据完成
+<span class="hljs-keyword">start</span> <span class="hljs-keyword">transaction</span>; # 事务A重新开启事务
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> isolation_level; # 卡住或超时报错,因为事务B没有提交
+# 事务B
+<span class="hljs-keyword">commit</span>; # 提交事务B后事务A查询完成视图
+</code></pre>
+</li>
+</ol>
+<h5 id="视图-view">视图(view)</h5>
+<ol>
+<li>
+<p>视图的概念</p>
+<p>从多个角度观察处理同一份数据，每一个角度就是一种视图。  例如，对同一份数据进行不同的处理，根据不同的需求展示出相应部分的数据或者根据不同的权限展示出每个权限被允许接触到的数据。</p>
+</li>
+<li>
+<p>视图的使用</p>
+
+    <pre><code class="lang-language-mysql"># 准备工作
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">table</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">exists</span> origin;
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> origin(
+	id <span class="hljs-type">int</span> <span class="hljs-keyword">primary key</span> auto_increment,
+    <span class="hljs-type">name</span> <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>),
+    age <span class="hljs-type">int</span>,
+    department <span class="hljs-type">varchar</span>(<span class="hljs-number">20</span>)
+);
+
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> origin(<span class="hljs-type">name</span>,age,department) <span class="hljs-keyword">values</span>
+(<span class="hljs-string">&#x27;apple&#x27;</span>,<span class="hljs-number">13</span>,<span class="hljs-string">&#x27;developer&#x27;</span>),
+(<span class="hljs-string">&#x27;orange&#x27;</span>,<span class="hljs-number">14</span>,<span class="hljs-string">&#x27;operator&#x27;</span>);
+# 先备份原表,复制原表
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> origin_backup <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> origin;
+
+# 创建视图对象,需要<span class="hljs-keyword">as</span>关键字,且只能通过DQL语句创建
+<span class="hljs-keyword">create</span> <span class="hljs-keyword">view</span> origin_view <span class="hljs-keyword">as</span> <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> origin;
+# 删除视图对象
+<span class="hljs-keyword">drop</span> <span class="hljs-keyword">view</span> origin_view;
+
+# 对视图对象的增删改查会映射到原表的数据上
+# 查询视图
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> origin_view;
+# 新增视图数据
+<span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> origin_view(<span class="hljs-type">name</span>,age,department) <span class="hljs-keyword">values</span>
+(<span class="hljs-string">&#x27;mango&#x27;</span>,<span class="hljs-number">12</span>,<span class="hljs-string">&#x27;manager&#x27;</span>),
+(<span class="hljs-string">&#x27;banana&#x27;</span>,<span class="hljs-number">16</span>,<span class="hljs-string">&#x27;admin&#x27;</span>);
+# 查询原表
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> origin;
+# 更新视图数据
+<span class="hljs-keyword">update</span> origin_view <span class="hljs-keyword">set</span> age=<span class="hljs-number">20</span> <span class="hljs-keyword">where</span> <span class="hljs-type">name</span>=<span class="hljs-string">&#x27;mango&#x27;</span>;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> origin;
+# 删除视图数据
+<span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> origin_view;
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> origin;
+</code></pre>
+</li>
+<li>
+<p>视图对象的实际开发用途</p>
+<ul>
+<li>视图的使用能够有效简化开发，方便维护，提高开发效率</li>
+<li>单独的SQL语句只能针对一张数据表的数据进行修改，而视图的使用将多张表的数据集中到一个视图，通过对这个视图数据的修改，就能一次性实现对多张表数据的修改，而不需要每一张数据表重复写一条SQL语句去修改</li>
+<li>另外对于后期大量数据表的维护，只需要重新修改视图对象所映射的DQL语句就能灵活地指定需要维护的数据表的数据</li>
+</ul>
+</li>
+</ol>
+<h5 id="数据库设计：三大范式">数据库设计：三大范式</h5>
+<h6 id="三大范式的概念">三大范式的概念</h6>
+<p>范式是数据库数据表的设计依据，是一种规范和统一标准。设计数据库表时，按照以下3种范式进行，可以避免表中数据的冗余，空间的浪费。</p>
+<h6 id="第一范式">第一范式</h6>
+<p>第一范式：要求任何一张表必须有主键，每一个字段原子性不可再分。</p>
+<p>字段原子性是指字段数据不能再拆分，例如，联系方式字段下的数据同时出现手机号和邮箱两个联系方式，说明联系方式字段还能拆分未手机号和邮箱两个字段。</p>
+<h6 id="第二范式">第二范式</h6>
+<p>第二范式：建立在第一范式的基础之上，要求所有非主键字段完全依赖主键，<br>
+不要产生部分依赖。</p>
+<p>部分依赖通常出现在多对多逻辑关系(例如多个学生对应多个教师)的数据表中，假设把学生编号和教师编号设置为复合主键，学生依赖学生编号，教师依赖教师编号，这就产生了部分依赖(<strong>部分依赖产生的根源就是复合主键的存在，因此设计中一般不建议使用复合主键</strong>)。从根本上解决这个问题，就需要将这一张数据表分成学生表，教师表以及关系表三张数据表，并在关系表中设置学生表和教师表两个外键。</p>
+<h6 id="第三范式">第三范式</h6>
+<p>第三范式：建立在第二范式的基础之上，要求所有非主键字段直接依赖主键，<br>
+不要产生传递依赖。</p>
+<p>传递依赖通常出现在一对多逻辑关系(例如一个班级对应多个学生)的数据表中，假设学生编号为主键，班级名称依赖班级编号，而一个班级编号依赖多个学生编号，这就产生了传递依赖。为了解决这个问题，就需要将这一张数据表分成学生表和班级表，外键则设置在数据相对较多的数据表中。</p>
+<h6 id="数据表设计总结">数据表设计总结</h6>
+<ul>
+<li>
+<p>一对多，两张表，数据多的加外键</p>
+</li>
+<li>
+<p>多对多，三张表，关系表两个外键</p>
+</li>
+<li>
+<p>另外对于一对一逻辑关系的数据表，如果字段数过多也建议进行表的拆分。一般拆分成两张表，这时只需要在其中一张表中添加一个唯一性约束(一对一逻辑关系的数据表理论上不可能出现重复的外键字段值)的外键字段即可，外键字段通常链接的是另一张表的主键字段。</p>
+</li>
+</ul>
+<p>最后，数据库设计三大范式也只是理想上的标准。实际开发中，结合实际需求，有必要牺牲一部分存储空间、规范等来换取更高的开发效率和更好的使用体验，这才是数据库数据表设计的最高目的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/08/21/MySQL%E5%9F%BA%E7%A1%80/" rel="next" title="MySQL基础">
+                <i class="fa fa-chevron-left"></i> MySQL基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/09/04/MarkDown%E8%BF%9B%E9%98%B6-%E8%A1%A8%E6%83%85%E3%80%81%E5%9B%BE%E6%A0%87/" rel="prev" title="MarkDown进阶:表情、图标">
+                MarkDown进阶:表情、图标 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E9%AB%98%E7%BA%A7"><span class="nav-number">1.</span> <span class="nav-text">MySQL高级</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81distinct%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.1.</span> <span class="nav-text">一、distinct关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.</span> <span class="nav-text">二、连接查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">连接查询的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%9F%A5%E8%AF%A2%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.2.</span> <span class="nav-text">连接查询的分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF%E7%8E%B0%E8%B1%A1"><span class="nav-number">1.2.3.</span> <span class="nav-text">笛卡尔积现象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.2.4.</span> <span class="nav-text">内连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.2.5.</span> <span class="nav-text">外连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E8%A1%A8%E8%BF%9E%E6%8E%A5%EF%BC%88%E4%B8%89%E5%BC%A0%E8%A1%A8%EF%BC%89"><span class="nav-number">1.2.6.</span> <span class="nav-text">更多表连接（三张表）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.3.</span> <span class="nav-text">三、子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.1.</span> <span class="nav-text">子查询的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">子查询的使用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81union%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.</span> <span class="nav-text">四、union关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%94%E3%80%81limit%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.5.</span> <span class="nav-text">五、limit关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#limit%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.5.1.</span> <span class="nav-text">limit的作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97%E6%89%A7%E8%A1%8C%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">1.5.2.</span> <span class="nav-text">关键字执行优先级</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#limit%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.3.</span> <span class="nav-text">limit的使用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%BA%A6%E6%9D%9F"><span class="nav-number">1.6.</span> <span class="nav-text">六、约束</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.6.1.</span> <span class="nav-text">约束的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E7%A7%8D%E7%BA%A6%E6%9D%9F%E8%A7%84%E5%88%99"><span class="nav-number">1.6.2.</span> <span class="nav-text">多种约束规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.6.3.</span> <span class="nav-text">约束的使用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">1.7.</span> <span class="nav-text">七、存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.7.1.</span> <span class="nav-text">存储引擎的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.7.2.</span> <span class="nav-text">存储引擎的使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.7.3.</span> <span class="nav-text">常用存储引擎介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#MyISAM%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">1.7.3.1.</span> <span class="nav-text">MyISAM存储引擎</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#InnoDB%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">1.7.3.2.</span> <span class="nav-text">InnoDB存储引擎</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#MEMORY%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">1.7.3.3.</span> <span class="nav-text">MEMORY存储引擎</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E4%BA%8B%E5%8A%A1%E3%80%81%E8%A7%86%E5%9B%BE%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.8.</span> <span class="nav-text">八、事务、视图、数据库设计</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1-transaction"><span class="nav-number">1.8.1.</span> <span class="nav-text">事务(transaction)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE-view"><span class="nav-number">1.8.2.</span> <span class="nav-text">视图(view)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%EF%BC%9A%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F"><span class="nav-number">1.8.3.</span> <span class="nav-text">数据库设计：三大范式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.8.3.1.</span> <span class="nav-text">三大范式的概念</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E8%8C%83%E5%BC%8F"><span class="nav-number">1.8.3.2.</span> <span class="nav-text">第一范式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E8%8C%83%E5%BC%8F"><span class="nav-number">1.8.3.3.</span> <span class="nav-text">第二范式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E8%8C%83%E5%BC%8F"><span class="nav-number">1.8.3.4.</span> <span class="nav-text">第三范式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%A1%A8%E8%AE%BE%E8%AE%A1%E6%80%BB%E7%BB%93"><span class="nav-number">1.8.3.5.</span> <span class="nav-text">数据表设计总结</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
