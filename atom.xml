@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  
+  
+  <link href="https://s-chance.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://s-chance.github.io/"/>
+  <updated>2022-09-15T12:19:13.484Z</updated>
+  <id>https://s-chance.github.io/</id>
+  
+  <author>
+    <name>Entropy</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Redis基础</title>
+    <link href="https://s-chance.github.io/2022/09/14/Redis%E5%9F%BA%E7%A1%80/"/>
+    <id>https://s-chance.github.io/2022/09/14/Redis%E5%9F%BA%E7%A1%80/</id>
+    <published>2022-09-14T13:24:00.000Z</published>
+    <updated>2022-09-15T12:19:13.484Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;Redis基础&quot;&gt;Redis基础&lt;/h3&gt;
+&lt;h4 id=&quot;概念&quot;&gt;概念&lt;/h4&gt;
+&lt;p&gt;redis是一款高性能的NoSQL系列的非关系型数据库，全称Remote Dictionary Server远程字典服务器，是基于C语言开发的一个开源的高性能键值对数据库</summary>
+    
+    
+    
+    
+    <category term="Redis" scheme="https://s-chance.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git分支重命名</title>
+    <link href="https://s-chance.github.io/2022/09/08/Git%E5%88%86%E6%94%AF%E9%87%8D%E5%91%BD%E5%90%8D/"/>
+    <id>https://s-chance.github.io/2022/09/08/Git%E5%88%86%E6%94%AF%E9%87%8D%E5%91%BD%E5%90%8D/</id>
+    <published>2022-09-08T04:20:19.000Z</published>
+    <updated>2022-09-08T04:51:45.089Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;Git重命名分支&quot;&gt;Git重命名分支&lt;/h3&gt;
+&lt;p&gt;在开发过程中，有时需要对分支进行重命名。重命名分支需要考虑到分支是否已经推送到远端的情况</summary>
+    
+    
+    
+    
+    <category term="Git" scheme="https://s-chance.github.io/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于yarn禁止在此系统上运行脚本</title>
+    <link href="https://s-chance.github.io/2022/09/05/%E5%85%B3%E4%BA%8Eyarn%E7%A6%81%E6%AD%A2%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/"/>
+    <id>https://s-chance.github.io/2022/09/05/%E5%85%B3%E4%BA%8Eyarn%E7%A6%81%E6%AD%A2%E5%9C%A8%E6%AD%A4%E7%B3%BB%E7%BB%9F%E4%B8%8A%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</id>
+    <published>2022-09-05T13:36:27.000Z</published>
+    <updated>2022-09-05T14:02:21.336Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;nodejs中使用yarn安装依赖失败&quot;&gt;nodejs中使用yarn安装依赖失败&lt;/h3&gt;
+&lt;h4 id=&quot;错误原因&quot;&gt;错误原因&lt;/h4&gt;
+&lt;p&gt;windows默认执行策略禁止脚本</summary>
+    
+    
+    
+    
+    <category term="nodejs" scheme="https://s-chance.github.io/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RSS订阅的使用以及优势</title>
+    <link href="https://s-chance.github.io/2022/09/04/RSS%E8%AE%A2%E9%98%85%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8A%BF/"/>
+    <id>https://s-chance.github.io/2022/09/04/RSS%E8%AE%A2%E9%98%85%E7%9A%84%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8A%BF/</id>
+    <published>2022-09-04T11:38:08.000Z</published>
+    <updated>2022-09-05T13:37:09.572Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;RSS-Really-Simple-Syndication-简易信息聚合&quot;&gt;RSS(Really Simple Syndication)简易信息聚合&lt;/h3&gt;
+&lt;h4 id=&quot;定义&quot;&gt;定义&lt;/h4&gt;
+&lt;p&gt;RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。</summary>
+    
+    
+    
+    
+    <category term="RSS" scheme="https://s-chance.github.io/tags/RSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MarkDown进阶:表情、图标</title>
+    <link href="https://s-chance.github.io/2022/09/04/MarkDown%E8%BF%9B%E9%98%B6-%E8%A1%A8%E6%83%85%E3%80%81%E5%9B%BE%E6%A0%87/"/>
+    <id>https://s-chance.github.io/2022/09/04/MarkDown%E8%BF%9B%E9%98%B6-%E8%A1%A8%E6%83%85%E3%80%81%E5%9B%BE%E6%A0%87/</id>
+    <published>2022-09-04T06:22:31.000Z</published>
+    <updated>2022-09-05T13:38:01.861Z</updated>
+    
+    
+    <summary type="html">&lt;h1&gt;markdown-emoji&lt;/h1&gt;
+&lt;p&gt;Markdown语法支持添加 &lt;code&gt;emoji&lt;/code&gt; 表情，输入不同的符号码（两个冒号包围的字符）可以显示出不同的表情</summary>
+    
+    
+    
+    
+    <category term="MarkDown" scheme="https://s-chance.github.io/tags/MarkDown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL高级</title>
+    <link href="https://s-chance.github.io/2022/08/21/MySQL%E9%AB%98%E7%BA%A7/"/>
+    <id>https://s-chance.github.io/2022/08/21/MySQL%E9%AB%98%E7%BA%A7/</id>
+    <published>2022-08-21T05:09:02.000Z</published>
+    <updated>2022-09-05T13:37:37.223Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;MySQL高级&quot;&gt;MySQL高级&lt;/h3&gt;
+&lt;hr&gt;
+&lt;h4 id=&quot;一、distinct关键字&quot;&gt;一、distinct关键字&lt;/h4&gt;
+&lt;p&gt;distinct能够去除查询结果中重复的记录&lt;/p&gt;
+&lt;p&gt;注意：数据表中的数据并没有被修改，实际上所有的DQL查询语句都不会修改原始数据，只是对查询结果进行处理</summary>
+    
+    
+    
+    
+    <category term="MySQL" scheme="https://s-chance.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL基础</title>
+    <link href="https://s-chance.github.io/2022/08/21/MySQL%E5%9F%BA%E7%A1%80/"/>
+    <id>https://s-chance.github.io/2022/08/21/MySQL%E5%9F%BA%E7%A1%80/</id>
+    <published>2022-08-21T05:08:02.000Z</published>
+    <updated>2022-09-15T11:45:03.541Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;MySQL基础&quot;&gt;MySQL基础&lt;/h3&gt;
+&lt;hr&gt;
+&lt;h4 id=&quot;span-id-head-快速导航-span&quot;&gt;&lt;span id=&quot;head&quot;&gt;快速导航&lt;/span&gt;&lt;/h4&gt;
+&lt;p&gt;提醒：Typora内无法进行快速导航跳转建议用Typora自带的功能导出为html文件；另外各个示例之间有一定数据关联性，建议先把预先准备的测试数据代码执行好。</summary>
+    
+    
+    
+    
+    <category term="MySQL" scheme="https://s-chance.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://s-chance.github.io/2022/08/21/hello-world/"/>
+    <id>https://s-chance.github.io/2022/08/21/hello-world/</id>
+    <published>2022-08-21T04:34:57.412Z</published>
+    <updated>2022-09-20T15:16:35.247Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
