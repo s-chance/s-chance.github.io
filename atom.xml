@@ -42,7 +42,7 @@
     <link href="https://s-chance.github.io/2022/09/08/Git%E5%88%86%E6%94%AF%E9%87%8D%E5%91%BD%E5%90%8D/"/>
     <id>https://s-chance.github.io/2022/09/08/Git%E5%88%86%E6%94%AF%E9%87%8D%E5%91%BD%E5%90%8D/</id>
     <published>2022-09-08T04:20:19.000Z</published>
-    <updated>2022-09-08T04:51:45.089Z</updated>
+    <updated>2022-09-20T17:43:08.119Z</updated>
     
     <content type="html"><![CDATA[<h3 id="Git重命名分支">Git重命名分支</h3><p>在开发过程中，有时需要对分支进行重命名。重命名分支需要考虑到分支是否已经推送到远端的情况<span id="more"></span></p><h4 id="Git重命名本地分支（还未推送到远端）">Git重命名本地分支（还未推送到远端）</h4><ul><li><p>在需要重命名的分支处</p><pre><code class="language-bash">git branch -m '新的分支名'</code></pre></li><li><p>不在需要重命名的分支处</p><pre><code class="language-bash">git branch -m '需要重命名的分支名' '新的分支名'</code></pre></li></ul><h4 id="Git重命名远端分支（已经推送到远端）">Git重命名远端分支（已经推送到远端）</h4><p><strong>假设已经处于需要重命名的分支上，参考上面的操作，并且在通过命令修改分支名之前没有手动去远端进行过修改，即修改之前本地分支名与远端分支名仍保持一致</strong></p><ul><li><p>重命名本地分支</p><pre><code class="language-bash">git branch -m 新的分支名</code></pre></li><li><p>删除远程分支</p><pre><code class="language-bash">git push --delete origin 要删除的分支名</code></pre></li><li><p>上传新命名的分支</p><pre><code class="language-bash">git push origin 新的分支名</code></pre></li><li><p>关联修改后的本地分支与远端分支</p><pre><code class="language-bash">git branch --set-upstream-to origin/新的分支名</code></pre></li></ul>]]></content>
     
