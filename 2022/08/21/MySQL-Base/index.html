@@ -23,17 +23,17 @@
   <meta name="description" content="MySQL基础  快速导航 提醒：Typora内无法进行快速导航跳转建议用Typora自带的功能导出为html文件；另外各个示例之间有一定数据关联性，建议先把预先准备的测试数据代码执行好。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL基础">
-<meta property="og:url" content="https://s-chance.github.io/2022/08/21/MySQL%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:url" content="https://s-chance.github.io/2022/08/21/MySQL-Base/index.html">
 <meta property="og:site_name" content="Entropy-Blogs">
 <meta property="og:description" content="MySQL基础  快速导航 提醒：Typora内无法进行快速导航跳转建议用Typora自带的功能导出为html文件；另外各个示例之间有一定数据关联性，建议先把预先准备的测试数据代码执行好。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-21T05:08:02.000Z">
-<meta property="article:modified_time" content="2022-09-15T11:45:03.541Z">
+<meta property="article:modified_time" content="2022-10-03T09:43:42.010Z">
 <meta property="article:author" content="Entropy">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://s-chance.github.io/2022/08/21/MySQL%E5%9F%BA%E7%A1%80/">
+<link rel="canonical" href="https://s-chance.github.io/2022/08/21/MySQL-Base/">
 
 
 <script id="page-configurations">
@@ -197,7 +197,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2022/08/21/MySQL%E5%9F%BA%E7%A1%80/">
+    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2022/08/21/MySQL-Base/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/avatar.gif">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-15 19:45:03" itemprop="dateModified" datetime="2022-09-15T19:45:03+08:00">2022-09-15</time>
+                <time title="修改时间：2022-10-03 17:43:42" itemprop="dateModified" datetime="2022-10-03T17:43:42+08:00">2022-10-03</time>
               </span>
 
           
@@ -265,7 +265,7 @@
 <li>SQL是一套标准，基本能在大部分数据库管理系统中使用。</li>
 </ol>
 <h4 id="三、工作流程">三、工作流程</h4>
-<p>​	数据库管理系统SQL$\rarr$执行SQL$\rarr$操作数据库</p>
+<p>​	数据库管理系统SQL→执行SQL→操作数据库</p>
 <p>​	先安装数据库管理系统MySQL，然后编写SQL语句，之后DBMS对SQL语句	进行执行来完成对数据库的数据管理。</p>
 <h4 id="四、准备工作">四、准备工作</h4>
 <ol>
@@ -978,7 +978,7 @@ select count(name) from coder;
 <p><span id="fz"><a href="#head">返回快速导航</a></span></p>
 <p><strong>group by关键字</strong></p>
 <p>格式：select 字段 from 数据表 where 条件 group by 分组依据字段 order by 排序依据字段 排序方式</p>
-<p>执行优先级：from$\rarr$where$\rarr$group by$\rarr$select$\rarr$order by</p>
+<p>执行优先级：from→where→group by→select→order by</p>
 <p>由于where的优先级高于group by，因此聚合函数无法在where子句中使用。</p>
 <p>示例：</p>
 <pre><code class="language-mysql"># 计算coder数据表中grade各组的score总和
@@ -1014,7 +1014,7 @@ select grade,avg(score) from coder group by grade having avg(score)&gt;80;
       <i class="fa fa-chevron-left"></i> Hello World
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/08/21/MySQL%E9%AB%98%E7%BA%A7/" rel="next" title="MySQL高级">
+    <a href="/2022/08/21/MySQL-Pro/" rel="next" title="MySQL高级">
       MySQL高级 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
