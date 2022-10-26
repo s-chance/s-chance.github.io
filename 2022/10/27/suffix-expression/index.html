@@ -20,15 +20,21 @@
     var CONFIG = {"hostname":"s-chance.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Entropy-Blogs">
-<meta property="og:url" content="https://s-chance.github.io/tags/nodejs/index.html">
+  <meta name="description" content="基于STL的中缀转后缀实现 1.定义分析 首先明确后缀表达式的定义 后缀表达式是一种不需要括号的表达式，这表示在将中缀表达式转化为后缀表达式时，如果中缀表达式中存在括号，不能将括号写入后缀表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后缀表达式">
+<meta property="og:url" content="https://s-chance.github.io/2022/10/27/suffix-expression/index.html">
 <meta property="og:site_name" content="Entropy-Blogs">
+<meta property="og:description" content="基于STL的中缀转后缀实现 1.定义分析 首先明确后缀表达式的定义 后缀表达式是一种不需要括号的表达式，这表示在将中缀表达式转化为后缀表达式时，如果中缀表达式中存在括号，不能将括号写入后缀表达式">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-26T16:28:58.000Z">
+<meta property="article:modified_time" content="2022-10-26T16:57:24.186Z">
 <meta property="article:author" content="Entropy">
+<meta property="article:tag" content="数据结构与算法">
+<meta property="article:tag" content="cpp">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://s-chance.github.io/tags/nodejs/">
+<link rel="canonical" href="https://s-chance.github.io/2022/10/27/suffix-expression/">
 
 
 <script id="page-configurations">
@@ -36,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: nodejs | Entropy-Blogs</title>
+  <title>后缀表达式 | Entropy-Blogs</title>
   
 
 
@@ -190,51 +196,277 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">nodejs
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2022/10/27/suffix-expression/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/avatar.gif">
+      <meta itemprop="name" content="Entropy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Entropy-Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          后缀表达式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-10-27 00:28:58 / 修改时间：00:57:24" itemprop="dateCreated datePublished" datetime="2022-10-27T00:28:58+08:00">2022-10-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+        <h3 id="基于STL的中缀转后缀实现">基于STL的中缀转后缀实现</h3>
+<h4 id="1-定义分析">1.定义分析</h4>
+<p><strong>首先明确后缀表达式的定义</strong></p>
+<p>后缀表达式是一种不需要括号的表达式，这表示在将中缀表达式转化为后缀表达式时，如果中缀表达式中存在括号，<strong>不能将括号写入后缀表达式</strong><span id="more"></span></p>
+<p>那么这里引出一个问题，后缀表达式中不存在括号那要如何表示运算的优先级？</p>
+<p><strong>理解后缀表达式的运算过程</strong></p>
+<p>以(1+5-4)*(6-9)为例，它的后缀表达式是15+4-69-*</p>
+<p>先分析中缀表达式的运算过程，参与运算过程的操作符依次是+ - - *，正好是后缀表达式中从左往右的操作符顺序。而操作符所涉及到的2个操作数都是位于该操作符的前面。</p>
+<p>那么回到上面的问题来看，中缀表达式中的<strong>括号的作用如何在后缀表达式中体现出来</strong>？</p>
+<p>以1+2*3、(1+2)*3为例</p>
+<p>1+2*3的后缀表达式为123*+</p>
+<p>(1+2)*3的后缀表达式为12+3*</p>
+<p>通过对比可以发现当表达式中存在括号时，<strong>括号中的操作符提前输出</strong>了，这表示在遇到括号的情况时，可以将括号内的操作符提前输出。</p>
+<p><strong>此外，还需要考虑四则运算中，乘除的优先级高于加减</strong></p>
+<p>以1+2*3为例，如果不加以判断直接转化后缀表达式，结果为12+3*，先运算+再运算*，这显然违背了基本的四则运算法则，实际上正确的结果应该是123*+</p>
+<p>通过对比两个结果，可以发现优先级较低的操作符移到了后面，这表示在运算过程中可以<strong>先将优先级低的操作符存储起来</strong>，而将<strong>优先级高的运算符输出</strong>。</p>
+<h4 id="2-思路分析">2.思路分析</h4>
+<p>采用STL模板实现中缀转后缀，这里使用的是stack。定义一个stack字符栈专门用于存储操作符</p>
+<p><font color='red'>这里特别说明一下字符栈，字符栈栈底的操作符优先级最低，栈顶的操作符优先级最高</font></p>
+<p><strong>1.输入中缀表达式的字符串依次获取字符串中的每个字符</strong></p>
+<p><strong>2.对字符进行以下的判断和操作</strong></p>
+<ul>
+<li>数字字符，直接输出</li>
+<li>左括号字符，直接存入stack</li>
+<li>右括号字符，将stack中的操作符依次输出，直到遇到左括号时停止，将左括号出栈但不输出</li>
+<li>加减乘除字符
+<ul>
+<li>优先级高的字符直接存入stack</li>
+<li>优先级低的字符，则比较当前字符栈栈顶操作符的优先级，遇到优先级更低的操作符或左括号字符时不出栈，并将当前操作符入栈</li>
+</ul>
+</li>
+</ul>
+<p><strong>3.当字符串遍历完成后，再依次输出字符栈内剩余的操作符</strong></p>
+<h4 id="3-实现过程分析">3.实现过程分析</h4>
+<p>以(1+5-4)*(6-9)为例，字符串长度为13</p>
+<p>获取到的字符：(</p>
+<blockquote>
+<p>表达式：</p>
+<p>字符栈：(</p>
+</blockquote>
+<p>获取到的字符：1</p>
+<blockquote>
+<p>表达式：1</p>
+<p>字符栈：(</p>
+</blockquote>
+<p>获取到的字符：+</p>
+<blockquote>
+<p>表达式：1</p>
+<p>字符栈：(+</p>
+</blockquote>
+<p>获取到的字符：5</p>
+<blockquote>
+<p>表达式：15</p>
+<p>字符栈：(+</p>
+</blockquote>
+<p>获取到的字符：-</p>
+<blockquote>
+<p>表达式：15+</p>
+<p>字符栈：(-</p>
+</blockquote>
+<p>获取到的字符：4</p>
+<blockquote>
+<p>表达式：15+4</p>
+<p>字符栈：(-</p>
+</blockquote>
+<p>获取到的字符：)</p>
+<blockquote>
+<p>表达式：15+4-</p>
+<p>字符栈：</p>
+</blockquote>
+<p>获取到的字符：*</p>
+<blockquote>
+<p>表达式：15+4-</p>
+<p>字符栈：*</p>
+</blockquote>
+<p>获取到的字符：(</p>
+<blockquote>
+<p>表达式：15+4-</p>
+<p>字符栈：*(</p>
+</blockquote>
+<p>获取到的字符：6</p>
+<blockquote>
+<p>表达式：15+4-6</p>
+<p>字符栈：*(</p>
+</blockquote>
+<p>获取到的字符：-</p>
+<blockquote>
+<p>表达式：15+4-6</p>
+<p>字符栈：*(-</p>
+</blockquote>
+<p>获取到的字符：9</p>
+<blockquote>
+<p>表达式：15+4-69</p>
+<p>字符栈：*(-</p>
+</blockquote>
+<p>获取到的字符：)</p>
+<blockquote>
+<p>表达式：15+4-69-</p>
+<p>字符栈：*</p>
+</blockquote>
+<p>最后，依次输出字符栈中所有的操作符</p>
+<blockquote>
+<p>表达式：15+4-69-*</p>
+</blockquote>
+<h4 id="4-源代码">4.源代码</h4>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;stack&gt;
+#include &lt;list&gt;
+using namespace std;
+
+list&lt;string&gt; transfer(string s)
+&#123;
+    int len = s.length(); //记录长度
+    list&lt;string&gt; listIn;  //存储中缀表达式
+    list&lt;string&gt; listOut; //存储后缀表达式
+    stack&lt;char&gt; symbol;   //符号栈
+    stack&lt;char&gt; ans;      //结果表达式
+
+    listIn.push_back(s);
+    for (int i = 0; i &lt; len; i++)
+    &#123;
+        //思路
+        //数字直接存入ans
+        //运算符:
+        //如果是'('直接存入symbol
+        //如果是')'依次出栈symbol中的运算符并存入ans, 直到遇到'(', '('不存入ans
+        //其他符号, 依次出栈symbol中的运算符并存入ans, 直到遇到优先级更低的运算符或'('时, 将当前符号存入symbol
+        //字符串遍历完成后, 依次出栈符号栈中剩余的运算符并存入ans
+        if (listIn.back()[i] &gt;= '0' &amp;&amp; listIn.back()[i] &lt;= '9')
+            ans.push(listIn.back()[i]);
+        else if (listIn.back()[i] == '(')
+            symbol.push(listIn.back()[i]);
+        else if (listIn.back()[i] == ')')
+        &#123;
+            while (symbol.top() != '(')
+            &#123;
+                ans.push(symbol.top());
+                symbol.pop();
+            &#125;
+            symbol.pop(); //将'('出栈
+        &#125;
+        else
+        &#123;
+            //这里手动优先考虑乘除的优先级高于加减
+            if (listIn.back()[i] == '+' || listIn.back()[i] == '-') //加减符号优先级最低
+            &#123;
+                while (!symbol.empty() &amp;&amp; symbol.top() != '(')
+                &#123;
+                    ans.push(symbol.top()); //直接存入symbol中的运算符
+                    symbol.pop();
+                &#125;
+                symbol.push(listIn.back()[i]); //符号栈存入当前从listIn中获取的符号
+            &#125;
+            else //乘除符号优先级高直接存入符号栈
+            &#123;
+                symbol.push(listIn.back()[i]);
+            &#125;
+        &#125;
+    &#125;
+
+    while (!symbol.empty())
+    &#123;
+        ans.push(symbol.top());
+        symbol.pop();
+    &#125;
+
+    //将结果表达式的值存入listOut
+    //先利用已经清空的symbol实现反转
+    while (!ans.empty())
+    &#123;
+        symbol.push(ans.top());
+        ans.pop();
+    &#125;
+
+    string res = &quot;&quot;;
+    while (!symbol.empty())
+    &#123;
+        res += symbol.top();
+        symbol.pop();
+    &#125;
+    listOut.push_back(res);
+
+    return listOut;
+&#125;
+
+int main()
+&#123;
+    string s;
+    while (cin &gt;&gt; s)
+    &#123;
+        list&lt;string&gt; res = transfer(s);
+        cout &lt;&lt; res.front() &lt;&lt; &quot;\n&quot;;
+    &#125;
+&#125;
+
+</code></pre>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-09-05T21:36:27+08:00"
-              content="2022-09-05">
-          09-05
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构与算法</a>
+              <a href="/tags/cpp/" rel="tag"># cpp</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/09/05/yarn-problem/" itemprop="url">
-            <span itemprop="name">关于yarn禁止在此系统上运行脚本</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/09/14/Redis-Base/" rel="prev" title="Redis基础">
+      <i class="fa fa-chevron-left"></i> Redis基础
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -287,6 +519,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8ESTL%E7%9A%84%E4%B8%AD%E7%BC%80%E8%BD%AC%E5%90%8E%E7%BC%80%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">基于STL的中缀转后缀实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AE%9A%E4%B9%89%E5%88%86%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">1.定义分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="nav-number">1.2.</span> <span class="nav-text">2.思路分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%9E%E7%8E%B0%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90"><span class="nav-number">1.3.</span> <span class="nav-text">3.实现过程分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">4.源代码</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
