@@ -20,15 +20,21 @@
     var CONFIG = {"hostname":"s-chance.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Entropy-Blogs">
-<meta property="og:url" content="https://s-chance.github.io/archives/2022/10/index.html">
+  <meta name="description" content="使用outlook邮箱发送一封带有数字签名的邮件 Digital Signature(数字签名)是Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一封数字签名邮件">
+<meta property="og:url" content="https://s-chance.github.io/2022/11/10/digital-signature/index.html">
 <meta property="og:site_name" content="Entropy-Blogs">
+<meta property="og:description" content="使用outlook邮箱发送一封带有数字签名的邮件 Digital Signature(数字签名)是Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-10T07:35:56.000Z">
+<meta property="article:modified_time" content="2022-11-10T17:46:25.981Z">
 <meta property="article:author" content="Entropy">
+<meta property="article:tag" content="数字签名">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://s-chance.github.io/archives/2022/10/">
+<link rel="canonical" href="https://s-chance.github.io/2022/11/10/digital-signature/">
 
 
 <script id="page-configurations">
@@ -36,12 +42,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Entropy-Blogs</title>
+  <title>一封数字签名邮件 | Entropy-Blogs</title>
   
 
 
@@ -190,50 +196,108 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 10 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2022/11/10/digital-signature/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/avatar.gif">
+      <meta itemprop="name" content="Entropy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Entropy-Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一封数字签名邮件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-10 15:35:56" itemprop="dateCreated datePublished" datetime="2022-11-10T15:35:56+08:00">2022-11-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-11 01:46:25" itemprop="dateModified" datetime="2022-11-11T01:46:25+08:00">2022-11-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+        <h3 id="使用outlook邮箱发送一封带有数字签名的邮件">使用outlook邮箱发送一封带有数字签名的邮件</h3>
+<p>Digital Signature(数字签名)<strong>是</strong>Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。<span id="more"></span></p>
+<p>数字签名是使用数字证书来验证签名者的身份, 并通过密码算法将签名者身份绑定到文档中来证明签名行为的不可否认, 已签名文档无需包含签名过程审计报告, 签名者的身份验证则由证书颁发机构(CA)或信任服务提供商(TSP)完成。</p>
+<h4 id="1-下载数字证书">1.下载数字证书</h4>
+<p>数字证书需要先到网站上申请下载, 这里提供了一个申请90天免费证书的网站 <a target="_blank" rel="noopener" href="https://www.cersign.com/smime-email-certificates.html">证签安全电子邮件证书 - CerSign</a></p>
+<p>按照网站上提示完成申请以及邮箱验证即可。免费邮件证书大约几分钟后就会签发, 点击下载证书设置保护口令即可</p>
+<h4 id="2-在邮箱客户端中设置">2.在邮箱客户端中设置</h4>
+<p>outlook邮箱中导入数字证书: <strong>文件→选项→信任中心→电子邮件安全性</strong>, 然后设置加密以及数字签名。在默认设置中选择<strong>签名证书和加密证书</strong>(需要先找到之前下载好的证书文件双击运行并导入证书)</p>
+<h4 id="3-发送邮件进行测试">3.发送邮件进行测试</h4>
+<p>选择收件人(可以选择本地的另外一个邮箱)后输入邮件内容发送, 通过outlook客户端查看邮件内容会有一个额外的数字签名的图标, 点击该图标能够查看到发件人的数字证书信息。另外经过加密的邮件还会有一个🔒的图标, 在收件人拥有发件人的<strong>公钥</strong>时, 就能够进行解密获取正文内容。其他情况下, 则只有一个加密的smime.p7m文件(无法直接获取正文内容)</p>
+<h4 id="4-关于公钥和私钥的一些简单理解">4.关于公钥和私钥的一些简单理解</h4>
+<p>公钥是一种<strong>非对称加密算法</strong>, 一般都是公布给对方用于加密解密</p>
+<p>私钥是一种<strong>对称加密算法</strong>, 一般不对任何人公开, 同样可用于加密解密</p>
+<p>公钥和私钥是<strong>成对出现</strong>的, 且<strong>唯一对应</strong></p>
+<h5 id="思路1：确保邮件只能由特定的收件人读取">思路1：确保邮件只能由特定的收件人读取</h5>
+<p><strong>收件人的公钥</strong>提前就公布给所有发件人用于进行加密但不能进行解密, <strong>收件人的私钥</strong>则用于解密来自对应的公钥加密的邮件但不能进行加密(这也是一种非对称加密)</p>
+<h5 id="思路2：确认发件人的邮件未被篡改">思路2：确认发件人的邮件未被篡改</h5>
+<p><strong>发件人的公钥</strong>提前就公布给所有收件人用于进行<strong>解密</strong>, <strong>发件人的私钥</strong>则用于<strong>加密</strong>邮件</p>
+<p>具体流程：</p>
+<p>发件人使用自己的私钥先对邮件加密<strong>一个hash值</strong>, 再用来自收件人的公钥对<strong>内容及hash值</strong>二次加密, 然后发送给收件人</p>
+<p>收件人获取到了二次加密的邮件后, 先使用自己的私钥解密对应的公钥获取内容及<strong>加密的hash值</strong>, 再用来自收件人的公钥二次解密对应的私钥获取<strong>原始的hash值</strong>, 对内容进行hash计算, 如果计算的结果与之前hash值解密后的内容相同, 则说明内容未被篡改</p>
+<p>需要注意的是：公钥和私钥的用法不是固定的, 在收件人和发件人两种情景下, 它们的用法恰恰是相反的</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-10-27T00:28:58+08:00"
-              content="2022-10-27">
-          10-27
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D/" rel="tag"># 数字签名</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
+          </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/10/27/suffix-expression/" itemprop="url">
-            <span itemprop="name">后缀表达式</span>
-          </a>
-      </div>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/27/suffix-expression/" rel="prev" title="后缀表达式">
+      <i class="fa fa-chevron-left"></i> 后缀表达式
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
   </article>
-
-
-    </div>
-  </div>
   
   
-  
-
   
 
 
@@ -286,6 +350,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8outlook%E9%82%AE%E7%AE%B1%E5%8F%91%E9%80%81%E4%B8%80%E5%B0%81%E5%B8%A6%E6%9C%89%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%9A%84%E9%82%AE%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">使用outlook邮箱发送一封带有数字签名的邮件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E4%B8%8B%E8%BD%BD%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="nav-number">1.1.</span> <span class="nav-text">1.下载数字证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%9C%A8%E9%82%AE%E7%AE%B1%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%AD%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">2.在邮箱客户端中设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-number">1.3.</span> <span class="nav-text">3.发送邮件进行测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%85%B3%E4%BA%8E%E5%85%AC%E9%92%A5%E5%92%8C%E7%A7%81%E9%92%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3"><span class="nav-number">1.4.</span> <span class="nav-text">4.关于公钥和私钥的一些简单理解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF1%EF%BC%9A%E7%A1%AE%E4%BF%9D%E9%82%AE%E4%BB%B6%E5%8F%AA%E8%83%BD%E7%94%B1%E7%89%B9%E5%AE%9A%E7%9A%84%E6%94%B6%E4%BB%B6%E4%BA%BA%E8%AF%BB%E5%8F%96"><span class="nav-number">1.4.1.</span> <span class="nav-text">思路1：确保邮件只能由特定的收件人读取</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF2%EF%BC%9A%E7%A1%AE%E8%AE%A4%E5%8F%91%E4%BB%B6%E4%BA%BA%E7%9A%84%E9%82%AE%E4%BB%B6%E6%9C%AA%E8%A2%AB%E7%AF%A1%E6%94%B9"><span class="nav-number">1.4.2.</span> <span class="nav-text">思路2：确认发件人的邮件未被篡改</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
