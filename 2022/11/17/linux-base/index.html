@@ -28,7 +28,7 @@
 <meta property="og:description" content="关于Linux的通用操作 基于Ubuntu22.04发行版的环境，本文整理了一些在Linux系统下基本通用的操作，使初学者能初步学会Linux系统的操作或使老用户重新回顾一下常用操作">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-17T11:58:38.000Z">
-<meta property="article:modified_time" content="2022-11-18T15:29:25.493Z">
+<meta property="article:modified_time" content="2022-11-18T16:05:51.628Z">
 <meta property="article:author" content="Entropy">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-18 23:29:25" itemprop="dateModified" datetime="2022-11-18T23:29:25+08:00">2022-11-18</time>
+                <time title="修改时间：2022-11-19 00:05:51" itemprop="dateModified" datetime="2022-11-19T00:05:51+08:00">2022-11-19</time>
               </span>
 
           
@@ -387,13 +387,13 @@ touch demo.txt # 在当前目录下创建demo.txt文件
 <p><strong>cp命令</strong>：拷贝文件到指定目录</p>
 <pre><code class="language-bash"># cp [参数] 源目录 指定目录
 cp demo.txt test # 复制demo.txt文件到当前同级的test目录下
-cp -r source test # 将source文件夹以及文件夹下所有内容复制到同级的test文件夹下
+cp -r source test # 将source文件夹以及文件夹下所有内容复制到同级的test文件夹下(递归复制)
 </code></pre>
 <p><strong>rm命令</strong>：删除文件或目录（文件夹）</p>
 <pre><code class="language-bash"># rm [参数] 文件名
 rm demo.txt # 删除demo.txt文件
-rm -r source # 删除source目录
-rm -rf test # 无提示地强制删除test目录 
+rm -r source # 递归删除整个source目录
+rm -rf test # 无提示地强制删除整个test目录 
 </code></pre>
 <p><strong>cat命令</strong>：只读地查看文件内容</p>
 <pre><code class="language-bash"># cat [参数] 文件名
@@ -626,7 +626,7 @@ id common # 查看common用户的信息
 <p>r表示可以读取查看文件</p>
 </li>
 <li>
-<p>w表示可以修改，但不能删除文件，删除一个文件必须拥有父文件夹的rwx权限</p>
+<p>w表示可以修改，但不能删除文件，删除一个文件必须拥有父文件夹的rwx权限(存在一个特例，在提前知道目录里的具体内容的情况下，手动指定对应的完整文件名进行删除)</p>
 </li>
 <li>
 <p>x表示文件可执行</p>
@@ -687,7 +687,7 @@ pstree -u # 额外显示进程的所属用户
 <p>服务(service) 本质就是进程，但是是<strong>运行在后台的一个特殊进程</strong>。这个特殊进程通常都会监听某个端口等待其它程序的请求，比如(mysql , sshd 防火墙等)。因此这个进程又称为<strong>守护进程</strong>。</p>
 <p><strong>telnet命令</strong>可以用于远程登录主机，也可以测试某个端口</p>
 <p><strong>查看服务</strong></p>
-<pre><code class="language-bash">chkconfig --list | grep 8989 # 该命令已被废弃
+<pre><code class="language-bash">chkconfig --list | grep 8989 # 该命令已被弃用
 </code></pre>
 <p><strong>top命令持续监听运行状态</strong></p>
 <pre><code class="language-bash"># top [参数]
