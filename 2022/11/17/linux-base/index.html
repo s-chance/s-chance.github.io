@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"s-chance.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="关于Linux的通用操作 基于Ubuntu22.04发行版的环境，本文整理了一些在Linux系统下基本通用的操作，使初学者能初步学会Linux系统的操作或使老用户重新回顾一下常用操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux-base">
+<meta property="og:url" content="https://s-chance.github.io/2022/11/17/linux-base/index.html">
+<meta property="og:site_name" content="Entropy-Blogs">
+<meta property="og:description" content="关于Linux的通用操作 基于Ubuntu22.04发行版的环境，本文整理了一些在Linux系统下基本通用的操作，使初学者能初步学会Linux系统的操作或使老用户重新回顾一下常用操作">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-17T11:58:38.000Z">
+<meta property="article:modified_time" content="2022-11-18T15:25:46.132Z">
+<meta property="article:author" content="Entropy">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://s-chance.github.io/2022/11/17/linux-base/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>linux-base | Entropy-Blogs</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Entropy-Blogs" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a target="_blank" rel="noopener" href="https://github.com/s-chance" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Entropy-Blogs</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2022/11/17/linux-base/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/avatar.gif">
+      <meta itemprop="name" content="Entropy">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Entropy-Blogs">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux-base
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-17 19:58:38" itemprop="dateCreated datePublished" datetime="2022-11-17T19:58:38+08:00">2022-11-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-11-18 23:25:46" itemprop="dateModified" datetime="2022-11-18T23:25:46+08:00">2022-11-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="关于Linux的通用操作">关于Linux的通用操作</h3>
+<p>基于Ubuntu22.04发行版的环境，本文整理了一些在Linux系统下基本通用的操作，使初学者能初步学会Linux系统的操作或使老用户重新回顾一下常用操作<span id="more"></span></p>
+<h4 id="参考文章-Linux-幕布-mubu-com-作者：时光＆逝">参考文章 <a target="_blank" rel="noopener" href="https://mubu.com/doc/28TtabEpGV3">Linux - 幕布 (mubu.com) 作者：时光＆逝 </a></h4>
+<h4 id="准备工作">准备工作</h4>
+<p>远程连接工具<a target="_blank" rel="noopener" href="https://www.xshell.com/zh/xshell/">XSHELL - NetSarang Website</a></p>
+<p>远程文件传输工具 <a target="_blank" rel="noopener" href="https://www.xshell.com/zh/xftp/">XFTP - NetSarang Website</a></p>
+<p>配合XFTP可以较为直观地观察文件及目录的变化</p>
+<p>注：一些发行版可能需要手动安装部分命令。另外，在执行命令时<strong>请确认自己所处的当前目录</strong></p>
+<h4 id="提示">提示</h4>
+<p>一些命令可能需要在root权限下执行，或者在执行命令的前面都加上<code>sudo</code>的前缀，表示临时使用root权限执行这条命令</p>
+<p>如果忘记了root密码可以通过以下方法重新设置</p>
+<pre><code class="language-bash">sudo passwd # 进入密码设置
+# 输入当初安装时设置的非root普通用户密码
+# 输入新的root密码
+# 重复输入root密码
+su # 切换到root
+# 输入刚刚设置的root密码，就能切换到root用户
+</code></pre>
+<h4 id="vim文本编辑器">vim文本编辑器</h4>
+<p><strong>查看vim配置信息</strong></p>
+<pre><code class="language-bash">vim --version
+</code></pre>
+<p><strong>简易配置一下vim</strong></p>
+<p>用vim打开用户vimrc文件</p>
+<pre><code class="language-bash">vim $HOME/.vimrc
+</code></pre>
+<p>写入以下内容（后面的注释不需要）</p>
+<blockquote>
+<p>syntax on   # 开启语法高亮</p>
+<p>set ts = 4    #  设置tab的缩进显示为四个空格的宽度</p>
+<p>set expandtab # 设置tab字符替换为等宽的4个空格字符</p>
+<p>set autoindent # 开启自动缩进</p>
+<p>set number # 开启行号显示</p>
+<p>set relativenumber # 使用相对行号</p>
+</blockquote>
+<p>关于vim的基本操作可以参考其它文章 <a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-vim.html">Linux vi/vim | 菜鸟教程 (runoob.com)</a></p>
+<h4 id="用户管理">用户管理</h4>
+<p>linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户都必须先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
+<p>linux的用户至少要属于一个组</p>
+<h5 id="提示-v2">提示</h5>
+<p>需要在root权限下执行以下命令，或者在以下基本命令前面都加上<code>sudo</code>的前缀，表示临时使用root权限执行这条命令</p>
+<p>如果忘记了root密码可以通过以下方法重新设置</p>
+<pre><code class="language-bash">sudo passwd # 进入密码设置
+# 输入当初安装时设置的非root普通用户密码
+# 输入新的root密码
+# 重复输入root密码
+su # 切换到root
+# 输入刚刚设置的root密码，就能切换到root用户
+</code></pre>
+<h5 id="基本命令">基本命令</h5>
+<p><strong>useradd命令</strong>：创建一个名为normal的用户</p>
+<pre><code class="language-bash"># useradd [参数] 用户名
+useradd normal # 默认家目录
+useradd -d /myuser normal # 指定家目录
+</code></pre>
+<p><strong>passwd命令</strong>：指定或修改normal用户的密码，根据提示重复输入两次密码</p>
+<pre><code class="language-bash"># passwd 用户名
+passwd normal
+</code></pre>
+<p><strong>userdel命令</strong>：删除normal用户</p>
+<pre><code class="language-bash"># userdel 用户名
+userdel normal
+userdel -r normal # 同时删除该用户的目录
+</code></pre>
+<p><strong>id命令</strong>：查询normal用户信息</p>
+<pre><code class="language-bash"># id 用户名
+id normal
+</code></pre>
+<p><strong>su命令</strong>：用户切换</p>
+<pre><code class="language-bash"># su [参数] 用户名
+su common # 切换到一个名为common的用户
+su - common # 将环境变量一并切换为common用户的环境变量
+</code></pre>
+<p><strong>groupadd命令</strong>：添加一个名为visitor的用户组</p>
+<pre><code class="language-bash"># groupadd 组名
+groupadd visitor
+</code></pre>
+<p><strong>groupdel命令</strong>删除visitor用户组</p>
+<pre><code class="language-bash"># groupdel 组名
+groupdel visitor
+</code></pre>
+<p>创建一个名为vis的用户的同时指定用户组为visitor</p>
+<pre><code class="language-bash">useradd -g visitor vis
+</code></pre>
+<p>修改vis用户所在的用户组</p>
+<pre><code class="language-bash">groupadd ok
+usermod -g ok vis
+</code></pre>
+<h5 id="用户信息文件">用户信息文件</h5>
+<ul>
+<li>
+<p><strong>/etc/passwd</strong>是用户(user)的配置文件，记录用户的各种信息</p>
+</li>
+<li>
+<p><strong>/ect/shadow</strong>是口令的配置文件</p>
+</li>
+<li>
+<p><strong>/etc/group</strong>是组(group)的配置文件，记录组的各种信息</p>
+</li>
+</ul>
+<h4 id="常用命令">常用命令</h4>
+<h5 id="进程命令">进程命令</h5>
+<p><strong>init命令</strong>：Linux下的进程初始化工具，用于切换运行级别</p>
+<pre><code class="language-bash">init 0 # 停机(不要将initdefault设置为0)
+init 1 # 单用户模式，一般用于系统级维护
+init 2 # 多用户模式，无法使用NFS(网络文件系统)挂载，没有网络支持
+init 3 # 多用户模式，标准的运行级，有网络支持
+init 4 # 保留，未使用
+init 5 # X11(xwindow)图形化界面模式，多用户，有网络支持，一般用于远程连接时使用Linux图形化界面
+init 6 # 重新启动(不要将initdefault设置为6)
+</code></pre>
+<h5 id="帮助命令">帮助命令</h5>
+<p><strong>man命令</strong>：用于获取帮助手册</p>
+<p><strong>help命令</strong>：获取shell内置命令的帮助信息</p>
+<pre><code class="language-bash">man vim # 获取vim的帮助手册
+help cd # 获取cd命令的帮助信息
+help mv # 获取mv命令的帮助信息，但会失败，因为mv不是内置命令
+type mv # 查看mv命令的类型(内置命令或外部命令)
+</code></pre>
+<h5 id="文件目录命令">文件目录命令</h5>
+<p><strong>pwd命令</strong>：查看当前所在目录的绝对路径</p>
+<pre><code class="language-bash">pwd
+</code></pre>
+<p><strong>ls命令</strong>：查看当前所在目录的所有文件和目录</p>
+<pre><code class="language-bash"># ls [参数] [目录或文件名]
+ls -a # 显示当前所有文件和目录，包括不可见的
+ls -l # 以列表的形式显示信息
+</code></pre>
+<p><strong>cd命令</strong>：切换到指定目录</p>
+<pre><code class="language-bash"># cd [目录路径]
+cd ~  # 进入默认初始目录
+cd .. # 返回上一级目录
+cd /opt # 进入opt目录
+</code></pre>
+<p><strong>mkdir命令</strong>：创建指定目录，可根据绝对路径或相对路径创建</p>
+<p><strong>rmdir命令</strong>：删除指定的空目录</p>
+<pre><code class="language-bash"># mkdir [参数] 目录名
+mkdir test # 在当前目录下创建一个test目录
+mkdir -p a/b/c # 在当前目录下创建a/b/c的嵌套多级目录
+
+# rmdir [参数] 目录名
+rmdir test # 删除test目录，test目录下不能有其它内容
+# 删除有其它内容的目录时需要使用rm -rf命令
+</code></pre>
+<p><strong>touch命令</strong>：创建空文件，可根据绝对路径或相对路径创建</p>
+<pre><code class="language-bash"># touch 文件名
+touch demo.txt # 在当前目录下创建demo.txt文件
+</code></pre>
+<p><strong>cp命令</strong>：拷贝文件到指定目录</p>
+<pre><code class="language-bash"># cp [参数] 源目录 指定目录
+cp demo.txt test # 复制demo.txt文件到当前同级的test目录下
+cp -r source test # 将source文件夹以及文件夹下所有内容复制到同级的test文件夹下
+</code></pre>
+<p><strong>rm命令</strong>：删除文件或目录（文件夹）</p>
+<pre><code class="language-bash"># rm [参数] 文件名
+rm demo.txt # 删除demo.txt文件
+rm -r source # 删除source目录
+rm -rf test # 无提示地强制删除test目录 
+</code></pre>
+<p><strong>cat命令</strong>：只读地查看文件内容</p>
+<pre><code class="language-bash"># cat [参数] 文件名
+cat demo.txt # 查看demo.txt的内容
+cat -n demo.txt # 查看文件时显示行号
+</code></pre>
+<p><strong>more命令</strong>：基于vi编辑器的文本过滤器，以全屏方式按页显示文件内容，适合阅读长内容的文本</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">快捷键</th>
+<th style="text-align:center">具体功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">空格(space)</td>
+<td style="text-align:center">向下翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">Enter</td>
+<td style="text-align:center">向下翻一行</td>
+</tr>
+<tr>
+<td style="text-align:center">q</td>
+<td style="text-align:center">退出</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+F</td>
+<td style="text-align:center">向下滚动一屏</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+B</td>
+<td style="text-align:center">返回上一屏</td>
+</tr>
+<tr>
+<td style="text-align:center">=</td>
+<td style="text-align:center">输出当前行行号</td>
+</tr>
+<tr>
+<td style="text-align:center">:f</td>
+<td style="text-align:center">输出文件名和行号</td>
+</tr>
+</tbody>
+</table>
+<p><strong>less命令</strong>： 来分屏查看文件内容，与<strong>more命令</strong>类似，但功能更加强大。能根据显示需要加载文件内容，而不是一次性加载，对于显示大型文件有较高的效率</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">快捷键</th>
+<th style="text-align:center">具体功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">空格(space)</td>
+<td style="text-align:center">向下翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">[pagedown]</td>
+<td style="text-align:center">向下翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">[pageup]</td>
+<td style="text-align:center">向上翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">/字串</td>
+<td style="text-align:center">向下搜寻字串 n向下 N向上</td>
+</tr>
+<tr>
+<td style="text-align:center">?字串</td>
+<td style="text-align:center">向上搜寻字串 n向上 N向下</td>
+</tr>
+<tr>
+<td style="text-align:center">q</td>
+<td style="text-align:center">退出</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&gt;指令</strong>：输出重定向，会覆盖文件的内容</p>
+<p><strong>&gt;&gt;指令</strong>：追加内容到文件尾部，不会覆盖文件的内容</p>
+<pre><code class="language-bash">ls &gt; info.txt # 将当前目录的信息写入info.txt
+ls -l &gt; info.txt # 覆盖info.txt的内容为列表形式的目录信息
+ls &gt;&gt; info.txt # 将目录信息追加到文件末尾
+</code></pre>
+<p><strong>echo命令</strong>：输出内容到控制台，可与**&gt;指令或&gt;&gt;指令**组合使用</p>
+<pre><code class="language-bash"># echo [参数] [字符串]
+echo hello world # 输出hello world到控制台
+echo happy &gt;&gt; info.txt # 此时控制台不会输出内容，内容追加到info.txt中，具体内容可以自定义
+echo $PATH # 获取PATH变量，PATH是原本就存在于Linux下的环境变量
+</code></pre>
+<p><strong>head命令</strong>：查看文件前n行内容，n默认为10</p>
+<p><strong>tail命令</strong>：查看文件后n行内容，n默认为10</p>
+<pre><code class="language-bash"># head [参数] [行数] 文件名
+head info.txt # 查看info.txt的前10行内容
+head -n 3 info.txt # 查看info.txt的前3行内容
+
+# tail [参数] [行数] 文件名
+tail info.txt # 查看info.txt的后10行内容
+tail -n 3 info.txt # 查看info.txt的后3行内容
+</code></pre>
+<p><strong>ln命令</strong>：给源文件创建一个<strong>软链接</strong>。软链接也称符号链接，类似于快捷方式，主要存放了链接其他文件的路径。可以通过ln命令<strong>软链接的方式</strong>设置<strong>全局</strong>环境变量（这是一种方式）</p>
+<pre><code class="language-bash"># ln -s 源文件路径 目标路径
+ln -s info.txt test/ # 将info.txt软链接到同级的test目录下
+</code></pre>
+<h5 id="时间日期命令">时间日期命令</h5>
+<p><strong>date命令</strong>：显示或设定系统的日期和时间</p>
+<pre><code class="language-bash"># date [参数] [格式]
+date # 显示当前系统时间
+date -u # 显示UTC时间
+date -d &quot;+1 day&quot; +%Y%m%d # 显示后一天的日期
+date -d &quot;-1 month&quot; +%Y%m%d # 显示上一月的日期
+
+date -s &quot;2022-11-18 06:30:00&quot; # 设置系统时间为2022年11月18日 6时30分0秒，重启系统后会失效
+</code></pre>
+<p><strong>cal命令</strong>：显示月历，需要手动安装命令</p>
+<pre><code class="language-bash">apt install ncal # 安装命令
+
+# cal [参数] [月份] [年份]
+cal # 查看本月月历
+cal 12 2022 # 查看2022年12月月历
+</code></pre>
+<h5 id="搜索查找命令">搜索查找命令</h5>
+<p><strong>find命令</strong>：从指定目录向下递归地遍历各个子目录，将满足条件的文件或目录显示在终端</p>
+<pre><code class="language-bash"># find [搜索范围] [参数] ...
+find . -name &quot;*.txt&quot; # 查找当前目录及子目录下文件名后缀为txt的文件
+find . -type f # 查找当前目录及子目录下普通类型的文件
+find . -user root # 查找当前目录及子目录下属于root用户的文件
+find . -size 0 # 查找当前目录及子目录下长度为0的文件
+</code></pre>
+<p><strong>locate命令</strong>：可以快速定位文件路径，需要手动安装命令。利用事先建立的包含系统中所有文件名称路径的locate数据库实现快速定位，无需遍历整个文件夹，查询速度较快。</p>
+<p>locate数据库不是实时更新的(默认情况下每天自动更新一次)，无法查询当天新建的文件，但可以手动更新locate数据库</p>
+<p><font color='red'>注意：测试命令需要新建文件时，记得随时手动更新locate数据库</font></p>
+<pre><code class="language-bash">apt install plocate # 安装命令
+updatedb # 手动更新locate数据库
+
+# locate [参数] [文件名]
+locate passwd # 查找passwd文件
+locate /etc/sh # 查找etc目录下所有以sh开头的文件
+locate -n 2 passwd # 最多显示2个输出
+locate -i ~/r # 忽略大小写查找当前用户目录下r开头的文件
+</code></pre>
+<p><strong>grep命令</strong>：在指定文件里查找指定的内容</p>
+<pre><code class="language-bash"># grep [内容] [文件名]
+grep root info.txt # 在info.txt里查找root字符所在的行并输出到控制台
+grep -n root info.txt # 显示在完整文本中对应匹配的行号
+grep -i root info.txt # 忽略大小写进行查找
+</code></pre>
+<h5 id="压缩与解压命令">压缩与解压命令</h5>
+<p><strong>gzip命令</strong>：压缩文件，格式只能为*.gz，它的设计目标是为了处理单个文件</p>
+<p><strong>gunzip命令</strong>：解压文件，只能解压*.gz后缀的文件</p>
+<pre><code class="language-bash"># gzip 文件
+gzip info.txt # 压缩info.txt文件为info.txt.gz文件
+
+# gunzip 文件
+gunzip info.txt.gz # 解压info.txt.gz文件为info.txt文件
+</code></pre>
+<p><strong>zip命令</strong>：压缩文件和目录，适用于多个文件和目录</p>
+<p><strong>unzip命令</strong>：解压文件和目录</p>
+<pre><code class="language-bash"># zip [参数] 文件名.zip 要压缩的文件名
+zip info.zip info.txt # 将info.txt压缩到info.zip中
+zip -r test.zip test/ # 将test目录下所有文件和子目录递归压缩，用于处理多文件多目录的压缩
+
+# unzip [参数] 文件名.zip
+unzip test.zip # 直接解压test.zip
+unzip -d beta/ test.zip # 指定解压test.zip到同级的beta目录下 
+</code></pre>
+<p><strong>tar命令</strong>：打包目录或解包tar文件，并且能附加压缩和解压功能</p>
+<p>注意：打包和压缩包不是一个概念，解包和解压也不是</p>
+<pre><code class="language-bash"># tar 必填参数[选填参数] 打包文件名 源文件名
+tar -cvf info.tar info.txt # 打包info.txt到info.tar中
+tar -zcvf info.tar.gz info.txt # 打包的同时使用gzip进行压缩
+
+tar -xvf info.tar # 解包info.tar
+tar -zxvf info.tar.gz # 解压并解包info.tar.gz
+
+tar -tvf info.tar # 不解压，仅查看包中的文件信息
+# 指定解包到哪个目录
+tar -xvf info.tar -C /tmp # 解包到tmp目录下
+</code></pre>
+<h4 id="组管理与权限管理">组管理与权限管理</h4>
+<h5 id="组管理">组管理</h5>
+<p>在linux中的每个用户必须属于一个组，不能独立于组外</p>
+<p>在linux中每个文件有所有者、所在组、其它组的概念</p>
+<p>文件的所有者就是创建该文件的用户</p>
+<p>除文件的所有者和所在组的用户外，系统的其它用户都是文件的其它组</p>
+<p>提示：<strong>查看文件权限、所有者等信息</strong>可以使用<strong>ls -l 指定的文件名</strong>实现；<strong>查看用户相关信息</strong>可以使用<strong>id 指定的用户名</strong>实现</p>
+<h5 id="基本命令-v2">基本命令</h5>
+<p><strong>chown命令</strong>：修改文件所有者，但不改变组</p>
+<p><strong>chgrp命令</strong>：修改文件所在组</p>
+<p><strong>usermod命令</strong>：改变用户所在组</p>
+<pre><code class="language-bash"># chown 用户名 文件名
+chown common info.txt # info.txt所有者改为common用户
+ls -l info.txt # 查看info.txt的信息
+# chgrp 组名 文件名
+chgrp common info.txt # info.txt所在组改为common组
+
+# usermod -g 组名 用户名
+usermod -g ok common # common用户所在组改为ok组
+id common # 查看common用户的信息
+</code></pre>
+<h5 id="权限管理">权限管理</h5>
+<p>文件权限内容，通过ls -l 指定文件名查看</p>
+<pre><code class="language-bash"># 一个示例
+-rw-r--r-- 1 root root 320 11月 18 17:49 info.txt
+</code></pre>
+<p><strong>-rw-r–r–解读</strong>(下标从0开始)</p>
+<ol>
+<li>第0位确定文件类型(d, - , l , c , b)</li>
+<li>第1-3位确定所有者（该文件的所有者）拥有该文件的权限</li>
+<li>第4-6位确定所属组（同用户组的）拥有该文件的权限</li>
+<li>第7-9位确定其他用户拥有该文件的权限</li>
+</ol>
+<p><strong>rwx权限说明</strong></p>
+<ol>
+<li>
+<p>r表示可读read</p>
+</li>
+<li>
+<p>w表示可写write</p>
+</li>
+<li>
+<p>x表示可执行execute</p>
+</li>
+<li>
+<p>对于文件来说</p>
+<ul>
+<li>
+<p>r表示可以读取查看文件</p>
+</li>
+<li>
+<p>w表示可以修改，但不能删除文件，删除一个文件必须拥有父文件夹的rwx权限</p>
+</li>
+<li>
+<p>x表示文件可执行</p>
+</li>
+</ul>
+</li>
+<li>
+<p>对于目录来说</p>
+<ul>
+<li>r表示可以读取，查看目录内容</li>
+<li>w表示可修改，<strong>目录内</strong>创建+删除+重命名目录</li>
+<li>x表示可以进入该目录</li>
+</ul>
+</li>
+</ol>
+<h5 id="基本命令-v3">基本命令</h5>
+<p><strong>chmod命令</strong>：修改文件或目录的权限</p>
+<pre><code class="language-bash"># 参数
+# u:所有者 g:使用组 o:其他人 a:所有人
+# +:添加权限 -:删除权限 =:设置权限
+
+chmod a=--- info.txt # 取消所有人对info.txt的rwx权限
+chmod u=rwx,g=rw-,o=r info.txt
+chmod g+x,o-r info.txt
+
+# 通过rwx权限对应的数字设置权限
+# r=4 w=2 x=1  rwx=4+2+1=7
+chmod 611 info.txt
+</code></pre>
+<h4 id="进程管理">进程管理</h4>
+<p>在linux中，每个执行的程序（代码）都称为一个进程。每一个进程都分配一个 ID 号</p>
+<p>每一个进程，都会对应一个父进程，而这个父进程可以复制多个子进程</p>
+<p>每个进程都可能以两种方式存在的：前台与后台</p>
+<p>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机</p>
+<h5 id="ps命令查看系统进程">ps命令查看系统进程</h5>
+<pre><code class="language-bash"># ps [参数]
+ps -a # 显示当前终端的所有进程信息
+ps -u # 以用户的格式显示进程信息
+ps -x # 显示后台进程运行的参数
+</code></pre>
+<h5 id="kill命令终止进程">kill命令终止进程</h5>
+<pre><code class="language-bash"># kill [参数] 进程号PID
+# 参数(基本都使用9)
+# 1:重新加载 9:强制停止 15:正常停止
+# kill命令需要与ps命令配合使用
+kill -9 9899 # 9899是通过ps获取的PID号，强制停止9899的进程
+
+# killall命令能终止指定名称的所有进程，适合系统负载过大时使用
+# killall -9 进程名称
+</code></pre>
+<h5 id="pstree命令查看进程信息">pstree命令查看进程信息</h5>
+<pre><code class="language-bash"># pstree [参数]
+# pstree相对ps可以更直观地查看进程信息
+pstree -p # 额外显示进程的PID
+pstree -u # 额外显示进程的所属用户
+</code></pre>
+<h5 id="service命令操作进程（后台服务）">service命令操作进程（后台服务）</h5>
+<p>服务(service) 本质就是进程，但是是<strong>运行在后台的一个特殊进程</strong>。这个特殊进程通常都会监听某个端口等待其它程序的请求，比如(mysql , sshd 防火墙等)。因此这个进程又称为<strong>守护进程</strong>。</p>
+<p><strong>telnet命令</strong>可以用于远程登录主机，也可以测试某个端口</p>
+<p><strong>查看服务</strong></p>
+<pre><code class="language-bash">chkconfig --list | grep 8989 # 该命令已被废弃
+</code></pre>
+<p><strong>top命令持续监听运行状态</strong></p>
+<pre><code class="language-bash"># top [参数]
+# 参数
+# -d 秒数:指定每隔几秒更新，默认3秒
+# -i:不显示任何闲置或僵死进程
+# -p 进程PID:监控指定的PID的进程状态
+
+# top命令会进入一个交互页面，可以通过以下操作进行交互
+# P:以CPU使用率排序，默认
+# M:以内存的使用率排序
+# N:以PID排序
+# q:退出top交互页面
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/10/digital-signature/" rel="prev" title="一封数字签名邮件">
+      <i class="fa fa-chevron-left"></i> 一封数字签名邮件
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8ELinux%E7%9A%84%E9%80%9A%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">关于Linux的通用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0-Linux-%E5%B9%95%E5%B8%83-mubu-com-%E4%BD%9C%E8%80%85%EF%BC%9A%E6%97%B6%E5%85%89%EF%BC%86%E9%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">参考文章 Linux - 幕布 (mubu.com) 作者：时光＆逝 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA"><span class="nav-number">1.3.</span> <span class="nav-text">提示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">vim文本编辑器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA-v2"><span class="nav-number">1.5.1.</span> <span class="nav-text">提示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.5.2.</span> <span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.3.</span> <span class="nav-text">用户信息文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.1.</span> <span class="nav-text">进程命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.2.</span> <span class="nav-text">帮助命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.3.</span> <span class="nav-text">文件目录命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.4.</span> <span class="nav-text">时间日期命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E6%9F%A5%E6%89%BE%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.5.</span> <span class="nav-text">搜索查找命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E4%B8%8E%E8%A7%A3%E5%8E%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.6.</span> <span class="nav-text">压缩与解压命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86%E4%B8%8E%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.</span> <span class="nav-text">组管理与权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.1.</span> <span class="nav-text">组管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4-v2"><span class="nav-number">1.7.2.</span> <span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.3.</span> <span class="nav-text">权限管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4-v3"><span class="nav-number">1.7.4.</span> <span class="nav-text">基本命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">1.8.</span> <span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ps%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.8.1.</span> <span class="nav-text">ps命令查看系统进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#kill%E5%91%BD%E4%BB%A4%E7%BB%88%E6%AD%A2%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.8.2.</span> <span class="nav-text">kill命令终止进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pstree%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">1.8.3.</span> <span class="nav-text">pstree命令查看进程信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#service%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C%E8%BF%9B%E7%A8%8B%EF%BC%88%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%EF%BC%89"><span class="nav-number">1.8.4.</span> <span class="nav-text">service命令操作进程（后台服务）</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Entropy"
+      src="/./images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Entropy</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="">
+    <a target="_blank" class="social-link" href="/atom.xml" style="color: burlywood;">
+      <span class="icon">
+        <i class="fa fa-rss"></i>
+      </span>
+      <span class="label">RSS</span>
+    </a>
+  </div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://zhul.in/" title="https:&#x2F;&#x2F;zhul.in&#x2F;" rel="noopener" target="_blank">Archlinux玩家zhul.in</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.cnpatrickstar.com/" title="https:&#x2F;&#x2F;blog.cnpatrickstar.com&#x2F;" rel="noopener" target="_blank">技术总监patrickstar</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://lintatata.github.io/" title="https:&#x2F;&#x2F;lintatata.github.io&#x2F;" rel="noopener" target="_blank">linta</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Entropy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

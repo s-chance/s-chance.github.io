@@ -48,6 +48,765 @@
       </tags>
   </entry>
   <entry>
+    <title>MySQL基础</title>
+    <url>/2022/08/21/MySQL-Base/</url>
+    <content><![CDATA[<h3 id="MySQL基础">MySQL基础</h3>
+<hr>
+<h4 id="span-id-head-快速导航-span"><span id="head">快速导航</span></h4>
+<p>提醒：Typora内无法进行快速导航跳转建议用Typora自带的功能导出为html文件；另外各个示例之间有一定数据关联性，建议先把预先准备的测试数据代码执行好。 <span id="more"></span></p>
+<p><a href="#ddl">DDL</a></p>
+<p><a href="#dml">DML</a></p>
+<p><a href="#dql">DQL</a></p>
+<p><a href="#ysf">条件查询</a></p>
+<p><a href="#px">排序</a></p>
+<p><a href="#juhe">聚合函数</a></p>
+<p><a href="#fz"> 分组查询</a></p>
+<h4 id="一、数据库管理系统">一、数据库管理系统</h4>
+<ol>
+<li>数据库管理系统：DataBaseManagement，简称DBMS。</li>
+<li>数据库管理系统是专门用来管理数据库中的数据，数据库管理系统可以对数据库中的数据进行增删改查的操作。</li>
+<li>常见的数据库管理系统：MySQL，Oracle，SqlServer，MS，DB2等。</li>
+</ol>
+<h4 id="二、SQL">二、SQL</h4>
+<ol>
+<li>SQL是一种结构化查询语言。</li>
+<li>通过SQL可以实现对数据库中数据的操作。</li>
+<li>SQL是一套标准，基本能在大部分数据库管理系统中使用。</li>
+</ol>
+<h4 id="三、工作流程">三、工作流程</h4>
+<p>​	数据库管理系统SQL→执行SQL→操作数据库</p>
+<p>​	先安装数据库管理系统MySQL，然后编写SQL语句，之后DBMS对SQL语句	进行执行来完成对数据库的数据管理。</p>
+<h4 id="四、准备工作">四、准备工作</h4>
+<ol>
+<li>
+<p>MySQL官网[下载]( <a href="https://downloads.mysql.com/archives/installer/">MySQL :: Download MySQL Installer (Archived Versions)</a> )，Windows推荐下载<a href="https://downloads.mysql.com/archives/get/p/25/file/mysql-installer-community-5.7.30.0.msi">Mysql5.7社区版本</a>，使用较多的版本。简易配置推荐Server only，也可以选择Custom自定义安装路径，后面填写好root用户的密码即可。其余默认下一步。MySQL环境变量配置可配可不配，需要命令行运行MySQL的相关命令可参考jdk的环境变量配置过程配置好。</p>
+<pre><code class="language-bash"># 基本命令
+mysql -uroot -p  //登录MySQL,-p后面需要输入之前设置的密码
+# 登录MySQL之后所有命令结尾必须要加英文分号;
+mysql&gt; exit;   //退出MySQL
+mysql&gt; mysqladmin -uroot newpassword;  //root密码为空时,设置新密码
+mysql&gt; mysqladmin -uroot -pxxx password yyy; //xxx为旧密码,yyy为新密码
+mysql&gt; set password for 用户名@localhost = password('新密码');  //修改密码的另一种方式,用户名一般是root
+
+mysql&gt; show databases; //查看全部的数据库
+mysql&gt; create database 数据库名; //创建数据库
+mysql&gt; use 数据库名; //指定需要操作的数据库
+mysql&gt; show tables; //展示指定数据库里面所有的数据表
+
+# 后面的数据操作相关命令可以直接套用navicat中编写的SQL语句,记得结尾加分号;
+</code></pre>
+</li>
+<li>
+<p>数据库管理工具Navicat[下载]( <a href="https://www.navicat.com/en/download/navicat-for-mysql">Navicat | Download Navicat for MySQL 14-day trial versions for Windows, macOS and Linux</a> )，原生的MySQL数据库管理系统缺乏管理工具比较难以使用，通过第三方数据库管理工具可以更方便地管理数据库。</p>
+</li>
+<li>
+<p>Navicat连接MySQL时需要确保MySQL服务开启，一般安装时默认开机自启动。<strong>以管理员身份运行</strong>命令提示符，输入命令。</p>
+<pre><code class="language-bash">net start mysql57  //运行MySQL服务
+</code></pre>
+<p>MySQL服务的端口号为3306，输入用户名和密码后，完成连接。</p>
+</li>
+</ol>
+<h4 id="五、正式开始">五、正式开始</h4>
+<h5 id="1-SQL语句分类">1.SQL语句分类</h5>
+<ul>
+<li>DQL:数据查询语言，一般以<strong>select</strong>关键字开头，查询数据</li>
+<li>DML:数据操作语言，<strong>insert</strong>、<strong>delete</strong>、<strong>update</strong>关键字，<strong>增删改数据表中的数据</strong></li>
+<li>DDL:数据定义语言，<strong>create</strong>、<strong>drop</strong>、<strong>alter</strong>关键字，<strong>增删改数据表的结构</strong></li>
+<li>TCL:事务控制语言，<strong>commit</strong>、<strong>rollback</strong>关键字，事务回滚和事务提交</li>
+<li>DCL:数据控制语言，<strong>grant</strong>、<strong>revoke</strong>关键字，定义访问权限和安全级别及创建用户</li>
+</ul>
+<h5 id="2-DDL数据定义语言的使用">2.DDL数据定义语言的使用</h5>
+<ul>
+<li>
+<p>首先明确MySQL中的数据类型大致分为：**数值、日期/时间、字符串(字符)**三类。</p>
+</li>
+<li>
+<p>数值类型</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">大小</th>
+<th style="text-align:center">范围（有符号）</th>
+<th style="text-align:center">范围（无符号）</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">TINYINT</td>
+<td style="text-align:center">1 Bytes</td>
+<td style="text-align:center">(-128,127)</td>
+<td style="text-align:center">(0,255)</td>
+<td style="text-align:center">小整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">SMALLINT</td>
+<td style="text-align:center">2 Bytes</td>
+<td style="text-align:center">(-32768,32767)</td>
+<td style="text-align:center">(0,65535)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">MEDIUMINT</td>
+<td style="text-align:center">3 Bytes</td>
+<td style="text-align:center">(-8388608,8388607)</td>
+<td style="text-align:center">(0,16777215)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">INT或INTEGER</td>
+<td style="text-align:center">4 Bytes</td>
+<td style="text-align:center">(-2147483648,2147483647)</td>
+<td style="text-align:center">(0,4294967295)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">BIGINT</td>
+<td style="text-align:center">8 Bytes</td>
+<td style="text-align:center">(-2<sup>63,2</sup>63-1)</td>
+<td style="text-align:center">(0,2^64-1)</td>
+<td style="text-align:center">极大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">FLOAT</td>
+<td style="text-align:center">4 Bytes</td>
+<td style="text-align:center">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0， (1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td style="text-align:center">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td style="text-align:center">单精度 浮点数值</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">8 Bytes</td>
+<td style="text-align:center">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">双精度 浮点数值</td>
+</tr>
+<tr>
+<td style="text-align:center">DECIMAL</td>
+<td style="text-align:center">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
+<td style="text-align:center">依赖于M和D的值</td>
+<td style="text-align:center">依赖于M和D的值</td>
+<td style="text-align:center">小数值</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>日期和时间类型</p>
+<p>TIMESTAMP类型有专有的自动更新特性，将在后面描述。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">大小 (Bytes)</th>
+<th style="text-align:center">范围</th>
+<th style="text-align:center">格式</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">DATE</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1000-01-01/9999-12-31</td>
+<td style="text-align:center">YYYY-MM-DD</td>
+<td style="text-align:center">日期值</td>
+</tr>
+<tr>
+<td style="text-align:center">TIME</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">‘-838:59:59’/‘838:59:59’</td>
+<td style="text-align:center">HH:MM:SS</td>
+<td style="text-align:center">时间值或持续时间</td>
+</tr>
+<tr>
+<td style="text-align:center">YEAR</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1901/2155</td>
+<td style="text-align:center">YYYY</td>
+<td style="text-align:center">年份值</td>
+</tr>
+<tr>
+<td style="text-align:center">DATETIME</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
+<td style="text-align:center">YYYY-MM-DD HH:MM:SS</td>
+<td style="text-align:center">混合日期和时间值</td>
+</tr>
+<tr>
+<td style="text-align:center">TIMESTAMP</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">1970-01-01 00:00:00/2038结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
+<td style="text-align:center">YYYYMMDD HHMMSS</td>
+<td style="text-align:center">混合日期和时间值，时间戳</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>字符串类型</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CHAR</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">定长字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">VARCHAR</td>
+<td style="text-align:left">0-65535 bytes</td>
+<td style="text-align:left">变长字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TINYBLOB</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TINYTEXT</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">短文本字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">BLOB</td>
+<td style="text-align:left">0-65 535 bytes</td>
+<td style="text-align:left">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">TEXT</td>
+<td style="text-align:left">0-65 535 bytes</td>
+<td style="text-align:left">长文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMBLOB</td>
+<td style="text-align:left">0-16 777 215 bytes</td>
+<td style="text-align:left">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMTEXT</td>
+<td style="text-align:left">0-16 777 215 bytes</td>
+<td style="text-align:left">中等长度文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">LONGBLOB</td>
+<td style="text-align:left">0-4 294 967 295 bytes</td>
+<td style="text-align:left">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">LONGTEXT</td>
+<td style="text-align:left">0-4 294 967 295 bytes</td>
+<td style="text-align:left">极大文本数据</td>
+</tr>
+</tbody>
+</table>
+<p><span id="ddl"><a href="#head">返回快速导航</a></span></p>
+</li>
+<li>
+<p>DDL语句示例一：对数据表的管理操作以及对字段的增删改操作（在Navicat中新建查询输入SQL语句或在命令行中输入SQL语句）</p>
+<pre><code class="language-mysql">create database test;
+use test;
+# 创建一张拥有一个int类型的t1字段的test_int数据表
+# 默认为有符号
+# 多个字段用英文逗号,隔开
+create table test_int(
+	t1 int
+);
+# 这里的desc作用是查看数据表的结构信息
+desc test_int;
+# 增加一条t1字段值为-11111的记录
+insert into test_int values (-11111); # 默认有符号
+
+# 增加一个t2无符号字段
+alter table test_int add column t2 int unsigned;
+# 这时候增加一条t2字段值为负数的记录,就会出现out of range的错误
+insert into test_int (t2) value (-1111); # 报错
+# 修改t2字段类型
+alter table test_int modify column t2 int;
+# 删除t2字段
+alter table test_int drop column t2;
+
+# 删除test_int数据表
+drop table if exists test_int;
+
+create table test_int(
+	t1 int,
+    t2 int unsigned
+);
+
+select * from test_int;
+</code></pre>
+</li>
+<li>
+<p>示例二：对数据库的管理操作</p>
+<pre><code class="language-mysql">语法 create database [if not exists] 数据库名; #[]中的内容选填
+    drop database [if exists] 数据库名;
+# 创建数据库book
+create database book;
+# 更改数据库的字符集
+alter database book character set utf8;
+# 查看字符集
+show create database book;
+# 删除数据库(判断该数据库是否存在,存在则进行删除)
+drop database if exists book;
+</code></pre>
+</li>
+<li>
+<p>示例三：对数据表结构的操作</p>
+<pre><code class="language-mysql">create table books(
+	id int,
+    name varchar(20),
+    price double,
+    author varchar(20),
+    publish_date datetime
+);
+desc books;
+# 表的修改
+# alter table 数据表名 add/drop/modify/change column ...
+# 修改字段名publish_date为date
+alter table books change column publish_date date datetime;
+# 修改字段的类型或约束
+alter table books modify column date timestamp;
+
+# 关于alter中change和modify的使用区别
+# change的修改范围大于modify,change一般用于修改字段名
+# modify一般用于修改数据类型或约束,但modify不能修改字段名
+
+# 添加新的字段inventory,添加字段需要指明数据类型
+alter table books add column inventory int;
+# 删除字段inventory,删除字段只需要提供字段名
+alter table books drop column inventory;
+# 修改数据表名
+alter table books rename to works;
+desc works;
+</code></pre>
+</li>
+<li>
+<p>示例四：复制数据表</p>
+<pre><code class="language-mysql"># 增加记录
+insert into works values
+(1,'《java》',132.9,'詹姆斯·高斯林','2001-12-01'),
+(2,'《linux》',156.9,'linus','1999-01-01');
+
+# 仅复制数据表的结构
+create table copy like works;
+# 复制结构和数据
+create table clone select * from works;
+# 复制部分结构
+create table remake select id,name from works;
+# 仅复制部分字段,利用where进行条件判断,恒为0则只保留字段
+create table redo select id,name from works where 0;
+</code></pre>
+</li>
+</ul>
+<h5 id="3-DML数据操作语言的使用">3.DML数据操作语言的使用</h5>
+<p><span id="dml"><a href="#head">返回快速导航</a></span></p>
+<ul>
+<li>
+<p><strong>insert语句</strong></p>
+<pre><code class="language-mysql"># 语法
+# insert into 数据表名(字段名1,字段名2,...) values (字段值1,字段值2,...);
+create table product(
+	id int,
+	name varchar(20),
+	price double
+);
+
+# 在product表中增加一条记录
+insert into product(id,name,price) values (1,'phone',500.0);
+# 在product表中指定的字段增加记录
+insert into product(id,price) values (2,399.9);
+
+select * from product;
+
+# 默认给全部字段增加记录
+# insert into 数据表名 values (字段值1,字段值2,...);
+
+insert into product values (3,'mac',21499.9);
+select * from product;
+
+# 批量增加记录
+# insert into 数据表名 values (字段值1,字段值2,...),(字段值1,字段值2,...);
+
+insert into product values (4,'a',1.1),(5,'b',2.2),(6,'c',3.3);
+select * from product;
+</code></pre>
+<p>注意字段名和字段值的类型对应，以及日期时间、字符字符串类型数据需要加上引号（单双引号均可）</p>
+</li>
+<li>
+<p><strong>update语句</strong></p>
+<pre><code class="language-mysql"># 语法
+#update 数据表名 set 字段1 = 值1,字段2 = 值2,...[where 条件];
+
+# 修改phone的price为9999
+update product set price = 9999 where name='phone';
+select * from product;
+
+# 修改mac的price为39999.9,id为0
+update product set price = 39999.9,id=0 where name='mac';
+
+# 修改id为2记录的name为switch
+update product set name = 'switch' where id=2;
+</code></pre>
+<p>注意一般情况下update语句中不能缺少条件，否则会修改所有数据。</p>
+</li>
+<li>
+<p><strong>delete语句</strong></p>
+<pre><code class="language-mysql"># 语法
+# delete from 数据表名 [where 条件];
+
+# 删除product表中的switch数据
+delete from product where name='switch';
+
+# 删除product表中price为39999.9的数据
+delete from product where price=39999.9;
+
+select * from product;
+</code></pre>
+<p>注意delete语句中必须加上条件限制，否则所有的数据将会被删除。</p>
+<p>基本update和delete都要配合where来使用，否则和Linux系统中<code>rm -rf /</code>命令是差不多的后果。</p>
+</li>
+</ul>
+<h5 id="4-DQL数据查询语言的使用">4.DQL数据查询语言的使用</h5>
+<p>​	<span id="dql"><a href="#head">返回快速导航</a></span></p>
+<ul>
+<li>
+<p>示例</p>
+<pre><code class="language-mysql"># 语法
+# select 字段名 from 数据表名;
+
+# 单独查询name字段
+select name from product;
+# 查询多个字段
+select id,name from product;
+# 查询所有字段
+select * from product;
+# 或者把*替换成数据表中所有的字段名
+
+# as关键字取别名,不改变原有数据,改变的是显示的内容,as关键字可省略
+select name as product_name from product;
+
+# 别名中有空格,使用单引号括住别名
+select name 'product name' from product;
+</code></pre>
+</li>
+</ul>
+<h5 id="5-SQL运算符及条件查询">5.SQL运算符及条件查询</h5>
+<ol>
+<li>
+<p>算术运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center"><strong>说  明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>+</strong></td>
+<td style="text-align:center"><strong>加运算，求两个数或表达式相加的和，如6+8</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>-</strong></td>
+<td style="text-align:center"><strong>减运算，求两个数或表达式相减的差</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">*****</td>
+<td style="text-align:center"><strong>乘运算，求两个数或表达式相乘的积</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>/</strong></td>
+<td style="text-align:center"><strong>除运算，求两个数或表达式相除的商，如5/3的值为1</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>%</strong></td>
+<td style="text-align:center"><strong>取模运算，求两个数或表达式相除的余数，如：5%3的值为2</strong></td>
+</tr>
+</tbody>
+</table>
+<p>SQL语句也可以使用数学表达式，注意SQL没有java的自增自减等运算符。</p>
+</li>
+<li>
+<p>where条件查询运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">=</td>
+<td style="text-align:center">等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;&gt;或!=</td>
+<td style="text-align:center">不等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;</td>
+<td style="text-align:center">小于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;=</td>
+<td style="text-align:center">小于等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;</td>
+<td style="text-align:center">大于</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;=</td>
+<td style="text-align:center">大于等于</td>
+</tr>
+<tr>
+<td style="text-align:center">between…  and…</td>
+<td style="text-align:center">两个值之间，等同于  &gt;=   and   &lt;=</td>
+</tr>
+<tr>
+<td style="text-align:center">is  null</td>
+<td style="text-align:center">为null  （is  not  null不为空）</td>
+</tr>
+<tr>
+<td style="text-align:center">and</td>
+<td style="text-align:center">并且</td>
+</tr>
+<tr>
+<td style="text-align:center">or</td>
+<td style="text-align:center">或者</td>
+</tr>
+<tr>
+<td style="text-align:center">in</td>
+<td style="text-align:center">包含，相当于多个or（not in不在这个范围中）</td>
+</tr>
+<tr>
+<td style="text-align:center">not</td>
+<td style="text-align:center">not可以取非，主要用在is  或  in中</td>
+</tr>
+<tr>
+<td style="text-align:center">like</td>
+<td style="text-align:center">like称为模糊查询，支持%或下划线匹配，%匹配任意多个字符，一个下划线值匹配一个字符</td>
+</tr>
+</tbody>
+</table>
+<p><span id="ysf"><a href="#head">返回快速导航</a></span></p>
+</li>
+<li>
+<p>示例</p>
+<pre><code class="language-mysql">create database if not exists task;
+use task;
+create table if not exists coder(
+	id int,
+    name varchar(20),
+    score int,
+    grade varchar(10),
+    project int
+);
+insert into coder values
+(1,'Mike',100,'A',1),
+(2,'Jhon',96,'A',2),
+(3,'Dram',60,'D',null),
+(4,'Lambda',100,'A',null),
+(5,'LuBen',89,'B',3),
+(6,'K',75,'C',null),
+(7,'Z',88,'C',null),
+(8,'L',75,'B',null);
+select * from coder;
+
+# 查询coder数据表中score等于100的name和id记录
+select name,id from coder where score=100;
+
+# 查询coder数据表中grade不等于A的name和id记录
+select name,id from coder where grade != 'A';
+select name,id from coder where grade &lt;&gt; 'A';
+
+# 查询coder数据表中score小于89的name和id记录
+select name,id from coder where score &lt; 89;
+
+# 查询coder数据表中score小于等于89的name和id记录
+select name,id from coder where score &lt;= 89;
+
+# 查询coder数据表中score大于75的name和id记录
+select name,id from coder where score &gt; 75;
+
+# 查询coder数据表中score大于等于75的name和id记录
+select name,id from coder where score &gt;= 75;
+
+# 查询coder数据表中score在75和90之间的name和id记录
+select name,id from coder where score&gt;=75 and score&lt;=90;
+select name,id from coder where score between 75 and 90;
+# between 较小值 and 较大值  闭区间
+
+# 查询coder数据表中project为null的记录
+select * from coder where project is null;
+ 
+# 查询coder数据表中project不为null的记录
+select * from coder where project is not null;
+ 
+# 查询coder数据表中grade为A且score为100的记录
+select * from coder where grade='A' and score=100;
+ 
+# 查询coder数据表中score为100或project为3的记录
+select * from coder where score=100 or project=3;
+ 
+# and和or同时使用时,and优先级高于or,要使or先执行,则需用()括住or关联的条件
+# 查询coder数据表中grade为A且project为1 和 score大于74的记录
+select * from coder where grade='A' and project=1 or score &gt; 74;
+# 查询coder数据表中project为1或score大于74 且grade为A的记录
+select * from coder where grade='A' and (project=1 or score &gt; 74);
+
+# in关键字相当于多个or,但in无法关联数值范围的条件,只能关联一个具体的数值条件
+# 查询coder数据表中score为100或96的记录
+select * from coder where score=100 or score=96;
+select * from coder where score in(100,96); # 这里表示两个数值
+
+# 查询coder数据表中project不为1且不为3的记录
+select * from coder where project&lt;&gt;1 and project&lt;&gt;3;
+select * from coder where project not in(3,1);
+
+# 模糊查询
+# like关键字,匹配符%和_
+# %匹配任意多个字符,_匹配任意一个字符
+# 转义字符\,用于处理包含%和_这两个特殊符号的记录
+
+# 查询coder数据表中以e结尾的name记录
+select name from coder where name like '%e';
+# 查询coder数据表中以L开头的name记录
+select name from coder where name like 'L%';
+# 查询coder数据表中包含u的name记录
+select name from coder where name like '%u%';
+# 查询coder数据表中第二个字母为h的name记录
+select name from coder where name like '_h%';
+</code></pre>
+</li>
+</ol>
+<h5 id="6-排序">6.排序</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">关键字</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">order by</td>
+<td style="text-align:center">排序</td>
+</tr>
+<tr>
+<td style="text-align:center">desc</td>
+<td style="text-align:center">降序</td>
+</tr>
+<tr>
+<td style="text-align:center">asc</td>
+<td style="text-align:center">升序</td>
+</tr>
+</tbody>
+</table>
+<p><span id="px"><a href="#head">返回快速导航</a></span></p>
+<pre><code class="language-mysql"># 对coder数据表中的score进行排序,默认升序
+select name,score from coder order by score;
+# 指定降序,这里的desc作用是指定降序排序
+select name,score from coder order by score desc;
+# 指定升序
+select name,score from coder order by score asc;
+
+# 多字段排序,第一字段相同时,根据第二字段排序
+# 根据score升序排序,score相同则根据name升序排序
+select name,score from coder order by score asc,name asc;
+
+# 不推荐写法
+select * from coder order by 1; # 这里的1表示第一个字段id
+# 这种写法很容易因为字段顺序的改变而出错
+</code></pre>
+<h5 id="7-聚合函数">7.聚合函数</h5>
+<p><span id="juhe"><a href="#head">返回快速导航</a></span></p>
+<p><strong>多行数据经聚合函数处理之后的结果只有一行</strong></p>
+<p><strong>聚合函数分类</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数名</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">count(字段名)</td>
+<td style="text-align:center">统计数量(一般选用不为null的列)</td>
+</tr>
+<tr>
+<td style="text-align:center">max(字段名)</td>
+<td style="text-align:center">最大值</td>
+</tr>
+<tr>
+<td style="text-align:center">min(字段名)</td>
+<td style="text-align:center">最小值</td>
+</tr>
+<tr>
+<td style="text-align:center">sum(字段名)</td>
+<td style="text-align:center">求和</td>
+</tr>
+<tr>
+<td style="text-align:center">avg(字段名)</td>
+<td style="text-align:center">平均值</td>
+</tr>
+</tbody>
+</table>
+<p>注意：聚合函数需要配合分组来使用，先分组再用聚合函数处理。</p>
+<p>如果不进行分组，则默认整张数据表为一组。</p>
+<p>示例：</p>
+<pre><code class="language-mysql"># 找出coder数据表中score字段的最大值记录
+select max(score) from coder;
+# 找出coder数据表中score字段的最小值记录
+select min(score) from coder;
+# 计算score字段所有记录的总和
+select sum(score) from coder;
+# 计算score字段所有记录的平均值
+select avg(score) from coder;
+# 计算记录总条数,可以用任意非空字段做参数
+select count(name) from coder;
+</code></pre>
+<p>注意：</p>
+<ol>
+<li>聚合函数会自动忽略指定字段值为null的记录</li>
+<li>在count(*)情况下，每一行数据中只要有一个字段值不为null，则该数据就会被count函数统计进去</li>
+<li>聚合函数也称分组函数，不能直接在<strong>where子句</strong>中使用</li>
+<li>聚合函数之间可以相互组合使用</li>
+</ol>
+<h5 id="8-分组查询">8.分组查询</h5>
+<p><span id="fz"><a href="#head">返回快速导航</a></span></p>
+<p><strong>group by关键字</strong></p>
+<p>格式：select 字段 from 数据表 where 条件 group by 分组依据字段 order by 排序依据字段 排序方式</p>
+<p>执行优先级：from→where→group by→select→order by</p>
+<p>由于where的优先级高于group by，因此聚合函数无法在where子句中使用。</p>
+<p>示例：</p>
+<pre><code class="language-mysql"># 计算coder数据表中grade各组的score总和
+select grade,sum(score) from coder group by grade;
+
+# 规范:使用了group by的语句,select后面的字段只能用作为分组依据的字段及聚合函数,不允许使用其他字段,否则即使不报错,数据结果也会存在问题
+
+# having关键字对group by之后的数据进行处理
+# 不同于where,having专门与group by一起使用,而不能单独使用
+
+# 找出coder数据表各grade组中score平均值大于80的记录
+select grade,avg(score) from coder group by grade having avg(score)&gt;80;
+</code></pre>
+]]></content>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MarkDown进阶:表情、图标</title>
     <url>/2022/09/04/MarkDownPro-face%E3%80%81icon/</url>
     <content><![CDATA[<h1>markdown-emoji</h1>
@@ -2170,804 +2929,6 @@ select * from origin;
       </tags>
   </entry>
   <entry>
-    <title>RSS订阅的使用以及优势</title>
-    <url>/2022/09/04/RSS/</url>
-    <content><![CDATA[<h3 id="RSS-Really-Simple-Syndication-简易信息聚合">RSS(Really Simple Syndication)简易信息聚合</h3>
-<h4 id="定义">定义</h4>
-<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
-<h4 id="特点">特点</h4>
-<ul>
-<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
-<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
-<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
-<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
-</ul>
-<h4 id="客户端">客户端</h4>
-<p>windows平台这里推荐微软商店的Fluent Reader<a href="https://apps.microsoft.com/store/detail/9P71FC94LRH8">官网链接</a></p>
-]]></content>
-      <tags>
-        <tag>RSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MySQL基础</title>
-    <url>/2022/08/21/MySQL-Base/</url>
-    <content><![CDATA[<h3 id="MySQL基础">MySQL基础</h3>
-<hr>
-<h4 id="span-id-head-快速导航-span"><span id="head">快速导航</span></h4>
-<p>提醒：Typora内无法进行快速导航跳转建议用Typora自带的功能导出为html文件；另外各个示例之间有一定数据关联性，建议先把预先准备的测试数据代码执行好。 <span id="more"></span></p>
-<p><a href="#ddl">DDL</a></p>
-<p><a href="#dml">DML</a></p>
-<p><a href="#dql">DQL</a></p>
-<p><a href="#ysf">条件查询</a></p>
-<p><a href="#px">排序</a></p>
-<p><a href="#juhe">聚合函数</a></p>
-<p><a href="#fz"> 分组查询</a></p>
-<h4 id="一、数据库管理系统">一、数据库管理系统</h4>
-<ol>
-<li>数据库管理系统：DataBaseManagement，简称DBMS。</li>
-<li>数据库管理系统是专门用来管理数据库中的数据，数据库管理系统可以对数据库中的数据进行增删改查的操作。</li>
-<li>常见的数据库管理系统：MySQL，Oracle，SqlServer，MS，DB2等。</li>
-</ol>
-<h4 id="二、SQL">二、SQL</h4>
-<ol>
-<li>SQL是一种结构化查询语言。</li>
-<li>通过SQL可以实现对数据库中数据的操作。</li>
-<li>SQL是一套标准，基本能在大部分数据库管理系统中使用。</li>
-</ol>
-<h4 id="三、工作流程">三、工作流程</h4>
-<p>​	数据库管理系统SQL→执行SQL→操作数据库</p>
-<p>​	先安装数据库管理系统MySQL，然后编写SQL语句，之后DBMS对SQL语句	进行执行来完成对数据库的数据管理。</p>
-<h4 id="四、准备工作">四、准备工作</h4>
-<ol>
-<li>
-<p>MySQL官网[下载]( <a href="https://downloads.mysql.com/archives/installer/">MySQL :: Download MySQL Installer (Archived Versions)</a> )，Windows推荐下载<a href="https://downloads.mysql.com/archives/get/p/25/file/mysql-installer-community-5.7.30.0.msi">Mysql5.7社区版本</a>，使用较多的版本。简易配置推荐Server only，也可以选择Custom自定义安装路径，后面填写好root用户的密码即可。其余默认下一步。MySQL环境变量配置可配可不配，需要命令行运行MySQL的相关命令可参考jdk的环境变量配置过程配置好。</p>
-<pre><code class="language-bash"># 基本命令
-mysql -uroot -p  //登录MySQL,-p后面需要输入之前设置的密码
-# 登录MySQL之后所有命令结尾必须要加英文分号;
-mysql&gt; exit;   //退出MySQL
-mysql&gt; mysqladmin -uroot newpassword;  //root密码为空时,设置新密码
-mysql&gt; mysqladmin -uroot -pxxx password yyy; //xxx为旧密码,yyy为新密码
-mysql&gt; set password for 用户名@localhost = password('新密码');  //修改密码的另一种方式,用户名一般是root
-
-mysql&gt; show databases; //查看全部的数据库
-mysql&gt; create database 数据库名; //创建数据库
-mysql&gt; use 数据库名; //指定需要操作的数据库
-mysql&gt; show tables; //展示指定数据库里面所有的数据表
-
-# 后面的数据操作相关命令可以直接套用navicat中编写的SQL语句,记得结尾加分号;
-</code></pre>
-</li>
-<li>
-<p>数据库管理工具Navicat[下载]( <a href="https://www.navicat.com/en/download/navicat-for-mysql">Navicat | Download Navicat for MySQL 14-day trial versions for Windows, macOS and Linux</a> )，原生的MySQL数据库管理系统缺乏管理工具比较难以使用，通过第三方数据库管理工具可以更方便地管理数据库。</p>
-</li>
-<li>
-<p>Navicat连接MySQL时需要确保MySQL服务开启，一般安装时默认开机自启动。<strong>以管理员身份运行</strong>命令提示符，输入命令。</p>
-<pre><code class="language-bash">net start mysql57  //运行MySQL服务
-</code></pre>
-<p>MySQL服务的端口号为3306，输入用户名和密码后，完成连接。</p>
-</li>
-</ol>
-<h4 id="五、正式开始">五、正式开始</h4>
-<h5 id="1-SQL语句分类">1.SQL语句分类</h5>
-<ul>
-<li>DQL:数据查询语言，一般以<strong>select</strong>关键字开头，查询数据</li>
-<li>DML:数据操作语言，<strong>insert</strong>、<strong>delete</strong>、<strong>update</strong>关键字，<strong>增删改数据表中的数据</strong></li>
-<li>DDL:数据定义语言，<strong>create</strong>、<strong>drop</strong>、<strong>alter</strong>关键字，<strong>增删改数据表的结构</strong></li>
-<li>TCL:事务控制语言，<strong>commit</strong>、<strong>rollback</strong>关键字，事务回滚和事务提交</li>
-<li>DCL:数据控制语言，<strong>grant</strong>、<strong>revoke</strong>关键字，定义访问权限和安全级别及创建用户</li>
-</ul>
-<h5 id="2-DDL数据定义语言的使用">2.DDL数据定义语言的使用</h5>
-<ul>
-<li>
-<p>首先明确MySQL中的数据类型大致分为：**数值、日期/时间、字符串(字符)**三类。</p>
-</li>
-<li>
-<p>数值类型</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">大小</th>
-<th style="text-align:center">范围（有符号）</th>
-<th style="text-align:center">范围（无符号）</th>
-<th style="text-align:center">用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">TINYINT</td>
-<td style="text-align:center">1 Bytes</td>
-<td style="text-align:center">(-128,127)</td>
-<td style="text-align:center">(0,255)</td>
-<td style="text-align:center">小整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">SMALLINT</td>
-<td style="text-align:center">2 Bytes</td>
-<td style="text-align:center">(-32768,32767)</td>
-<td style="text-align:center">(0,65535)</td>
-<td style="text-align:center">大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">MEDIUMINT</td>
-<td style="text-align:center">3 Bytes</td>
-<td style="text-align:center">(-8388608,8388607)</td>
-<td style="text-align:center">(0,16777215)</td>
-<td style="text-align:center">大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">INT或INTEGER</td>
-<td style="text-align:center">4 Bytes</td>
-<td style="text-align:center">(-2147483648,2147483647)</td>
-<td style="text-align:center">(0,4294967295)</td>
-<td style="text-align:center">大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">BIGINT</td>
-<td style="text-align:center">8 Bytes</td>
-<td style="text-align:center">(-2<sup>63,2</sup>63-1)</td>
-<td style="text-align:center">(0,2^64-1)</td>
-<td style="text-align:center">极大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">FLOAT</td>
-<td style="text-align:center">4 Bytes</td>
-<td style="text-align:center">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0， (1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
-<td style="text-align:center">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
-<td style="text-align:center">单精度 浮点数值</td>
-</tr>
-<tr>
-<td style="text-align:center">DOUBLE</td>
-<td style="text-align:center">8 Bytes</td>
-<td style="text-align:center">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
-<td style="text-align:center">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
-<td style="text-align:center">双精度 浮点数值</td>
-</tr>
-<tr>
-<td style="text-align:center">DECIMAL</td>
-<td style="text-align:center">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
-<td style="text-align:center">依赖于M和D的值</td>
-<td style="text-align:center">依赖于M和D的值</td>
-<td style="text-align:center">小数值</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>日期和时间类型</p>
-<p>TIMESTAMP类型有专有的自动更新特性，将在后面描述。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">大小 (Bytes)</th>
-<th style="text-align:center">范围</th>
-<th style="text-align:center">格式</th>
-<th style="text-align:center">用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">DATE</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">1000-01-01/9999-12-31</td>
-<td style="text-align:center">YYYY-MM-DD</td>
-<td style="text-align:center">日期值</td>
-</tr>
-<tr>
-<td style="text-align:center">TIME</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">‘-838:59:59’/‘838:59:59’</td>
-<td style="text-align:center">HH:MM:SS</td>
-<td style="text-align:center">时间值或持续时间</td>
-</tr>
-<tr>
-<td style="text-align:center">YEAR</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1901/2155</td>
-<td style="text-align:center">YYYY</td>
-<td style="text-align:center">年份值</td>
-</tr>
-<tr>
-<td style="text-align:center">DATETIME</td>
-<td style="text-align:center">8</td>
-<td style="text-align:center">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
-<td style="text-align:center">YYYY-MM-DD HH:MM:SS</td>
-<td style="text-align:center">混合日期和时间值</td>
-</tr>
-<tr>
-<td style="text-align:center">TIMESTAMP</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">1970-01-01 00:00:00/2038结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
-<td style="text-align:center">YYYYMMDD HHMMSS</td>
-<td style="text-align:center">混合日期和时间值，时间戳</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>字符串类型</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">类型</th>
-<th style="text-align:left">大小</th>
-<th style="text-align:left">用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">CHAR</td>
-<td style="text-align:left">0-255 bytes</td>
-<td style="text-align:left">定长字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">VARCHAR</td>
-<td style="text-align:left">0-65535 bytes</td>
-<td style="text-align:left">变长字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">TINYBLOB</td>
-<td style="text-align:left">0-255 bytes</td>
-<td style="text-align:left">不超过 255 个字符的二进制字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">TINYTEXT</td>
-<td style="text-align:left">0-255 bytes</td>
-<td style="text-align:left">短文本字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">BLOB</td>
-<td style="text-align:left">0-65 535 bytes</td>
-<td style="text-align:left">二进制形式的长文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">TEXT</td>
-<td style="text-align:left">0-65 535 bytes</td>
-<td style="text-align:left">长文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">MEDIUMBLOB</td>
-<td style="text-align:left">0-16 777 215 bytes</td>
-<td style="text-align:left">二进制形式的中等长度文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">MEDIUMTEXT</td>
-<td style="text-align:left">0-16 777 215 bytes</td>
-<td style="text-align:left">中等长度文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">LONGBLOB</td>
-<td style="text-align:left">0-4 294 967 295 bytes</td>
-<td style="text-align:left">二进制形式的极大文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">LONGTEXT</td>
-<td style="text-align:left">0-4 294 967 295 bytes</td>
-<td style="text-align:left">极大文本数据</td>
-</tr>
-</tbody>
-</table>
-<p><span id="ddl"><a href="#head">返回快速导航</a></span></p>
-</li>
-<li>
-<p>DDL语句示例一：对数据表的管理操作以及对字段的增删改操作（在Navicat中新建查询输入SQL语句或在命令行中输入SQL语句）</p>
-<pre><code class="language-mysql">create database test;
-use test;
-# 创建一张拥有一个int类型的t1字段的test_int数据表
-# 默认为有符号
-# 多个字段用英文逗号,隔开
-create table test_int(
-	t1 int
-);
-# 这里的desc作用是查看数据表的结构信息
-desc test_int;
-# 增加一条t1字段值为-11111的记录
-insert into test_int values (-11111); # 默认有符号
-
-# 增加一个t2无符号字段
-alter table test_int add column t2 int unsigned;
-# 这时候增加一条t2字段值为负数的记录,就会出现out of range的错误
-insert into test_int (t2) value (-1111); # 报错
-# 修改t2字段类型
-alter table test_int modify column t2 int;
-# 删除t2字段
-alter table test_int drop column t2;
-
-# 删除test_int数据表
-drop table if exists test_int;
-
-create table test_int(
-	t1 int,
-    t2 int unsigned
-);
-
-select * from test_int;
-</code></pre>
-</li>
-<li>
-<p>示例二：对数据库的管理操作</p>
-<pre><code class="language-mysql">语法 create database [if not exists] 数据库名; #[]中的内容选填
-    drop database [if exists] 数据库名;
-# 创建数据库book
-create database book;
-# 更改数据库的字符集
-alter database book character set utf8;
-# 查看字符集
-show create database book;
-# 删除数据库(判断该数据库是否存在,存在则进行删除)
-drop database if exists book;
-</code></pre>
-</li>
-<li>
-<p>示例三：对数据表结构的操作</p>
-<pre><code class="language-mysql">create table books(
-	id int,
-    name varchar(20),
-    price double,
-    author varchar(20),
-    publish_date datetime
-);
-desc books;
-# 表的修改
-# alter table 数据表名 add/drop/modify/change column ...
-# 修改字段名publish_date为date
-alter table books change column publish_date date datetime;
-# 修改字段的类型或约束
-alter table books modify column date timestamp;
-
-# 关于alter中change和modify的使用区别
-# change的修改范围大于modify,change一般用于修改字段名
-# modify一般用于修改数据类型或约束,但modify不能修改字段名
-
-# 添加新的字段inventory,添加字段需要指明数据类型
-alter table books add column inventory int;
-# 删除字段inventory,删除字段只需要提供字段名
-alter table books drop column inventory;
-# 修改数据表名
-alter table books rename to works;
-desc works;
-</code></pre>
-</li>
-<li>
-<p>示例四：复制数据表</p>
-<pre><code class="language-mysql"># 增加记录
-insert into works values
-(1,'《java》',132.9,'詹姆斯·高斯林','2001-12-01'),
-(2,'《linux》',156.9,'linus','1999-01-01');
-
-# 仅复制数据表的结构
-create table copy like works;
-# 复制结构和数据
-create table clone select * from works;
-# 复制部分结构
-create table remake select id,name from works;
-# 仅复制部分字段,利用where进行条件判断,恒为0则只保留字段
-create table redo select id,name from works where 0;
-</code></pre>
-</li>
-</ul>
-<h5 id="3-DML数据操作语言的使用">3.DML数据操作语言的使用</h5>
-<p><span id="dml"><a href="#head">返回快速导航</a></span></p>
-<ul>
-<li>
-<p><strong>insert语句</strong></p>
-<pre><code class="language-mysql"># 语法
-# insert into 数据表名(字段名1,字段名2,...) values (字段值1,字段值2,...);
-create table product(
-	id int,
-	name varchar(20),
-	price double
-);
-
-# 在product表中增加一条记录
-insert into product(id,name,price) values (1,'phone',500.0);
-# 在product表中指定的字段增加记录
-insert into product(id,price) values (2,399.9);
-
-select * from product;
-
-# 默认给全部字段增加记录
-# insert into 数据表名 values (字段值1,字段值2,...);
-
-insert into product values (3,'mac',21499.9);
-select * from product;
-
-# 批量增加记录
-# insert into 数据表名 values (字段值1,字段值2,...),(字段值1,字段值2,...);
-
-insert into product values (4,'a',1.1),(5,'b',2.2),(6,'c',3.3);
-select * from product;
-</code></pre>
-<p>注意字段名和字段值的类型对应，以及日期时间、字符字符串类型数据需要加上引号（单双引号均可）</p>
-</li>
-<li>
-<p><strong>update语句</strong></p>
-<pre><code class="language-mysql"># 语法
-#update 数据表名 set 字段1 = 值1,字段2 = 值2,...[where 条件];
-
-# 修改phone的price为9999
-update product set price = 9999 where name='phone';
-select * from product;
-
-# 修改mac的price为39999.9,id为0
-update product set price = 39999.9,id=0 where name='mac';
-
-# 修改id为2记录的name为switch
-update product set name = 'switch' where id=2;
-</code></pre>
-<p>注意一般情况下update语句中不能缺少条件，否则会修改所有数据。</p>
-</li>
-<li>
-<p><strong>delete语句</strong></p>
-<pre><code class="language-mysql"># 语法
-# delete from 数据表名 [where 条件];
-
-# 删除product表中的switch数据
-delete from product where name='switch';
-
-# 删除product表中price为39999.9的数据
-delete from product where price=39999.9;
-
-select * from product;
-</code></pre>
-<p>注意delete语句中必须加上条件限制，否则所有的数据将会被删除。</p>
-<p>基本update和delete都要配合where来使用，否则和Linux系统中<code>rm -rf /</code>命令是差不多的后果。</p>
-</li>
-</ul>
-<h5 id="4-DQL数据查询语言的使用">4.DQL数据查询语言的使用</h5>
-<p>​	<span id="dql"><a href="#head">返回快速导航</a></span></p>
-<ul>
-<li>
-<p>示例</p>
-<pre><code class="language-mysql"># 语法
-# select 字段名 from 数据表名;
-
-# 单独查询name字段
-select name from product;
-# 查询多个字段
-select id,name from product;
-# 查询所有字段
-select * from product;
-# 或者把*替换成数据表中所有的字段名
-
-# as关键字取别名,不改变原有数据,改变的是显示的内容,as关键字可省略
-select name as product_name from product;
-
-# 别名中有空格,使用单引号括住别名
-select name 'product name' from product;
-</code></pre>
-</li>
-</ul>
-<h5 id="5-SQL运算符及条件查询">5.SQL运算符及条件查询</h5>
-<ol>
-<li>
-<p>算术运算符</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">运算符</th>
-<th style="text-align:center"><strong>说  明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><strong>+</strong></td>
-<td style="text-align:center"><strong>加运算，求两个数或表达式相加的和，如6+8</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>-</strong></td>
-<td style="text-align:center"><strong>减运算，求两个数或表达式相减的差</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">*****</td>
-<td style="text-align:center"><strong>乘运算，求两个数或表达式相乘的积</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>/</strong></td>
-<td style="text-align:center"><strong>除运算，求两个数或表达式相除的商，如5/3的值为1</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>%</strong></td>
-<td style="text-align:center"><strong>取模运算，求两个数或表达式相除的余数，如：5%3的值为2</strong></td>
-</tr>
-</tbody>
-</table>
-<p>SQL语句也可以使用数学表达式，注意SQL没有java的自增自减等运算符。</p>
-</li>
-<li>
-<p>where条件查询运算符</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">运算符</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">=</td>
-<td style="text-align:center">等于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;&gt;或!=</td>
-<td style="text-align:center">不等于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;</td>
-<td style="text-align:center">小于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;=</td>
-<td style="text-align:center">小于等于</td>
-</tr>
-<tr>
-<td style="text-align:center">&gt;</td>
-<td style="text-align:center">大于</td>
-</tr>
-<tr>
-<td style="text-align:center">&gt;=</td>
-<td style="text-align:center">大于等于</td>
-</tr>
-<tr>
-<td style="text-align:center">between…  and…</td>
-<td style="text-align:center">两个值之间，等同于  &gt;=   and   &lt;=</td>
-</tr>
-<tr>
-<td style="text-align:center">is  null</td>
-<td style="text-align:center">为null  （is  not  null不为空）</td>
-</tr>
-<tr>
-<td style="text-align:center">and</td>
-<td style="text-align:center">并且</td>
-</tr>
-<tr>
-<td style="text-align:center">or</td>
-<td style="text-align:center">或者</td>
-</tr>
-<tr>
-<td style="text-align:center">in</td>
-<td style="text-align:center">包含，相当于多个or（not in不在这个范围中）</td>
-</tr>
-<tr>
-<td style="text-align:center">not</td>
-<td style="text-align:center">not可以取非，主要用在is  或  in中</td>
-</tr>
-<tr>
-<td style="text-align:center">like</td>
-<td style="text-align:center">like称为模糊查询，支持%或下划线匹配，%匹配任意多个字符，一个下划线值匹配一个字符</td>
-</tr>
-</tbody>
-</table>
-<p><span id="ysf"><a href="#head">返回快速导航</a></span></p>
-</li>
-<li>
-<p>示例</p>
-<pre><code class="language-mysql">create database if not exists task;
-use task;
-create table if not exists coder(
-	id int,
-    name varchar(20),
-    score int,
-    grade varchar(10),
-    project int
-);
-insert into coder values
-(1,'Mike',100,'A',1),
-(2,'Jhon',96,'A',2),
-(3,'Dram',60,'D',null),
-(4,'Lambda',100,'A',null),
-(5,'LuBen',89,'B',3),
-(6,'K',75,'C',null),
-(7,'Z',88,'C',null),
-(8,'L',75,'B',null);
-select * from coder;
-
-# 查询coder数据表中score等于100的name和id记录
-select name,id from coder where score=100;
-
-# 查询coder数据表中grade不等于A的name和id记录
-select name,id from coder where grade != 'A';
-select name,id from coder where grade &lt;&gt; 'A';
-
-# 查询coder数据表中score小于89的name和id记录
-select name,id from coder where score &lt; 89;
-
-# 查询coder数据表中score小于等于89的name和id记录
-select name,id from coder where score &lt;= 89;
-
-# 查询coder数据表中score大于75的name和id记录
-select name,id from coder where score &gt; 75;
-
-# 查询coder数据表中score大于等于75的name和id记录
-select name,id from coder where score &gt;= 75;
-
-# 查询coder数据表中score在75和90之间的name和id记录
-select name,id from coder where score&gt;=75 and score&lt;=90;
-select name,id from coder where score between 75 and 90;
-# between 较小值 and 较大值  闭区间
-
-# 查询coder数据表中project为null的记录
-select * from coder where project is null;
- 
-# 查询coder数据表中project不为null的记录
-select * from coder where project is not null;
- 
-# 查询coder数据表中grade为A且score为100的记录
-select * from coder where grade='A' and score=100;
- 
-# 查询coder数据表中score为100或project为3的记录
-select * from coder where score=100 or project=3;
- 
-# and和or同时使用时,and优先级高于or,要使or先执行,则需用()括住or关联的条件
-# 查询coder数据表中grade为A且project为1 和 score大于74的记录
-select * from coder where grade='A' and project=1 or score &gt; 74;
-# 查询coder数据表中project为1或score大于74 且grade为A的记录
-select * from coder where grade='A' and (project=1 or score &gt; 74);
-
-# in关键字相当于多个or,但in无法关联数值范围的条件,只能关联一个具体的数值条件
-# 查询coder数据表中score为100或96的记录
-select * from coder where score=100 or score=96;
-select * from coder where score in(100,96); # 这里表示两个数值
-
-# 查询coder数据表中project不为1且不为3的记录
-select * from coder where project&lt;&gt;1 and project&lt;&gt;3;
-select * from coder where project not in(3,1);
-
-# 模糊查询
-# like关键字,匹配符%和_
-# %匹配任意多个字符,_匹配任意一个字符
-# 转义字符\,用于处理包含%和_这两个特殊符号的记录
-
-# 查询coder数据表中以e结尾的name记录
-select name from coder where name like '%e';
-# 查询coder数据表中以L开头的name记录
-select name from coder where name like 'L%';
-# 查询coder数据表中包含u的name记录
-select name from coder where name like '%u%';
-# 查询coder数据表中第二个字母为h的name记录
-select name from coder where name like '_h%';
-</code></pre>
-</li>
-</ol>
-<h5 id="6-排序">6.排序</h5>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">关键字</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">order by</td>
-<td style="text-align:center">排序</td>
-</tr>
-<tr>
-<td style="text-align:center">desc</td>
-<td style="text-align:center">降序</td>
-</tr>
-<tr>
-<td style="text-align:center">asc</td>
-<td style="text-align:center">升序</td>
-</tr>
-</tbody>
-</table>
-<p><span id="px"><a href="#head">返回快速导航</a></span></p>
-<pre><code class="language-mysql"># 对coder数据表中的score进行排序,默认升序
-select name,score from coder order by score;
-# 指定降序,这里的desc作用是指定降序排序
-select name,score from coder order by score desc;
-# 指定升序
-select name,score from coder order by score asc;
-
-# 多字段排序,第一字段相同时,根据第二字段排序
-# 根据score升序排序,score相同则根据name升序排序
-select name,score from coder order by score asc,name asc;
-
-# 不推荐写法
-select * from coder order by 1; # 这里的1表示第一个字段id
-# 这种写法很容易因为字段顺序的改变而出错
-</code></pre>
-<h5 id="7-聚合函数">7.聚合函数</h5>
-<p><span id="juhe"><a href="#head">返回快速导航</a></span></p>
-<p><strong>多行数据经聚合函数处理之后的结果只有一行</strong></p>
-<p><strong>聚合函数分类</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">函数名</th>
-<th style="text-align:center">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">count(字段名)</td>
-<td style="text-align:center">统计数量(一般选用不为null的列)</td>
-</tr>
-<tr>
-<td style="text-align:center">max(字段名)</td>
-<td style="text-align:center">最大值</td>
-</tr>
-<tr>
-<td style="text-align:center">min(字段名)</td>
-<td style="text-align:center">最小值</td>
-</tr>
-<tr>
-<td style="text-align:center">sum(字段名)</td>
-<td style="text-align:center">求和</td>
-</tr>
-<tr>
-<td style="text-align:center">avg(字段名)</td>
-<td style="text-align:center">平均值</td>
-</tr>
-</tbody>
-</table>
-<p>注意：聚合函数需要配合分组来使用，先分组再用聚合函数处理。</p>
-<p>如果不进行分组，则默认整张数据表为一组。</p>
-<p>示例：</p>
-<pre><code class="language-mysql"># 找出coder数据表中score字段的最大值记录
-select max(score) from coder;
-# 找出coder数据表中score字段的最小值记录
-select min(score) from coder;
-# 计算score字段所有记录的总和
-select sum(score) from coder;
-# 计算score字段所有记录的平均值
-select avg(score) from coder;
-# 计算记录总条数,可以用任意非空字段做参数
-select count(name) from coder;
-</code></pre>
-<p>注意：</p>
-<ol>
-<li>聚合函数会自动忽略指定字段值为null的记录</li>
-<li>在count(*)情况下，每一行数据中只要有一个字段值不为null，则该数据就会被count函数统计进去</li>
-<li>聚合函数也称分组函数，不能直接在<strong>where子句</strong>中使用</li>
-<li>聚合函数之间可以相互组合使用</li>
-</ol>
-<h5 id="8-分组查询">8.分组查询</h5>
-<p><span id="fz"><a href="#head">返回快速导航</a></span></p>
-<p><strong>group by关键字</strong></p>
-<p>格式：select 字段 from 数据表 where 条件 group by 分组依据字段 order by 排序依据字段 排序方式</p>
-<p>执行优先级：from→where→group by→select→order by</p>
-<p>由于where的优先级高于group by，因此聚合函数无法在where子句中使用。</p>
-<p>示例：</p>
-<pre><code class="language-mysql"># 计算coder数据表中grade各组的score总和
-select grade,sum(score) from coder group by grade;
-
-# 规范:使用了group by的语句,select后面的字段只能用作为分组依据的字段及聚合函数,不允许使用其他字段,否则即使不报错,数据结果也会存在问题
-
-# having关键字对group by之后的数据进行处理
-# 不同于where,having专门与group by一起使用,而不能单独使用
-
-# 找出coder数据表各grade组中score平均值大于80的记录
-select grade,avg(score) from coder group by grade having avg(score)&gt;80;
-</code></pre>
-]]></content>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于yarn禁止在此系统上运行脚本</title>
-    <url>/2022/09/05/yarn-problem/</url>
-    <content><![CDATA[<h3 id="nodejs中使用yarn安装依赖失败">nodejs中使用yarn安装依赖失败</h3>
-<h4 id="错误原因">错误原因</h4>
-<p>windows默认执行策略禁止脚本<span id="more"></span></p>
-<h4 id="解决方法">解决方法</h4>
-<ol>
-<li>在电脑的开始菜单中，搜索<strong>PowerShell</strong>，并<strong>以管理员身份运行</strong></li>
-<li>在窗口输入命令<code>get-ExecutionPolicy</code>查看权限，如果返回值是<strong>Restricted</strong>，则表示当前是禁用状态</li>
-<li>在窗口输入命令<code>set-ExecutionPolicy</code>设置权限</li>
-<li>为<strong>ExecutionPolicy</strong>参数提供值<strong>RemoteSigned</strong>，后面输入<strong>A</strong>之后再回车（默认为否），开启所有脚本权限</li>
-<li>重新测试yarn命令</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>nodejs</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Redis基础</title>
     <url>/2022/09/14/Redis-Base/</url>
     <content><![CDATA[<h3 id="Redis基础">Redis基础</h3>
@@ -3214,6 +3175,26 @@ set name 5
       </tags>
   </entry>
   <entry>
+    <title>RSS订阅的使用以及优势</title>
+    <url>/2022/09/04/RSS/</url>
+    <content><![CDATA[<h3 id="RSS-Really-Simple-Syndication-简易信息聚合">RSS(Really Simple Syndication)简易信息聚合</h3>
+<h4 id="定义">定义</h4>
+<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
+<h4 id="特点">特点</h4>
+<ul>
+<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
+<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
+<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
+<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
+</ul>
+<h4 id="客户端">客户端</h4>
+<p>windows平台这里推荐微软商店的Fluent Reader<a href="https://apps.microsoft.com/store/detail/9P71FC94LRH8">官网链接</a></p>
+]]></content>
+      <tags>
+        <tag>RSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2022/08/21/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<span id="more"></span></p>
@@ -3235,6 +3216,530 @@ set name 5
 </code></pre>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>一封数字签名邮件</title>
+    <url>/2022/11/10/digital-signature/</url>
+    <content><![CDATA[<h3 id="使用outlook邮箱发送一封带有数字签名的邮件">使用outlook邮箱发送一封带有数字签名的邮件</h3>
+<p>Digital Signature(数字签名)<strong>是</strong>Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。<span id="more"></span></p>
+<p>数字签名是使用数字证书来验证签名者的身份, 并通过密码算法将签名者身份绑定到文档中来证明签名行为的不可否认, 已签名文档无需包含签名过程审计报告, 签名者的身份验证则由证书颁发机构(CA)或信任服务提供商(TSP)完成。</p>
+<h4 id="1-下载数字证书">1.下载数字证书</h4>
+<p>数字证书需要先到网站上申请下载, 这里提供了一个申请90天免费证书的网站 <a href="https://www.cersign.com/smime-email-certificates.html">证签安全电子邮件证书 - CerSign</a></p>
+<p>按照网站上提示完成申请以及邮箱验证即可。免费邮件证书大约几分钟后就会签发, 点击下载证书设置保护口令即可</p>
+<h4 id="2-在邮箱客户端中设置">2.在邮箱客户端中设置</h4>
+<p>outlook邮箱中导入数字证书: <strong>文件→选项→信任中心→电子邮件安全性</strong>, 然后设置加密以及数字签名。在默认设置中选择<strong>签名证书和加密证书</strong>(需要先找到之前下载好的证书文件双击运行并导入证书)</p>
+<h4 id="3-发送邮件进行测试">3.发送邮件进行测试</h4>
+<p>选择收件人(可以选择本地的另外一个邮箱)后输入邮件内容发送, 通过outlook客户端查看邮件内容会有一个额外的数字签名的图标, 点击该图标能够查看到发件人的数字证书信息。另外经过加密的邮件还会有一个🔒的图标, 在收件人拥有发件人的<strong>公钥</strong>时, 就能够进行解密获取正文内容。其他情况下, 则只有一个加密的smime.p7m文件(无法直接获取正文内容)</p>
+<h4 id="4-关于公钥和私钥的一些简单理解">4.关于公钥和私钥的一些简单理解</h4>
+<p>公钥是一种<strong>非对称加密算法</strong>, 一般都是公布给对方用于加密解密</p>
+<p>私钥是一种<strong>对称加密算法</strong>, 一般不对任何人公开, 同样可用于加密解密</p>
+<p>公钥和私钥是<strong>成对出现</strong>的, 且<strong>唯一对应</strong></p>
+<h5 id="思路1：确保邮件只能由特定的收件人读取">思路1：确保邮件只能由特定的收件人读取</h5>
+<p><strong>收件人的公钥</strong>提前就公布给所有发件人用于进行加密但不能进行解密, <strong>收件人的私钥</strong>则用于解密来自对应的公钥加密的邮件但不能进行加密(这也是一种非对称加密)</p>
+<h5 id="思路2：确认发件人的邮件未被篡改">思路2：确认发件人的邮件未被篡改</h5>
+<p><strong>发件人的公钥</strong>提前就公布给所有收件人用于进行<strong>解密</strong>, <strong>发件人的私钥</strong>则用于<strong>加密</strong>邮件</p>
+<p>具体流程：</p>
+<p>发件人使用自己的私钥先对邮件加密<strong>一个hash值</strong>, 再用来自收件人的公钥对<strong>内容及hash值</strong>二次加密, 然后发送给收件人</p>
+<p>收件人获取到了二次加密的邮件后, 先使用自己的私钥解密对应的公钥获取内容及<strong>加密的hash值</strong>, 再用来自收件人的公钥二次解密对应的私钥获取<strong>原始的hash值</strong>, 对内容进行hash计算, 如果计算的结果与之前hash值解密后的内容相同, 则说明内容未被篡改</p>
+<p>需要注意的是：公钥和私钥的用法不是固定的, 在收件人和发件人两种情景下, 它们的用法恰恰是相反的</p>
+]]></content>
+      <tags>
+        <tag>数字签名</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于yarn禁止在此系统上运行脚本</title>
+    <url>/2022/09/05/yarn-problem/</url>
+    <content><![CDATA[<h3 id="nodejs中使用yarn安装依赖失败">nodejs中使用yarn安装依赖失败</h3>
+<h4 id="错误原因">错误原因</h4>
+<p>windows默认执行策略禁止脚本<span id="more"></span></p>
+<h4 id="解决方法">解决方法</h4>
+<ol>
+<li>在电脑的开始菜单中，搜索<strong>PowerShell</strong>，并<strong>以管理员身份运行</strong></li>
+<li>在窗口输入命令<code>get-ExecutionPolicy</code>查看权限，如果返回值是<strong>Restricted</strong>，则表示当前是禁用状态</li>
+<li>在窗口输入命令<code>set-ExecutionPolicy</code>设置权限</li>
+<li>为<strong>ExecutionPolicy</strong>参数提供值<strong>RemoteSigned</strong>，后面输入<strong>A</strong>之后再回车（默认为否），开启所有脚本权限</li>
+<li>重新测试yarn命令</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux-base</title>
+    <url>/2022/11/17/linux-base/</url>
+    <content><![CDATA[<h3 id="关于Linux的通用操作">关于Linux的通用操作</h3>
+<p>基于Ubuntu22.04发行版的环境，本文整理了一些在Linux系统下基本通用的操作，使初学者能初步学会Linux系统的操作或使老用户重新回顾一下常用操作<span id="more"></span></p>
+<h4 id="参考文章-Linux-幕布-mubu-com-作者：时光＆逝">参考文章 <a href="https://mubu.com/doc/28TtabEpGV3">Linux - 幕布 (mubu.com) 作者：时光＆逝 </a></h4>
+<h4 id="准备工作">准备工作</h4>
+<p>远程连接工具<a href="https://www.xshell.com/zh/xshell/">XSHELL - NetSarang Website</a></p>
+<p>远程文件传输工具 <a href="https://www.xshell.com/zh/xftp/">XFTP - NetSarang Website</a></p>
+<p>配合XFTP可以较为直观地观察文件及目录的变化</p>
+<p>注：一些发行版可能需要手动安装部分命令。另外，在执行命令时<strong>请确认自己所处的当前目录</strong></p>
+<h4 id="提示">提示</h4>
+<p>一些命令可能需要在root权限下执行，或者在执行命令的前面都加上<code>sudo</code>的前缀，表示临时使用root权限执行这条命令</p>
+<p>如果忘记了root密码可以通过以下方法重新设置</p>
+<pre><code class="language-bash">sudo passwd # 进入密码设置
+# 输入当初安装时设置的非root普通用户密码
+# 输入新的root密码
+# 重复输入root密码
+su # 切换到root
+# 输入刚刚设置的root密码，就能切换到root用户
+</code></pre>
+<h4 id="vim文本编辑器">vim文本编辑器</h4>
+<p><strong>查看vim配置信息</strong></p>
+<pre><code class="language-bash">vim --version
+</code></pre>
+<p><strong>简易配置一下vim</strong></p>
+<p>用vim打开用户vimrc文件</p>
+<pre><code class="language-bash">vim $HOME/.vimrc
+</code></pre>
+<p>写入以下内容（后面的注释不需要）</p>
+<blockquote>
+<p>syntax on   # 开启语法高亮</p>
+<p>set ts = 4    #  设置tab的缩进显示为四个空格的宽度</p>
+<p>set expandtab # 设置tab字符替换为等宽的4个空格字符</p>
+<p>set autoindent # 开启自动缩进</p>
+<p>set number # 开启行号显示</p>
+<p>set relativenumber # 使用相对行号</p>
+</blockquote>
+<p>关于vim的基本操作可以参考其它文章 <a href="https://www.runoob.com/linux/linux-vim.html">Linux vi/vim | 菜鸟教程 (runoob.com)</a></p>
+<h4 id="用户管理">用户管理</h4>
+<p>linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户都必须先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
+<p>linux的用户至少要属于一个组</p>
+<h5 id="提示-v2">提示</h5>
+<p>需要在root权限下执行以下命令，或者在以下基本命令前面都加上<code>sudo</code>的前缀，表示临时使用root权限执行这条命令</p>
+<p>如果忘记了root密码可以通过以下方法重新设置</p>
+<pre><code class="language-bash">sudo passwd # 进入密码设置
+# 输入当初安装时设置的非root普通用户密码
+# 输入新的root密码
+# 重复输入root密码
+su # 切换到root
+# 输入刚刚设置的root密码，就能切换到root用户
+</code></pre>
+<h5 id="基本命令">基本命令</h5>
+<p><strong>useradd命令</strong>：创建一个名为normal的用户</p>
+<pre><code class="language-bash"># useradd [参数] 用户名
+useradd normal # 默认家目录
+useradd -d /myuser normal # 指定家目录
+</code></pre>
+<p><strong>passwd命令</strong>：指定或修改normal用户的密码，根据提示重复输入两次密码</p>
+<pre><code class="language-bash"># passwd 用户名
+passwd normal
+</code></pre>
+<p><strong>userdel命令</strong>：删除normal用户</p>
+<pre><code class="language-bash"># userdel 用户名
+userdel normal
+userdel -r normal # 同时删除该用户的目录
+</code></pre>
+<p><strong>id命令</strong>：查询normal用户信息</p>
+<pre><code class="language-bash"># id 用户名
+id normal
+</code></pre>
+<p><strong>su命令</strong>：用户切换</p>
+<pre><code class="language-bash"># su [参数] 用户名
+su common # 切换到一个名为common的用户
+su - common # 将环境变量一并切换为common用户的环境变量
+</code></pre>
+<p><strong>groupadd命令</strong>：添加一个名为visitor的用户组</p>
+<pre><code class="language-bash"># groupadd 组名
+groupadd visitor
+</code></pre>
+<p><strong>groupdel命令</strong>删除visitor用户组</p>
+<pre><code class="language-bash"># groupdel 组名
+groupdel visitor
+</code></pre>
+<p>创建一个名为vis的用户的同时指定用户组为visitor</p>
+<pre><code class="language-bash">useradd -g visitor vis
+</code></pre>
+<p>修改vis用户所在的用户组</p>
+<pre><code class="language-bash">groupadd ok
+usermod -g ok vis
+</code></pre>
+<h5 id="用户信息文件">用户信息文件</h5>
+<ul>
+<li>
+<p><strong>/etc/passwd</strong>是用户(user)的配置文件，记录用户的各种信息</p>
+</li>
+<li>
+<p><strong>/ect/shadow</strong>是口令的配置文件</p>
+</li>
+<li>
+<p><strong>/etc/group</strong>是组(group)的配置文件，记录组的各种信息</p>
+</li>
+</ul>
+<h4 id="常用命令">常用命令</h4>
+<h5 id="进程命令">进程命令</h5>
+<p><strong>init命令</strong>：Linux下的进程初始化工具，用于切换运行级别</p>
+<pre><code class="language-bash">init 0 # 停机(不要将initdefault设置为0)
+init 1 # 单用户模式，一般用于系统级维护
+init 2 # 多用户模式，无法使用NFS(网络文件系统)挂载，没有网络支持
+init 3 # 多用户模式，标准的运行级，有网络支持
+init 4 # 保留，未使用
+init 5 # X11(xwindow)图形化界面模式，多用户，有网络支持，一般用于远程连接时使用Linux图形化界面
+init 6 # 重新启动(不要将initdefault设置为6)
+</code></pre>
+<h5 id="帮助命令">帮助命令</h5>
+<p><strong>man命令</strong>：用于获取帮助手册</p>
+<p><strong>help命令</strong>：获取shell内置命令的帮助信息</p>
+<pre><code class="language-bash">man vim # 获取vim的帮助手册
+help cd # 获取cd命令的帮助信息
+help mv # 获取mv命令的帮助信息，但会失败，因为mv不是内置命令
+type mv # 查看mv命令的类型(内置命令或外部命令)
+</code></pre>
+<h5 id="文件目录命令">文件目录命令</h5>
+<p><strong>pwd命令</strong>：查看当前所在目录的绝对路径</p>
+<pre><code class="language-bash">pwd
+</code></pre>
+<p><strong>ls命令</strong>：查看当前所在目录的所有文件和目录</p>
+<pre><code class="language-bash"># ls [参数] [目录或文件名]
+ls -a # 显示当前所有文件和目录，包括不可见的
+ls -l # 以列表的形式显示信息
+</code></pre>
+<p><strong>cd命令</strong>：切换到指定目录</p>
+<pre><code class="language-bash"># cd [目录路径]
+cd ~  # 进入默认初始目录
+cd .. # 返回上一级目录
+cd /opt # 进入opt目录
+</code></pre>
+<p><strong>mkdir命令</strong>：创建指定目录，可根据绝对路径或相对路径创建</p>
+<p><strong>rmdir命令</strong>：删除指定的空目录</p>
+<pre><code class="language-bash"># mkdir [参数] 目录名
+mkdir test # 在当前目录下创建一个test目录
+mkdir -p a/b/c # 在当前目录下创建a/b/c的嵌套多级目录
+
+# rmdir [参数] 目录名
+rmdir test # 删除test目录，test目录下不能有其它内容
+# 删除有其它内容的目录时需要使用rm -rf命令
+</code></pre>
+<p><strong>touch命令</strong>：创建空文件，可根据绝对路径或相对路径创建</p>
+<pre><code class="language-bash"># touch 文件名
+touch demo.txt # 在当前目录下创建demo.txt文件
+</code></pre>
+<p><strong>cp命令</strong>：拷贝文件到指定目录</p>
+<pre><code class="language-bash"># cp [参数] 源目录 指定目录
+cp demo.txt test # 复制demo.txt文件到当前同级的test目录下
+cp -r source test # 将source文件夹以及文件夹下所有内容复制到同级的test文件夹下
+</code></pre>
+<p><strong>rm命令</strong>：删除文件或目录（文件夹）</p>
+<pre><code class="language-bash"># rm [参数] 文件名
+rm demo.txt # 删除demo.txt文件
+rm -r source # 删除source目录
+rm -rf test # 无提示地强制删除test目录 
+</code></pre>
+<p><strong>cat命令</strong>：只读地查看文件内容</p>
+<pre><code class="language-bash"># cat [参数] 文件名
+cat demo.txt # 查看demo.txt的内容
+cat -n demo.txt # 查看文件时显示行号
+</code></pre>
+<p><strong>more命令</strong>：基于vi编辑器的文本过滤器，以全屏方式按页显示文件内容，适合阅读长内容的文本</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">快捷键</th>
+<th style="text-align:center">具体功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">空格(space)</td>
+<td style="text-align:center">向下翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">Enter</td>
+<td style="text-align:center">向下翻一行</td>
+</tr>
+<tr>
+<td style="text-align:center">q</td>
+<td style="text-align:center">退出</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+F</td>
+<td style="text-align:center">向下滚动一屏</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+B</td>
+<td style="text-align:center">返回上一屏</td>
+</tr>
+<tr>
+<td style="text-align:center">=</td>
+<td style="text-align:center">输出当前行行号</td>
+</tr>
+<tr>
+<td style="text-align:center">:f</td>
+<td style="text-align:center">输出文件名和行号</td>
+</tr>
+</tbody>
+</table>
+<p><strong>less命令</strong>： 来分屏查看文件内容，与<strong>more命令</strong>类似，但功能更加强大。能根据显示需要加载文件内容，而不是一次性加载，对于显示大型文件有较高的效率</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">快捷键</th>
+<th style="text-align:center">具体功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">空格(space)</td>
+<td style="text-align:center">向下翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">[pagedown]</td>
+<td style="text-align:center">向下翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">[pageup]</td>
+<td style="text-align:center">向上翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">/字串</td>
+<td style="text-align:center">向下搜寻字串 n向下 N向上</td>
+</tr>
+<tr>
+<td style="text-align:center">?字串</td>
+<td style="text-align:center">向上搜寻字串 n向上 N向下</td>
+</tr>
+<tr>
+<td style="text-align:center">q</td>
+<td style="text-align:center">退出</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&gt;指令</strong>：输出重定向，会覆盖文件的内容</p>
+<p><strong>&gt;&gt;指令</strong>：追加内容到文件尾部，不会覆盖文件的内容</p>
+<pre><code class="language-bash">ls &gt; info.txt # 将当前目录的信息写入info.txt
+ls -l &gt; info.txt # 覆盖info.txt的内容为列表形式的目录信息
+ls &gt;&gt; info.txt # 将目录信息追加到文件末尾
+</code></pre>
+<p><strong>echo命令</strong>：输出内容到控制台，可与**&gt;指令或&gt;&gt;指令**组合使用</p>
+<pre><code class="language-bash"># echo [参数] [字符串]
+echo hello world # 输出hello world到控制台
+echo happy &gt;&gt; info.txt # 此时控制台不会输出内容，内容追加到info.txt中，具体内容可以自定义
+echo $PATH # 获取PATH变量，PATH是原本就存在于Linux下的环境变量
+</code></pre>
+<p><strong>head命令</strong>：查看文件前n行内容，n默认为10</p>
+<p><strong>tail命令</strong>：查看文件后n行内容，n默认为10</p>
+<pre><code class="language-bash"># head [参数] [行数] 文件名
+head info.txt # 查看info.txt的前10行内容
+head -n 3 info.txt # 查看info.txt的前3行内容
+
+# tail [参数] [行数] 文件名
+tail info.txt # 查看info.txt的后10行内容
+tail -n 3 info.txt # 查看info.txt的后3行内容
+</code></pre>
+<p><strong>ln命令</strong>：给源文件创建一个<strong>软链接</strong>。软链接也称符号链接，类似于快捷方式，主要存放了链接其他文件的路径。可以通过ln命令<strong>软链接的方式</strong>设置<strong>全局</strong>环境变量（这是一种方式）</p>
+<pre><code class="language-bash"># ln -s 源文件路径 目标路径
+ln -s info.txt test/ # 将info.txt软链接到同级的test目录下
+</code></pre>
+<h5 id="时间日期命令">时间日期命令</h5>
+<p><strong>date命令</strong>：显示或设定系统的日期和时间</p>
+<pre><code class="language-bash"># date [参数] [格式]
+date # 显示当前系统时间
+date -u # 显示UTC时间
+date -d &quot;+1 day&quot; +%Y%m%d # 显示后一天的日期
+date -d &quot;-1 month&quot; +%Y%m%d # 显示上一月的日期
+
+date -s &quot;2022-11-18 06:30:00&quot; # 设置系统时间为2022年11月18日 6时30分0秒，重启系统后会失效
+</code></pre>
+<p><strong>cal命令</strong>：显示月历，需要手动安装命令</p>
+<pre><code class="language-bash">apt install ncal # 安装命令
+
+# cal [参数] [月份] [年份]
+cal # 查看本月月历
+cal 12 2022 # 查看2022年12月月历
+</code></pre>
+<h5 id="搜索查找命令">搜索查找命令</h5>
+<p><strong>find命令</strong>：从指定目录向下递归地遍历各个子目录，将满足条件的文件或目录显示在终端</p>
+<pre><code class="language-bash"># find [搜索范围] [参数] ...
+find . -name &quot;*.txt&quot; # 查找当前目录及子目录下文件名后缀为txt的文件
+find . -type f # 查找当前目录及子目录下普通类型的文件
+find . -user root # 查找当前目录及子目录下属于root用户的文件
+find . -size 0 # 查找当前目录及子目录下长度为0的文件
+</code></pre>
+<p><strong>locate命令</strong>：可以快速定位文件路径，需要手动安装命令。利用事先建立的包含系统中所有文件名称路径的locate数据库实现快速定位，无需遍历整个文件夹，查询速度较快。</p>
+<p>locate数据库不是实时更新的(默认情况下每天自动更新一次)，无法查询当天新建的文件，但可以手动更新locate数据库</p>
+<p><font color='red'>注意：测试命令需要新建文件时，记得随时手动更新locate数据库</font></p>
+<pre><code class="language-bash">apt install plocate # 安装命令
+updatedb # 手动更新locate数据库
+
+# locate [参数] [文件名]
+locate passwd # 查找passwd文件
+locate /etc/sh # 查找etc目录下所有以sh开头的文件
+locate -n 2 passwd # 最多显示2个输出
+locate -i ~/r # 忽略大小写查找当前用户目录下r开头的文件
+</code></pre>
+<p><strong>grep命令</strong>：在指定文件里查找指定的内容</p>
+<pre><code class="language-bash"># grep [内容] [文件名]
+grep root info.txt # 在info.txt里查找root字符所在的行并输出到控制台
+grep -n root info.txt # 显示在完整文本中对应匹配的行号
+grep -i root info.txt # 忽略大小写进行查找
+</code></pre>
+<h5 id="压缩与解压命令">压缩与解压命令</h5>
+<p><strong>gzip命令</strong>：压缩文件，格式只能为*.gz，它的设计目标是为了处理单个文件</p>
+<p><strong>gunzip命令</strong>：解压文件，只能解压*.gz后缀的文件</p>
+<pre><code class="language-bash"># gzip 文件
+gzip info.txt # 压缩info.txt文件为info.txt.gz文件
+
+# gunzip 文件
+gunzip info.txt.gz # 解压info.txt.gz文件为info.txt文件
+</code></pre>
+<p><strong>zip命令</strong>：压缩文件和目录，适用于多个文件和目录</p>
+<p><strong>unzip命令</strong>：解压文件和目录</p>
+<pre><code class="language-bash"># zip [参数] 文件名.zip 要压缩的文件名
+zip info.zip info.txt # 将info.txt压缩到info.zip中
+zip -r test.zip test/ # 将test目录下所有文件和子目录递归压缩，用于处理多文件多目录的压缩
+
+# unzip [参数] 文件名.zip
+unzip test.zip # 直接解压test.zip
+unzip -d beta/ test.zip # 指定解压test.zip到同级的beta目录下 
+</code></pre>
+<p><strong>tar命令</strong>：打包目录或解包tar文件，并且能附加压缩和解压功能</p>
+<p>注意：打包和压缩包不是一个概念，解包和解压也不是</p>
+<pre><code class="language-bash"># tar 必填参数[选填参数] 打包文件名 源文件名
+tar -cvf info.tar info.txt # 打包info.txt到info.tar中
+tar -zcvf info.tar.gz info.txt # 打包的同时使用gzip进行压缩
+
+tar -xvf info.tar # 解包info.tar
+tar -zxvf info.tar.gz # 解压并解包info.tar.gz
+
+tar -tvf info.tar # 不解压，仅查看包中的文件信息
+# 指定解包到哪个目录
+tar -xvf info.tar -C /tmp # 解包到tmp目录下
+</code></pre>
+<h4 id="组管理与权限管理">组管理与权限管理</h4>
+<h5 id="组管理">组管理</h5>
+<p>在linux中的每个用户必须属于一个组，不能独立于组外</p>
+<p>在linux中每个文件有所有者、所在组、其它组的概念</p>
+<p>文件的所有者就是创建该文件的用户</p>
+<p>除文件的所有者和所在组的用户外，系统的其它用户都是文件的其它组</p>
+<p>提示：<strong>查看文件权限、所有者等信息</strong>可以使用<strong>ls -l 指定的文件名</strong>实现；<strong>查看用户相关信息</strong>可以使用<strong>id 指定的用户名</strong>实现</p>
+<h5 id="基本命令-v2">基本命令</h5>
+<p><strong>chown命令</strong>：修改文件所有者，但不改变组</p>
+<p><strong>chgrp命令</strong>：修改文件所在组</p>
+<p><strong>usermod命令</strong>：改变用户所在组</p>
+<pre><code class="language-bash"># chown 用户名 文件名
+chown common info.txt # info.txt所有者改为common用户
+ls -l info.txt # 查看info.txt的信息
+# chgrp 组名 文件名
+chgrp common info.txt # info.txt所在组改为common组
+
+# usermod -g 组名 用户名
+usermod -g ok common # common用户所在组改为ok组
+id common # 查看common用户的信息
+</code></pre>
+<h5 id="权限管理">权限管理</h5>
+<p>文件权限内容，通过ls -l 指定文件名查看</p>
+<pre><code class="language-bash"># 一个示例
+-rw-r--r-- 1 root root 320 11月 18 17:49 info.txt
+</code></pre>
+<p><strong>-rw-r–r–解读</strong>(下标从0开始)</p>
+<ol>
+<li>第0位确定文件类型(d, - , l , c , b)</li>
+<li>第1-3位确定所有者（该文件的所有者）拥有该文件的权限</li>
+<li>第4-6位确定所属组（同用户组的）拥有该文件的权限</li>
+<li>第7-9位确定其他用户拥有该文件的权限</li>
+</ol>
+<p><strong>rwx权限说明</strong></p>
+<ol>
+<li>
+<p>r表示可读read</p>
+</li>
+<li>
+<p>w表示可写write</p>
+</li>
+<li>
+<p>x表示可执行execute</p>
+</li>
+<li>
+<p>对于文件来说</p>
+<ul>
+<li>
+<p>r表示可以读取查看文件</p>
+</li>
+<li>
+<p>w表示可以修改，但不能删除文件，删除一个文件必须拥有父文件夹的rwx权限</p>
+</li>
+<li>
+<p>x表示文件可执行</p>
+</li>
+</ul>
+</li>
+<li>
+<p>对于目录来说</p>
+<ul>
+<li>r表示可以读取，查看目录内容</li>
+<li>w表示可修改，<strong>目录内</strong>创建+删除+重命名目录</li>
+<li>x表示可以进入该目录</li>
+</ul>
+</li>
+</ol>
+<h5 id="基本命令-v3">基本命令</h5>
+<p><strong>chmod命令</strong>：修改文件或目录的权限</p>
+<pre><code class="language-bash"># 参数
+# u:所有者 g:使用组 o:其他人 a:所有人
+# +:添加权限 -:删除权限 =:设置权限
+
+chmod a=--- info.txt # 取消所有人对info.txt的rwx权限
+chmod u=rwx,g=rw-,o=r info.txt
+chmod g+x,o-r info.txt
+
+# 通过rwx权限对应的数字设置权限
+# r=4 w=2 x=1  rwx=4+2+1=7
+chmod 611 info.txt
+</code></pre>
+<h4 id="进程管理">进程管理</h4>
+<p>在linux中，每个执行的程序（代码）都称为一个进程。每一个进程都分配一个 ID 号</p>
+<p>每一个进程，都会对应一个父进程，而这个父进程可以复制多个子进程</p>
+<p>每个进程都可能以两种方式存在的：前台与后台</p>
+<p>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机</p>
+<h5 id="ps命令查看系统进程">ps命令查看系统进程</h5>
+<pre><code class="language-bash"># ps [参数]
+ps -a # 显示当前终端的所有进程信息
+ps -u # 以用户的格式显示进程信息
+ps -x # 显示后台进程运行的参数
+</code></pre>
+<h5 id="kill命令终止进程">kill命令终止进程</h5>
+<pre><code class="language-bash"># kill [参数] 进程号PID
+# 参数(基本都使用9)
+# 1:重新加载 9:强制停止 15:正常停止
+# kill命令需要与ps命令配合使用
+kill -9 9899 # 9899是通过ps获取的PID号，强制停止9899的进程
+
+# killall命令能终止指定名称的所有进程，适合系统负载过大时使用
+# killall -9 进程名称
+</code></pre>
+<h5 id="pstree命令查看进程信息">pstree命令查看进程信息</h5>
+<pre><code class="language-bash"># pstree [参数]
+# pstree相对ps可以更直观地查看进程信息
+pstree -p # 额外显示进程的PID
+pstree -u # 额外显示进程的所属用户
+</code></pre>
+<h5 id="service命令操作进程（后台服务）">service命令操作进程（后台服务）</h5>
+<p>服务(service) 本质就是进程，但是是<strong>运行在后台的一个特殊进程</strong>。这个特殊进程通常都会监听某个端口等待其它程序的请求，比如(mysql , sshd 防火墙等)。因此这个进程又称为<strong>守护进程</strong>。</p>
+<p><strong>telnet命令</strong>可以用于远程登录主机，也可以测试某个端口</p>
+<p><strong>查看服务</strong></p>
+<pre><code class="language-bash">chkconfig --list | grep 8989 # 该命令已被废弃
+</code></pre>
+<p><strong>top命令持续监听运行状态</strong></p>
+<pre><code class="language-bash"># top [参数]
+# 参数
+# -d 秒数:指定每隔几秒更新，默认3秒
+# -i:不显示任何闲置或僵死进程
+# -p 进程PID:监控指定的PID的进程状态
+
+# top命令会进入一个交互页面，可以通过以下操作进行交互
+# P:以CPU使用率排序，默认
+# M:以内存的使用率排序
+# N:以PID排序
+# q:退出top交互页面
+</code></pre>
+]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
   </entry>
   <entry>
     <title>后缀表达式</title>
@@ -3440,37 +3945,6 @@ int main()
       <tags>
         <tag>数据结构与算法</tag>
         <tag>cpp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一封数字签名邮件</title>
-    <url>/2022/11/10/digital-signature/</url>
-    <content><![CDATA[<h3 id="使用outlook邮箱发送一封带有数字签名的邮件">使用outlook邮箱发送一封带有数字签名的邮件</h3>
-<p>Digital Signature(数字签名)<strong>是</strong>Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。<span id="more"></span></p>
-<p>数字签名是使用数字证书来验证签名者的身份, 并通过密码算法将签名者身份绑定到文档中来证明签名行为的不可否认, 已签名文档无需包含签名过程审计报告, 签名者的身份验证则由证书颁发机构(CA)或信任服务提供商(TSP)完成。</p>
-<h4 id="1-下载数字证书">1.下载数字证书</h4>
-<p>数字证书需要先到网站上申请下载, 这里提供了一个申请90天免费证书的网站 <a href="https://www.cersign.com/smime-email-certificates.html">证签安全电子邮件证书 - CerSign</a></p>
-<p>按照网站上提示完成申请以及邮箱验证即可。免费邮件证书大约几分钟后就会签发, 点击下载证书设置保护口令即可</p>
-<h4 id="2-在邮箱客户端中设置">2.在邮箱客户端中设置</h4>
-<p>outlook邮箱中导入数字证书: <strong>文件→选项→信任中心→电子邮件安全性</strong>, 然后设置加密以及数字签名。在默认设置中选择<strong>签名证书和加密证书</strong>(需要先找到之前下载好的证书文件双击运行并导入证书)</p>
-<h4 id="3-发送邮件进行测试">3.发送邮件进行测试</h4>
-<p>选择收件人(可以选择本地的另外一个邮箱)后输入邮件内容发送, 通过outlook客户端查看邮件内容会有一个额外的数字签名的图标, 点击该图标能够查看到发件人的数字证书信息。另外经过加密的邮件还会有一个🔒的图标, 在收件人拥有发件人的<strong>公钥</strong>时, 就能够进行解密获取正文内容。其他情况下, 则只有一个加密的smime.p7m文件(无法直接获取正文内容)</p>
-<h4 id="4-关于公钥和私钥的一些简单理解">4.关于公钥和私钥的一些简单理解</h4>
-<p>公钥是一种<strong>非对称加密算法</strong>, 一般都是公布给对方用于加密解密</p>
-<p>私钥是一种<strong>对称加密算法</strong>, 一般不对任何人公开, 同样可用于加密解密</p>
-<p>公钥和私钥是<strong>成对出现</strong>的, 且<strong>唯一对应</strong></p>
-<h5 id="思路1：确保邮件只能由特定的收件人读取">思路1：确保邮件只能由特定的收件人读取</h5>
-<p><strong>收件人的公钥</strong>提前就公布给所有发件人用于进行加密但不能进行解密, <strong>收件人的私钥</strong>则用于解密来自对应的公钥加密的邮件但不能进行加密(这也是一种非对称加密)</p>
-<h5 id="思路2：确认发件人的邮件未被篡改">思路2：确认发件人的邮件未被篡改</h5>
-<p><strong>发件人的公钥</strong>提前就公布给所有收件人用于进行<strong>解密</strong>, <strong>发件人的私钥</strong>则用于<strong>加密</strong>邮件</p>
-<p>具体流程：</p>
-<p>发件人使用自己的私钥先对邮件加密<strong>一个hash值</strong>, 再用来自收件人的公钥对<strong>内容及hash值</strong>二次加密, 然后发送给收件人</p>
-<p>收件人获取到了二次加密的邮件后, 先使用自己的私钥解密对应的公钥获取内容及<strong>加密的hash值</strong>, 再用来自收件人的公钥二次解密对应的私钥获取<strong>原始的hash值</strong>, 对内容进行hash计算, 如果计算的结果与之前hash值解密后的内容相同, 则说明内容未被篡改</p>
-<p>需要注意的是：公钥和私钥的用法不是固定的, 在收件人和发件人两种情景下, 它们的用法恰恰是相反的</p>
-]]></content>
-      <tags>
-        <tag>数字签名</tag>
-        <tag>计算机网络</tag>
       </tags>
   </entry>
 </search>
