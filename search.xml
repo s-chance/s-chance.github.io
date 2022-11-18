@@ -3309,16 +3309,6 @@ su # 切换到root
 <h4 id="用户管理">用户管理</h4>
 <p>linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户都必须先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
 <p>linux的用户至少要属于一个组</p>
-<h5 id="提示-v2">提示</h5>
-<p>需要在root权限下执行以下命令，或者在以下基本命令前面都加上<code>sudo</code>的前缀，表示临时使用root权限执行这条命令</p>
-<p>如果忘记了root密码可以通过以下方法重新设置</p>
-<pre><code class="language-bash">sudo passwd # 进入密码设置
-# 输入当初安装时设置的非root普通用户密码
-# 输入新的root密码
-# 重复输入root密码
-su # 切换到root
-# 输入刚刚设置的root密码，就能切换到root用户
-</code></pre>
 <h5 id="基本命令">基本命令</h5>
 <p><strong>useradd命令</strong>：创建一个名为normal的用户</p>
 <pre><code class="language-bash"># useradd [参数] 用户名
