@@ -3305,28 +3305,39 @@ su # 切换到root
 <p>set number # 开启行号显示</p>
 <p>set relativenumber # 使用相对行号</p>
 </blockquote>
-<p>关于vim的基本操作可以参考其它文章 <a href="https://www.runoob.com/linux/linux-vim.html">Linux vi/vim | 菜鸟教程 (runoob.com)</a></p>
+<p>关于vim的基本操作可以参考其它文章 <a href="https://www.runoob.com/linux/linux-vim.html">Linux vi/vim | 菜鸟教程 (runoob.com)</a> 或者视频<a href="https://www.bilibili.com/video/BV13t4y1t7Wg/?share_source=copy_web&amp;vd_source=f4fedbdbfad10afdb2269285bd340510">【保姆级入门】Vim编辑器</a></p>
 <h4 id="用户管理">用户管理</h4>
 <p>linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户都必须先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
 <p>linux的用户至少要属于一个组</p>
 <h5 id="基本命令">基本命令</h5>
-<p><strong>useradd命令</strong>：创建一个名为normal的用户</p>
+<p><strong>useradd命令</strong>：创建一个用户</p>
 <pre><code class="language-bash"># useradd [参数] 用户名
-useradd normal # 默认家目录
-useradd -d /myuser normal # 指定家目录
+useradd normal # 创建一个名为normal的用户，用户目录默认家目录
+useradd -d /myuser normal # 创建一个名为normal的用户，指定用户目录
+
+# useradd [参数] 组名 用户名
+useradd -g visitor vis # 创建一个名为vis的用户的同时指定用户组为visitor
 </code></pre>
-<p><strong>passwd命令</strong>：指定或修改normal用户的密码，根据提示重复输入两次密码</p>
+<p><strong>passwd命令</strong>：指定或修改用户的密码</p>
 <pre><code class="language-bash"># passwd 用户名
-passwd normal
+passwd normal # 指定或修改normal用户的密码
 </code></pre>
-<p><strong>userdel命令</strong>：删除normal用户</p>
+<p><strong>userdel命令</strong>：删除用户</p>
 <pre><code class="language-bash"># userdel 用户名
-userdel normal
+userdel normal # 删除normal用户
 userdel -r normal # 同时删除该用户的目录
 </code></pre>
-<p><strong>id命令</strong>：查询normal用户信息</p>
+<p><strong>usermod命令</strong>：修改用户信息</p>
+<pre><code class="language-bash"># usermod [参数] 新用户名 旧用户名
+usermod -l vis normal # 修改normal用户名为vis、
+
+# usermod [参数] 组名 用户名
+groupadd demo
+usermod -g demo vis # 修改vis用户所在的用户组为demo组
+</code></pre>
+<p><strong>id命令</strong>：查询用户信息</p>
 <pre><code class="language-bash"># id 用户名
-id normal
+id normal # 查询normal用户信息
 </code></pre>
 <p><strong>su命令</strong>：用户切换</p>
 <pre><code class="language-bash"># su [参数] 用户名
@@ -3337,16 +3348,14 @@ su - common # 将环境变量一并切换为common用户的环境变量
 <pre><code class="language-bash"># groupadd 组名
 groupadd visitor
 </code></pre>
-<p><strong>groupdel命令</strong>删除visitor用户组</p>
+<p><strong>groupdel命令</strong>：删除visitor用户组</p>
 <pre><code class="language-bash"># groupdel 组名
 groupdel visitor
 </code></pre>
-<p>创建一个名为vis的用户的同时指定用户组为visitor</p>
-<pre><code class="language-bash">useradd -g visitor vis
-</code></pre>
-<p>修改vis用户所在的用户组</p>
-<pre><code class="language-bash">groupadd ok
-usermod -g ok vis
+<p><strong>groupmod命令</strong>：修改用户组</p>
+<pre><code class="language-bash"># groupmod [选项 参数] 组名
+groupmod -n demo test # 修改test组名为demo
+groupmod -g 9999 test # 修改test组ID为9999
 </code></pre>
 <h5 id="用户信息文件">用户信息文件</h5>
 <ul>
@@ -3599,6 +3608,17 @@ tar -tvf info.tar # 不解压，仅查看包中的文件信息
 # 指定解包到哪个目录
 tar -xvf info.tar -C /tmp # 解包到tmp目录下
 </code></pre>
+<h5 id="路由表命令">路由表命令</h5>
+<p><strong>route命令</strong>： 显示和操作IP路由表</p>
+<pre><code class="language-bash"># route [参数]
+route # 查看路由表
+route -n # 不解析名字
+</code></pre>
+<h5 id="文本操作命令">文本操作命令</h5>
+<p><strong>sed命令</strong>：能够在不打开文件的情况下处理、编辑文本文件， 主要用来自动编辑一个或多个文件、简化对文件的反复操作、编写转换程序等</p>
+<pre><code class="language-bash"># sed [参数] 文件名
+sed -e 's/-/*/g' info.txt &gt;&gt; info.txt # 将info.txt中所有的字符-替换为*，并应用修改到info.txt中
+</code></pre>
 <h4 id="组管理与权限管理">组管理与权限管理</h4>
 <h5 id="组管理">组管理</h5>
 <p>在linux中的每个用户必须属于一个组，不能独立于组外</p>
@@ -3685,6 +3705,22 @@ chmod 611 info.txt
 <p>每一个进程，都会对应一个父进程，而这个父进程可以复制多个子进程</p>
 <p>每个进程都可能以两种方式存在的：前台与后台</p>
 <p>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机</p>
+<h5 id="fg和bg命令：进程前后台调度命令">fg和bg命令：进程前后台调度命令</h5>
+<pre><code class="language-bash"># 在前台结束一个进程
+Control+c
+# 在前台暂停一个进程
+Control+z
+# 查看后台执行进程的进程号
+jobs
+# 运行命令时，在命令末尾加上&amp;可让命令在后台执行
+&amp;
+# 将命令进程号码为N的命令进程放到前台执行
+fg N
+# 或者
+%N
+# 将命令进程号码为N的命令进程放到后台执行
+bg N
+</code></pre>
 <h5 id="ps命令查看系统进程">ps命令查看系统进程</h5>
 <pre><code class="language-bash"># ps [参数]
 ps -a # 显示当前终端的所有进程信息

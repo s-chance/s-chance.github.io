@@ -28,7 +28,7 @@
 <meta property="og:description" content="关于Linux的通用操作 基于Ubuntu22.04发行版的环境，本文整理了一些在Linux系统下基本通用的操作，使初学者能初步学会Linux系统的操作或使老用户重新回顾一下常用操作">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-17T11:58:38.000Z">
-<meta property="article:modified_time" content="2022-11-18T16:05:51.628Z">
+<meta property="article:modified_time" content="2022-11-19T14:24:05.189Z">
 <meta property="article:author" content="Entropy">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -232,7 +232,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-19 00:05:51" itemprop="dateModified" datetime="2022-11-19T00:05:51+08:00">2022-11-19</time>
+                <time title="修改时间：2022-11-19 22:24:05" itemprop="dateModified" datetime="2022-11-19T22:24:05+08:00">2022-11-19</time>
               </span>
 
           
@@ -281,28 +281,39 @@ su # 切换到root
 <p>set number # 开启行号显示</p>
 <p>set relativenumber # 使用相对行号</p>
 </blockquote>
-<p>关于vim的基本操作可以参考其它文章 <a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-vim.html">Linux vi/vim | 菜鸟教程 (runoob.com)</a></p>
+<p>关于vim的基本操作可以参考其它文章 <a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-vim.html">Linux vi/vim | 菜鸟教程 (runoob.com)</a> 或者视频<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV13t4y1t7Wg/?share_source=copy_web&amp;vd_source=f4fedbdbfad10afdb2269285bd340510">【保姆级入门】Vim编辑器</a></p>
 <h4 id="用户管理">用户管理</h4>
 <p>linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户都必须先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
 <p>linux的用户至少要属于一个组</p>
 <h5 id="基本命令">基本命令</h5>
-<p><strong>useradd命令</strong>：创建一个名为normal的用户</p>
+<p><strong>useradd命令</strong>：创建一个用户</p>
 <pre><code class="language-bash"># useradd [参数] 用户名
-useradd normal # 默认家目录
-useradd -d /myuser normal # 指定家目录
+useradd normal # 创建一个名为normal的用户，用户目录默认家目录
+useradd -d /myuser normal # 创建一个名为normal的用户，指定用户目录
+
+# useradd [参数] 组名 用户名
+useradd -g visitor vis # 创建一个名为vis的用户的同时指定用户组为visitor
 </code></pre>
-<p><strong>passwd命令</strong>：指定或修改normal用户的密码，根据提示重复输入两次密码</p>
+<p><strong>passwd命令</strong>：指定或修改用户的密码</p>
 <pre><code class="language-bash"># passwd 用户名
-passwd normal
+passwd normal # 指定或修改normal用户的密码
 </code></pre>
-<p><strong>userdel命令</strong>：删除normal用户</p>
+<p><strong>userdel命令</strong>：删除用户</p>
 <pre><code class="language-bash"># userdel 用户名
-userdel normal
+userdel normal # 删除normal用户
 userdel -r normal # 同时删除该用户的目录
 </code></pre>
-<p><strong>id命令</strong>：查询normal用户信息</p>
+<p><strong>usermod命令</strong>：修改用户信息</p>
+<pre><code class="language-bash"># usermod [参数] 新用户名 旧用户名
+usermod -l vis normal # 修改normal用户名为vis、
+
+# usermod [参数] 组名 用户名
+groupadd demo
+usermod -g demo vis # 修改vis用户所在的用户组为demo组
+</code></pre>
+<p><strong>id命令</strong>：查询用户信息</p>
 <pre><code class="language-bash"># id 用户名
-id normal
+id normal # 查询normal用户信息
 </code></pre>
 <p><strong>su命令</strong>：用户切换</p>
 <pre><code class="language-bash"># su [参数] 用户名
@@ -313,16 +324,14 @@ su - common # 将环境变量一并切换为common用户的环境变量
 <pre><code class="language-bash"># groupadd 组名
 groupadd visitor
 </code></pre>
-<p><strong>groupdel命令</strong>删除visitor用户组</p>
+<p><strong>groupdel命令</strong>：删除visitor用户组</p>
 <pre><code class="language-bash"># groupdel 组名
 groupdel visitor
 </code></pre>
-<p>创建一个名为vis的用户的同时指定用户组为visitor</p>
-<pre><code class="language-bash">useradd -g visitor vis
-</code></pre>
-<p>修改vis用户所在的用户组</p>
-<pre><code class="language-bash">groupadd ok
-usermod -g ok vis
+<p><strong>groupmod命令</strong>：修改用户组</p>
+<pre><code class="language-bash"># groupmod [选项 参数] 组名
+groupmod -n demo test # 修改test组名为demo
+groupmod -g 9999 test # 修改test组ID为9999
 </code></pre>
 <h5 id="用户信息文件">用户信息文件</h5>
 <ul>
@@ -575,6 +584,17 @@ tar -tvf info.tar # 不解压，仅查看包中的文件信息
 # 指定解包到哪个目录
 tar -xvf info.tar -C /tmp # 解包到tmp目录下
 </code></pre>
+<h5 id="路由表命令">路由表命令</h5>
+<p><strong>route命令</strong>： 显示和操作IP路由表</p>
+<pre><code class="language-bash"># route [参数]
+route # 查看路由表
+route -n # 不解析名字
+</code></pre>
+<h5 id="文本操作命令">文本操作命令</h5>
+<p><strong>sed命令</strong>：能够在不打开文件的情况下处理、编辑文本文件， 主要用来自动编辑一个或多个文件、简化对文件的反复操作、编写转换程序等</p>
+<pre><code class="language-bash"># sed [参数] 文件名
+sed -e 's/-/*/g' info.txt &gt;&gt; info.txt # 将info.txt中所有的字符-替换为*，并应用修改到info.txt中
+</code></pre>
 <h4 id="组管理与权限管理">组管理与权限管理</h4>
 <h5 id="组管理">组管理</h5>
 <p>在linux中的每个用户必须属于一个组，不能独立于组外</p>
@@ -661,6 +681,22 @@ chmod 611 info.txt
 <p>每一个进程，都会对应一个父进程，而这个父进程可以复制多个子进程</p>
 <p>每个进程都可能以两种方式存在的：前台与后台</p>
 <p>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机</p>
+<h5 id="fg和bg命令：进程前后台调度命令">fg和bg命令：进程前后台调度命令</h5>
+<pre><code class="language-bash"># 在前台结束一个进程
+Control+c
+# 在前台暂停一个进程
+Control+z
+# 查看后台执行进程的进程号
+jobs
+# 运行命令时，在命令末尾加上&amp;可让命令在后台执行
+&amp;
+# 将命令进程号码为N的命令进程放到前台执行
+fg N
+# 或者
+%N
+# 将命令进程号码为N的命令进程放到后台执行
+bg N
+</code></pre>
 <h5 id="ps命令查看系统进程">ps命令查看系统进程</h5>
 <pre><code class="language-bash"># ps [参数]
 ps -a # 显示当前终端的所有进程信息
@@ -782,7 +818,7 @@ pstree -u # 额外显示进程的所属用户
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8ELinux%E7%9A%84%E9%80%9A%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">关于Linux的通用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0-Linux-%E5%B9%95%E5%B8%83-mubu-com-%E4%BD%9C%E8%80%85%EF%BC%9A%E6%97%B6%E5%85%89%EF%BC%86%E9%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">参考文章 Linux - 幕布 (mubu.com) 作者：时光＆逝 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA"><span class="nav-number">1.3.</span> <span class="nav-text">提示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">vim文本编辑器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.5.1.</span> <span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.2.</span> <span class="nav-text">用户信息文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.1.</span> <span class="nav-text">进程命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.2.</span> <span class="nav-text">帮助命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.3.</span> <span class="nav-text">文件目录命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.4.</span> <span class="nav-text">时间日期命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E6%9F%A5%E6%89%BE%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.5.</span> <span class="nav-text">搜索查找命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E4%B8%8E%E8%A7%A3%E5%8E%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.6.</span> <span class="nav-text">压缩与解压命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86%E4%B8%8E%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.</span> <span class="nav-text">组管理与权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.1.</span> <span class="nav-text">组管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4-v2"><span class="nav-number">1.7.2.</span> <span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.3.</span> <span class="nav-text">权限管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4-v3"><span class="nav-number">1.7.4.</span> <span class="nav-text">基本命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">1.8.</span> <span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ps%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.8.1.</span> <span class="nav-text">ps命令查看系统进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#kill%E5%91%BD%E4%BB%A4%E7%BB%88%E6%AD%A2%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.8.2.</span> <span class="nav-text">kill命令终止进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pstree%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">1.8.3.</span> <span class="nav-text">pstree命令查看进程信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#service%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C%E8%BF%9B%E7%A8%8B%EF%BC%88%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%EF%BC%89"><span class="nav-number">1.8.4.</span> <span class="nav-text">service命令操作进程（后台服务）</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8ELinux%E7%9A%84%E9%80%9A%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">关于Linux的通用操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0-Linux-%E5%B9%95%E5%B8%83-mubu-com-%E4%BD%9C%E8%80%85%EF%BC%9A%E6%97%B6%E5%85%89%EF%BC%86%E9%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">参考文章 Linux - 幕布 (mubu.com) 作者：时光＆逝 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA"><span class="nav-number">1.3.</span> <span class="nav-text">提示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vim%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">vim文本编辑器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.5.1.</span> <span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.2.</span> <span class="nav-text">用户信息文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.1.</span> <span class="nav-text">进程命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.2.</span> <span class="nav-text">帮助命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.3.</span> <span class="nav-text">文件目录命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.4.</span> <span class="nav-text">时间日期命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E6%9F%A5%E6%89%BE%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.5.</span> <span class="nav-text">搜索查找命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E4%B8%8E%E8%A7%A3%E5%8E%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.6.</span> <span class="nav-text">压缩与解压命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E8%A1%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.7.</span> <span class="nav-text">路由表命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.8.</span> <span class="nav-text">文本操作命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86%E4%B8%8E%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.</span> <span class="nav-text">组管理与权限管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.1.</span> <span class="nav-text">组管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4-v2"><span class="nav-number">1.7.2.</span> <span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.3.</span> <span class="nav-text">权限管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4-v3"><span class="nav-number">1.7.4.</span> <span class="nav-text">基本命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">1.8.</span> <span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#fg%E5%92%8Cbg%E5%91%BD%E4%BB%A4%EF%BC%9A%E8%BF%9B%E7%A8%8B%E5%89%8D%E5%90%8E%E5%8F%B0%E8%B0%83%E5%BA%A6%E5%91%BD%E4%BB%A4"><span class="nav-number">1.8.1.</span> <span class="nav-text">fg和bg命令：进程前后台调度命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ps%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E7%B3%BB%E7%BB%9F%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.8.2.</span> <span class="nav-text">ps命令查看系统进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#kill%E5%91%BD%E4%BB%A4%E7%BB%88%E6%AD%A2%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.8.3.</span> <span class="nav-text">kill命令终止进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pstree%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">1.8.4.</span> <span class="nav-text">pstree命令查看进程信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#service%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C%E8%BF%9B%E7%A8%8B%EF%BC%88%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%EF%BC%89"><span class="nav-number">1.8.5.</span> <span class="nav-text">service命令操作进程（后台服务）</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
