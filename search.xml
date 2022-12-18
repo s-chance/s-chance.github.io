@@ -4039,4 +4039,100 @@ int main()
         <tag>nodejs</tag>
       </tags>
   </entry>
+  <entry>
+    <title>前后端知识</title>
+    <url>/2022/12/18/font-back-end/</url>
+    <content><![CDATA[<h3 id="开发模式">开发模式</h3>
+<p><strong>前后端分离</strong>已成为web大型项目的标准开发方式, 主要解决了<strong>传统的前后端不分离</strong>所带来的一系列开发过程中的问题<span id="more"></span></p>
+<h4 id="概念">概念</h4>
+<p><strong>前后端不分离</strong>: 前后端代码放在一个工程下或同一个目录下, 前端页面中含有后端的代码(如典型的jsp页面内嵌java代码)。前后端代码以及前后端工作开发<strong>耦合度极高</strong>, 前后端需要同时协作才能完成开发</p>
+<p><strong>前后端分离</strong>: 前后端代码放在不同的工程下, 只需要<strong>提前约定好API数据规范</strong>, 前后端就可以各自独立开发。前端可以通过<strong>Mock技术模拟后端API服务</strong>来独立运行和测试; 后端也可以独立开发、运行、测试, 通过<strong>Swagger技术自动生成API文档</strong>提供给前端, 还能进行自动化接口测试API的可用性</p>
+<h4 id="前后端分离涉及的技术">前后端分离涉及的技术</h4>
+<p>1.Ajax、axios和json等基础交互技术</p>
+<p>2.Http协议在同源策略下引发的跨域访问</p>
+<p>3.Nodejs搭建中间层服务器以及前端Mock测试</p>
+<h4 id="对比">对比</h4>
+<p><strong>以一个SpringBoot项目为例</strong></p>
+<p>前后端不分离的情况下, <strong>直接使用SpringBoot启动即可</strong></p>
+<ul>
+<li>需要考虑静态资源所存放的相对路径(例如需要存放在某个指定的静态资源static目录下)</li>
+<li>在测试过程中遇到问题难以快速定位到问题位于前端还是后端</li>
+<li>运行时出现问题会直接导致SpringBoot项目无法启动或者运行时无法正确地进行前后端交互测试</li>
+<li>对于**SEO(Search Engine Optimization, 搜索引擎优化)**的支持较好</li>
+</ul>
+<p>前后端分离的情况下, <strong>后端使用SpringBoot启动, 前端使用Nodejs启动</strong></p>
+<ul>
+<li>不再需要考虑相对路径的限制</li>
+<li>可以使用特定的技术来模拟前后端进行数据交互测试, 从而准确定位问题</li>
+<li>会有跨域访问的限制</li>
+<li>由于前端与后端分离导致服务端无法去渲染前端页面, 即<strong>一般情况下不支持SSR(Server-Side-Rendering，服务器端渲染)</strong></li>
+</ul>
+<h3 id="渲染方式">渲染方式</h3>
+<p>渲染方式可分为<strong>SSR服务端渲染</strong>和<strong>CSR客户端渲染</strong></p>
+<p><strong>SSR服务端渲染</strong></p>
+<ul>
+<li>
+<p>SSR拥有很好的SEO搜索引擎优化</p>
+</li>
+<li>
+<p>SSR的首屏优化很好, 即首屏时间短</p>
+</li>
+<li>
+<p>SSR加重了服务端的负载, 因为渲染需要在服务端完成</p>
+</li>
+<li>
+<p>SSR的页面交互性较差</p>
+</li>
+<li>
+<p>使用SSR基本说明了前后端不分离</p>
+</li>
+<li>
+<p>SSR非常适合开发静态网站以及业务逻辑复杂的网站</p>
+</li>
+</ul>
+<p><strong>CSR客户端渲染</strong></p>
+<ul>
+<li>
+<p>CSR不支持SEO搜索引擎优化, 因为数据是异步获取的, 很难被SEO收录</p>
+</li>
+<li>
+<p>CSR的首屏时间较长</p>
+</li>
+<li>
+<p>CSR减轻了服务器的负载, 因为渲染是在客户端完成的</p>
+</li>
+<li>
+<p>CSR的页面交互性非常好</p>
+</li>
+<li>
+<p>使用CSR基本说明了前后端分离</p>
+</li>
+<li>
+<p>CSR非常适合开发对即时交互性要求较高的Web应用程序以及app小程序</p>
+</li>
+</ul>
+<p>基于不同的渲染方式又可以引出<strong>SPA</strong>和<strong>MPA</strong></p>
+<h3 id="SPA和MPA">SPA和MPA</h3>
+<p><strong>SPA单页面应用模式</strong></p>
+<ul>
+<li>SPA模式只拥有一个主页面, 所有的静态资源都包含在主页面中, 只需要加载一次</li>
+<li>所有的功能模块组件化, 通过刷新局部资源来实现功能</li>
+<li>几乎不存在<strong>转发</strong>和<strong>重定向</strong>的概念</li>
+<li>传统SPA通常都是CSR渲染, 也可以借助SSR渲染来优化SEO</li>
+<li>SPA的实现核心是<strong>前端路由</strong>, 前端路由的核心: 改变视图的同时不会向后端发出请求</li>
+<li>单个vue+vite的工程就是典型的SPA模式</li>
+</ul>
+<p><strong>MPA多页面应用模式</strong></p>
+<ul>
+<li>MPA模式拥有多个页面, 所有的静态资源都是公共资源, 每个页面都需要重新加载</li>
+<li>所有的功能会划分到多个页面中, 通过转发和重定向页面来实现功能</li>
+<li>MPA通常都是SSR渲染, 基本不会使用CSR渲染, 因为逻辑较为复杂</li>
+<li>MPA中基本没有前端路由</li>
+</ul>
+<p>目前大型Web项目开发可能更多的是使用MPA+SPA的混合模式</p>
+]]></content>
+      <tags>
+        <tag>前后端</tag>
+      </tags>
+  </entry>
 </search>
