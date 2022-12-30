@@ -4241,7 +4241,9 @@ neofetch --ascii_distro debian_small
 <p>添加图片路径, 否则默认为桌面壁纸</p>
 <pre><code class="language-bash">neofetch --w3m img/logo.png # 图片路径根据实际情况编写
 </code></pre>
-<p><strong>在终端展示的图片存在一定的问题</strong>, 请根据实际情况进行配置</p>
+<p>在这边的测试环境下w3m出现了一定的显示问题, 可仿照上述格式替换参数进行测试</p>
+<p>其它的显示图片参数caca、jp2a显示的是字符组成的logo, chafa显示的是低像素图, iterm2、sixel显示的是高像素图</p>
+<p><strong>注意: 测试环境为kde, 不同环境包括不同配置在终端展示的图片不一定具有同等效果, 且存在一定的瑕疵, 请根据实际情况进行配置</strong></p>
 <h4 id="默认终端启动时自动执行neofetch">默认终端启动时自动执行neofetch</h4>
 <p>查看shell配置</p>
 <pre><code class="language-bash">cat /etc/shells
