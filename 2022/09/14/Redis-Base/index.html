@@ -83,6 +83,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -91,11 +92,37 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li><li class="menu-item menu-item-rss"><a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>rss</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </header>
         
@@ -254,7 +281,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.7k</span>
+      <span>4.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -298,35 +325,35 @@
 <p>主要用于存储单个数据，是最简单也是最常用的数据存储类型</p>
 <p>一个存储空间存储一个数据</p>
 <p>存储的数据如果是整数类型，则可进行数字操作</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: set key value</span></span><br><span class="line"><span class="comment"># 存储一个键为name, 值为tom的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> name tom</span><br><span class="line"><span class="comment"># 存储一个键为age, 值为26的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> age 26</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: get key</span></span><br><span class="line"><span class="comment"># 获取name键对应的值</span></span><br><span class="line">get name</span><br><span class="line"><span class="comment"># 获取age键对应的值</span></span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: del key</span></span><br><span class="line"><span class="comment"># 删除name键对应的值</span></span><br><span class="line">del name</span><br><span class="line"><span class="comment">#删除age键对应的值</span></span><br><span class="line">del age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新获取值, 确认是否已经删除</span></span><br><span class="line">get name</span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数字操作命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自增处理incr key, 当key不存在时会自动创建, 默认自增值1</span></span><br><span class="line">incr num <span class="comment">#num键若不存在, 则自动创建</span></span><br><span class="line"><span class="comment"># 自增指定数据incrby key increment</span></span><br><span class="line">incrby num 20 <span class="comment">#指定num键的值自增20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自减处理decr key, 同样的若key不存在会自动创建, 默认自减值1</span></span><br><span class="line">decr num</span><br><span class="line"><span class="comment"># 自减指定数据decrby key decrement</span></span><br><span class="line">decrby num 30</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: set key value</span></span><br><span class="line"><span class="comment"># 存储一个键为name, 值为tom的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> name tom</span><br><span class="line"><span class="comment"># 存储一个键为age, 值为26的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> age 26</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: get key</span></span><br><span class="line"><span class="comment"># 获取name键对应的值</span></span><br><span class="line">get name</span><br><span class="line"><span class="comment"># 获取age键对应的值</span></span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: del key</span></span><br><span class="line"><span class="comment"># 删除name键对应的值</span></span><br><span class="line">del name</span><br><span class="line"><span class="comment">#删除age键对应的值</span></span><br><span class="line">del age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新获取值, 确认是否已经删除</span></span><br><span class="line">get name</span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数字操作命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自增处理incr key, 当key不存在时会自动创建, 默认自增值1</span></span><br><span class="line">incr num <span class="comment">#num键若不存在, 则自动创建</span></span><br><span class="line"><span class="comment"># 自增指定数据incrby key increment</span></span><br><span class="line">incrby num 20 <span class="comment">#指定num键的值自增20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自减处理decr key, 同样的若key不存在会自动创建, 默认自减值1</span></span><br><span class="line">decr num</span><br><span class="line"><span class="comment"># 自减指定数据decrby key decrement</span></span><br><span class="line">decrby num 30</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>哈希类型：hash</p>
 <p>主要用于分组存储有一定关联性的数据，比如java对象中的一系列成员变量数据</p>
 <p>一个存储空间存储多个键值对数据</p>
 <p>底层使用哈希表结构实现数据存储</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: hset key field value</span></span><br><span class="line"><span class="comment"># 在myhash键中存储一个name字段, 值为jerry的数据</span></span><br><span class="line">hset myhash name jerry</span><br><span class="line"><span class="comment"># 在myhash键中存储一个password字段, 值为pass的数据</span></span><br><span class="line">hset myhash password pass</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式一: hget key field 获取指定的field所对应的值</span></span><br><span class="line"><span class="comment"># 获取myhash键中name字段的值</span></span><br><span class="line">hget myhash name</span><br><span class="line"><span class="comment"># 格式二: hgetall key 获取指定key下的所有field和value</span></span><br><span class="line"><span class="comment"># 获取myhash键下的所有键值对数据</span></span><br><span class="line">hgetall myhash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: hdel key field</span></span><br><span class="line"><span class="comment"># 删除myhash键下的name字段及其对应的值</span></span><br><span class="line">hdel myhash name</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: hset key field value</span></span><br><span class="line"><span class="comment"># 在myhash键中存储一个name字段, 值为jerry的数据</span></span><br><span class="line">hset myhash name jerry</span><br><span class="line"><span class="comment"># 在myhash键中存储一个password字段, 值为pass的数据</span></span><br><span class="line">hset myhash password pass</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式一: hget key field 获取指定的field所对应的值</span></span><br><span class="line"><span class="comment"># 获取myhash键中name字段的值</span></span><br><span class="line">hget myhash name</span><br><span class="line"><span class="comment"># 格式二: hgetall key 获取指定key下的所有field和value</span></span><br><span class="line"><span class="comment"># 获取myhash键下的所有键值对数据</span></span><br><span class="line">hgetall myhash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: hdel key field</span></span><br><span class="line"><span class="comment"># 删除myhash键下的name字段及其对应的值</span></span><br><span class="line">hdel myhash name</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>列表类型：list</p>
 <p>主要用于存储多个数据，并对数据先后进入存储空间的顺序进行区分</p>
 <p>一个存储空间存储多个数据，且区分数据存储的先后顺序</p>
 <p>底层使用双向链表结构实现数据存储</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式一: lpush key value 在列表左边(头部)添加数据</span></span><br><span class="line"><span class="comment"># 格式二: rpush key value 在列表右边(尾部)添加数据</span></span><br><span class="line"><span class="comment"># 先任意添加一个测试的初始数据</span></span><br><span class="line">lpush mylist origin</span><br><span class="line"><span class="comment"># 在mylist键列表头部添加一个数据</span></span><br><span class="line">lpush mylist <span class="built_in">head</span></span><br><span class="line"><span class="comment"># 在mylist键列表尾部添加一个数据</span></span><br><span class="line">rpush mylist <span class="built_in">tail</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># lrange key start end 根据start和end的范围获取</span></span><br><span class="line"><span class="comment"># list数据下标从0开始, 若使用负数, 则表示从列表尾部倒数第几个数据</span></span><br><span class="line"><span class="comment"># 获取mylist下标0-2的数据</span></span><br><span class="line">lrange mylist 0 2</span><br><span class="line">lrange mylist 0 -1 <span class="comment">#-1表示列表倒数第一个数据, 即正数最后一个数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式一: lpop key 删除列表最左边的数据</span></span><br><span class="line"><span class="comment"># 格式二: rpop key 删除列表最右边的数据</span></span><br><span class="line"><span class="comment"># 删除mylist键列表头部的一个数据</span></span><br><span class="line">lpop mylist</span><br><span class="line"><span class="comment"># 删除mylist键列表尾部的一个数据</span></span><br><span class="line">rpop mylist</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式一: lpush key value 在列表左边(头部)添加数据</span></span><br><span class="line"><span class="comment"># 格式二: rpush key value 在列表右边(尾部)添加数据</span></span><br><span class="line"><span class="comment"># 先任意添加一个测试的初始数据</span></span><br><span class="line">lpush mylist origin</span><br><span class="line"><span class="comment"># 在mylist键列表头部添加一个数据</span></span><br><span class="line">lpush mylist <span class="built_in">head</span></span><br><span class="line"><span class="comment"># 在mylist键列表尾部添加一个数据</span></span><br><span class="line">rpush mylist <span class="built_in">tail</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># lrange key start end 根据start和end的范围获取</span></span><br><span class="line"><span class="comment"># list数据下标从0开始, 若使用负数, 则表示从列表尾部倒数第几个数据</span></span><br><span class="line"><span class="comment"># 获取mylist下标0-2的数据</span></span><br><span class="line">lrange mylist 0 2</span><br><span class="line">lrange mylist 0 -1 <span class="comment">#-1表示列表倒数第一个数据, 即正数最后一个数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式一: lpop key 删除列表最左边的数据</span></span><br><span class="line"><span class="comment"># 格式二: rpop key 删除列表最右边的数据</span></span><br><span class="line"><span class="comment"># 删除mylist键列表头部的一个数据</span></span><br><span class="line">lpop mylist</span><br><span class="line"><span class="comment"># 删除mylist键列表尾部的一个数据</span></span><br><span class="line">rpop mylist</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>集合类型：set</p>
 <p>主要用于存储大量的数据，提供更高的数据查询效率</p>
 <p>一个存储空间能够存储大量数据，且具有高效的内部存储机制</p>
 <p>底层与hash存储结构相同，并且不允许存储重复的值</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: sadd key value</span></span><br><span class="line"><span class="comment"># 在myset键存储一个值为a的数据</span></span><br><span class="line">sadd myset a <span class="comment">#第二次重复执行, 不会再新增数据</span></span><br><span class="line">sadd myset b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: smembers key</span></span><br><span class="line"><span class="comment"># 获取myset键中的所有数据</span></span><br><span class="line">smembers myset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: srem key value</span></span><br><span class="line"><span class="comment"># 删除myset键中值为a的数据</span></span><br><span class="line">srem myset a</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: sadd key value</span></span><br><span class="line"><span class="comment"># 在myset键存储一个值为a的数据</span></span><br><span class="line">sadd myset a <span class="comment">#第二次重复执行, 不会再新增数据</span></span><br><span class="line">sadd myset b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: smembers key</span></span><br><span class="line"><span class="comment"># 获取myset键中的所有数据</span></span><br><span class="line">smembers myset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: srem key value</span></span><br><span class="line"><span class="comment"># 删除myset键中值为a的数据</span></span><br><span class="line">srem myset a</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>有序集合类型：sorted_set</p>
 <p>不允许存储重复数据，并且存储的数据是有顺序的，每个数据会关联一个double类型的分数作为排序的依据</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: zadd key score value</span></span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为3, 值为pascal的数据</span></span><br><span class="line">zadd mysort 3 pascal</span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为1, 值为visual的数据</span></span><br><span class="line">zadd mysort 1 visual</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: zrange key start end 范围获取, 可参考list列表类型的获取命令来理解</span></span><br><span class="line"><span class="comment"># 获取mysort键下的所有数据</span></span><br><span class="line">zrange mysort 0 -1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: zrem key value</span></span><br><span class="line"><span class="comment"># 删除mysort键下值为visual的数据</span></span><br><span class="line">zrem mysort visual</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: zadd key score value</span></span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为3, 值为pascal的数据</span></span><br><span class="line">zadd mysort 3 pascal</span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为1, 值为visual的数据</span></span><br><span class="line">zadd mysort 1 visual</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: zrange key start end 范围获取, 可参考list列表类型的获取命令来理解</span></span><br><span class="line"><span class="comment"># 获取mysort键下的所有数据</span></span><br><span class="line">zrange mysort 0 -1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: zrem key value</span></span><br><span class="line"><span class="comment"># 删除mysort键下值为visual的数据</span></span><br><span class="line">zrem mysort visual</span><br></pre></td></tr></table></figure>
 <p><strong>通用命令操作</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询所有的键</span></span><br><span class="line">keys *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取指定键对应的数据类型</span></span><br><span class="line"><span class="comment"># 获取mysort键对应的数据类型</span></span><br><span class="line"><span class="built_in">type</span> mysort</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除指定的键及其数据</span></span><br><span class="line"><span class="comment"># 删除myhash键下的所有键值对数据</span></span><br><span class="line">del myhash</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查询所有的键</span></span><br><span class="line">keys *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取指定键对应的数据类型</span></span><br><span class="line"><span class="comment"># 获取mysort键对应的数据类型</span></span><br><span class="line"><span class="built_in">type</span> mysort</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除指定的键及其数据</span></span><br><span class="line"><span class="comment"># 删除myhash键下的所有键值对数据</span></span><br><span class="line">del myhash</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h4 id="持久化"><a class="markdownIt-Anchor" href="#持久化"></a> 持久化</h4>
@@ -364,7 +391,7 @@
 </li>
 <li>
 <p>打开redis客户端</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试数据, 修改5个key</span></span><br><span class="line"><span class="built_in">set</span> name 1</span><br><span class="line"><span class="built_in">set</span> name 2</span><br><span class="line"><span class="built_in">set</span> name 3</span><br><span class="line"><span class="built_in">set</span> name 4</span><br><span class="line"><span class="built_in">set</span> name 5</span><br><span class="line"><span class="comment"># 之后根据save 10 5的配置, 会在redis的根目录下生成dump.rdb文件</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 测试数据, 修改5个key</span></span><br><span class="line"><span class="built_in">set</span> name 1</span><br><span class="line"><span class="built_in">set</span> name 2</span><br><span class="line"><span class="built_in">set</span> name 3</span><br><span class="line"><span class="built_in">set</span> name 4</span><br><span class="line"><span class="built_in">set</span> name 5</span><br><span class="line"><span class="comment"># 之后根据save 10 5的配置, 会在redis的根目录下生成dump.rdb文件</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>关闭redis服务器和客户端，再重启服务器和客户端重新查询数据，测试数据是否实现持久化</p>
@@ -457,14 +484,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">69k</span>
+    <span title="站点总字数">67k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:03</span>
+    <span title="站点阅读时长">1:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
@@ -484,6 +511,7 @@
     <i class="fa fa-arrow-up fa-lg"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -494,7 +522,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
 
 
 
