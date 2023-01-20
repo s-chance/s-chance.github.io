@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Git分支重命名</title>
+    <url>/2022/09/08/Git-Branch-Rename/</url>
+    <content><![CDATA[<h3 id="git重命名分支"><a class="markdownIt-Anchor" href="#git重命名分支"></a> Git重命名分支</h3>
+<p>在开发过程中，有时需要对分支进行重命名。重命名分支需要考虑到分支是否已经推送到远端的情况<span id="more"></span></p>
+<h4 id="git重命名本地分支还未推送到远端"><a class="markdownIt-Anchor" href="#git重命名本地分支还未推送到远端"></a> Git重命名本地分支（还未推送到远端）</h4>
+<ul>
+<li>
+<p>在需要重命名的分支处</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m <span class="string">&#x27;新的分支名&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>不在需要重命名的分支处</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m <span class="string">&#x27;需要重命名的分支名&#x27;</span> <span class="string">&#x27;新的分支名&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="git重命名远端分支已经推送到远端"><a class="markdownIt-Anchor" href="#git重命名远端分支已经推送到远端"></a> Git重命名远端分支（已经推送到远端）</h4>
+<p><strong>假设已经处于需要重命名的分支上，参考上面的操作，并且在通过命令修改分支名之前没有手动去远端进行过修改，即修改之前本地分支名与远端分支名仍保持一致</strong></p>
+<ul>
+<li>
+<p>重命名本地分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m 新的分支名</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>删除远程分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push --delete origin 要删除的分支名</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>上传新命名的分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin 新的分支名</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>关联修改后的本地分支与远端分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to origin/新的分支名</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>IDEA插件配置</title>
     <url>/2023/01/14/IDEA-plugins/</url>
     <content><![CDATA[<p>作为IntelliJ IDEA的用户之一，原始的IDE已经能够满足大部分需求，但IDE插件提供了更多拓展性的功能，使得开发者能够工作在适宜的“开发环境”中，提高开发效率，提升开发者体验。那么以下是笔者在使用过程中所搜寻到的一些插件，请注意其中部分插件并不能直接提升开发效率，另外过多的插件反而会造成开发效率的低下，请悉知。读者可自行选择感兴趣的插件进行配置<span id="more"></span></p>
@@ -95,67 +136,6 @@
 ]]></content>
       <tags>
         <tag>配置优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git分支重命名</title>
-    <url>/2022/09/08/Git-Branch-Rename/</url>
-    <content><![CDATA[<h3 id="git重命名分支"><a class="markdownIt-Anchor" href="#git重命名分支"></a> Git重命名分支</h3>
-<p>在开发过程中，有时需要对分支进行重命名。重命名分支需要考虑到分支是否已经推送到远端的情况<span id="more"></span></p>
-<h4 id="git重命名本地分支还未推送到远端"><a class="markdownIt-Anchor" href="#git重命名本地分支还未推送到远端"></a> Git重命名本地分支（还未推送到远端）</h4>
-<ul>
-<li>
-<p>在需要重命名的分支处</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m <span class="string">&#x27;新的分支名&#x27;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>不在需要重命名的分支处</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m <span class="string">&#x27;需要重命名的分支名&#x27;</span> <span class="string">&#x27;新的分支名&#x27;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="git重命名远端分支已经推送到远端"><a class="markdownIt-Anchor" href="#git重命名远端分支已经推送到远端"></a> Git重命名远端分支（已经推送到远端）</h4>
-<p><strong>假设已经处于需要重命名的分支上，参考上面的操作，并且在通过命令修改分支名之前没有手动去远端进行过修改，即修改之前本地分支名与远端分支名仍保持一致</strong></p>
-<ul>
-<li>
-<p>重命名本地分支</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m 新的分支名</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>删除远程分支</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push --delete origin 要删除的分支名</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>上传新命名的分支</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin 新的分支名</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>关联修改后的本地分支与远端分支</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to origin/新的分支名</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RSS订阅的使用以及优势</title>
-    <url>/2022/09/04/RSS/</url>
-    <content><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3>
-<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
-<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
-<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
-<ul>
-<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
-<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
-<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
-<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
-</ul>
-<h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4>
-<p>windows平台这里推荐微软商店的Fluent Reader<a href="https://apps.microsoft.com/store/detail/9P71FC94LRH8">官网链接</a></p>
-]]></content>
-      <tags>
-        <tag>RSS</tag>
       </tags>
   </entry>
   <entry>
@@ -2157,456 +2137,23 @@
       </tags>
   </entry>
   <entry>
-    <title>Redis基础</title>
-    <url>/2022/09/14/Redis-Base/</url>
-    <content><![CDATA[<h3 id="redis基础"><a class="markdownIt-Anchor" href="#redis基础"></a> Redis基础</h3>
-<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
-<p>redis是一款高性能的NoSQL系列的非关系型数据库，全称Remote Dictionary Server远程字典服务器，是基于C语言开发的一个开源的高性能键值对数据库<span id="more"></span></p>
-<p>NoSQL，全称Not-Only SQL，泛指非关系型的数据库，专门用于应对基于海量用户和海量数据下的数据处理问，不同于MySQL这类关系型数据库，NoSQL系列的非关系型数据库减少了磁盘读写次数、去除了数据间的关联性弥补关系型数据库在磁盘读写性能、复杂的数据关联性难于扩展的不足，专门用于应对大量用户<strong>高并发</strong>的问题</p>
-<p>但非关系型数据库与关系型数据库在开发中一般会配合使用，非关系型数据库能实现大量数据的高效率访问，关系型数据库能实现复杂的数据查询以及保障安全性能的事务机制。单一的非关系数据库则无法实现复杂查询、安全保障，单一的关系型数据库也无法实现高效访问。因此联合使用非关系数据库和关系型数据库，相互弥补缺点，才能提供最好的用户体验。</p>
-<h4 id="开始使用"><a class="markdownIt-Anchor" href="#开始使用"></a> 开始使用</h4>
-<h5 id="下载安装"><a class="markdownIt-Anchor" href="#下载安装"></a> 下载安装</h5>
-<p>redis<a href="https://redis.io">官网</a>以及<a href="http://www.redis.net.cn/">中文官网</a>主要提供的是Linux发行版下的redis版本，用于投入开发使用。本文章以windows系统下的redis版本做为学习使用，在GitHub上的<a href="https://github.com/microsoftarchive/redis/releases">Releases · microsoftarchive/redis</a>下载zip压缩包找到内部的release目录下含有redis主要的exe文件的压缩包后解压即可（这里是以2.8.9版本为例）</p>
-<p>关于redis的图形化管理工具<a href="https://github.com/uglide/RedisDesktopManager">下载</a>(最新版本需要收费使用)</p>
-<h5 id="重要文件"><a class="markdownIt-Anchor" href="#重要文件"></a> 重要文件</h5>
-<p>redis压缩包解压后目录下的重要文件主要是以下文件：</p>
+    <title>RSS订阅的使用以及优势</title>
+    <url>/2022/09/04/RSS/</url>
+    <content><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3>
+<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
+<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
+<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
 <ul>
-<li>redis.windows.conf：配置文件</li>
-<li>redis-cli.exe：redis客户端</li>
-<li>redis-server.exe：redis服务器端</li>
+<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
+<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
+<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
+<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
 </ul>
-<h5 id="基本操作"><a class="markdownIt-Anchor" href="#基本操作"></a> 基本操作</h5>
-<p><strong>请确保redis服务器端先启动，否则redis客户端在启动后将会无法连接至redis服务器端</strong></p>
-<p>redis数据类型：string、hash、list、set、sorted_set/zset</p>
-<p>注意：在未持久化redis中的数据时，关闭redis服务器端会导致在redis客户端存储的数据全部丢失，因此请在确保redis服务器端一直运行的前提下，测试下面的命令操作</p>
-<ol>
-<li>
-<p>字符串类型：string</p>
-<p>主要用于存储单个数据，是最简单也是最常用的数据存储类型</p>
-<p>一个存储空间存储一个数据</p>
-<p>存储的数据如果是整数类型，则可进行数字操作</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: set key value</span></span><br><span class="line"><span class="comment"># 存储一个键为name, 值为tom的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> name tom</span><br><span class="line"><span class="comment"># 存储一个键为age, 值为26的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> age 26</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: get key</span></span><br><span class="line"><span class="comment"># 获取name键对应的值</span></span><br><span class="line">get name</span><br><span class="line"><span class="comment"># 获取age键对应的值</span></span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: del key</span></span><br><span class="line"><span class="comment"># 删除name键对应的值</span></span><br><span class="line">del name</span><br><span class="line"><span class="comment">#删除age键对应的值</span></span><br><span class="line">del age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新获取值, 确认是否已经删除</span></span><br><span class="line">get name</span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数字操作命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自增处理incr key, 当key不存在时会自动创建, 默认自增值1</span></span><br><span class="line">incr num <span class="comment">#num键若不存在, 则自动创建</span></span><br><span class="line"><span class="comment"># 自增指定数据incrby key increment</span></span><br><span class="line">incrby num 20 <span class="comment">#指定num键的值自增20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自减处理decr key, 同样的若key不存在会自动创建, 默认自减值1</span></span><br><span class="line">decr num</span><br><span class="line"><span class="comment"># 自减指定数据decrby key decrement</span></span><br><span class="line">decrby num 30</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>哈希类型：hash</p>
-<p>主要用于分组存储有一定关联性的数据，比如java对象中的一系列成员变量数据</p>
-<p>一个存储空间存储多个键值对数据</p>
-<p>底层使用哈希表结构实现数据存储</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: hset key field value</span></span><br><span class="line"><span class="comment"># 在myhash键中存储一个name字段, 值为jerry的数据</span></span><br><span class="line">hset myhash name jerry</span><br><span class="line"><span class="comment"># 在myhash键中存储一个password字段, 值为pass的数据</span></span><br><span class="line">hset myhash password pass</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式一: hget key field 获取指定的field所对应的值</span></span><br><span class="line"><span class="comment"># 获取myhash键中name字段的值</span></span><br><span class="line">hget myhash name</span><br><span class="line"><span class="comment"># 格式二: hgetall key 获取指定key下的所有field和value</span></span><br><span class="line"><span class="comment"># 获取myhash键下的所有键值对数据</span></span><br><span class="line">hgetall myhash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: hdel key field</span></span><br><span class="line"><span class="comment"># 删除myhash键下的name字段及其对应的值</span></span><br><span class="line">hdel myhash name</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>列表类型：list</p>
-<p>主要用于存储多个数据，并对数据先后进入存储空间的顺序进行区分</p>
-<p>一个存储空间存储多个数据，且区分数据存储的先后顺序</p>
-<p>底层使用双向链表结构实现数据存储</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式一: lpush key value 在列表左边(头部)添加数据</span></span><br><span class="line"><span class="comment"># 格式二: rpush key value 在列表右边(尾部)添加数据</span></span><br><span class="line"><span class="comment"># 先任意添加一个测试的初始数据</span></span><br><span class="line">lpush mylist origin</span><br><span class="line"><span class="comment"># 在mylist键列表头部添加一个数据</span></span><br><span class="line">lpush mylist <span class="built_in">head</span></span><br><span class="line"><span class="comment"># 在mylist键列表尾部添加一个数据</span></span><br><span class="line">rpush mylist <span class="built_in">tail</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># lrange key start end 根据start和end的范围获取</span></span><br><span class="line"><span class="comment"># list数据下标从0开始, 若使用负数, 则表示从列表尾部倒数第几个数据</span></span><br><span class="line"><span class="comment"># 获取mylist下标0-2的数据</span></span><br><span class="line">lrange mylist 0 2</span><br><span class="line">lrange mylist 0 -1 <span class="comment">#-1表示列表倒数第一个数据, 即正数最后一个数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式一: lpop key 删除列表最左边的数据</span></span><br><span class="line"><span class="comment"># 格式二: rpop key 删除列表最右边的数据</span></span><br><span class="line"><span class="comment"># 删除mylist键列表头部的一个数据</span></span><br><span class="line">lpop mylist</span><br><span class="line"><span class="comment"># 删除mylist键列表尾部的一个数据</span></span><br><span class="line">rpop mylist</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>集合类型：set</p>
-<p>主要用于存储大量的数据，提供更高的数据查询效率</p>
-<p>一个存储空间能够存储大量数据，且具有高效的内部存储机制</p>
-<p>底层与hash存储结构相同，并且不允许存储重复的值</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: sadd key value</span></span><br><span class="line"><span class="comment"># 在myset键存储一个值为a的数据</span></span><br><span class="line">sadd myset a <span class="comment">#第二次重复执行, 不会再新增数据</span></span><br><span class="line">sadd myset b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: smembers key</span></span><br><span class="line"><span class="comment"># 获取myset键中的所有数据</span></span><br><span class="line">smembers myset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: srem key value</span></span><br><span class="line"><span class="comment"># 删除myset键中值为a的数据</span></span><br><span class="line">srem myset a</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>有序集合类型：sorted_set</p>
-<p>不允许存储重复数据，并且存储的数据是有顺序的，每个数据会关联一个double类型的分数作为排序的依据</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: zadd key score value</span></span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为3, 值为pascal的数据</span></span><br><span class="line">zadd mysort 3 pascal</span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为1, 值为visual的数据</span></span><br><span class="line">zadd mysort 1 visual</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: zrange key start end 范围获取, 可参考list列表类型的获取命令来理解</span></span><br><span class="line"><span class="comment"># 获取mysort键下的所有数据</span></span><br><span class="line">zrange mysort 0 -1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: zrem key value</span></span><br><span class="line"><span class="comment"># 删除mysort键下值为visual的数据</span></span><br><span class="line">zrem mysort visual</span><br></pre></td></tr></table></figure>
-<p><strong>通用命令操作</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查询所有的键</span></span><br><span class="line">keys *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取指定键对应的数据类型</span></span><br><span class="line"><span class="comment"># 获取mysort键对应的数据类型</span></span><br><span class="line"><span class="built_in">type</span> mysort</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除指定的键及其数据</span></span><br><span class="line"><span class="comment"># 删除myhash键下的所有键值对数据</span></span><br><span class="line">del myhash</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="持久化"><a class="markdownIt-Anchor" href="#持久化"></a> 持久化</h4>
-<h5 id="rdb方式"><a class="markdownIt-Anchor" href="#rdb方式"></a> RDB方式</h5>
-<p>redis作为一个内存数据库，当redis服务器重启后，数据就会丢失。为了能够在redis服务器重启后能够快速恢复缓存的数据，就需要使用持久化技术</p>
-<ul>
-<li>
-<p>redis持久化机制：每隔一定时间检测key的变化情况，根据配置决定是否进行持久化。持久化的数据就存储在dump.rdb文件中。</p>
-</li>
-<li>
-<p>持久化配置过程：打开redis.windows.conf文件，找到<code># Save the DB on disk</code>所在的位置，在#注释的下方可以看到<code>save 900 1</code>的字样，这些原始的字样就是默认的持久化机制。通过修改这些字样就能设置持久化机制。</p>
-</li>
-<li>
-<p>关于持久化配置的简单说明：</p>
-<p><code>save 900 1</code></p>
-<h6 id="after-900-sec-15-min-if-at-least-1-key-changed"><a class="markdownIt-Anchor" href="#after-900-sec-15-min-if-at-least-1-key-changed"></a> after 900 sec (15 min) if at least 1 key changed</h6>
-<h6 id="经过15分钟如果至少有一个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过15分钟如果至少有一个key发生变化那么就进行一次持久化"></a> 经过15分钟，如果至少有一个key发生变化，那么就进行一次持久化</h6>
-<p><code>save 300 10</code></p>
-<h6 id="after-300-sec-5-min-if-at-least-10-keys-changed"><a class="markdownIt-Anchor" href="#after-300-sec-5-min-if-at-least-10-keys-changed"></a> after 300 sec (5 min) if at least 10 keys changed</h6>
-<h6 id="经过5分钟如果至少有10个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过5分钟如果至少有10个key发生变化那么就进行一次持久化"></a> 经过5分钟，如果至少有10个key发生变化，那么就进行一次持久化</h6>
-<p><code>save 60 10000</code></p>
-<h6 id="after-60-sec-1-min-if-at-least-10000-keys-changed"><a class="markdownIt-Anchor" href="#after-60-sec-1-min-if-at-least-10000-keys-changed"></a> after 60 sec (1 min) if at least 10000 keys changed</h6>
-<h6 id="经过1分钟如果至少有10000个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过1分钟如果至少有10000个key发生变化那么就进行一次持久化"></a> 经过1分钟，如果至少有10000个key发生变化，那么就进行一次持久化</h6>
-</li>
-<li>
-<p>持久化机制测试：</p>
-<blockquote>
-<p>配置之前请先确保关闭redis服务器，以防配置无法生效</p>
-<ol>
-<li>
-<p>修改配置文件在指定位置添加字样<code>save 10 5</code>，10秒后有5个key发生变化，则持久化</p>
-</li>
-<li>
-<p>在redis根目录下打开cmd，通过<code>redis-server.exe redis.windows.conf</code>命令启动redis服务器，否则持久化机制还是使用默认方式，如果觉得麻烦可以看<a href="#bc">补充</a></p>
-</li>
-<li>
-<p>打开redis客户端</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 测试数据, 修改5个key</span></span><br><span class="line"><span class="built_in">set</span> name 1</span><br><span class="line"><span class="built_in">set</span> name 2</span><br><span class="line"><span class="built_in">set</span> name 3</span><br><span class="line"><span class="built_in">set</span> name 4</span><br><span class="line"><span class="built_in">set</span> name 5</span><br><span class="line"><span class="comment"># 之后根据save 10 5的配置, 会在redis的根目录下生成dump.rdb文件</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>关闭redis服务器和客户端，再重启服务器和客户端重新查询数据，测试数据是否实现持久化</p>
-</li>
-</ol>
-</blockquote>
-</li>
-</ul>
-<h5 id="aof方式"><a class="markdownIt-Anchor" href="#aof方式"></a> AOF方式</h5>
-<p>AOF是一种日志记录，用于记录redis每一条命令执行的历史操作，可在每一次命令操作后持久化数据</p>
-<p>AOF配置过程：打开redis.windows.conf文件，找到<code>appendonly no</code>字样修改<code>no</code>为<code>yes</code>开启AOF支持。再找到<code>#appendfsync</code>开头的字样，去掉前面的<code>#</code>启动持久化机制</p>
-<p>AOF持久化机制简单说明：<code>appendfsync always</code>每一次操作进行一次持久化，<code>appendfsync everysec</code>每隔一秒进行一次持久化，<code>appendfsync no</code>不进行持久化</p>
-<p>注意：在redis根目录下用cmd执行<code>redis-server.exe redis.windows.conf</code>命令启动服务器，否则配置可能不生效</p>
-<h4 id="span-idbc补充span"><a class="markdownIt-Anchor" href="#span-idbc补充span"></a> <span id='bc'>补充</span></h4>
-<h5 id="关于redis-serverexe启动时默认加载配置文件"><a class="markdownIt-Anchor" href="#关于redis-serverexe启动时默认加载配置文件"></a> 关于redis-server.exe启动时默认加载配置文件</h5>
-<p>右击文件<strong>创建快捷方式</strong>，右击快捷方式<strong>设置属性</strong>，在<strong>目标</strong>的后面<strong>添加空格和配置文件名</strong>，配置完后的示例<code>D:\redis-2.8.9\redis-server.exe redis.windows.conf</code>，前面的exe文件路径根据本地实际情况配置，默认是已有的，然后<strong>点击应用</strong>。之后使用该快捷方式启动服务器就能自动加载配置文件</p>
-<h5 id="关于redisqfork_8412dat文件"><a class="markdownIt-Anchor" href="#关于redisqfork_8412dat文件"></a> 关于RedisQFork_8412.dat文件</h5>
-<p>这是redis的内存映射文件。当redis启动时会自动创建，redis关闭后会自动消失。不过这个文件会随数据量的增长而增长，没有限制能够增长到几十G的大小，如果硬盘空间无法容纳这几十G的大小，就无法启动redis服务。可以通过修改配置文件中的<code>maxheap</code>字样后的参数实现（单位B），如设置最大为4G，则填写4294967296（4GB换算成B）</p>
+<h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4>
+<p>windows平台这里推荐微软商店的Fluent Reader<a href="https://apps.microsoft.com/store/detail/9P71FC94LRH8">官网链接</a></p>
 ]]></content>
       <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于个人Hexo博客的搭建历史</title>
-    <url>/2023/01/17/blog-by-https/</url>
-    <content><![CDATA[<p>仅以此文回顾过去搭建Hexo博客的历程<span id="more"></span></p>
-<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
-<p>在早期笔者一直是通过github pages服务来运行博客网站，从而省略了对<strong>域名解析</strong>、<strong>nginx反向代理</strong>以及<strong>SSL证书的申请与HTTPS服务的开启</strong>这些配置</p>
-<p>于是后期，笔者租赁了一台纯净Ubutun20.04LTS系统的轻量应用服务器，从零开始基于命令行配置hexo博客以及HTTPS服务的开启</p>
-<h2 id="hexo博客的搭建"><a class="markdownIt-Anchor" href="#hexo博客的搭建"></a> Hexo博客的搭建</h2>
-<h3 id="本地环境搭建"><a class="markdownIt-Anchor" href="#本地环境搭建"></a> 本地环境搭建</h3>
-<h4 id="git环境"><a class="markdownIt-Anchor" href="#git环境"></a> Git环境</h4>
-<ol>
-<li>
-<p>访问git官网<a href="https://git-scm.com/download">Git - Downloads (git-scm.com)</a>或寻找镜像站<a href="https://mirrors.tuna.tsinghua.edu.cn/github-release/git-for-windows/git/">清华大学开源软件镜像站 | git for windows</a>下载对应系统的版本</p>
-</li>
-<li>
-<p>安装Git，除了安装路径可选择C盘或D盘，其它均可直接下一步</p>
-</li>
-<li>
-<p>配置环境变量，在系统环境变量的<strong>Path变量下</strong>增加变量值</p>
-<p>参考变量值：D:\Program Files\Git\cmd</p>
-</li>
-<li>
-<p>win+r输入powershell打开查看git版本信息</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">git <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
-<p>显示出了版本号，则说明git配置完成</p>
-</li>
-</ol>
-<h4 id="nodejs环境"><a class="markdownIt-Anchor" href="#nodejs环境"></a> Nodejs环境</h4>
-<ol>
-<li>
-<p>访问nodejs官网<a href="https://nodejs.org/en/download/">Download | Node.js (nodejs.org)</a>下载对应系统的nodejs版本。（linux系统可直接使用命令行下载而不需要手动配置，使用其它方式则需要手动添加环境变量或者软链接）</p>
-</li>
-<li>
-<p>windows下载完nodejs后需要配置环境变量（注意不要使用中文路径和带有空格的路径，默认路径中的<code>Program Files</code>中的空格会导致命令无法识别）</p>
-<p>windows参考配置</p>
-<ol>
-<li>
-<p>执行下载的nodejs的msi文件，选择安装路径<code>D:\nodejs</code></p>
-</li>
-<li>
-<p>配置<strong>系统环境变量</strong>，在<strong>Path变量</strong>下添加 D:\nodejs\ （这一步nodejs可能会自动配置好）</p>
-</li>
-<li>
-<p>应用配置，保存关闭。win+r输入powershell打开命令提示符，输入</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看nodejs版本</span></span><br><span class="line">node <span class="literal">-v</span></span><br><span class="line"><span class="comment"># 查看包管理器npm的版本(npm是nodejs默认安装的包管理器)</span></span><br><span class="line">npm <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
-<p>以上命令检测到两个版本号后说明配置完成</p>
-</li>
-<li>
-<p>完成以上步骤后基本就能够使用nodejs来搭建hexo。后续为<strong>非必须步骤</strong>，如果使用过程中存在一些问题可参考以下步骤解决</p>
-</li>
-<li>
-<p>如果npm下载失败或下载速度缓慢，可能是由于默认服务器在海外的缘故，可指定国内镜像源下载或配置npm的国内镜像源</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定镜像源下载,下载时加上--registry的参数,每次下载需要指定</span></span><br><span class="line">npm install <span class="literal">-g</span> 包名 <span class="literal">--registry</span>=https://registry.npm.taobao.org</span><br><span class="line"><span class="comment"># 设置镜像源,将npm的默认源更换为镜像源</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line"><span class="comment"># 检测镜像站是否可用</span></span><br><span class="line">npm config get registry</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>按以上步骤nodejs安装在了D盘，但下载的包仍在C盘，这里的配置是将包从C盘迁移到D盘以减少C盘的占用</p>
-<p>在nodejs的根目录下，创建两个文件夹命名为node_global和node_cache，在文件夹的属性——安全里更改所有组或用户的权限为完全控制（防止权限不足而无法下载的问题）</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置全局安装路径(路径根据实际情况填写)</span></span><br><span class="line">npm config <span class="built_in">set</span> prefix <span class="string">&quot;D:\nodejs\node_global&quot;</span></span><br><span class="line"><span class="comment"># 设置全局缓存路径(路径根据实际情况填写)</span></span><br><span class="line">npm config <span class="built_in">set</span> cache <span class="string">&quot;D:\nodejs\node_cache&quot;</span></span><br><span class="line"><span class="comment"># 以上命令会在C盘用户文件夹下产生一个.npmrc配置文件由于保存上面的配置信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加系统环境变量,在Path变量下新增变量值,变量值就是全局安装路径,否则新安装的命令工具无法执行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检测全局安装路径</span></span><br><span class="line">npm root <span class="literal">-g</span></span><br><span class="line"><span class="comment"># 查看配置信息</span></span><br><span class="line">npm config list</span><br></pre></td></tr></table></figure>
-<p>以上配置完成后，之后下载的包都会放到<strong>node_global/node_modules</strong>下</p>
-</li>
-</ol>
-</li>
-<li>
-<p>nodejs环境搭建完成</p>
-</li>
-</ol>
-<h4 id="hexo环境"><a class="markdownIt-Anchor" href="#hexo环境"></a> Hexo环境</h4>
-<ol>
-<li>
-<p>在完成了搭建git和nodejs的环境的基础上，就能够快速使用Hexo</p>
-</li>
-<li>
-<p>在powershell中执行以下命令</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 全局安装Hexo命令行工具</span></span><br><span class="line">npm install <span class="literal">-g</span> hexo<span class="literal">-cli</span></span><br><span class="line"><span class="comment"># 查看Hexo版本信息</span></span><br><span class="line">hexo version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择一个合适的文件夹作为Hexo框架的存放目录(这里假设使用一个demo的空文件夹)</span></span><br><span class="line"><span class="comment"># 执行以下3条命令就搭建好了基本的框架</span></span><br><span class="line">hexo init demo</span><br><span class="line"><span class="built_in">cd</span> demo</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在本地运行Hexo</span></span><br><span class="line">hexo server <span class="comment"># 或简写为hexo s</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一些常用的Hexo命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一篇文章(文章内包含了Hexo的一些格式信息)</span></span><br><span class="line">hexo new <span class="string">&quot;first blog&quot;</span> <span class="comment"># 会在_posts目录下生成一个markdown初始文件,标题为first blog</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一篇草稿(草稿不会在网站上展示)</span></span><br><span class="line">hexo new draft <span class="string">&quot;my draft&quot;</span> <span class="comment"># 会在_drafts目录下生成相应的初始文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建导航页(导航页主要是展示文章分类、标签、作者简介、友情链接等信息)</span></span><br><span class="line">hexo new page <span class="literal">--path</span> about/me <span class="string">&quot;About me&quot;</span> <span class="comment"># 个人简介,这里是固定写法。默认情况下还需要修改配置文件才能生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态文件(一般是在新建文章并完成写作后使用或者在修改了文章的内容后使用)</span></span><br><span class="line">hexo generate <span class="comment"># 可简写为hexo g</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务器(用于预览网页效果)</span></span><br><span class="line">hexo server <span class="comment"># 可简写为hexo s</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署网站(需要配置远程服务器地址,部署之前需要先生成静态文件)</span></span><br><span class="line">hexo deploy <span class="comment"># 可简写为hexo d</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除缓存文件(一般是更换Hexo主题未生效时使用)</span></span><br><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
-<p>更详细的介绍请移步官网<a href="https://hexo.io/zh-cn/">Hexo</a></p>
-</li>
-</ol>
-<h3 id="远程环境搭建"><a class="markdownIt-Anchor" href="#远程环境搭建"></a> 远程环境搭建</h3>
-<h4 id="创建git仓库"><a class="markdownIt-Anchor" href="#创建git仓库"></a> 创建Git仓库</h4>
-<p>先安装openssh，之后就可以通过ssh客户端远程连接服务器而不需要在浏览器上操作</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装SSH服务端</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"><span class="comment"># 查看SSH服务是否启动</span></span><br><span class="line">ps -e | grep ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个blog用户管理Hexo(默认的root用户权限过高,容易影响到系统)</span></span><br><span class="line">adduser blog</span><br><span class="line"><span class="comment"># 给予blog用户权限</span></span><br><span class="line">vim /etc/sudoers</span><br><span class="line"><span class="comment"># 找到User privilege specification这一段,在下面添加以下内容</span></span><br><span class="line">blog    ALL=(ALL:ALL) ALL</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到blog用户(密码可在网页服务器控制台那边重置密码获得)</span></span><br><span class="line">su blog</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装git</span></span><br><span class="line">sudo apt install git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入根目录,在/var/repo目录下创建一个名为hexo_static的裸仓库</span></span><br><span class="line"><span class="built_in">cd</span> /</span><br><span class="line">sudo <span class="built_in">mkdir</span> /var/repo/</span><br><span class="line">sudo <span class="built_in">chown</span> -R <span class="variable">$USER</span>:<span class="variable">$USER</span> /var/repo/</span><br><span class="line">sudo <span class="built_in">chmod</span> -R 755 /var/repo/</span><br><span class="line"><span class="built_in">cd</span> /var/repo/</span><br><span class="line"><span class="comment"># 创建裸仓库</span></span><br><span class="line">git init --bare hexo_static.git</span><br><span class="line"><span class="comment"># 裸仓库不同于普通仓库,裸仓库是专门的共享仓库,不会存储文件,只保存历史提交的版本信息</span></span><br><span class="line"><span class="comment"># 实际上裸仓库就相当于普通仓库中隐藏的.git文件夹</span></span><br></pre></td></tr></table></figure>
-<h4 id="配置nginx反向代理"><a class="markdownIt-Anchor" href="#配置nginx反向代理"></a> 配置Nginx反向代理</h4>
-<h5 id="安装nginx及可能遇到的问题"><a class="markdownIt-Anchor" href="#安装nginx及可能遇到的问题"></a> 安装Nginx及可能遇到的问题</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装nginx</span></span><br><span class="line">sudo apt install nginx</span><br><span class="line"><span class="comment"># 查看版本信息,注意大小写</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 注意这一步如果没有看到with-http_ssl_module字样的参数信息(如果有就跳过后续步骤),则需要从源码编译安装(已经安装了也没有关系,停止服务后替换配置文件即可)</span></span><br><span class="line"><span class="comment"># 如果想卸载也可以执行以下命令</span></span><br><span class="line">sudo apt --purge autoremove nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># Nginx 官网 https://nginx.org/en/download.html</span></span><br><span class="line"><span class="comment"># /usr/local/src目录通常用于存放用户手动编译程序的源码包</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/src/</span><br><span class="line"><span class="comment"># 这里使用wget下载nginx的源码包</span></span><br><span class="line"><span class="comment"># 如果已经安装并配置了nginx,又不想重新配置,使用nginx -v命令查看已安装的nginx版本并替换掉以下命令中的版本号</span></span><br><span class="line">wget https://nginx.org/download/nginx-1.22.1.tar.gz</span><br><span class="line"><span class="comment"># 解压提取包并进入解压目录</span></span><br><span class="line">tar -zxvf nginx-1.22.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> nginx-1.22.1</span><br><span class="line"><span class="comment"># 查看原有的nginx安装目录</span></span><br><span class="line"><span class="built_in">which</span> nginx</span><br><span class="line"><span class="comment"># 停止nginx的运行</span></span><br><span class="line">nginx -s stop</span><br><span class="line"><span class="comment"># 查看原有nginx的配置参数,注意大小写</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 在原有参数的基础上附加--with-http_ssl_module的参数配置SSL模块(下面只给出了一部分参数,完整参数由nginx -V显示的参数拼接SSL模块的参数而成)</span></span><br><span class="line">sudo ./configure --prefix=/usr/local/nginx --with-http_ssl_module</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这一步可能会缺少一些库,使用以下命令下载到相关库后重新编译</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少PCRE的相关库,如果不缺这个库就跳过</span></span><br><span class="line">sudo apt install libpcre3 libpcre3-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少zlib的库,如果不缺这个库就跳过</span></span><br><span class="line"><span class="comment"># 访问zlib官网http://zlib.net/下载zlib,这里直接用wget下载到当前的src目录</span></span><br><span class="line">wget http://zlib.net/zlib-1.2.13.tar.gz</span><br><span class="line">./configure --prefix=/usr/local/zlib</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少openssl的相关库,如果不缺这个库就跳过</span></span><br><span class="line">sudo apt install openssl libssl-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新编译nginx</span></span><br><span class="line">sudo make</span><br><span class="line"><span class="comment"># 如果没有安装过nginx或者已经卸载了nginx则执行以下2条命令覆盖安装后即可跳过后续步骤</span></span><br><span class="line">sudo make install</span><br><span class="line"><span class="comment"># 配置软链接使得在任意目录下能通过nginx的名称直接运行nginx的命令</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /usr/local/nginx/sbin/nginx /usr/sbin/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换原有nginx的文件</span></span><br><span class="line"><span class="comment"># 备份原有nginx安装目录下的文件(这里以安装文件位于/usr/sbin/目录下为例)</span></span><br><span class="line"><span class="built_in">cp</span> /usr/sbin/nginx /usr/sbin/nginx.bak</span><br><span class="line"><span class="comment"># 将编译好的nginx文件覆盖掉原有的nginx</span></span><br><span class="line"><span class="built_in">cp</span> ./objs/nginx /usr/sbin/</span><br><span class="line"><span class="comment"># 重新查看nginx参数信息</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 看到了--with-http_ssl_module的参数,SSL模块配置完成</span></span><br></pre></td></tr></table></figure>
-<h5 id="配置nginx托管文件目录"><a class="markdownIt-Anchor" href="#配置nginx托管文件目录"></a> 配置Nginx托管文件目录</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建/var/www/hexo目录用于存放Hexo生成的静态文件,修改目录所有权</span></span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /var/www/hexo</span><br><span class="line">sudo <span class="built_in">chown</span> -R <span class="variable">$USER</span>:<span class="variable">$USER</span> /var/www/hexo</span><br><span class="line">sudo <span class="built_in">chmod</span> -R 755 /var/www/hexo</span><br><span class="line"><span class="comment"># 修改/etc/nginx/sites-enabled/default,使nginx的root目录指向hexo目录</span></span><br><span class="line"><span class="comment"># 在server里面添加以下配置</span></span><br><span class="line">root /var/www/hexo;</span><br><span class="line"><span class="comment"># 重启nginx服务</span></span><br><span class="line">sudo systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置git钩子,用于实现本地Hexo生成的静态文件推送到指定目录</span></span><br><span class="line">vim /var/repo/hexo_static.git/hooks/post-receive</span><br><span class="line"><span class="comment"># 添加以下配置内容并保存退出</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">git --work-tree=/var/www/hexo --git-dir=/var/repo/hexo_static.git checkout -f</span><br><span class="line"><span class="comment"># 给予可执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x /var/repo/hexo_static.git/hooks/post-receive</span><br></pre></td></tr></table></figure>
-<h3 id="ssh远程连接配置"><a class="markdownIt-Anchor" href="#ssh远程连接配置"></a> SSH远程连接配置</h3>
-<p>在windows上搭建SSH客户端</p>
-<ol>
-<li>
-<p>使用powershell运行以下命令在用户文件夹的.ssh文件夹下生成密钥</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>将生成的公钥id_rsa.pub中的内容拷贝到服务器的/home/blog/.ssh/authorized_keys文件上</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> .ssh</span><br><span class="line"><span class="built_in">cd</span> .ssh</span><br><span class="line">sudo <span class="built_in">touch</span> authorized_keys</span><br><span class="line">sudo vim .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="hexo部署到服务器"><a class="markdownIt-Anchor" href="#hexo部署到服务器"></a> Hexo部署到服务器</h3>
-<ol>
-<li>
-<p>编辑hexo根目录中的config.yml文件，在deploy处配置参数</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="comment"># server_ip为服务器的公网ip</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">blog@server_ip:/var/repo/hexo_static.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>执行以下命令部署Hexo</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>查看服务器的/var/www/hexo目录，能够看到上传的静态文件</p>
-</li>
-<li>
-<p>访问服务器IP地址查看页面，如果访问失败则检查服务器内部是否开放了80端口并去浏览器控制台查看服务器厂商提供的安全组规则或外部防火墙是否开放了80端口。确认都开放之后重新访问</p>
-</li>
-</ol>
-<h3 id="域名解析配置"><a class="markdownIt-Anchor" href="#域名解析配置"></a> 域名解析配置</h3>
-<p>域名的购买很简单，到这里笔者已经提前购买好了一年期域名，重点就是配置域名解析。如果租赁域名的地方和租赁服务器的地方不是同一个地方，则域名解析需要在租赁域名的地方进行配置</p>
-<p>参考配置</p>
-<p>主机记录一般就是填<strong>www</strong>，记录类型为A，记录值为公网IP地址，其它的参数默认即可</p>
-<p>之后就可以通过www.域名来访问页面，如果想直接通过一级域名访问，也可以再添加一条主机记录为@，记录类型为A，记录值为公网IP地址的解析</p>
-<h3 id="ssl证书申请"><a class="markdownIt-Anchor" href="#ssl证书申请"></a> SSL证书申请</h3>
-<p>这里笔者找了一个能申请90天免费SSL证书的网站<a href="https://ourl.co/zerossl">https://ourl.co/zerossl</a>。具体的操作参考<a href="https://www.landiannews.com/archives/93605.html">SSL证书申请</a></p>
-<h3 id="https服务开启"><a class="markdownIt-Anchor" href="#https服务开启"></a> HTTPS服务开启</h3>
-<p><strong>Nginx配置SSL证书</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将下载到windows上的证书文件上传至服务器</span></span><br><span class="line"><span class="comment"># 指定一个目录用于存放证书文件(目录可自行选择,以下仅供参考)</span></span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /ssh/cert &amp;&amp; <span class="built_in">cd</span> /ssh/cert</span><br><span class="line"><span class="comment"># 使用远程文件传输上传文件至服务器</span></span><br><span class="line"><span class="comment"># 将证书文件信息合并</span></span><br><span class="line"><span class="built_in">cat</span> ca_bundle.crt &gt;&gt; certificate.crt</span><br></pre></td></tr></table></figure>
-<p><strong>Nginx配置参考</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name example.com;</span><br><span class="line">        rewrite ^/(.*) https://$server_name<span class="variable">$request_uri</span>? permanent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen   443   ssl;</span><br><span class="line">        ssl_certificate /ssh/cert/certificate.crt;</span><br><span class="line">        ssl_certificate_key /ssh/cert/private.key;</span><br><span class="line">        server_name example.com; <span class="comment">#填写域名</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># ssl验证相关配置</span></span><br><span class="line">        ssl_session_timeout  5m;    <span class="comment">#缓存有效期</span></span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;    <span class="comment">#加密算法</span></span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;    <span class="comment">#安全链接可选的加密协议</span></span><br><span class="line">        ssl_prefer_server_ciphers on;   <span class="comment">#使用服务器端的首选算法</span></span><br><span class="line">        </span><br><span class="line">        root /var/www/hexo; <span class="comment">#Hexo项目目录</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add index.php to the list if you are using PHP</span></span><br><span class="line">        index index.html index.htm index.nginx-debian.html;</span><br><span class="line">        location / &#123;</span><br><span class="line">                <span class="comment"># First attempt to serve request as file, then</span></span><br><span class="line">                <span class="comment"># as directory, then fall back to displaying a 404.</span></span><br><span class="line">                try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ =404;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>至此HTTPS服务配置完成，在访问笔者的页面时可以看到https开头的URL</p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<p><a href="https://hexo.io/zh-cn/">Hexo官网</a></p>
-<p><a href="https://cloud.tencent.com/developer/article/1945550">Hexo部署至服务器</a></p>
-<p><a href="https://www.landiannews.com/archives/93605.html">SSL证书申请</a></p>
-<p><a href="https://help.zerossl.com/hc/en-us/articles/360058295894">在NGINX上安装SSL证书 - 零SSL和 (zerossl.com)</a></p>
-]]></content>
-      <tags>
-        <tag>生活记录</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前后端知识</title>
-    <url>/2022/12/18/font-back-end/</url>
-    <content><![CDATA[<h3 id="开发模式"><a class="markdownIt-Anchor" href="#开发模式"></a> 开发模式</h3>
-<p><strong>前后端分离</strong>已成为web大型项目的标准开发方式, 主要解决了<strong>传统的前后端不分离</strong>所带来的一系列开发过程中的问题<span id="more"></span></p>
-<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
-<p><strong>前后端不分离</strong>: 前后端代码放在一个工程下或同一个目录下, 前端页面中含有后端的代码(如典型的jsp页面内嵌java代码)。前后端代码以及前后端工作开发<strong>耦合度极高</strong>, 前后端需要同时协作才能完成开发</p>
-<p><strong>前后端分离</strong>: 前后端代码放在不同的工程下, 只需要<strong>提前约定好API数据规范</strong>, 前后端就可以各自独立开发。前端可以通过<strong>Mock技术模拟后端API服务</strong>来独立运行和测试; 后端也可以独立开发、运行、测试, 通过<strong>Swagger技术自动生成API文档</strong>提供给前端, 还能进行自动化接口测试API的可用性</p>
-<h4 id="前后端分离涉及的技术"><a class="markdownIt-Anchor" href="#前后端分离涉及的技术"></a> 前后端分离涉及的技术</h4>
-<p>1.Ajax、axios和json等基础交互技术</p>
-<p>2.Http协议在同源策略下引发的跨域访问</p>
-<p>3.Nodejs搭建中间层服务器以及前端Mock测试</p>
-<h4 id="对比"><a class="markdownIt-Anchor" href="#对比"></a> 对比</h4>
-<p><strong>以一个SpringBoot项目为例</strong></p>
-<p>前后端不分离的情况下, <strong>直接使用SpringBoot启动即可</strong></p>
-<ul>
-<li>需要考虑静态资源所存放的相对路径(例如需要存放在某个指定的静态资源static目录下)</li>
-<li>在测试过程中遇到问题难以快速定位到问题位于前端还是后端</li>
-<li>运行时出现问题会直接导致SpringBoot项目无法启动或者运行时无法正确地进行前后端交互测试</li>
-<li>对于**SEO(Search Engine Optimization, 搜索引擎优化)**的支持较好</li>
-</ul>
-<p>前后端分离的情况下, <strong>后端使用SpringBoot启动, 前端使用Nodejs启动</strong></p>
-<ul>
-<li>不再需要考虑相对路径的限制</li>
-<li>可以使用特定的技术来模拟前后端进行数据交互测试, 从而准确定位问题</li>
-<li>会有跨域访问的限制</li>
-<li>由于前端与后端分离导致服务端无法去渲染前端页面, 即<strong>一般情况下不支持SSR(Server-Side-Rendering，服务器端渲染)</strong></li>
-</ul>
-<h3 id="渲染方式"><a class="markdownIt-Anchor" href="#渲染方式"></a> 渲染方式</h3>
-<p>渲染方式可分为<strong>SSR服务端渲染</strong>和<strong>CSR客户端渲染</strong></p>
-<p><strong>SSR服务端渲染</strong></p>
-<ul>
-<li>
-<p>SSR拥有很好的SEO搜索引擎优化</p>
-</li>
-<li>
-<p>SSR的首屏优化很好, 即首屏时间短</p>
-</li>
-<li>
-<p>SSR加重了服务端的负载, 因为渲染需要在服务端完成</p>
-</li>
-<li>
-<p>SSR的页面交互性较差</p>
-</li>
-<li>
-<p>使用SSR基本说明了前后端不分离</p>
-</li>
-<li>
-<p>SSR非常适合开发静态网站以及业务逻辑复杂的网站</p>
-</li>
-</ul>
-<p><strong>CSR客户端渲染</strong></p>
-<ul>
-<li>
-<p>CSR不支持SEO搜索引擎优化, 因为数据是异步获取的, 很难被SEO收录</p>
-</li>
-<li>
-<p>CSR的首屏时间较长</p>
-</li>
-<li>
-<p>CSR减轻了服务器的负载, 因为渲染是在客户端完成的</p>
-</li>
-<li>
-<p>CSR的页面交互性非常好</p>
-</li>
-<li>
-<p>使用CSR基本说明了前后端分离</p>
-</li>
-<li>
-<p>CSR非常适合开发对即时交互性要求较高的Web应用程序以及app小程序</p>
-</li>
-</ul>
-<p>基于不同的渲染方式又可以引出<strong>SPA</strong>和<strong>MPA</strong></p>
-<h3 id="spa和mpa"><a class="markdownIt-Anchor" href="#spa和mpa"></a> SPA和MPA</h3>
-<p><strong>SPA单页面应用模式</strong></p>
-<ul>
-<li>SPA模式只拥有一个主页面, 所有的静态资源都包含在主页面中, 只需要加载一次</li>
-<li>所有的功能模块组件化, 通过刷新局部资源来实现功能</li>
-<li>几乎不存在<strong>转发</strong>和<strong>重定向</strong>的概念</li>
-<li>传统SPA通常都是CSR渲染, 也可以借助SSR渲染来优化SEO</li>
-<li>SPA的实现核心是<strong>前端路由</strong>, 前端路由的核心: 改变视图的同时不会向后端发出请求</li>
-<li>单个vue+vite的工程就是典型的SPA模式</li>
-</ul>
-<p><strong>MPA多页面应用模式</strong></p>
-<ul>
-<li>MPA模式拥有多个页面, 所有的静态资源都是公共资源, 每个页面都需要重新加载</li>
-<li>所有的功能会划分到多个页面中, 通过转发和重定向页面来实现功能</li>
-<li>MPA通常都是SSR渲染, 基本不会使用CSR渲染, 因为逻辑较为复杂</li>
-<li>MPA中基本没有前端路由</li>
-</ul>
-<p>目前大型Web项目开发可能更多的是使用MPA+SPA的混合模式</p>
-]]></content>
-      <tags>
-        <tag>前后端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一封数字签名邮件</title>
-    <url>/2022/11/10/digital-signature/</url>
-    <content><![CDATA[<h3 id="使用outlook邮箱发送一封带有数字签名的邮件"><a class="markdownIt-Anchor" href="#使用outlook邮箱发送一封带有数字签名的邮件"></a> 使用outlook邮箱发送一封带有数字签名的邮件</h3>
-<p>Digital Signature(数字签名)<strong>是</strong>Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。<span id="more"></span></p>
-<p>数字签名是使用数字证书来验证签名者的身份, 并通过密码算法将签名者身份绑定到文档中来证明签名行为的不可否认, 已签名文档无需包含签名过程审计报告, 签名者的身份验证则由证书颁发机构(CA)或信任服务提供商(TSP)完成。</p>
-<h4 id="1下载数字证书"><a class="markdownIt-Anchor" href="#1下载数字证书"></a> 1.下载数字证书</h4>
-<p>数字证书需要先到网站上申请下载, 这里提供了一个申请90天免费证书的网站 <a href="https://www.cersign.com/smime-email-certificates.html">证签安全电子邮件证书 - CerSign</a></p>
-<p>按照网站上提示完成申请以及邮箱验证即可。免费邮件证书大约几分钟后就会签发, 点击下载证书设置保护口令即可</p>
-<h4 id="2在邮箱客户端中设置"><a class="markdownIt-Anchor" href="#2在邮箱客户端中设置"></a> 2.在邮箱客户端中设置</h4>
-<p>outlook邮箱中导入数字证书: <strong>文件→选项→信任中心→电子邮件安全性</strong>, 然后设置加密以及数字签名。在默认设置中选择<strong>签名证书和加密证书</strong>(需要先找到之前下载好的证书文件双击运行并导入证书)</p>
-<h4 id="3发送邮件进行测试"><a class="markdownIt-Anchor" href="#3发送邮件进行测试"></a> 3.发送邮件进行测试</h4>
-<p>选择收件人(可以选择本地的另外一个邮箱)后输入邮件内容发送, 通过outlook客户端查看邮件内容会有一个额外的数字签名的图标, 点击该图标能够查看到发件人的数字证书信息。另外经过加密的邮件还会有一个🔒的图标, 在收件人拥有发件人的<strong>公钥</strong>时, 就能够进行解密获取正文内容。其他情况下, 则只有一个加密的smime.p7m文件(无法直接获取正文内容)</p>
-<h4 id="4关于公钥和私钥的一些简单理解"><a class="markdownIt-Anchor" href="#4关于公钥和私钥的一些简单理解"></a> 4.关于公钥和私钥的一些简单理解</h4>
-<p>公钥是一种<strong>非对称加密算法</strong>, 一般都是公布给对方用于加密解密</p>
-<p>私钥是一种<strong>对称加密算法</strong>, 一般不对任何人公开, 同样可用于加密解密</p>
-<p>公钥和私钥是<strong>成对出现</strong>的, 且<strong>唯一对应</strong></p>
-<h5 id="思路1确保邮件只能由特定的收件人读取"><a class="markdownIt-Anchor" href="#思路1确保邮件只能由特定的收件人读取"></a> 思路1：确保邮件只能由特定的收件人读取</h5>
-<p><strong>收件人的公钥</strong>提前就公布给所有发件人用于进行加密但不能进行解密, <strong>收件人的私钥</strong>则用于解密来自对应的公钥加密的邮件但不能进行加密(这也是一种非对称加密)</p>
-<h5 id="思路2确认发件人的邮件未被篡改"><a class="markdownIt-Anchor" href="#思路2确认发件人的邮件未被篡改"></a> 思路2：确认发件人的邮件未被篡改</h5>
-<p><strong>发件人的公钥</strong>提前就公布给所有收件人用于进行<strong>解密</strong>, <strong>发件人的私钥</strong>则用于<strong>加密</strong>邮件</p>
-<p>具体流程：</p>
-<p>发件人使用自己的私钥先对邮件加密<strong>一个hash值</strong>, 再用来自收件人的公钥对<strong>内容及hash值</strong>二次加密, 然后发送给收件人</p>
-<p>收件人获取到了二次加密的邮件后, 先使用自己的私钥解密对应的公钥获取内容及<strong>加密的hash值</strong>, 再用来自收件人的公钥二次解密对应的私钥获取<strong>原始的hash值</strong>, 对内容进行hash计算, 如果计算的结果与之前hash值解密后的内容相同, 则说明内容未被篡改</p>
-<p>需要注意的是：公钥和私钥的用法不是固定的, 在收件人和发件人两种情景下, 它们的用法恰恰是相反的</p>
-]]></content>
-      <tags>
-        <tag>数字签名</tag>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在Linux上配置Java环境</title>
-    <url>/2022/11/26/java-in-linux/</url>
-    <content><![CDATA[<h3 id="基于ubuntu2004lts配置java环境"><a class="markdownIt-Anchor" href="#基于ubuntu2004lts配置java环境"></a> 基于Ubuntu20.04LTS配置Java环境</h3>
-<p>在Linux上配置Java环境的方式有3种, 系统级配置、用户级配置、临时配置</p>
-<p>配置好Java环境就能够在Linux上运行基于Java环境运行的相关程序, 你可以在Linux系统上搭建基于Java实现的网站。这里以<strong>系统级配置</strong>为例, 适合个人开发者使用<span id="more"></span></p>
-<h4 id="1下载targz压缩包-java官网"><a class="markdownIt-Anchor" href="#1下载targz压缩包-java官网"></a> 1.下载tar.gz压缩包 <a href="https://www.oracle.com/java/technologies/downloads/">Java官网</a></h4>
-<p>tar.gz包先下载到windows中, 再通过远程文件传输工具, 将压缩包传送到Linux的目录下, 这里是/root目录</p>
-<p>本文以<strong>jdk-8u151-linux-i586.tar.gz</strong>为例配置Java环境, 高版本可能有所区别, 32位与64位版本在不同linux发行版上可能有所区别</p>
-<h4 id="2在linux中配置环境"><a class="markdownIt-Anchor" href="#2在linux中配置环境"></a> 2.在Linux中配置环境</h4>
-<h5 id="1前提准备"><a class="markdownIt-Anchor" href="#1前提准备"></a> 1.前提准备</h5>
-<p>默认当前目录是<strong>初始目录/root</strong>, 默认当前用户权限为<strong>root权限</strong>, 默认<strong>tar.gz包已经传送到/root目录下</strong></p>
-<h5 id="2创建用于存放java文件夹的目录"><a class="markdownIt-Anchor" href="#2创建用于存放java文件夹的目录"></a> 2.创建用于存放Java文件夹的目录</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /usr/java</span><br></pre></td></tr></table></figure>
-<h5 id="3解压targz压缩包到该目录"><a class="markdownIt-Anchor" href="#3解压targz压缩包到该目录"></a> 3.解压tar.gz压缩包到该目录</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf jdk-8u151-linux-i586.tar.gz -C /usr/java</span><br></pre></td></tr></table></figure>
-<h5 id="4编辑环境变量文件"><a class="markdownIt-Anchor" href="#4编辑环境变量文件"></a> 4.编辑环境变量文件</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure>
-<p>在文件末尾追加下面内容, 具体目录根据实际情况编写</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-<dl>
-<dt><strong>一些特殊符号说明</strong></dt>
-<dd>表示并列符号, 说明某个变量的值有多个, 用 : 来区分。相当于Windows下的 ;</dd>
-</dl>
-<p>$ 表示引用变量, {} 则用于限定变量边界, 如上面的 ${JAVA_HOME} 就表示 /usr/java/jdk1.8.0_151</p>
-<h5 id="5使环境变量马上生效"><a class="markdownIt-Anchor" href="#5使环境变量马上生效"></a> 5.使环境变量马上生效</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
-<h4 id="3测试java环境"><a class="markdownIt-Anchor" href="#3测试java环境"></a> 3.测试Java环境</h4>
-<p>运行以下命令, 如果都成功运行, 则说明Java环境配置完成</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -version</span><br><span class="line">java</span><br><span class="line">javac</span><br></pre></td></tr></table></figure>
-<h5 id="可能遇到的问题"><a class="markdownIt-Anchor" href="#可能遇到的问题"></a> 可能遇到的问题</h5>
-<p>安装i586后缀jdk, 即<strong>安装32位的jdk</strong>后测试Java环境时提示<strong>bash: /usr/lib/java/jdk1.8.0_151/bin/java: 没有那个文件或目录</strong>, 可能是由于当前Linux发行版<strong>默认没有用于amd64系统的32位libc开发包</strong></p>
-<p>可通过以下5个常用命令查看Linux发行版的架构信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line">dpkg --print-architecture <span class="comment"># 这条命令只适用于基于Debian和Ubuntu的Linux发行版</span></span><br><span class="line">getconf LONG_BIT</span><br><span class="line"><span class="built_in">arch</span></span><br><span class="line">file /sbin/init </span><br><span class="line"><span class="comment"># file命令需要配合它链接的另一个文件使用</span></span><br><span class="line"><span class="comment"># 在Ubuntu中是链接的是/lib/systemd/systemd</span></span><br><span class="line"><span class="comment"># 通过file /lib/systemd/systemd查看到架构信息</span></span><br></pre></td></tr></table></figure>
-<h5 id="安装缺失的32位开发包"><a class="markdownIt-Anchor" href="#安装缺失的32位开发包"></a> 安装缺失的32位开发包</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libc6-i386</span><br></pre></td></tr></table></figure>
-<p>如果安装libc6-i386失败, 请先更新软件列表, 再尝试重新安装, 并重新测试Java环境</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-<p>如果还是失败请选择64位的jdk版本重新进行配置</p>
-<h5 id="重新测试java环境"><a class="markdownIt-Anchor" href="#重新测试java环境"></a> 重新测试Java环境</h5>
-<h4 id="4update-alternatives软件版本管理"><a class="markdownIt-Anchor" href="#4update-alternatives软件版本管理"></a> 4.update-alternatives软件版本管理</h4>
-<h5 id="1系统注册jdk需要使用多个jdk版本时"><a class="markdownIt-Anchor" href="#1系统注册jdk需要使用多个jdk版本时"></a> 1.系统注册jdk(需要使用多个jdk版本时)</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_151/bin/java 300</span><br></pre></td></tr></table></figure>
-<p><strong>参数说明</strong></p>
-<p>第一个参数: --install表示向update-alternatives注册服务名</p>
-<p>第二个参数: 注册<strong>最终地址</strong>, 成功后将会把命令在这个固定的目的地址做真实命令的<strong>软链接</strong>, 通过管理这个软链就能实现不同版本jdk的切换</p>
-<p>第三个参数: <strong>服务名</strong>, 管理时以它为关联依据</p>
-<p>第四个参数: 被管理命令的<strong>绝对路径</strong></p>
-<p>第五个参数: <strong>优先级</strong>, 数字越大优先级越高</p>
-<h5 id="2交互式修改"><a class="markdownIt-Anchor" href="#2交互式修改"></a> 2.交互式修改</h5>
-<p>如果有多个版本的jdk, 可执行下面的命令通过交互界面进行切换</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
-<p>查看多个版本的jdk以及当前状态</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --display java</span><br></pre></td></tr></table></figure>
-<p>调整为<strong>auto</strong>模式, 如果上面查看的状态是<strong>manual</strong>, 则还不能自动选择优先级高的jdk版本, 需要调整为auto模式</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --auto java</span><br></pre></td></tr></table></figure>
-<h4 id="5补充"><a class="markdownIt-Anchor" href="#5补充"></a> 5.补充</h4>
-<p><strong>将上述的/etc/profile替换成~/.bashrc就是用户级配置</strong></p>
-<p><strong>/etc/profile</strong>: 此文件为系统的每个用户设置环境信息, 当用户第一次登录时, 该文件被执行, 是<strong>系统全局</strong>对终端环境的设置, 它是login时最先被系统加载的, 是它调用了/etc/bashrc, 以及/etc/profile.d目录下的*.sh文件, 如果有一个软件包, 系统上只安装一份, 供所有开发者使用, 建议在/etc/profile.d下创建一个新的xxx.sh, 配置环境变量</p>
-<p><strong>~/.bashrc</strong>: 是<strong>用户</strong>相关的终端（shell）的环境设置, 通常打开一个新终端时, 默认会加载里面的设置, 在这里的设置不会影响其它用户。如果一个服务器多个开发者使用, 需要配置多个sdk, 则推荐使用该设置</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>Java</tag>
+        <tag>RSS</tag>
       </tags>
   </entry>
   <entry>
@@ -2792,6 +2339,574 @@
       </categories>
       <tags>
         <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于个人Hexo博客的搭建历史</title>
+    <url>/2023/01/17/blog-by-https/</url>
+    <content><![CDATA[<p>仅以此文回顾过去搭建Hexo博客的历程<span id="more"></span></p>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>在早期笔者一直是通过github pages服务来运行博客网站，从而省略了对<strong>域名解析</strong>、<strong>nginx反向代理</strong>以及<strong>SSL证书的申请与HTTPS服务的开启</strong>这些配置</p>
+<p>于是后期，笔者租赁了一台纯净Ubutun20.04LTS系统的轻量应用服务器，从零开始基于命令行配置hexo博客以及HTTPS服务的开启</p>
+<h2 id="hexo博客的搭建"><a class="markdownIt-Anchor" href="#hexo博客的搭建"></a> Hexo博客的搭建</h2>
+<h3 id="本地环境搭建"><a class="markdownIt-Anchor" href="#本地环境搭建"></a> 本地环境搭建</h3>
+<h4 id="git环境"><a class="markdownIt-Anchor" href="#git环境"></a> Git环境</h4>
+<ol>
+<li>
+<p>访问git官网<a href="https://git-scm.com/download">Git - Downloads (git-scm.com)</a>或寻找镜像站<a href="https://mirrors.tuna.tsinghua.edu.cn/github-release/git-for-windows/git/">清华大学开源软件镜像站 | git for windows</a>下载对应系统的版本</p>
+</li>
+<li>
+<p>安装Git，除了安装路径可选择C盘或D盘，其它均可直接下一步</p>
+</li>
+<li>
+<p>配置环境变量，在系统环境变量的<strong>Path变量下</strong>增加变量值</p>
+<p>参考变量值：D:\Program Files\Git\cmd</p>
+</li>
+<li>
+<p>win+r输入powershell打开查看git版本信息</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">git <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
+<p>显示出了版本号，则说明git配置完成</p>
+</li>
+</ol>
+<h4 id="nodejs环境"><a class="markdownIt-Anchor" href="#nodejs环境"></a> Nodejs环境</h4>
+<ol>
+<li>
+<p>访问nodejs官网<a href="https://nodejs.org/en/download/">Download | Node.js (nodejs.org)</a>下载对应系统的nodejs版本。（linux系统可直接使用命令行下载而不需要手动配置，使用其它方式则需要手动添加环境变量或者软链接）</p>
+</li>
+<li>
+<p>windows下载完nodejs后需要配置环境变量（注意不要使用中文路径和带有空格的路径，默认路径中的<code>Program Files</code>中的空格会导致命令无法识别）</p>
+<p>windows参考配置</p>
+<ol>
+<li>
+<p>执行下载的nodejs的msi文件，选择安装路径<code>D:\nodejs</code></p>
+</li>
+<li>
+<p>配置<strong>系统环境变量</strong>，在<strong>Path变量</strong>下添加 D:\nodejs\ （这一步nodejs可能会自动配置好）</p>
+</li>
+<li>
+<p>应用配置，保存关闭。win+r输入powershell打开命令提示符，输入</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看nodejs版本</span></span><br><span class="line">node <span class="literal">-v</span></span><br><span class="line"><span class="comment"># 查看包管理器npm的版本(npm是nodejs默认安装的包管理器)</span></span><br><span class="line">npm <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
+<p>以上命令检测到两个版本号后说明配置完成</p>
+</li>
+<li>
+<p>完成以上步骤后基本就能够使用nodejs来搭建hexo。后续为<strong>非必须步骤</strong>，如果使用过程中存在一些问题可参考以下步骤解决</p>
+</li>
+<li>
+<p>如果npm下载失败或下载速度缓慢，可能是由于默认服务器在海外的缘故，可指定国内镜像源下载或配置npm的国内镜像源</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定镜像源下载,下载时加上--registry的参数,每次下载需要指定</span></span><br><span class="line">npm install <span class="literal">-g</span> 包名 <span class="literal">--registry</span>=https://registry.npm.taobao.org</span><br><span class="line"><span class="comment"># 设置镜像源,将npm的默认源更换为镜像源</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line"><span class="comment"># 检测镜像站是否可用</span></span><br><span class="line">npm config get registry</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>按以上步骤nodejs安装在了D盘，但下载的包仍在C盘，这里的配置是将包从C盘迁移到D盘以减少C盘的占用</p>
+<p>在nodejs的根目录下，创建两个文件夹命名为node_global和node_cache，在文件夹的属性——安全里更改所有组或用户的权限为完全控制（防止权限不足而无法下载的问题）</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置全局安装路径(路径根据实际情况填写)</span></span><br><span class="line">npm config <span class="built_in">set</span> prefix <span class="string">&quot;D:\nodejs\node_global&quot;</span></span><br><span class="line"><span class="comment"># 设置全局缓存路径(路径根据实际情况填写)</span></span><br><span class="line">npm config <span class="built_in">set</span> cache <span class="string">&quot;D:\nodejs\node_cache&quot;</span></span><br><span class="line"><span class="comment"># 以上命令会在C盘用户文件夹下产生一个.npmrc配置文件由于保存上面的配置信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加系统环境变量,在Path变量下新增变量值,变量值就是全局安装路径,否则新安装的命令工具无法执行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检测全局安装路径</span></span><br><span class="line">npm root <span class="literal">-g</span></span><br><span class="line"><span class="comment"># 查看配置信息</span></span><br><span class="line">npm config list</span><br></pre></td></tr></table></figure>
+<p>以上配置完成后，之后下载的包都会放到<strong>node_global/node_modules</strong>下</p>
+</li>
+</ol>
+</li>
+<li>
+<p>nodejs环境搭建完成</p>
+</li>
+</ol>
+<h4 id="hexo环境"><a class="markdownIt-Anchor" href="#hexo环境"></a> Hexo环境</h4>
+<ol>
+<li>
+<p>在完成了搭建git和nodejs的环境的基础上，就能够快速使用Hexo</p>
+</li>
+<li>
+<p>在powershell中执行以下命令</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 全局安装Hexo命令行工具</span></span><br><span class="line">npm install <span class="literal">-g</span> hexo<span class="literal">-cli</span></span><br><span class="line"><span class="comment"># 查看Hexo版本信息</span></span><br><span class="line">hexo version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择一个合适的文件夹作为Hexo框架的存放目录(这里假设使用一个demo的空文件夹)</span></span><br><span class="line"><span class="comment"># 执行以下3条命令就搭建好了基本的框架</span></span><br><span class="line">hexo init demo</span><br><span class="line"><span class="built_in">cd</span> demo</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在本地运行Hexo</span></span><br><span class="line">hexo server <span class="comment"># 或简写为hexo s</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一些常用的Hexo命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一篇文章(文章内包含了Hexo的一些格式信息)</span></span><br><span class="line">hexo new <span class="string">&quot;first blog&quot;</span> <span class="comment"># 会在_posts目录下生成一个markdown初始文件,标题为first blog</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一篇草稿(草稿不会在网站上展示)</span></span><br><span class="line">hexo new draft <span class="string">&quot;my draft&quot;</span> <span class="comment"># 会在_drafts目录下生成相应的初始文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建导航页(导航页主要是展示文章分类、标签、作者简介、友情链接等信息)</span></span><br><span class="line">hexo new page <span class="literal">--path</span> about/me <span class="string">&quot;About me&quot;</span> <span class="comment"># 个人简介,这里是固定写法。默认情况下还需要修改配置文件才能生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态文件(一般是在新建文章并完成写作后使用或者在修改了文章的内容后使用)</span></span><br><span class="line">hexo generate <span class="comment"># 可简写为hexo g</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务器(用于预览网页效果)</span></span><br><span class="line">hexo server <span class="comment"># 可简写为hexo s</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署网站(需要配置远程服务器地址,部署之前需要先生成静态文件)</span></span><br><span class="line">hexo deploy <span class="comment"># 可简写为hexo d</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除缓存文件(一般是更换Hexo主题未生效时使用)</span></span><br><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<p>更详细的介绍请移步官网<a href="https://hexo.io/zh-cn/">Hexo</a></p>
+</li>
+</ol>
+<h3 id="远程环境搭建"><a class="markdownIt-Anchor" href="#远程环境搭建"></a> 远程环境搭建</h3>
+<h4 id="创建git仓库"><a class="markdownIt-Anchor" href="#创建git仓库"></a> 创建Git仓库</h4>
+<p>先安装openssh，之后就可以通过ssh客户端远程连接服务器而不需要在浏览器上操作</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装SSH服务端</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"><span class="comment"># 查看SSH服务是否启动</span></span><br><span class="line">ps -e | grep ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个blog用户管理Hexo(默认的root用户权限过高,容易影响到系统)</span></span><br><span class="line">adduser blog</span><br><span class="line"><span class="comment"># 给予blog用户权限</span></span><br><span class="line">vim /etc/sudoers</span><br><span class="line"><span class="comment"># 找到User privilege specification这一段,在下面添加以下内容</span></span><br><span class="line">blog    ALL=(ALL:ALL) ALL</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到blog用户(密码可在网页服务器控制台那边重置密码获得)</span></span><br><span class="line">su blog</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装git</span></span><br><span class="line">sudo apt install git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入根目录,在/var/repo目录下创建一个名为hexo_static的裸仓库</span></span><br><span class="line"><span class="built_in">cd</span> /</span><br><span class="line">sudo <span class="built_in">mkdir</span> /var/repo/</span><br><span class="line">sudo <span class="built_in">chown</span> -R <span class="variable">$USER</span>:<span class="variable">$USER</span> /var/repo/</span><br><span class="line">sudo <span class="built_in">chmod</span> -R 755 /var/repo/</span><br><span class="line"><span class="built_in">cd</span> /var/repo/</span><br><span class="line"><span class="comment"># 创建裸仓库</span></span><br><span class="line">git init --bare hexo_static.git</span><br><span class="line"><span class="comment"># 裸仓库不同于普通仓库,裸仓库是专门的共享仓库,不会存储文件,只保存历史提交的版本信息</span></span><br><span class="line"><span class="comment"># 实际上裸仓库就相当于普通仓库中隐藏的.git文件夹</span></span><br></pre></td></tr></table></figure>
+<h4 id="配置nginx反向代理"><a class="markdownIt-Anchor" href="#配置nginx反向代理"></a> 配置Nginx反向代理</h4>
+<h5 id="安装nginx及可能遇到的问题"><a class="markdownIt-Anchor" href="#安装nginx及可能遇到的问题"></a> 安装Nginx及可能遇到的问题</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装nginx</span></span><br><span class="line">sudo apt install nginx</span><br><span class="line"><span class="comment"># 查看版本信息,注意大小写</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 注意这一步如果没有看到with-http_ssl_module字样的参数信息(如果有就跳过后续步骤),则需要从源码编译安装(已经安装了也没有关系,停止服务后替换配置文件即可)</span></span><br><span class="line"><span class="comment"># 如果想卸载也可以执行以下命令</span></span><br><span class="line">sudo apt --purge autoremove nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># Nginx 官网 https://nginx.org/en/download.html</span></span><br><span class="line"><span class="comment"># /usr/local/src目录通常用于存放用户手动编译程序的源码包</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/src/</span><br><span class="line"><span class="comment"># 这里使用wget下载nginx的源码包</span></span><br><span class="line"><span class="comment"># 如果已经安装并配置了nginx,又不想重新配置,使用nginx -v命令查看已安装的nginx版本并替换掉以下命令中的版本号</span></span><br><span class="line">wget https://nginx.org/download/nginx-1.22.1.tar.gz</span><br><span class="line"><span class="comment"># 解压提取包并进入解压目录</span></span><br><span class="line">tar -zxvf nginx-1.22.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> nginx-1.22.1</span><br><span class="line"><span class="comment"># 查看原有的nginx安装目录</span></span><br><span class="line"><span class="built_in">which</span> nginx</span><br><span class="line"><span class="comment"># 停止nginx的运行</span></span><br><span class="line">nginx -s stop</span><br><span class="line"><span class="comment"># 查看原有nginx的配置参数,注意大小写</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 在原有参数的基础上附加--with-http_ssl_module的参数配置SSL模块(下面只给出了一部分参数,完整参数由nginx -V显示的参数拼接SSL模块的参数而成)</span></span><br><span class="line">sudo ./configure --prefix=/usr/local/nginx --with-http_ssl_module</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这一步可能会缺少一些库,使用以下命令下载到相关库后重新编译</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少PCRE的相关库,如果不缺这个库就跳过</span></span><br><span class="line">sudo apt install libpcre3 libpcre3-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少zlib的库,如果不缺这个库就跳过</span></span><br><span class="line"><span class="comment"># 访问zlib官网http://zlib.net/下载zlib,这里直接用wget下载到当前的src目录</span></span><br><span class="line">wget http://zlib.net/zlib-1.2.13.tar.gz</span><br><span class="line">./configure --prefix=/usr/local/zlib</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少openssl的相关库,如果不缺这个库就跳过</span></span><br><span class="line">sudo apt install openssl libssl-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新编译nginx</span></span><br><span class="line">sudo make</span><br><span class="line"><span class="comment"># 如果没有安装过nginx或者已经卸载了nginx则执行以下2条命令覆盖安装后即可跳过后续步骤</span></span><br><span class="line">sudo make install</span><br><span class="line"><span class="comment"># 配置软链接使得在任意目录下能通过nginx的名称直接运行nginx的命令</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /usr/local/nginx/sbin/nginx /usr/sbin/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换原有nginx的文件</span></span><br><span class="line"><span class="comment"># 备份原有nginx安装目录下的文件(这里以安装文件位于/usr/sbin/目录下为例)</span></span><br><span class="line"><span class="built_in">cp</span> /usr/sbin/nginx /usr/sbin/nginx.bak</span><br><span class="line"><span class="comment"># 将编译好的nginx文件覆盖掉原有的nginx</span></span><br><span class="line"><span class="built_in">cp</span> ./objs/nginx /usr/sbin/</span><br><span class="line"><span class="comment"># 重新查看nginx参数信息</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 看到了--with-http_ssl_module的参数,SSL模块配置完成</span></span><br></pre></td></tr></table></figure>
+<h5 id="配置nginx托管文件目录"><a class="markdownIt-Anchor" href="#配置nginx托管文件目录"></a> 配置Nginx托管文件目录</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建/var/www/hexo目录用于存放Hexo生成的静态文件,修改目录所有权</span></span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /var/www/hexo</span><br><span class="line">sudo <span class="built_in">chown</span> -R <span class="variable">$USER</span>:<span class="variable">$USER</span> /var/www/hexo</span><br><span class="line">sudo <span class="built_in">chmod</span> -R 755 /var/www/hexo</span><br><span class="line"><span class="comment"># 修改/etc/nginx/sites-enabled/default,使nginx的root目录指向hexo目录</span></span><br><span class="line"><span class="comment"># 在server里面添加以下配置</span></span><br><span class="line">root /var/www/hexo;</span><br><span class="line"><span class="comment"># 重启nginx服务</span></span><br><span class="line">sudo systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置git钩子,用于实现本地Hexo生成的静态文件推送到指定目录</span></span><br><span class="line">vim /var/repo/hexo_static.git/hooks/post-receive</span><br><span class="line"><span class="comment"># 添加以下配置内容并保存退出</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">git --work-tree=/var/www/hexo --git-dir=/var/repo/hexo_static.git checkout -f</span><br><span class="line"><span class="comment"># 给予可执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x /var/repo/hexo_static.git/hooks/post-receive</span><br></pre></td></tr></table></figure>
+<h3 id="ssh远程连接配置"><a class="markdownIt-Anchor" href="#ssh远程连接配置"></a> SSH远程连接配置</h3>
+<p>在windows上搭建SSH客户端</p>
+<ol>
+<li>
+<p>使用powershell运行以下命令在用户文件夹的.ssh文件夹下生成密钥</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将生成的公钥id_rsa.pub中的内容拷贝到服务器的/home/blog/.ssh/authorized_keys文件上</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> .ssh</span><br><span class="line"><span class="built_in">cd</span> .ssh</span><br><span class="line">sudo <span class="built_in">touch</span> authorized_keys</span><br><span class="line">sudo vim .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="hexo部署到服务器"><a class="markdownIt-Anchor" href="#hexo部署到服务器"></a> Hexo部署到服务器</h3>
+<ol>
+<li>
+<p>编辑hexo根目录中的config.yml文件，在deploy处配置参数</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="comment"># server_ip为服务器的公网ip</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">blog@server_ip:/var/repo/hexo_static.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>执行以下命令部署Hexo</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>查看服务器的/var/www/hexo目录，能够看到上传的静态文件</p>
+</li>
+<li>
+<p>访问服务器IP地址查看页面，如果访问失败则检查服务器内部是否开放了80端口并去浏览器控制台查看服务器厂商提供的安全组规则或外部防火墙是否开放了80端口。确认都开放之后重新访问</p>
+</li>
+</ol>
+<h3 id="域名解析配置"><a class="markdownIt-Anchor" href="#域名解析配置"></a> 域名解析配置</h3>
+<p>域名的购买很简单，到这里笔者已经提前购买好了一年期域名，重点就是配置域名解析。如果租赁域名的地方和租赁服务器的地方不是同一个地方，则域名解析需要在租赁域名的地方进行配置</p>
+<p>参考配置</p>
+<p>主机记录一般就是填<strong>www</strong>，记录类型为A，记录值为公网IP地址，其它的参数默认即可</p>
+<p>之后就可以通过www.域名来访问页面，如果想直接通过一级域名访问，也可以再添加一条主机记录为@，记录类型为A，记录值为公网IP地址的解析</p>
+<h3 id="ssl证书申请"><a class="markdownIt-Anchor" href="#ssl证书申请"></a> SSL证书申请</h3>
+<p>这里笔者找了一个能申请90天免费SSL证书的网站<a href="https://ourl.co/zerossl">https://ourl.co/zerossl</a>。具体的操作参考<a href="https://www.landiannews.com/archives/93605.html">SSL证书申请</a></p>
+<h3 id="https服务开启"><a class="markdownIt-Anchor" href="#https服务开启"></a> HTTPS服务开启</h3>
+<p><strong>Nginx配置SSL证书</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将下载到windows上的证书文件上传至服务器</span></span><br><span class="line"><span class="comment"># 指定一个目录用于存放证书文件(目录可自行选择,以下仅供参考)</span></span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /ssh/cert &amp;&amp; <span class="built_in">cd</span> /ssh/cert</span><br><span class="line"><span class="comment"># 使用远程文件传输上传文件至服务器</span></span><br><span class="line"><span class="comment"># 将证书文件信息合并</span></span><br><span class="line"><span class="built_in">cat</span> ca_bundle.crt &gt;&gt; certificate.crt</span><br></pre></td></tr></table></figure>
+<p><strong>Nginx配置参考</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name example.com;</span><br><span class="line">        rewrite ^/(.*) https://$server_name<span class="variable">$request_uri</span>? permanent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen   443   ssl;</span><br><span class="line">        ssl_certificate /ssh/cert/certificate.crt;</span><br><span class="line">        ssl_certificate_key /ssh/cert/private.key;</span><br><span class="line">        server_name example.com; <span class="comment">#填写域名</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># ssl验证相关配置</span></span><br><span class="line">        ssl_session_timeout  5m;    <span class="comment">#缓存有效期</span></span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;    <span class="comment">#加密算法</span></span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;    <span class="comment">#安全链接可选的加密协议</span></span><br><span class="line">        ssl_prefer_server_ciphers on;   <span class="comment">#使用服务器端的首选算法</span></span><br><span class="line">        </span><br><span class="line">        root /var/www/hexo; <span class="comment">#Hexo项目目录</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add index.php to the list if you are using PHP</span></span><br><span class="line">        index index.html index.htm index.nginx-debian.html;</span><br><span class="line">        location / &#123;</span><br><span class="line">                <span class="comment"># First attempt to serve request as file, then</span></span><br><span class="line">                <span class="comment"># as directory, then fall back to displaying a 404.</span></span><br><span class="line">                try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ =404;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此HTTPS服务配置完成，在访问笔者的页面时可以看到https开头的URL</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<p><a href="https://hexo.io/zh-cn/">Hexo官网</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1945550">Hexo部署至服务器</a></p>
+<p><a href="https://www.landiannews.com/archives/93605.html">SSL证书申请</a></p>
+<p><a href="https://help.zerossl.com/hc/en-us/articles/360058295894">在NGINX上安装SSL证书 - 零SSL和 (zerossl.com)</a></p>
+]]></content>
+      <tags>
+        <tag>生活记录</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一封数字签名邮件</title>
+    <url>/2022/11/10/digital-signature/</url>
+    <content><![CDATA[<h3 id="使用outlook邮箱发送一封带有数字签名的邮件"><a class="markdownIt-Anchor" href="#使用outlook邮箱发送一封带有数字签名的邮件"></a> 使用outlook邮箱发送一封带有数字签名的邮件</h3>
+<p>Digital Signature(数字签名)<strong>是</strong>Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。<span id="more"></span></p>
+<p>数字签名是使用数字证书来验证签名者的身份, 并通过密码算法将签名者身份绑定到文档中来证明签名行为的不可否认, 已签名文档无需包含签名过程审计报告, 签名者的身份验证则由证书颁发机构(CA)或信任服务提供商(TSP)完成。</p>
+<h4 id="1下载数字证书"><a class="markdownIt-Anchor" href="#1下载数字证书"></a> 1.下载数字证书</h4>
+<p>数字证书需要先到网站上申请下载, 这里提供了一个申请90天免费证书的网站 <a href="https://www.cersign.com/smime-email-certificates.html">证签安全电子邮件证书 - CerSign</a></p>
+<p>按照网站上提示完成申请以及邮箱验证即可。免费邮件证书大约几分钟后就会签发, 点击下载证书设置保护口令即可</p>
+<h4 id="2在邮箱客户端中设置"><a class="markdownIt-Anchor" href="#2在邮箱客户端中设置"></a> 2.在邮箱客户端中设置</h4>
+<p>outlook邮箱中导入数字证书: <strong>文件→选项→信任中心→电子邮件安全性</strong>, 然后设置加密以及数字签名。在默认设置中选择<strong>签名证书和加密证书</strong>(需要先找到之前下载好的证书文件双击运行并导入证书)</p>
+<h4 id="3发送邮件进行测试"><a class="markdownIt-Anchor" href="#3发送邮件进行测试"></a> 3.发送邮件进行测试</h4>
+<p>选择收件人(可以选择本地的另外一个邮箱)后输入邮件内容发送, 通过outlook客户端查看邮件内容会有一个额外的数字签名的图标, 点击该图标能够查看到发件人的数字证书信息。另外经过加密的邮件还会有一个🔒的图标, 在收件人拥有发件人的<strong>公钥</strong>时, 就能够进行解密获取正文内容。其他情况下, 则只有一个加密的smime.p7m文件(无法直接获取正文内容)</p>
+<h4 id="4关于公钥和私钥的一些简单理解"><a class="markdownIt-Anchor" href="#4关于公钥和私钥的一些简单理解"></a> 4.关于公钥和私钥的一些简单理解</h4>
+<p>公钥是一种<strong>非对称加密算法</strong>, 一般都是公布给对方用于加密解密</p>
+<p>私钥是一种<strong>对称加密算法</strong>, 一般不对任何人公开, 同样可用于加密解密</p>
+<p>公钥和私钥是<strong>成对出现</strong>的, 且<strong>唯一对应</strong></p>
+<h5 id="思路1确保邮件只能由特定的收件人读取"><a class="markdownIt-Anchor" href="#思路1确保邮件只能由特定的收件人读取"></a> 思路1：确保邮件只能由特定的收件人读取</h5>
+<p><strong>收件人的公钥</strong>提前就公布给所有发件人用于进行加密但不能进行解密, <strong>收件人的私钥</strong>则用于解密来自对应的公钥加密的邮件但不能进行加密(这也是一种非对称加密)</p>
+<h5 id="思路2确认发件人的邮件未被篡改"><a class="markdownIt-Anchor" href="#思路2确认发件人的邮件未被篡改"></a> 思路2：确认发件人的邮件未被篡改</h5>
+<p><strong>发件人的公钥</strong>提前就公布给所有收件人用于进行<strong>解密</strong>, <strong>发件人的私钥</strong>则用于<strong>加密</strong>邮件</p>
+<p>具体流程：</p>
+<p>发件人使用自己的私钥先对邮件加密<strong>一个hash值</strong>, 再用来自收件人的公钥对<strong>内容及hash值</strong>二次加密, 然后发送给收件人</p>
+<p>收件人获取到了二次加密的邮件后, 先使用自己的私钥解密对应的公钥获取内容及<strong>加密的hash值</strong>, 再用来自收件人的公钥二次解密对应的私钥获取<strong>原始的hash值</strong>, 对内容进行hash计算, 如果计算的结果与之前hash值解密后的内容相同, 则说明内容未被篡改</p>
+<p>需要注意的是：公钥和私钥的用法不是固定的, 在收件人和发件人两种情景下, 它们的用法恰恰是相反的</p>
+]]></content>
+      <tags>
+        <tag>数字签名</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前后端知识</title>
+    <url>/2022/12/18/font-back-end/</url>
+    <content><![CDATA[<h3 id="开发模式"><a class="markdownIt-Anchor" href="#开发模式"></a> 开发模式</h3>
+<p><strong>前后端分离</strong>已成为web大型项目的标准开发方式, 主要解决了<strong>传统的前后端不分离</strong>所带来的一系列开发过程中的问题<span id="more"></span></p>
+<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
+<p><strong>前后端不分离</strong>: 前后端代码放在一个工程下或同一个目录下, 前端页面中含有后端的代码(如典型的jsp页面内嵌java代码)。前后端代码以及前后端工作开发<strong>耦合度极高</strong>, 前后端需要同时协作才能完成开发</p>
+<p><strong>前后端分离</strong>: 前后端代码放在不同的工程下, 只需要<strong>提前约定好API数据规范</strong>, 前后端就可以各自独立开发。前端可以通过<strong>Mock技术模拟后端API服务</strong>来独立运行和测试; 后端也可以独立开发、运行、测试, 通过<strong>Swagger技术自动生成API文档</strong>提供给前端, 还能进行自动化接口测试API的可用性</p>
+<h4 id="前后端分离涉及的技术"><a class="markdownIt-Anchor" href="#前后端分离涉及的技术"></a> 前后端分离涉及的技术</h4>
+<p>1.Ajax、axios和json等基础交互技术</p>
+<p>2.Http协议在同源策略下引发的跨域访问</p>
+<p>3.Nodejs搭建中间层服务器以及前端Mock测试</p>
+<h4 id="对比"><a class="markdownIt-Anchor" href="#对比"></a> 对比</h4>
+<p><strong>以一个SpringBoot项目为例</strong></p>
+<p>前后端不分离的情况下, <strong>直接使用SpringBoot启动即可</strong></p>
+<ul>
+<li>需要考虑静态资源所存放的相对路径(例如需要存放在某个指定的静态资源static目录下)</li>
+<li>在测试过程中遇到问题难以快速定位到问题位于前端还是后端</li>
+<li>运行时出现问题会直接导致SpringBoot项目无法启动或者运行时无法正确地进行前后端交互测试</li>
+<li>对于**SEO(Search Engine Optimization, 搜索引擎优化)**的支持较好</li>
+</ul>
+<p>前后端分离的情况下, <strong>后端使用SpringBoot启动, 前端使用Nodejs启动</strong></p>
+<ul>
+<li>不再需要考虑相对路径的限制</li>
+<li>可以使用特定的技术来模拟前后端进行数据交互测试, 从而准确定位问题</li>
+<li>会有跨域访问的限制</li>
+<li>由于前端与后端分离导致服务端无法去渲染前端页面, 即<strong>一般情况下不支持SSR(Server-Side-Rendering，服务器端渲染)</strong></li>
+</ul>
+<h3 id="渲染方式"><a class="markdownIt-Anchor" href="#渲染方式"></a> 渲染方式</h3>
+<p>渲染方式可分为<strong>SSR服务端渲染</strong>和<strong>CSR客户端渲染</strong></p>
+<p><strong>SSR服务端渲染</strong></p>
+<ul>
+<li>
+<p>SSR拥有很好的SEO搜索引擎优化</p>
+</li>
+<li>
+<p>SSR的首屏优化很好, 即首屏时间短</p>
+</li>
+<li>
+<p>SSR加重了服务端的负载, 因为渲染需要在服务端完成</p>
+</li>
+<li>
+<p>SSR的页面交互性较差</p>
+</li>
+<li>
+<p>使用SSR基本说明了前后端不分离</p>
+</li>
+<li>
+<p>SSR非常适合开发静态网站以及业务逻辑复杂的网站</p>
+</li>
+</ul>
+<p><strong>CSR客户端渲染</strong></p>
+<ul>
+<li>
+<p>CSR不支持SEO搜索引擎优化, 因为数据是异步获取的, 很难被SEO收录</p>
+</li>
+<li>
+<p>CSR的首屏时间较长</p>
+</li>
+<li>
+<p>CSR减轻了服务器的负载, 因为渲染是在客户端完成的</p>
+</li>
+<li>
+<p>CSR的页面交互性非常好</p>
+</li>
+<li>
+<p>使用CSR基本说明了前后端分离</p>
+</li>
+<li>
+<p>CSR非常适合开发对即时交互性要求较高的Web应用程序以及app小程序</p>
+</li>
+</ul>
+<p>基于不同的渲染方式又可以引出<strong>SPA</strong>和<strong>MPA</strong></p>
+<h3 id="spa和mpa"><a class="markdownIt-Anchor" href="#spa和mpa"></a> SPA和MPA</h3>
+<p><strong>SPA单页面应用模式</strong></p>
+<ul>
+<li>SPA模式只拥有一个主页面, 所有的静态资源都包含在主页面中, 只需要加载一次</li>
+<li>所有的功能模块组件化, 通过刷新局部资源来实现功能</li>
+<li>几乎不存在<strong>转发</strong>和<strong>重定向</strong>的概念</li>
+<li>传统SPA通常都是CSR渲染, 也可以借助SSR渲染来优化SEO</li>
+<li>SPA的实现核心是<strong>前端路由</strong>, 前端路由的核心: 改变视图的同时不会向后端发出请求</li>
+<li>单个vue+vite的工程就是典型的SPA模式</li>
+</ul>
+<p><strong>MPA多页面应用模式</strong></p>
+<ul>
+<li>MPA模式拥有多个页面, 所有的静态资源都是公共资源, 每个页面都需要重新加载</li>
+<li>所有的功能会划分到多个页面中, 通过转发和重定向页面来实现功能</li>
+<li>MPA通常都是SSR渲染, 基本不会使用CSR渲染, 因为逻辑较为复杂</li>
+<li>MPA中基本没有前端路由</li>
+</ul>
+<p>目前大型Web项目开发可能更多的是使用MPA+SPA的混合模式</p>
+]]></content>
+      <tags>
+        <tag>前后端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在Linux上配置Java环境</title>
+    <url>/2022/11/26/java-in-linux/</url>
+    <content><![CDATA[<h3 id="基于ubuntu2004lts配置java环境"><a class="markdownIt-Anchor" href="#基于ubuntu2004lts配置java环境"></a> 基于Ubuntu20.04LTS配置Java环境</h3>
+<p>在Linux上配置Java环境的方式有3种, 系统级配置、用户级配置、临时配置</p>
+<p>配置好Java环境就能够在Linux上运行基于Java环境运行的相关程序, 你可以在Linux系统上搭建基于Java实现的网站。这里以<strong>系统级配置</strong>为例, 适合个人开发者使用<span id="more"></span></p>
+<h4 id="1下载targz压缩包-java官网"><a class="markdownIt-Anchor" href="#1下载targz压缩包-java官网"></a> 1.下载tar.gz压缩包 <a href="https://www.oracle.com/java/technologies/downloads/">Java官网</a></h4>
+<p>tar.gz包先下载到windows中, 再通过远程文件传输工具, 将压缩包传送到Linux的目录下, 这里是/root目录</p>
+<p>本文以<strong>jdk-8u151-linux-i586.tar.gz</strong>为例配置Java环境, 高版本可能有所区别, 32位与64位版本在不同linux发行版上可能有所区别</p>
+<h4 id="2在linux中配置环境"><a class="markdownIt-Anchor" href="#2在linux中配置环境"></a> 2.在Linux中配置环境</h4>
+<h5 id="1前提准备"><a class="markdownIt-Anchor" href="#1前提准备"></a> 1.前提准备</h5>
+<p>默认当前目录是<strong>初始目录/root</strong>, 默认当前用户权限为<strong>root权限</strong>, 默认<strong>tar.gz包已经传送到/root目录下</strong></p>
+<h5 id="2创建用于存放java文件夹的目录"><a class="markdownIt-Anchor" href="#2创建用于存放java文件夹的目录"></a> 2.创建用于存放Java文件夹的目录</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /usr/java</span><br></pre></td></tr></table></figure>
+<h5 id="3解压targz压缩包到该目录"><a class="markdownIt-Anchor" href="#3解压targz压缩包到该目录"></a> 3.解压tar.gz压缩包到该目录</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf jdk-8u151-linux-i586.tar.gz -C /usr/java</span><br></pre></td></tr></table></figure>
+<h5 id="4编辑环境变量文件"><a class="markdownIt-Anchor" href="#4编辑环境变量文件"></a> 4.编辑环境变量文件</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p>在文件末尾追加下面内容, 具体目录根据实际情况编写</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<dl>
+<dt><strong>一些特殊符号说明</strong></dt>
+<dd>表示并列符号, 说明某个变量的值有多个, 用 : 来区分。相当于Windows下的 ;</dd>
+</dl>
+<p>$ 表示引用变量, {} 则用于限定变量边界, 如上面的 ${JAVA_HOME} 就表示 /usr/java/jdk1.8.0_151</p>
+<h5 id="5使环境变量马上生效"><a class="markdownIt-Anchor" href="#5使环境变量马上生效"></a> 5.使环境变量马上生效</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+<h4 id="3测试java环境"><a class="markdownIt-Anchor" href="#3测试java环境"></a> 3.测试Java环境</h4>
+<p>运行以下命令, 如果都成功运行, 则说明Java环境配置完成</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -version</span><br><span class="line">java</span><br><span class="line">javac</span><br></pre></td></tr></table></figure>
+<h5 id="可能遇到的问题"><a class="markdownIt-Anchor" href="#可能遇到的问题"></a> 可能遇到的问题</h5>
+<p>安装i586后缀jdk, 即<strong>安装32位的jdk</strong>后测试Java环境时提示<strong>bash: /usr/lib/java/jdk1.8.0_151/bin/java: 没有那个文件或目录</strong>, 可能是由于当前Linux发行版<strong>默认没有用于amd64系统的32位libc开发包</strong></p>
+<p>可通过以下5个常用命令查看Linux发行版的架构信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line">dpkg --print-architecture <span class="comment"># 这条命令只适用于基于Debian和Ubuntu的Linux发行版</span></span><br><span class="line">getconf LONG_BIT</span><br><span class="line"><span class="built_in">arch</span></span><br><span class="line">file /sbin/init </span><br><span class="line"><span class="comment"># file命令需要配合它链接的另一个文件使用</span></span><br><span class="line"><span class="comment"># 在Ubuntu中是链接的是/lib/systemd/systemd</span></span><br><span class="line"><span class="comment"># 通过file /lib/systemd/systemd查看到架构信息</span></span><br></pre></td></tr></table></figure>
+<h5 id="安装缺失的32位开发包"><a class="markdownIt-Anchor" href="#安装缺失的32位开发包"></a> 安装缺失的32位开发包</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libc6-i386</span><br></pre></td></tr></table></figure>
+<p>如果安装libc6-i386失败, 请先更新软件列表, 再尝试重新安装, 并重新测试Java环境</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<p>如果还是失败请选择64位的jdk版本重新进行配置</p>
+<h5 id="重新测试java环境"><a class="markdownIt-Anchor" href="#重新测试java环境"></a> 重新测试Java环境</h5>
+<h4 id="4update-alternatives软件版本管理"><a class="markdownIt-Anchor" href="#4update-alternatives软件版本管理"></a> 4.update-alternatives软件版本管理</h4>
+<h5 id="1系统注册jdk需要使用多个jdk版本时"><a class="markdownIt-Anchor" href="#1系统注册jdk需要使用多个jdk版本时"></a> 1.系统注册jdk(需要使用多个jdk版本时)</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_151/bin/java 300</span><br></pre></td></tr></table></figure>
+<p><strong>参数说明</strong></p>
+<p>第一个参数: --install表示向update-alternatives注册服务名</p>
+<p>第二个参数: 注册<strong>最终地址</strong>, 成功后将会把命令在这个固定的目的地址做真实命令的<strong>软链接</strong>, 通过管理这个软链就能实现不同版本jdk的切换</p>
+<p>第三个参数: <strong>服务名</strong>, 管理时以它为关联依据</p>
+<p>第四个参数: 被管理命令的<strong>绝对路径</strong></p>
+<p>第五个参数: <strong>优先级</strong>, 数字越大优先级越高</p>
+<h5 id="2交互式修改"><a class="markdownIt-Anchor" href="#2交互式修改"></a> 2.交互式修改</h5>
+<p>如果有多个版本的jdk, 可执行下面的命令通过交互界面进行切换</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
+<p>查看多个版本的jdk以及当前状态</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --display java</span><br></pre></td></tr></table></figure>
+<p>调整为<strong>auto</strong>模式, 如果上面查看的状态是<strong>manual</strong>, 则还不能自动选择优先级高的jdk版本, 需要调整为auto模式</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --auto java</span><br></pre></td></tr></table></figure>
+<h4 id="5补充"><a class="markdownIt-Anchor" href="#5补充"></a> 5.补充</h4>
+<p><strong>将上述的/etc/profile替换成~/.bashrc就是用户级配置</strong></p>
+<p><strong>/etc/profile</strong>: 此文件为系统的每个用户设置环境信息, 当用户第一次登录时, 该文件被执行, 是<strong>系统全局</strong>对终端环境的设置, 它是login时最先被系统加载的, 是它调用了/etc/bashrc, 以及/etc/profile.d目录下的*.sh文件, 如果有一个软件包, 系统上只安装一份, 供所有开发者使用, 建议在/etc/profile.d下创建一个新的xxx.sh, 配置环境变量</p>
+<p><strong>~/.bashrc</strong>: 是<strong>用户</strong>相关的终端（shell）的环境设置, 通常打开一个新终端时, 默认会加载里面的设置, 在这里的设置不会影响其它用户。如果一个服务器多个开发者使用, 需要配置多个sdk, 则推荐使用该设置</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis基础</title>
+    <url>/2022/09/14/Redis-Base/</url>
+    <content><![CDATA[<h3 id="redis基础"><a class="markdownIt-Anchor" href="#redis基础"></a> Redis基础</h3>
+<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
+<p>redis是一款高性能的NoSQL系列的非关系型数据库，全称Remote Dictionary Server远程字典服务器，是基于C语言开发的一个开源的高性能键值对数据库<span id="more"></span></p>
+<p>NoSQL，全称Not-Only SQL，泛指非关系型的数据库，专门用于应对基于海量用户和海量数据下的数据处理问，不同于MySQL这类关系型数据库，NoSQL系列的非关系型数据库减少了磁盘读写次数、去除了数据间的关联性弥补关系型数据库在磁盘读写性能、复杂的数据关联性难于扩展的不足，专门用于应对大量用户<strong>高并发</strong>的问题</p>
+<p>但非关系型数据库与关系型数据库在开发中一般会配合使用，非关系型数据库能实现大量数据的高效率访问，关系型数据库能实现复杂的数据查询以及保障安全性能的事务机制。单一的非关系数据库则无法实现复杂查询、安全保障，单一的关系型数据库也无法实现高效访问。因此联合使用非关系数据库和关系型数据库，相互弥补缺点，才能提供最好的用户体验。</p>
+<h4 id="开始使用"><a class="markdownIt-Anchor" href="#开始使用"></a> 开始使用</h4>
+<h5 id="下载安装"><a class="markdownIt-Anchor" href="#下载安装"></a> 下载安装</h5>
+<p>redis<a href="https://redis.io">官网</a>以及<a href="http://www.redis.net.cn/">中文官网</a>主要提供的是Linux发行版下的redis版本，用于投入开发使用。本文章以windows系统下的redis版本做为学习使用，在GitHub上的<a href="https://github.com/microsoftarchive/redis/releases">Releases · microsoftarchive/redis</a>下载zip压缩包找到内部的release目录下含有redis主要的exe文件的压缩包后解压即可（这里是以2.8.9版本为例）</p>
+<p>关于redis的图形化管理工具<a href="https://github.com/uglide/RedisDesktopManager">下载</a>(最新版本需要收费使用)</p>
+<h5 id="重要文件"><a class="markdownIt-Anchor" href="#重要文件"></a> 重要文件</h5>
+<p>redis压缩包解压后目录下的重要文件主要是以下文件：</p>
+<ul>
+<li>redis.windows.conf：配置文件</li>
+<li>redis-cli.exe：redis客户端</li>
+<li>redis-server.exe：redis服务器端</li>
+</ul>
+<h5 id="基本操作"><a class="markdownIt-Anchor" href="#基本操作"></a> 基本操作</h5>
+<p><strong>请确保redis服务器端先启动，否则redis客户端在启动后将会无法连接至redis服务器端</strong></p>
+<p>redis数据类型：string、hash、list、set、sorted_set/zset</p>
+<p>注意：在未持久化redis中的数据时，关闭redis服务器端会导致在redis客户端存储的数据全部丢失，因此请在确保redis服务器端一直运行的前提下，测试下面的命令操作</p>
+<ol>
+<li>
+<p>字符串类型：string</p>
+<p>主要用于存储单个数据，是最简单也是最常用的数据存储类型</p>
+<p>一个存储空间存储一个数据</p>
+<p>存储的数据如果是整数类型，则可进行数字操作</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: set key value</span></span><br><span class="line"><span class="comment"># 存储一个键为name, 值为tom的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> name tom</span><br><span class="line"><span class="comment"># 存储一个键为age, 值为26的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> age 26</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: get key</span></span><br><span class="line"><span class="comment"># 获取name键对应的值</span></span><br><span class="line">get name</span><br><span class="line"><span class="comment"># 获取age键对应的值</span></span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: del key</span></span><br><span class="line"><span class="comment"># 删除name键对应的值</span></span><br><span class="line">del name</span><br><span class="line"><span class="comment">#删除age键对应的值</span></span><br><span class="line">del age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新获取值, 确认是否已经删除</span></span><br><span class="line">get name</span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数字操作命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自增处理incr key, 当key不存在时会自动创建, 默认自增值1</span></span><br><span class="line">incr num <span class="comment">#num键若不存在, 则自动创建</span></span><br><span class="line"><span class="comment"># 自增指定数据incrby key increment</span></span><br><span class="line">incrby num 20 <span class="comment">#指定num键的值自增20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自减处理decr key, 同样的若key不存在会自动创建, 默认自减值1</span></span><br><span class="line">decr num</span><br><span class="line"><span class="comment"># 自减指定数据decrby key decrement</span></span><br><span class="line">decrby num 30</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>哈希类型：hash</p>
+<p>主要用于分组存储有一定关联性的数据，比如java对象中的一系列成员变量数据</p>
+<p>一个存储空间存储多个键值对数据</p>
+<p>底层使用哈希表结构实现数据存储</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: hset key field value</span></span><br><span class="line"><span class="comment"># 在myhash键中存储一个name字段, 值为jerry的数据</span></span><br><span class="line">hset myhash name jerry</span><br><span class="line"><span class="comment"># 在myhash键中存储一个password字段, 值为pass的数据</span></span><br><span class="line">hset myhash password pass</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式一: hget key field 获取指定的field所对应的值</span></span><br><span class="line"><span class="comment"># 获取myhash键中name字段的值</span></span><br><span class="line">hget myhash name</span><br><span class="line"><span class="comment"># 格式二: hgetall key 获取指定key下的所有field和value</span></span><br><span class="line"><span class="comment"># 获取myhash键下的所有键值对数据</span></span><br><span class="line">hgetall myhash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: hdel key field</span></span><br><span class="line"><span class="comment"># 删除myhash键下的name字段及其对应的值</span></span><br><span class="line">hdel myhash name</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>列表类型：list</p>
+<p>主要用于存储多个数据，并对数据先后进入存储空间的顺序进行区分</p>
+<p>一个存储空间存储多个数据，且区分数据存储的先后顺序</p>
+<p>底层使用双向链表结构实现数据存储</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式一: lpush key value 在列表左边(头部)添加数据</span></span><br><span class="line"><span class="comment"># 格式二: rpush key value 在列表右边(尾部)添加数据</span></span><br><span class="line"><span class="comment"># 先任意添加一个测试的初始数据</span></span><br><span class="line">lpush mylist origin</span><br><span class="line"><span class="comment"># 在mylist键列表头部添加一个数据</span></span><br><span class="line">lpush mylist <span class="built_in">head</span></span><br><span class="line"><span class="comment"># 在mylist键列表尾部添加一个数据</span></span><br><span class="line">rpush mylist <span class="built_in">tail</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># lrange key start end 根据start和end的范围获取</span></span><br><span class="line"><span class="comment"># list数据下标从0开始, 若使用负数, 则表示从列表尾部倒数第几个数据</span></span><br><span class="line"><span class="comment"># 获取mylist下标0-2的数据</span></span><br><span class="line">lrange mylist 0 2</span><br><span class="line">lrange mylist 0 -1 <span class="comment">#-1表示列表倒数第一个数据, 即正数最后一个数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式一: lpop key 删除列表最左边的数据</span></span><br><span class="line"><span class="comment"># 格式二: rpop key 删除列表最右边的数据</span></span><br><span class="line"><span class="comment"># 删除mylist键列表头部的一个数据</span></span><br><span class="line">lpop mylist</span><br><span class="line"><span class="comment"># 删除mylist键列表尾部的一个数据</span></span><br><span class="line">rpop mylist</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>集合类型：set</p>
+<p>主要用于存储大量的数据，提供更高的数据查询效率</p>
+<p>一个存储空间能够存储大量数据，且具有高效的内部存储机制</p>
+<p>底层与hash存储结构相同，并且不允许存储重复的值</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: sadd key value</span></span><br><span class="line"><span class="comment"># 在myset键存储一个值为a的数据</span></span><br><span class="line">sadd myset a <span class="comment">#第二次重复执行, 不会再新增数据</span></span><br><span class="line">sadd myset b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: smembers key</span></span><br><span class="line"><span class="comment"># 获取myset键中的所有数据</span></span><br><span class="line">smembers myset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: srem key value</span></span><br><span class="line"><span class="comment"># 删除myset键中值为a的数据</span></span><br><span class="line">srem myset a</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>有序集合类型：sorted_set</p>
+<p>不允许存储重复数据，并且存储的数据是有顺序的，每个数据会关联一个double类型的分数作为排序的依据</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: zadd key score value</span></span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为3, 值为pascal的数据</span></span><br><span class="line">zadd mysort 3 pascal</span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为1, 值为visual的数据</span></span><br><span class="line">zadd mysort 1 visual</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: zrange key start end 范围获取, 可参考list列表类型的获取命令来理解</span></span><br><span class="line"><span class="comment"># 获取mysort键下的所有数据</span></span><br><span class="line">zrange mysort 0 -1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: zrem key value</span></span><br><span class="line"><span class="comment"># 删除mysort键下值为visual的数据</span></span><br><span class="line">zrem mysort visual</span><br></pre></td></tr></table></figure>
+<p><strong>通用命令操作</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查询所有的键</span></span><br><span class="line">keys *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取指定键对应的数据类型</span></span><br><span class="line"><span class="comment"># 获取mysort键对应的数据类型</span></span><br><span class="line"><span class="built_in">type</span> mysort</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除指定的键及其数据</span></span><br><span class="line"><span class="comment"># 删除myhash键下的所有键值对数据</span></span><br><span class="line">del myhash</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="持久化"><a class="markdownIt-Anchor" href="#持久化"></a> 持久化</h4>
+<h5 id="rdb方式"><a class="markdownIt-Anchor" href="#rdb方式"></a> RDB方式</h5>
+<p>redis作为一个内存数据库，当redis服务器重启后，数据就会丢失。为了能够在redis服务器重启后能够快速恢复缓存的数据，就需要使用持久化技术</p>
+<ul>
+<li>
+<p>redis持久化机制：每隔一定时间检测key的变化情况，根据配置决定是否进行持久化。持久化的数据就存储在dump.rdb文件中。</p>
+</li>
+<li>
+<p>持久化配置过程：打开redis.windows.conf文件，找到<code># Save the DB on disk</code>所在的位置，在#注释的下方可以看到<code>save 900 1</code>的字样，这些原始的字样就是默认的持久化机制。通过修改这些字样就能设置持久化机制。</p>
+</li>
+<li>
+<p>关于持久化配置的简单说明：</p>
+<p><code>save 900 1</code></p>
+<h6 id="after-900-sec-15-min-if-at-least-1-key-changed"><a class="markdownIt-Anchor" href="#after-900-sec-15-min-if-at-least-1-key-changed"></a> after 900 sec (15 min) if at least 1 key changed</h6>
+<h6 id="经过15分钟如果至少有一个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过15分钟如果至少有一个key发生变化那么就进行一次持久化"></a> 经过15分钟，如果至少有一个key发生变化，那么就进行一次持久化</h6>
+<p><code>save 300 10</code></p>
+<h6 id="after-300-sec-5-min-if-at-least-10-keys-changed"><a class="markdownIt-Anchor" href="#after-300-sec-5-min-if-at-least-10-keys-changed"></a> after 300 sec (5 min) if at least 10 keys changed</h6>
+<h6 id="经过5分钟如果至少有10个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过5分钟如果至少有10个key发生变化那么就进行一次持久化"></a> 经过5分钟，如果至少有10个key发生变化，那么就进行一次持久化</h6>
+<p><code>save 60 10000</code></p>
+<h6 id="after-60-sec-1-min-if-at-least-10000-keys-changed"><a class="markdownIt-Anchor" href="#after-60-sec-1-min-if-at-least-10000-keys-changed"></a> after 60 sec (1 min) if at least 10000 keys changed</h6>
+<h6 id="经过1分钟如果至少有10000个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过1分钟如果至少有10000个key发生变化那么就进行一次持久化"></a> 经过1分钟，如果至少有10000个key发生变化，那么就进行一次持久化</h6>
+</li>
+<li>
+<p>持久化机制测试：</p>
+<blockquote>
+<p>配置之前请先确保关闭redis服务器，以防配置无法生效</p>
+<ol>
+<li>
+<p>修改配置文件在指定位置添加字样<code>save 10 5</code>，10秒后有5个key发生变化，则持久化</p>
+</li>
+<li>
+<p>在redis根目录下打开cmd，通过<code>redis-server.exe redis.windows.conf</code>命令启动redis服务器，否则持久化机制还是使用默认方式，如果觉得麻烦可以看<a href="#bc">补充</a></p>
+</li>
+<li>
+<p>打开redis客户端</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 测试数据, 修改5个key</span></span><br><span class="line"><span class="built_in">set</span> name 1</span><br><span class="line"><span class="built_in">set</span> name 2</span><br><span class="line"><span class="built_in">set</span> name 3</span><br><span class="line"><span class="built_in">set</span> name 4</span><br><span class="line"><span class="built_in">set</span> name 5</span><br><span class="line"><span class="comment"># 之后根据save 10 5的配置, 会在redis的根目录下生成dump.rdb文件</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>关闭redis服务器和客户端，再重启服务器和客户端重新查询数据，测试数据是否实现持久化</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h5 id="aof方式"><a class="markdownIt-Anchor" href="#aof方式"></a> AOF方式</h5>
+<p>AOF是一种日志记录，用于记录redis每一条命令执行的历史操作，可在每一次命令操作后持久化数据</p>
+<p>AOF配置过程：打开redis.windows.conf文件，找到<code>appendonly no</code>字样修改<code>no</code>为<code>yes</code>开启AOF支持。再找到<code>#appendfsync</code>开头的字样，去掉前面的<code>#</code>启动持久化机制</p>
+<p>AOF持久化机制简单说明：<code>appendfsync always</code>每一次操作进行一次持久化，<code>appendfsync everysec</code>每隔一秒进行一次持久化，<code>appendfsync no</code>不进行持久化</p>
+<p>注意：在redis根目录下用cmd执行<code>redis-server.exe redis.windows.conf</code>命令启动服务器，否则配置可能不生效</p>
+<h4 id="span-idbc补充span"><a class="markdownIt-Anchor" href="#span-idbc补充span"></a> <span id='bc'>补充</span></h4>
+<h5 id="关于redis-serverexe启动时默认加载配置文件"><a class="markdownIt-Anchor" href="#关于redis-serverexe启动时默认加载配置文件"></a> 关于redis-server.exe启动时默认加载配置文件</h5>
+<p>右击文件<strong>创建快捷方式</strong>，右击快捷方式<strong>设置属性</strong>，在<strong>目标</strong>的后面<strong>添加空格和配置文件名</strong>，配置完后的示例<code>D:\redis-2.8.9\redis-server.exe redis.windows.conf</code>，前面的exe文件路径根据本地实际情况配置，默认是已有的，然后<strong>点击应用</strong>。之后使用该快捷方式启动服务器就能自动加载配置文件</p>
+<h5 id="关于redisqfork_8412dat文件"><a class="markdownIt-Anchor" href="#关于redisqfork_8412dat文件"></a> 关于RedisQFork_8412.dat文件</h5>
+<p>这是redis的内存映射文件。当redis启动时会自动创建，redis关闭后会自动消失。不过这个文件会随数据量的增长而增长，没有限制能够增长到几十G的大小，如果硬盘空间无法容纳这几十G的大小，就无法启动redis服务。可以通过修改配置文件中的<code>maxheap</code>字样后的参数实现（单位B），如设置最大为4G，则填写4294967296（4GB换算成B）</p>
+]]></content>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>后缀表达式</title>
+    <url>/2022/10/27/suffix-expression/</url>
+    <content><![CDATA[<h3 id="基于stl的中缀转后缀实现"><a class="markdownIt-Anchor" href="#基于stl的中缀转后缀实现"></a> 基于STL的中缀转后缀实现</h3>
+<h4 id="1定义分析"><a class="markdownIt-Anchor" href="#1定义分析"></a> 1.定义分析</h4>
+<p><strong>首先明确后缀表达式的定义</strong></p>
+<p>后缀表达式是一种不需要括号的表达式，这表示在将中缀表达式转化为后缀表达式时，如果中缀表达式中存在括号，<strong>不能将括号写入后缀表达式</strong><span id="more"></span></p>
+<p>那么这里引出一个问题，后缀表达式中不存在括号那要如何表示运算的优先级？</p>
+<p><strong>理解后缀表达式的运算过程</strong></p>
+<p>以(1+5-4)*(6-9)为例，它的后缀表达式是15+4-69-*</p>
+<p>先分析中缀表达式的运算过程，参与运算过程的操作符依次是+ - - *，正好是后缀表达式中从左往右的操作符顺序。而操作符所涉及到的2个操作数都是位于该操作符的前面。</p>
+<p>那么回到上面的问题来看，中缀表达式中的<strong>括号的作用如何在后缀表达式中体现出来</strong>？</p>
+<p>以1+2*3、(1+2)*3为例</p>
+<p>1+2*3的后缀表达式为123*+</p>
+<p>(1+2)*3的后缀表达式为12+3*</p>
+<p>通过对比可以发现当表达式中存在括号时，<strong>括号中的操作符提前输出</strong>了，这表示在遇到括号的情况时，可以将括号内的操作符提前输出。</p>
+<p><strong>此外，还需要考虑四则运算中，乘除的优先级高于加减</strong></p>
+<p>以1+2*3为例，如果不加以判断直接转化后缀表达式，结果为12+3*，先运算+再运算*，这显然违背了基本的四则运算法则，实际上正确的结果应该是123*+</p>
+<p>通过对比两个结果，可以发现优先级较低的操作符移到了后面，这表示在运算过程中可以<strong>先将优先级低的操作符存储起来</strong>，而将<strong>优先级高的运算符输出</strong>。</p>
+<h4 id="2思路分析"><a class="markdownIt-Anchor" href="#2思路分析"></a> 2.思路分析</h4>
+<p>采用STL模板实现中缀转后缀，这里使用的是stack。定义一个stack字符栈专门用于存储操作符</p>
+<p><font color='red'>这里特别说明一下字符栈，字符栈栈底的操作符优先级最低，栈顶的操作符优先级最高</font></p>
+<p><strong>1.输入中缀表达式的字符串依次获取字符串中的每个字符</strong></p>
+<p><strong>2.对字符进行以下的判断和操作</strong></p>
+<ul>
+<li>数字字符，直接输出</li>
+<li>左括号字符，直接存入stack</li>
+<li>右括号字符，将stack中的操作符依次输出，直到遇到左括号时停止，将左括号出栈但不输出</li>
+<li>加减乘除字符
+<ul>
+<li>优先级高的字符直接存入stack</li>
+<li>优先级低的字符，则比较当前字符栈栈顶操作符的优先级，遇到优先级更低的操作符或左括号字符时不出栈，并将当前操作符入栈</li>
+</ul>
+</li>
+</ul>
+<p><strong>3.当字符串遍历完成后，再依次输出字符栈内剩余的操作符</strong></p>
+<h4 id="3实现过程分析"><a class="markdownIt-Anchor" href="#3实现过程分析"></a> 3.实现过程分析</h4>
+<p>以(1+5-4)*(6-9)为例，字符串长度为13</p>
+<p>获取到的字符：(</p>
+<blockquote>
+<p>表达式：</p>
+<p>字符栈：(</p>
+</blockquote>
+<p>获取到的字符：1</p>
+<blockquote>
+<p>表达式：1</p>
+<p>字符栈：(</p>
+</blockquote>
+<p>获取到的字符：+</p>
+<blockquote>
+<p>表达式：1</p>
+<p>字符栈：(+</p>
+</blockquote>
+<p>获取到的字符：5</p>
+<blockquote>
+<p>表达式：15</p>
+<p>字符栈：(+</p>
+</blockquote>
+<p>获取到的字符：-</p>
+<blockquote>
+<p>表达式：15+</p>
+<p>字符栈：(-</p>
+</blockquote>
+<p>获取到的字符：4</p>
+<blockquote>
+<p>表达式：15+4</p>
+<p>字符栈：(-</p>
+</blockquote>
+<p>获取到的字符：)</p>
+<blockquote>
+<p>表达式：15+4-</p>
+<p>字符栈：</p>
+</blockquote>
+<p>获取到的字符：*</p>
+<blockquote>
+<p>表达式：15+4-</p>
+<p>字符栈：*</p>
+</blockquote>
+<p>获取到的字符：(</p>
+<blockquote>
+<p>表达式：15+4-</p>
+<p>字符栈：*(</p>
+</blockquote>
+<p>获取到的字符：6</p>
+<blockquote>
+<p>表达式：15+4-6</p>
+<p>字符栈：*(</p>
+</blockquote>
+<p>获取到的字符：-</p>
+<blockquote>
+<p>表达式：15+4-6</p>
+<p>字符栈：*(-</p>
+</blockquote>
+<p>获取到的字符：9</p>
+<blockquote>
+<p>表达式：15+4-69</p>
+<p>字符栈：*(-</p>
+</blockquote>
+<p>获取到的字符：)</p>
+<blockquote>
+<p>表达式：15+4-69-</p>
+<p>字符栈：*</p>
+</blockquote>
+<p>最后，依次输出字符栈中所有的操作符</p>
+<blockquote>
+<p>表达式：15+4-69-*</p>
+</blockquote>
+<h4 id="4源代码"><a class="markdownIt-Anchor" href="#4源代码"></a> 4.源代码</h4>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;list&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">list&lt;string&gt; <span class="title">transfer</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> len = s.<span class="built_in">length</span>(); <span class="comment">//记录长度</span></span><br><span class="line">    list&lt;string&gt; listIn;  <span class="comment">//存储中缀表达式</span></span><br><span class="line">    list&lt;string&gt; listOut; <span class="comment">//存储后缀表达式</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; symbol;   <span class="comment">//符号栈</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; ans;      <span class="comment">//结果表达式</span></span><br><span class="line"></span><br><span class="line">    listIn.<span class="built_in">push_back</span>(s);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//思路</span></span><br><span class="line">        <span class="comment">//数字直接存入ans</span></span><br><span class="line">        <span class="comment">//运算符:</span></span><br><span class="line">        <span class="comment">//如果是&#x27;(&#x27;直接存入symbol</span></span><br><span class="line">        <span class="comment">//如果是&#x27;)&#x27;依次出栈symbol中的运算符并存入ans, 直到遇到&#x27;(&#x27;, &#x27;(&#x27;不存入ans</span></span><br><span class="line">        <span class="comment">//其他符号, 依次出栈symbol中的运算符并存入ans, 直到遇到优先级更低的运算符或&#x27;(&#x27;时, 将当前符号存入symbol</span></span><br><span class="line">        <span class="comment">//字符串遍历完成后, 依次出栈符号栈中剩余的运算符并存入ans</span></span><br><span class="line">        <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; listIn.<span class="built_in">back</span>()[i] &lt;= <span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">            ans.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;)&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (symbol.<span class="built_in">top</span>() != <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>());</span><br><span class="line">                symbol.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            symbol.<span class="built_in">pop</span>(); <span class="comment">//将&#x27;(&#x27;出栈</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//这里手动优先考虑乘除的优先级高于加减</span></span><br><span class="line">            <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;+&#x27;</span> || listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;-&#x27;</span>) <span class="comment">//加减符号优先级最低</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>() &amp;&amp; symbol.<span class="built_in">top</span>() != <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>()); <span class="comment">//直接存入symbol中的运算符</span></span><br><span class="line">                    symbol.<span class="built_in">pop</span>();</span><br><span class="line">                &#125;</span><br><span class="line">                symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]); <span class="comment">//符号栈存入当前从listIn中获取的符号</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//乘除符号优先级高直接存入符号栈</span></span><br><span class="line">            &#123;</span><br><span class="line">                symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>());</span><br><span class="line">        symbol.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将结果表达式的值存入listOut</span></span><br><span class="line">    <span class="comment">//先利用已经清空的symbol实现反转</span></span><br><span class="line">    <span class="keyword">while</span> (!ans.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        symbol.<span class="built_in">push</span>(ans.<span class="built_in">top</span>());</span><br><span class="line">        ans.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    string res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        res += symbol.<span class="built_in">top</span>();</span><br><span class="line">        symbol.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    listOut.<span class="built_in">push_back</span>(res);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> listOut;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="keyword">while</span> (cin &gt;&gt; s)</span><br><span class="line">    &#123;</span><br><span class="line">        list&lt;string&gt; res = <span class="built_in">transfer</span>(s);</span><br><span class="line">        cout &lt;&lt; res.<span class="built_in">front</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>数据结构与算法</tag>
+        <tag>cpp</tag>
       </tags>
   </entry>
   <entry>
@@ -3172,121 +3287,6 @@
       </categories>
       <tags>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>后缀表达式</title>
-    <url>/2022/10/27/suffix-expression/</url>
-    <content><![CDATA[<h3 id="基于stl的中缀转后缀实现"><a class="markdownIt-Anchor" href="#基于stl的中缀转后缀实现"></a> 基于STL的中缀转后缀实现</h3>
-<h4 id="1定义分析"><a class="markdownIt-Anchor" href="#1定义分析"></a> 1.定义分析</h4>
-<p><strong>首先明确后缀表达式的定义</strong></p>
-<p>后缀表达式是一种不需要括号的表达式，这表示在将中缀表达式转化为后缀表达式时，如果中缀表达式中存在括号，<strong>不能将括号写入后缀表达式</strong><span id="more"></span></p>
-<p>那么这里引出一个问题，后缀表达式中不存在括号那要如何表示运算的优先级？</p>
-<p><strong>理解后缀表达式的运算过程</strong></p>
-<p>以(1+5-4)*(6-9)为例，它的后缀表达式是15+4-69-*</p>
-<p>先分析中缀表达式的运算过程，参与运算过程的操作符依次是+ - - *，正好是后缀表达式中从左往右的操作符顺序。而操作符所涉及到的2个操作数都是位于该操作符的前面。</p>
-<p>那么回到上面的问题来看，中缀表达式中的<strong>括号的作用如何在后缀表达式中体现出来</strong>？</p>
-<p>以1+2*3、(1+2)*3为例</p>
-<p>1+2*3的后缀表达式为123*+</p>
-<p>(1+2)*3的后缀表达式为12+3*</p>
-<p>通过对比可以发现当表达式中存在括号时，<strong>括号中的操作符提前输出</strong>了，这表示在遇到括号的情况时，可以将括号内的操作符提前输出。</p>
-<p><strong>此外，还需要考虑四则运算中，乘除的优先级高于加减</strong></p>
-<p>以1+2*3为例，如果不加以判断直接转化后缀表达式，结果为12+3*，先运算+再运算*，这显然违背了基本的四则运算法则，实际上正确的结果应该是123*+</p>
-<p>通过对比两个结果，可以发现优先级较低的操作符移到了后面，这表示在运算过程中可以<strong>先将优先级低的操作符存储起来</strong>，而将<strong>优先级高的运算符输出</strong>。</p>
-<h4 id="2思路分析"><a class="markdownIt-Anchor" href="#2思路分析"></a> 2.思路分析</h4>
-<p>采用STL模板实现中缀转后缀，这里使用的是stack。定义一个stack字符栈专门用于存储操作符</p>
-<p><font color='red'>这里特别说明一下字符栈，字符栈栈底的操作符优先级最低，栈顶的操作符优先级最高</font></p>
-<p><strong>1.输入中缀表达式的字符串依次获取字符串中的每个字符</strong></p>
-<p><strong>2.对字符进行以下的判断和操作</strong></p>
-<ul>
-<li>数字字符，直接输出</li>
-<li>左括号字符，直接存入stack</li>
-<li>右括号字符，将stack中的操作符依次输出，直到遇到左括号时停止，将左括号出栈但不输出</li>
-<li>加减乘除字符
-<ul>
-<li>优先级高的字符直接存入stack</li>
-<li>优先级低的字符，则比较当前字符栈栈顶操作符的优先级，遇到优先级更低的操作符或左括号字符时不出栈，并将当前操作符入栈</li>
-</ul>
-</li>
-</ul>
-<p><strong>3.当字符串遍历完成后，再依次输出字符栈内剩余的操作符</strong></p>
-<h4 id="3实现过程分析"><a class="markdownIt-Anchor" href="#3实现过程分析"></a> 3.实现过程分析</h4>
-<p>以(1+5-4)*(6-9)为例，字符串长度为13</p>
-<p>获取到的字符：(</p>
-<blockquote>
-<p>表达式：</p>
-<p>字符栈：(</p>
-</blockquote>
-<p>获取到的字符：1</p>
-<blockquote>
-<p>表达式：1</p>
-<p>字符栈：(</p>
-</blockquote>
-<p>获取到的字符：+</p>
-<blockquote>
-<p>表达式：1</p>
-<p>字符栈：(+</p>
-</blockquote>
-<p>获取到的字符：5</p>
-<blockquote>
-<p>表达式：15</p>
-<p>字符栈：(+</p>
-</blockquote>
-<p>获取到的字符：-</p>
-<blockquote>
-<p>表达式：15+</p>
-<p>字符栈：(-</p>
-</blockquote>
-<p>获取到的字符：4</p>
-<blockquote>
-<p>表达式：15+4</p>
-<p>字符栈：(-</p>
-</blockquote>
-<p>获取到的字符：)</p>
-<blockquote>
-<p>表达式：15+4-</p>
-<p>字符栈：</p>
-</blockquote>
-<p>获取到的字符：*</p>
-<blockquote>
-<p>表达式：15+4-</p>
-<p>字符栈：*</p>
-</blockquote>
-<p>获取到的字符：(</p>
-<blockquote>
-<p>表达式：15+4-</p>
-<p>字符栈：*(</p>
-</blockquote>
-<p>获取到的字符：6</p>
-<blockquote>
-<p>表达式：15+4-6</p>
-<p>字符栈：*(</p>
-</blockquote>
-<p>获取到的字符：-</p>
-<blockquote>
-<p>表达式：15+4-6</p>
-<p>字符栈：*(-</p>
-</blockquote>
-<p>获取到的字符：9</p>
-<blockquote>
-<p>表达式：15+4-69</p>
-<p>字符栈：*(-</p>
-</blockquote>
-<p>获取到的字符：)</p>
-<blockquote>
-<p>表达式：15+4-69-</p>
-<p>字符栈：*</p>
-</blockquote>
-<p>最后，依次输出字符栈中所有的操作符</p>
-<blockquote>
-<p>表达式：15+4-69-*</p>
-</blockquote>
-<h4 id="4源代码"><a class="markdownIt-Anchor" href="#4源代码"></a> 4.源代码</h4>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;list&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">list&lt;string&gt; <span class="title">transfer</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> len = s.<span class="built_in">length</span>(); <span class="comment">//记录长度</span></span><br><span class="line">    list&lt;string&gt; listIn;  <span class="comment">//存储中缀表达式</span></span><br><span class="line">    list&lt;string&gt; listOut; <span class="comment">//存储后缀表达式</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; symbol;   <span class="comment">//符号栈</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; ans;      <span class="comment">//结果表达式</span></span><br><span class="line"></span><br><span class="line">    listIn.<span class="built_in">push_back</span>(s);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//思路</span></span><br><span class="line">        <span class="comment">//数字直接存入ans</span></span><br><span class="line">        <span class="comment">//运算符:</span></span><br><span class="line">        <span class="comment">//如果是&#x27;(&#x27;直接存入symbol</span></span><br><span class="line">        <span class="comment">//如果是&#x27;)&#x27;依次出栈symbol中的运算符并存入ans, 直到遇到&#x27;(&#x27;, &#x27;(&#x27;不存入ans</span></span><br><span class="line">        <span class="comment">//其他符号, 依次出栈symbol中的运算符并存入ans, 直到遇到优先级更低的运算符或&#x27;(&#x27;时, 将当前符号存入symbol</span></span><br><span class="line">        <span class="comment">//字符串遍历完成后, 依次出栈符号栈中剩余的运算符并存入ans</span></span><br><span class="line">        <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; listIn.<span class="built_in">back</span>()[i] &lt;= <span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">            ans.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;)&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (symbol.<span class="built_in">top</span>() != <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>());</span><br><span class="line">                symbol.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            symbol.<span class="built_in">pop</span>(); <span class="comment">//将&#x27;(&#x27;出栈</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//这里手动优先考虑乘除的优先级高于加减</span></span><br><span class="line">            <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;+&#x27;</span> || listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;-&#x27;</span>) <span class="comment">//加减符号优先级最低</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>() &amp;&amp; symbol.<span class="built_in">top</span>() != <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>()); <span class="comment">//直接存入symbol中的运算符</span></span><br><span class="line">                    symbol.<span class="built_in">pop</span>();</span><br><span class="line">                &#125;</span><br><span class="line">                symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]); <span class="comment">//符号栈存入当前从listIn中获取的符号</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//乘除符号优先级高直接存入符号栈</span></span><br><span class="line">            &#123;</span><br><span class="line">                symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>());</span><br><span class="line">        symbol.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将结果表达式的值存入listOut</span></span><br><span class="line">    <span class="comment">//先利用已经清空的symbol实现反转</span></span><br><span class="line">    <span class="keyword">while</span> (!ans.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        symbol.<span class="built_in">push</span>(ans.<span class="built_in">top</span>());</span><br><span class="line">        ans.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    string res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        res += symbol.<span class="built_in">top</span>();</span><br><span class="line">        symbol.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    listOut.<span class="built_in">push_back</span>(res);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> listOut;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="keyword">while</span> (cin &gt;&gt; s)</span><br><span class="line">    &#123;</span><br><span class="line">        list&lt;string&gt; res = <span class="built_in">transfer</span>(s);</span><br><span class="line">        cout &lt;&lt; res.<span class="built_in">front</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>数据结构与算法</tag>
-        <tag>cpp</tag>
       </tags>
   </entry>
   <entry>
