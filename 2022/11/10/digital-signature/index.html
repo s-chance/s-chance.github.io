@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"s-chance.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="使用outlook邮箱发送一封带有数字签名的邮件 Digital Signature(数字签名)是Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一封数字签名邮件">
+<meta property="og:url" content="https://s-chance.github.io/2022/11/10/digital-signature/index.html">
+<meta property="og:site_name" content="Entropy Tree">
+<meta property="og:description" content="使用outlook邮箱发送一封带有数字签名的邮件 Digital Signature(数字签名)是Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-10T07:35:56.000Z">
+<meta property="article:modified_time" content="2022-11-10T17:46:25.981Z">
+<meta property="article:author" content="Entropy">
+<meta property="article:tag" content="数字签名">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://s-chance.github.io/2022/11/10/digital-signature/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://s-chance.github.io/2022/11/10/digital-signature/","path":"2022/11/10/digital-signature/","title":"一封数字签名邮件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>一封数字签名邮件 | Entropy Tree</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-hexo-nu.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Entropy Tree" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Entropy Tree</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">the truth of life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li><li class="menu-item menu-item-rss"><a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>rss</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8outlook%E9%82%AE%E7%AE%B1%E5%8F%91%E9%80%81%E4%B8%80%E5%B0%81%E5%B8%A6%E6%9C%89%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%9A%84%E9%82%AE%E4%BB%B6"><span class="nav-text"> 使用outlook邮箱发送一封带有数字签名的邮件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E4%B8%8B%E8%BD%BD%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="nav-text"> 1.下载数字证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E5%9C%A8%E9%82%AE%E7%AE%B1%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%AD%E8%AE%BE%E7%BD%AE"><span class="nav-text"> 2.在邮箱客户端中设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-text"> 3.发送邮件进行测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E5%85%B3%E4%BA%8E%E5%85%AC%E9%92%A5%E5%92%8C%E7%A7%81%E9%92%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3"><span class="nav-text"> 4.关于公钥和私钥的一些简单理解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF1%E7%A1%AE%E4%BF%9D%E9%82%AE%E4%BB%B6%E5%8F%AA%E8%83%BD%E7%94%B1%E7%89%B9%E5%AE%9A%E7%9A%84%E6%94%B6%E4%BB%B6%E4%BA%BA%E8%AF%BB%E5%8F%96"><span class="nav-text"> 思路1：确保邮件只能由特定的收件人读取</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF2%E7%A1%AE%E8%AE%A4%E5%8F%91%E4%BB%B6%E4%BA%BA%E7%9A%84%E9%82%AE%E4%BB%B6%E6%9C%AA%E8%A2%AB%E7%AF%A1%E6%94%B9"><span class="nav-text"> 思路2：确认发件人的邮件未被篡改</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Entropy"
+      src="/./images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Entropy</p>
+  <div class="site-description" itemprop="description">一名普通开发者的第一个博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/s-chance" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;s-chance" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/entropy_tree" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;entropy_tree" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/19329372/entropy" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;19329372&#x2F;entropy" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.entropy-tree.top/" title="https:&#x2F;&#x2F;www.entropy-tree.top" rel="noopener" target="_blank">镜像站</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2022/11/10/digital-signature/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/avatar.jpg">
+      <meta itemprop="name" content="Entropy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Entropy Tree">
+      <meta itemprop="description" content="一名普通开发者的第一个博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="一封数字签名邮件 | Entropy Tree">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一封数字签名邮件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-10 15:35:56" itemprop="dateCreated datePublished" datetime="2022-11-10T15:35:56+08:00">2022-11-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-11 01:46:25" itemprop="dateModified" datetime="2022-11-11T01:46:25+08:00">2022-11-11</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/11/10/digital-signature/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/11/10/digital-signature/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="使用outlook邮箱发送一封带有数字签名的邮件"><a class="markdownIt-Anchor" href="#使用outlook邮箱发送一封带有数字签名的邮件"></a> 使用outlook邮箱发送一封带有数字签名的邮件</h3>
+<p>Digital Signature(数字签名)<strong>是</strong>Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。<span id="more"></span></p>
+<p>数字签名是使用数字证书来验证签名者的身份, 并通过密码算法将签名者身份绑定到文档中来证明签名行为的不可否认, 已签名文档无需包含签名过程审计报告, 签名者的身份验证则由证书颁发机构(CA)或信任服务提供商(TSP)完成。</p>
+<h4 id="1下载数字证书"><a class="markdownIt-Anchor" href="#1下载数字证书"></a> 1.下载数字证书</h4>
+<p>数字证书需要先到网站上申请下载, 这里提供了一个申请90天免费证书的网站 <a target="_blank" rel="noopener" href="https://www.cersign.com/smime-email-certificates.html">证签安全电子邮件证书 - CerSign</a></p>
+<p>按照网站上提示完成申请以及邮箱验证即可。免费邮件证书大约几分钟后就会签发, 点击下载证书设置保护口令即可</p>
+<h4 id="2在邮箱客户端中设置"><a class="markdownIt-Anchor" href="#2在邮箱客户端中设置"></a> 2.在邮箱客户端中设置</h4>
+<p>outlook邮箱中导入数字证书: <strong>文件→选项→信任中心→电子邮件安全性</strong>, 然后设置加密以及数字签名。在默认设置中选择<strong>签名证书和加密证书</strong>(需要先找到之前下载好的证书文件双击运行并导入证书)</p>
+<h4 id="3发送邮件进行测试"><a class="markdownIt-Anchor" href="#3发送邮件进行测试"></a> 3.发送邮件进行测试</h4>
+<p>选择收件人(可以选择本地的另外一个邮箱)后输入邮件内容发送, 通过outlook客户端查看邮件内容会有一个额外的数字签名的图标, 点击该图标能够查看到发件人的数字证书信息。另外经过加密的邮件还会有一个🔒的图标, 在收件人拥有发件人的<strong>公钥</strong>时, 就能够进行解密获取正文内容。其他情况下, 则只有一个加密的smime.p7m文件(无法直接获取正文内容)</p>
+<h4 id="4关于公钥和私钥的一些简单理解"><a class="markdownIt-Anchor" href="#4关于公钥和私钥的一些简单理解"></a> 4.关于公钥和私钥的一些简单理解</h4>
+<p>公钥是一种<strong>非对称加密算法</strong>, 一般都是公布给对方用于加密解密</p>
+<p>私钥是一种<strong>对称加密算法</strong>, 一般不对任何人公开, 同样可用于加密解密</p>
+<p>公钥和私钥是<strong>成对出现</strong>的, 且<strong>唯一对应</strong></p>
+<h5 id="思路1确保邮件只能由特定的收件人读取"><a class="markdownIt-Anchor" href="#思路1确保邮件只能由特定的收件人读取"></a> 思路1：确保邮件只能由特定的收件人读取</h5>
+<p><strong>收件人的公钥</strong>提前就公布给所有发件人用于进行加密但不能进行解密, <strong>收件人的私钥</strong>则用于解密来自对应的公钥加密的邮件但不能进行加密(这也是一种非对称加密)</p>
+<h5 id="思路2确认发件人的邮件未被篡改"><a class="markdownIt-Anchor" href="#思路2确认发件人的邮件未被篡改"></a> 思路2：确认发件人的邮件未被篡改</h5>
+<p><strong>发件人的公钥</strong>提前就公布给所有收件人用于进行<strong>解密</strong>, <strong>发件人的私钥</strong>则用于<strong>加密</strong>邮件</p>
+<p>具体流程：</p>
+<p>发件人使用自己的私钥先对邮件加密<strong>一个hash值</strong>, 再用来自收件人的公钥对<strong>内容及hash值</strong>二次加密, 然后发送给收件人</p>
+<p>收件人获取到了二次加密的邮件后, 先使用自己的私钥解密对应的公钥获取内容及<strong>加密的hash值</strong>, 再用来自收件人的公钥二次解密对应的私钥获取<strong>原始的hash值</strong>, 对内容进行hash计算, 如果计算的结果与之前hash值解密后的内容相同, 则说明内容未被篡改</p>
+<p>需要注意的是：公钥和私钥的用法不是固定的, 在收件人和发件人两种情景下, 它们的用法恰恰是相反的</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Entropy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://s-chance.github.io/2022/11/10/digital-signature/" title="一封数字签名邮件">https://s-chance.github.io/2022/11/10/digital-signature/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D/" rel="tag"><i class="fa fa-tag"></i> 数字签名</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 计算机网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/27/suffix-expression/" rel="prev" title="后缀表达式">
+                  <i class="fa fa-chevron-left"></i> 后缀表达式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/17/linux-base/" rel="next" title="linux-base">
+                  linux-base <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Entropy</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">69k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:03</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-hexo-nu.vercel.app/","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":true,"comment_count":true,"requiredFields":["nick"],"el":"#waline","comment":true,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","path":"/2022/11/10/digital-signature/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+</body>
+</html>

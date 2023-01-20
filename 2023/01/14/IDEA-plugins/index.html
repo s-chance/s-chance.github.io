@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"s-chance.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="作为IntelliJ IDEA的用户之一，原始的IDE已经能够满足大部分需求，但IDE插件提供了更多拓展性的功能，使得开发者能够工作在适宜的“开发环境”中，提高开发效率，提升开发者体验。那么以下是笔者在使用过程中所搜寻到的一些插件，请注意其中部分插件并不能直接提升开发效率，另外过多的插件反而会造成开发效率的低下，请悉知。读者可自行选择感兴趣的插件进行配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDEA插件配置">
+<meta property="og:url" content="https://s-chance.github.io/2023/01/14/IDEA-plugins/index.html">
+<meta property="og:site_name" content="Entropy Tree">
+<meta property="og:description" content="作为IntelliJ IDEA的用户之一，原始的IDE已经能够满足大部分需求，但IDE插件提供了更多拓展性的功能，使得开发者能够工作在适宜的“开发环境”中，提高开发效率，提升开发者体验。那么以下是笔者在使用过程中所搜寻到的一些插件，请注意其中部分插件并不能直接提升开发效率，另外过多的插件反而会造成开发效率的低下，请悉知。读者可自行选择感兴趣的插件进行配置">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-14T10:11:56.000Z">
+<meta property="article:modified_time" content="2023-01-16T11:22:55.310Z">
+<meta property="article:author" content="Entropy">
+<meta property="article:tag" content="配置优化">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://s-chance.github.io/2023/01/14/IDEA-plugins/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://s-chance.github.io/2023/01/14/IDEA-plugins/","path":"2023/01/14/IDEA-plugins/","title":"IDEA插件配置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>IDEA插件配置 | Entropy Tree</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-hexo-nu.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Entropy Tree" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Entropy Tree</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">the truth of life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li><li class="menu-item menu-item-rss"><a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>rss</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E8%A7%89%E4%BD%93%E9%AA%8C"><span class="nav-text"> 视觉体验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#background-image-plus"><span class="nav-text"> Background Image Plus +</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#material-theme-ui"><span class="nav-text"> Material Theme UI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rainbow-brackets"><span class="nav-text"> Rainbow Brackets</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nyan-progress-bar"><span class="nav-text"> Nyan Progress Bar</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%B7%B3%E8%BD%AC%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%B5%8F%E8%A7%88"><span class="nav-text"> 代码跳转与快速浏览</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#codeglance-pro"><span class="nav-text"> CodeGlance Pro</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91"><span class="nav-text"> 代码编辑</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#string-manipulation"><span class="nav-text"> String Manipulation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ideavim"><span class="nav-text"> IdeaVim</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="nav-text"> 代码生成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#easy-code"><span class="nav-text"> Easy Code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#easy-code-mybatiscodehelperpro"><span class="nav-text"> Easy Code-MybatisCodeHelperPro</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%AE%80%E5%8C%96"><span class="nav-text"> 代码简化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lombok"><span class="nav-text"> Lombok</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83"><span class="nav-text"> 代码规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#checkstyle"><span class="nav-text"> CheckStyle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#alibaba-java-coding-guidelines"><span class="nav-text"> Alibaba Java Coding Guidelines</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sonarlint"><span class="nav-text"> SonarLint</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#git%E6%8F%90%E4%BA%A4%E8%A7%84%E8%8C%83"><span class="nav-text"> Git提交规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#git-commit-template"><span class="nav-text"> Git Commit Template</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%B5%8B%E8%AF%95"><span class="nav-text"> 代码测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#junitgenerator-v20"><span class="nav-text"> JUnitGenerator V2.0</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90"><span class="nav-text"> 项目架构分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#plantuml-integration"><span class="nav-text"> PlantUML Integration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sequencediagram"><span class="nav-text"> SequenceDiagram</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%91%E9%83%A8%E7%BD%B2"><span class="nav-text"> 云部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#alibaba-cloud-toolkit"><span class="nav-text"> Alibaba Cloud Toolkit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7"><span class="nav-text"> Json辅助工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#json-parser"><span class="nav-text"> Json Parser</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gsonformatplus"><span class="nav-text"> GsonFormatPlus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BF%BB%E8%AF%91%E5%B7%A5%E5%85%B7"><span class="nav-text"> 翻译工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#translation"><span class="nav-text"> Translation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maven%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7"><span class="nav-text"> Maven辅助工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#maven-helper"><span class="nav-text"> Maven Helper</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mybatis%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7"><span class="nav-text"> Mybatis辅助工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mybatis-log"><span class="nav-text"> Mybatis Log</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mybatiscodehelperpro"><span class="nav-text"> MybatisCodeHelperPro</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mybatisplus%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7"><span class="nav-text"> MybatisPlus辅助工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mybatisx"><span class="nav-text"> MybatisX</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#restful%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7"><span class="nav-text"> Restful辅助工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#restfultoolkit"><span class="nav-text"> Restfultoolkit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k8s%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7"><span class="nav-text"> K8s辅助工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kubernetes"><span class="nav-text"> Kubernetes</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Entropy"
+      src="/./images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Entropy</p>
+  <div class="site-description" itemprop="description">一名普通开发者的第一个博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/s-chance" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;s-chance" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/entropy_tree" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;entropy_tree" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/19329372/entropy" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;19329372&#x2F;entropy" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.entropy-tree.top/" title="https:&#x2F;&#x2F;www.entropy-tree.top" rel="noopener" target="_blank">镜像站</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2023/01/14/IDEA-plugins/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/avatar.jpg">
+      <meta itemprop="name" content="Entropy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Entropy Tree">
+      <meta itemprop="description" content="一名普通开发者的第一个博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="IDEA插件配置 | Entropy Tree">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          IDEA插件配置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-14 18:11:56" itemprop="dateCreated datePublished" datetime="2023-01-14T18:11:56+08:00">2023-01-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-16 19:22:55" itemprop="dateModified" datetime="2023-01-16T19:22:55+08:00">2023-01-16</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2023/01/14/IDEA-plugins/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/01/14/IDEA-plugins/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>作为IntelliJ IDEA的用户之一，原始的IDE已经能够满足大部分需求，但IDE插件提供了更多拓展性的功能，使得开发者能够工作在适宜的“开发环境”中，提高开发效率，提升开发者体验。那么以下是笔者在使用过程中所搜寻到的一些插件，请注意其中部分插件并不能直接提升开发效率，另外过多的插件反而会造成开发效率的低下，请悉知。读者可自行选择感兴趣的插件进行配置<span id="more"></span></p>
+<h3 id="视觉体验"><a class="markdownIt-Anchor" href="#视觉体验"></a> 视觉体验</h3>
+<h4 id="background-image-plus"><a class="markdownIt-Anchor" href="#background-image-plus"></a> Background Image Plus +</h4>
+<p>Background Image Plus +是一款<strong>编辑器背景</strong>图插件，是Background Image Plus的功能增强版。支持<strong>每隔指定时间随机切换背景图片</strong>（需要有包含多个图片文件的背景图片文件夹，部分图片文件格式无法显示）</p>
+<h4 id="material-theme-ui"><a class="markdownIt-Anchor" href="#material-theme-ui"></a> Material Theme UI</h4>
+<p>Material Theme UI是一款主题美化插件</p>
+<h4 id="rainbow-brackets"><a class="markdownIt-Anchor" href="#rainbow-brackets"></a> Rainbow Brackets</h4>
+<p>Rainbow Brackets彩虹括号插件，对代码排错有一定帮助</p>
+<h4 id="nyan-progress-bar"><a class="markdownIt-Anchor" href="#nyan-progress-bar"></a> Nyan Progress Bar</h4>
+<p>Nyan Progress Bar彩虹猫进度条样式插件</p>
+<hr />
+<h3 id="代码跳转与快速浏览"><a class="markdownIt-Anchor" href="#代码跳转与快速浏览"></a> 代码跳转与快速浏览</h3>
+<h4 id="codeglance-pro"><a class="markdownIt-Anchor" href="#codeglance-pro"></a> CodeGlance Pro</h4>
+<p>CodeGlance Pro是一款<strong>快速浏览代码</strong>的插件，是CodeGlance的最新版。提供了<strong>代码缩略图</strong>，并能对缩略图中的部分代码进行<strong>放大浏览</strong>以及<strong>快速跳转</strong>到指定的代码</p>
+<hr />
+<h3 id="代码编辑"><a class="markdownIt-Anchor" href="#代码编辑"></a> 代码编辑</h3>
+<h4 id="string-manipulation"><a class="markdownIt-Anchor" href="#string-manipulation"></a> String Manipulation</h4>
+<p>String Manipulation用于代码大小写转换、驼峰命名转换、去除空格等</p>
+<h4 id="ideavim"><a class="markdownIt-Anchor" href="#ideavim"></a> IdeaVim</h4>
+<p>Ideavim是一个Vim仿真插件，用于在IDAE上实现Vim操作。（适用于习惯Vim操作的开发者，部分快捷键与IDEA自带快捷键存在冲突，需要手动配置）</p>
+<h3 id="代码生成"><a class="markdownIt-Anchor" href="#代码生成"></a> 代码生成</h3>
+<h4 id="easy-code"><a class="markdownIt-Anchor" href="#easy-code"></a> Easy Code</h4>
+<p>Easy Code是一款能够根据数据表直接生成entity、controller、service、dao、mapper的代码，非常方便</p>
+<h4 id="easy-code-mybatiscodehelperpro"><a class="markdownIt-Anchor" href="#easy-code-mybatiscodehelperpro"></a> Easy Code-MybatisCodeHelperPro</h4>
+<p>为了与MybatisCodeHelperPro兼容而的推出的Easy Code版本</p>
+<hr />
+<h3 id="代码简化"><a class="markdownIt-Anchor" href="#代码简化"></a> 代码简化</h3>
+<h4 id="lombok"><a class="markdownIt-Anchor" href="#lombok"></a> Lombok</h4>
+<p>Lombok能够通过注解实现实体类的方法，简化、减少代码的编写</p>
+<hr />
+<h3 id="代码规范"><a class="markdownIt-Anchor" href="#代码规范"></a> 代码规范</h3>
+<h4 id="checkstyle"><a class="markdownIt-Anchor" href="#checkstyle"></a> CheckStyle</h4>
+<p>Java代码格式规范插件，能够自定义不同的规范</p>
+<h4 id="alibaba-java-coding-guidelines"><a class="markdownIt-Anchor" href="#alibaba-java-coding-guidelines"></a> Alibaba Java Coding Guidelines</h4>
+<p>Alibaba Java Coding Guidelines阿里巴巴的代码规范插件，用于开发者规范自己的代码编写，改善代码质量</p>
+<h4 id="sonarlint"><a class="markdownIt-Anchor" href="#sonarlint"></a> SonarLint</h4>
+<p>SonarLint是一个代码质量检测器插件，用于培养开发者良好的开发习惯以及提高代码质量</p>
+<hr />
+<h3 id="git提交规范"><a class="markdownIt-Anchor" href="#git提交规范"></a> Git提交规范</h3>
+<h4 id="git-commit-template"><a class="markdownIt-Anchor" href="#git-commit-template"></a> Git Commit Template</h4>
+<p>Git Commit Template用于规范git提交信息</p>
+<hr />
+<h3 id="代码测试"><a class="markdownIt-Anchor" href="#代码测试"></a> 代码测试</h3>
+<h4 id="junitgenerator-v20"><a class="markdownIt-Anchor" href="#junitgenerator-v20"></a> JUnitGenerator V2.0</h4>
+<p>JUnitGenerator V2.0用于快速生成代码测试模块</p>
+<hr />
+<h3 id="项目架构分析"><a class="markdownIt-Anchor" href="#项目架构分析"></a> 项目架构分析</h3>
+<h4 id="plantuml-integration"><a class="markdownIt-Anchor" href="#plantuml-integration"></a> PlantUML Integration</h4>
+<p>PlantUML Integration是一款用于快速创建UML（统一建模语言）图形的插件，能够通过绘制图形来系统性地分析和设计项目</p>
+<h4 id="sequencediagram"><a class="markdownIt-Anchor" href="#sequencediagram"></a> SequenceDiagram</h4>
+<p>SequenceDiagram用于生成项目类调用关系与执行流程的时序图</p>
+<hr />
+<h3 id="云部署"><a class="markdownIt-Anchor" href="#云部署"></a> 云部署</h3>
+<h4 id="alibaba-cloud-toolkit"><a class="markdownIt-Anchor" href="#alibaba-cloud-toolkit"></a> Alibaba Cloud Toolkit</h4>
+<p>Alibaba Cloud Toolkit用于高效开发并部署适合在云端运行的应用</p>
+<hr />
+<h3 id="json辅助工具"><a class="markdownIt-Anchor" href="#json辅助工具"></a> Json辅助工具</h3>
+<h4 id="json-parser"><a class="markdownIt-Anchor" href="#json-parser"></a> Json Parser</h4>
+<p>Json Parser是一款json解析器插件，是一个用于<strong>验证和格式化JSON字符串</strong>的轻量级插件</p>
+<h4 id="gsonformatplus"><a class="markdownIt-Anchor" href="#gsonformatplus"></a> GsonFormatPlus</h4>
+<p>GsonFormat能够将json数据直接转换为Java的类，提高效率</p>
+<hr />
+<h3 id="翻译工具"><a class="markdownIt-Anchor" href="#翻译工具"></a> 翻译工具</h3>
+<h4 id="translation"><a class="markdownIt-Anchor" href="#translation"></a> Translation</h4>
+<p>Translation是一款中英文翻译插件，用于在IDEA内部快速实现中英文翻译</p>
+<hr />
+<h3 id="maven辅助工具"><a class="markdownIt-Anchor" href="#maven辅助工具"></a> Maven辅助工具</h3>
+<h4 id="maven-helper"><a class="markdownIt-Anchor" href="#maven-helper"></a> Maven Helper</h4>
+<p>Maven Helper是一款maven依赖冲突分析的插件，主要提供图形化操作来替代命令行操作</p>
+<hr />
+<h3 id="mybatis辅助工具"><a class="markdownIt-Anchor" href="#mybatis辅助工具"></a> Mybatis辅助工具</h3>
+<p>注意部分MyBatis插件和MybatisPlus插件可能会产生冲突</p>
+<h4 id="mybatis-log"><a class="markdownIt-Anchor" href="#mybatis-log"></a> Mybatis Log</h4>
+<p>Mybatis Log是一款Mybatis的<strong>日志处理</strong>工具，将Mybatis框架日志中的SQL信息转换可直接执行的SQL语句，节省时间。其历史版本不需要付费，最新版本需要付费使用</p>
+<h4 id="mybatiscodehelperpro"><a class="markdownIt-Anchor" href="#mybatiscodehelperpro"></a> MybatisCodeHelperPro</h4>
+<p>MybatisCodeHelperPro是一款MyBatis的强大辅助插件（不少开发者对此给出很高的评价），提供免费版和付费版，免费版提供的功能基本能够满足日常需求。（可能会与其它插件产生冲突）</p>
+<hr />
+<h3 id="mybatisplus辅助工具"><a class="markdownIt-Anchor" href="#mybatisplus辅助工具"></a> MybatisPlus辅助工具</h3>
+<h4 id="mybatisx"><a class="markdownIt-Anchor" href="#mybatisx"></a> MybatisX</h4>
+<p>MybatisX是MybatisPlus的强大辅助插件。（可能会与Mybatis的部分插件产生冲突）</p>
+<hr />
+<h3 id="restful辅助工具"><a class="markdownIt-Anchor" href="#restful辅助工具"></a> Restful辅助工具</h3>
+<h4 id="restfultoolkit"><a class="markdownIt-Anchor" href="#restfultoolkit"></a> Restfultoolkit</h4>
+<p>Restfultoolkit是一款针对Restful服务开发的辅助工具，能够根据URL快速跳转到对应的方法接口，提供了一个接口列表窗口，内置一个简单的Http请求工具（相当于一个简化的测试工具，类似于postman和apifox等）</p>
+<hr />
+<h3 id="k8s辅助工具"><a class="markdownIt-Anchor" href="#k8s辅助工具"></a> K8s辅助工具</h3>
+<h4 id="kubernetes"><a class="markdownIt-Anchor" href="#kubernetes"></a> Kubernetes</h4>
+<p>Kubernetes插件用于检测管理Kubernetes系统</p>
+<hr />
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Entropy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://s-chance.github.io/2023/01/14/IDEA-plugins/" title="IDEA插件配置">https://s-chance.github.io/2023/01/14/IDEA-plugins/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 配置优化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/30/screenfetch-neofetch/" rel="prev" title="在linux终端显示系统信息">
+                  <i class="fa fa-chevron-left"></i> 在linux终端显示系统信息
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/01/17/blog-by-https/" rel="next" title="关于个人Hexo博客的搭建历史">
+                  关于个人Hexo博客的搭建历史 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Entropy</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">69k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:03</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-hexo-nu.vercel.app/","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":true,"comment_count":true,"requiredFields":["nick"],"el":"#waline","comment":true,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","path":"/2023/01/14/IDEA-plugins/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+</body>
+</html>

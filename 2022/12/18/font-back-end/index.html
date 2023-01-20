@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"s-chance.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="开发模式 前后端分离已成为web大型项目的标准开发方式, 主要解决了传统的前后端不分离所带来的一系列开发过程中的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前后端知识">
+<meta property="og:url" content="https://s-chance.github.io/2022/12/18/font-back-end/index.html">
+<meta property="og:site_name" content="Entropy Tree">
+<meta property="og:description" content="开发模式 前后端分离已成为web大型项目的标准开发方式, 主要解决了传统的前后端不分离所带来的一系列开发过程中的问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-18T09:40:47.000Z">
+<meta property="article:modified_time" content="2022-12-18T17:13:20.591Z">
+<meta property="article:author" content="Entropy">
+<meta property="article:tag" content="前后端">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://s-chance.github.io/2022/12/18/font-back-end/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://s-chance.github.io/2022/12/18/font-back-end/","path":"2022/12/18/font-back-end/","title":"前后端知识"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>前后端知识 | Entropy Tree</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-hexo-nu.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Entropy Tree" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Entropy Tree</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">the truth of life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li><li class="menu-item menu-item-rss"><a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>rss</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F"><span class="nav-text"> 开发模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-text"> 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%B6%89%E5%8F%8A%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="nav-text"> 前后端分离涉及的技术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-text"> 对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E6%96%B9%E5%BC%8F"><span class="nav-text"> 渲染方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spa%E5%92%8Cmpa"><span class="nav-text"> SPA和MPA</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Entropy"
+      src="/./images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Entropy</p>
+  <div class="site-description" itemprop="description">一名普通开发者的第一个博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/s-chance" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;s-chance" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/entropy_tree" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;entropy_tree" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/19329372/entropy" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;19329372&#x2F;entropy" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.entropy-tree.top/" title="https:&#x2F;&#x2F;www.entropy-tree.top" rel="noopener" target="_blank">镜像站</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2022/12/18/font-back-end/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/avatar.jpg">
+      <meta itemprop="name" content="Entropy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Entropy Tree">
+      <meta itemprop="description" content="一名普通开发者的第一个博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="前后端知识 | Entropy Tree">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前后端知识
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-18 17:40:47" itemprop="dateCreated datePublished" datetime="2022-12-18T17:40:47+08:00">2022-12-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-19 01:13:20" itemprop="dateModified" datetime="2022-12-19T01:13:20+08:00">2022-12-19</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/12/18/font-back-end/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/12/18/font-back-end/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="开发模式"><a class="markdownIt-Anchor" href="#开发模式"></a> 开发模式</h3>
+<p><strong>前后端分离</strong>已成为web大型项目的标准开发方式, 主要解决了<strong>传统的前后端不分离</strong>所带来的一系列开发过程中的问题<span id="more"></span></p>
+<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
+<p><strong>前后端不分离</strong>: 前后端代码放在一个工程下或同一个目录下, 前端页面中含有后端的代码(如典型的jsp页面内嵌java代码)。前后端代码以及前后端工作开发<strong>耦合度极高</strong>, 前后端需要同时协作才能完成开发</p>
+<p><strong>前后端分离</strong>: 前后端代码放在不同的工程下, 只需要<strong>提前约定好API数据规范</strong>, 前后端就可以各自独立开发。前端可以通过<strong>Mock技术模拟后端API服务</strong>来独立运行和测试; 后端也可以独立开发、运行、测试, 通过<strong>Swagger技术自动生成API文档</strong>提供给前端, 还能进行自动化接口测试API的可用性</p>
+<h4 id="前后端分离涉及的技术"><a class="markdownIt-Anchor" href="#前后端分离涉及的技术"></a> 前后端分离涉及的技术</h4>
+<p>1.Ajax、axios和json等基础交互技术</p>
+<p>2.Http协议在同源策略下引发的跨域访问</p>
+<p>3.Nodejs搭建中间层服务器以及前端Mock测试</p>
+<h4 id="对比"><a class="markdownIt-Anchor" href="#对比"></a> 对比</h4>
+<p><strong>以一个SpringBoot项目为例</strong></p>
+<p>前后端不分离的情况下, <strong>直接使用SpringBoot启动即可</strong></p>
+<ul>
+<li>需要考虑静态资源所存放的相对路径(例如需要存放在某个指定的静态资源static目录下)</li>
+<li>在测试过程中遇到问题难以快速定位到问题位于前端还是后端</li>
+<li>运行时出现问题会直接导致SpringBoot项目无法启动或者运行时无法正确地进行前后端交互测试</li>
+<li>对于**SEO(Search Engine Optimization, 搜索引擎优化)**的支持较好</li>
+</ul>
+<p>前后端分离的情况下, <strong>后端使用SpringBoot启动, 前端使用Nodejs启动</strong></p>
+<ul>
+<li>不再需要考虑相对路径的限制</li>
+<li>可以使用特定的技术来模拟前后端进行数据交互测试, 从而准确定位问题</li>
+<li>会有跨域访问的限制</li>
+<li>由于前端与后端分离导致服务端无法去渲染前端页面, 即<strong>一般情况下不支持SSR(Server-Side-Rendering，服务器端渲染)</strong></li>
+</ul>
+<h3 id="渲染方式"><a class="markdownIt-Anchor" href="#渲染方式"></a> 渲染方式</h3>
+<p>渲染方式可分为<strong>SSR服务端渲染</strong>和<strong>CSR客户端渲染</strong></p>
+<p><strong>SSR服务端渲染</strong></p>
+<ul>
+<li>
+<p>SSR拥有很好的SEO搜索引擎优化</p>
+</li>
+<li>
+<p>SSR的首屏优化很好, 即首屏时间短</p>
+</li>
+<li>
+<p>SSR加重了服务端的负载, 因为渲染需要在服务端完成</p>
+</li>
+<li>
+<p>SSR的页面交互性较差</p>
+</li>
+<li>
+<p>使用SSR基本说明了前后端不分离</p>
+</li>
+<li>
+<p>SSR非常适合开发静态网站以及业务逻辑复杂的网站</p>
+</li>
+</ul>
+<p><strong>CSR客户端渲染</strong></p>
+<ul>
+<li>
+<p>CSR不支持SEO搜索引擎优化, 因为数据是异步获取的, 很难被SEO收录</p>
+</li>
+<li>
+<p>CSR的首屏时间较长</p>
+</li>
+<li>
+<p>CSR减轻了服务器的负载, 因为渲染是在客户端完成的</p>
+</li>
+<li>
+<p>CSR的页面交互性非常好</p>
+</li>
+<li>
+<p>使用CSR基本说明了前后端分离</p>
+</li>
+<li>
+<p>CSR非常适合开发对即时交互性要求较高的Web应用程序以及app小程序</p>
+</li>
+</ul>
+<p>基于不同的渲染方式又可以引出<strong>SPA</strong>和<strong>MPA</strong></p>
+<h3 id="spa和mpa"><a class="markdownIt-Anchor" href="#spa和mpa"></a> SPA和MPA</h3>
+<p><strong>SPA单页面应用模式</strong></p>
+<ul>
+<li>SPA模式只拥有一个主页面, 所有的静态资源都包含在主页面中, 只需要加载一次</li>
+<li>所有的功能模块组件化, 通过刷新局部资源来实现功能</li>
+<li>几乎不存在<strong>转发</strong>和<strong>重定向</strong>的概念</li>
+<li>传统SPA通常都是CSR渲染, 也可以借助SSR渲染来优化SEO</li>
+<li>SPA的实现核心是<strong>前端路由</strong>, 前端路由的核心: 改变视图的同时不会向后端发出请求</li>
+<li>单个vue+vite的工程就是典型的SPA模式</li>
+</ul>
+<p><strong>MPA多页面应用模式</strong></p>
+<ul>
+<li>MPA模式拥有多个页面, 所有的静态资源都是公共资源, 每个页面都需要重新加载</li>
+<li>所有的功能会划分到多个页面中, 通过转发和重定向页面来实现功能</li>
+<li>MPA通常都是SSR渲染, 基本不会使用CSR渲染, 因为逻辑较为复杂</li>
+<li>MPA中基本没有前端路由</li>
+</ul>
+<p>目前大型Web项目开发可能更多的是使用MPA+SPA的混合模式</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Entropy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://s-chance.github.io/2022/12/18/font-back-end/" title="前后端知识">https://s-chance.github.io/2022/12/18/font-back-end/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E5%90%8E%E7%AB%AF/" rel="tag"><i class="fa fa-tag"></i> 前后端</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/26/java-in-linux/" rel="prev" title="在Linux上配置Java环境">
+                  <i class="fa fa-chevron-left"></i> 在Linux上配置Java环境
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/12/30/screenfetch-neofetch/" rel="next" title="在linux终端显示系统信息">
+                  在linux终端显示系统信息 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Entropy</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">69k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:03</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-hexo-nu.vercel.app/","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":true,"comment_count":true,"requiredFields":["nick"],"el":"#waline","comment":true,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","path":"/2022/12/18/font-back-end/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+</body>
+</html>
