@@ -2524,7 +2524,7 @@ mark.search-keyword {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #6effaf;
+  background: #41ff16;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2534,6 +2534,7 @@ mark.search-keyword {
   width: 4px;
 }
 .links-of-blogroll-item {
+  display: inline-block;
   padding: 2px 10px;
 }
 .links-of-blogroll-item a {
