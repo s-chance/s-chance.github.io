@@ -2137,26 +2137,6 @@
       </tags>
   </entry>
   <entry>
-    <title>RSS订阅的使用以及优势</title>
-    <url>/2022/09/04/RSS/</url>
-    <content><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3>
-<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
-<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
-<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
-<ul>
-<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
-<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
-<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
-<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
-</ul>
-<h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4>
-<p>windows平台这里推荐微软商店的Fluent Reader<a href="https://apps.microsoft.com/store/detail/9P71FC94LRH8">官网链接</a></p>
-]]></content>
-      <tags>
-        <tag>RSS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL高级</title>
     <url>/2022/08/21/MySQL-Pro/</url>
     <content><![CDATA[<h3 id="mysql高级"><a class="markdownIt-Anchor" href="#mysql高级"></a> MySQL高级</h3>
@@ -2342,6 +2322,26 @@
       </tags>
   </entry>
   <entry>
+    <title>RSS订阅的使用以及优势</title>
+    <url>/2022/09/04/RSS/</url>
+    <content><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3>
+<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
+<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
+<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
+<ul>
+<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
+<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
+<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
+<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
+</ul>
+<h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4>
+<p>windows平台这里推荐微软商店的Fluent Reader<a href="https://apps.microsoft.com/store/detail/9P71FC94LRH8">官网链接</a></p>
+]]></content>
+      <tags>
+        <tag>RSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于个人Hexo博客的搭建历史</title>
     <url>/2023/01/17/blog-by-https/</url>
     <content><![CDATA[<p>仅以此文回顾过去搭建Hexo博客的历程<span id="more"></span></p>
@@ -2480,6 +2480,125 @@
       </tags>
   </entry>
   <entry>
+    <title>Redis基础</title>
+    <url>/2022/09/14/Redis-Base/</url>
+    <content><![CDATA[<h3 id="redis基础"><a class="markdownIt-Anchor" href="#redis基础"></a> Redis基础</h3>
+<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
+<p>redis是一款高性能的NoSQL系列的非关系型数据库，全称Remote Dictionary Server远程字典服务器，是基于C语言开发的一个开源的高性能键值对数据库<span id="more"></span></p>
+<p>NoSQL，全称Not-Only SQL，泛指非关系型的数据库，专门用于应对基于海量用户和海量数据下的数据处理问，不同于MySQL这类关系型数据库，NoSQL系列的非关系型数据库减少了磁盘读写次数、去除了数据间的关联性弥补关系型数据库在磁盘读写性能、复杂的数据关联性难于扩展的不足，专门用于应对大量用户<strong>高并发</strong>的问题</p>
+<p>但非关系型数据库与关系型数据库在开发中一般会配合使用，非关系型数据库能实现大量数据的高效率访问，关系型数据库能实现复杂的数据查询以及保障安全性能的事务机制。单一的非关系数据库则无法实现复杂查询、安全保障，单一的关系型数据库也无法实现高效访问。因此联合使用非关系数据库和关系型数据库，相互弥补缺点，才能提供最好的用户体验。</p>
+<h4 id="开始使用"><a class="markdownIt-Anchor" href="#开始使用"></a> 开始使用</h4>
+<h5 id="下载安装"><a class="markdownIt-Anchor" href="#下载安装"></a> 下载安装</h5>
+<p>redis<a href="https://redis.io">官网</a>以及<a href="http://www.redis.net.cn/">中文官网</a>主要提供的是Linux发行版下的redis版本，用于投入开发使用。本文章以windows系统下的redis版本做为学习使用，在GitHub上的<a href="https://github.com/microsoftarchive/redis/releases">Releases · microsoftarchive/redis</a>下载zip压缩包找到内部的release目录下含有redis主要的exe文件的压缩包后解压即可（这里是以2.8.9版本为例）</p>
+<p>关于redis的图形化管理工具<a href="https://github.com/uglide/RedisDesktopManager">下载</a>(最新版本需要收费使用)</p>
+<h5 id="重要文件"><a class="markdownIt-Anchor" href="#重要文件"></a> 重要文件</h5>
+<p>redis压缩包解压后目录下的重要文件主要是以下文件：</p>
+<ul>
+<li>redis.windows.conf：配置文件</li>
+<li>redis-cli.exe：redis客户端</li>
+<li>redis-server.exe：redis服务器端</li>
+</ul>
+<h5 id="基本操作"><a class="markdownIt-Anchor" href="#基本操作"></a> 基本操作</h5>
+<p><strong>请确保redis服务器端先启动，否则redis客户端在启动后将会无法连接至redis服务器端</strong></p>
+<p>redis数据类型：string、hash、list、set、sorted_set/zset</p>
+<p>注意：在未持久化redis中的数据时，关闭redis服务器端会导致在redis客户端存储的数据全部丢失，因此请在确保redis服务器端一直运行的前提下，测试下面的命令操作</p>
+<ol>
+<li>
+<p>字符串类型：string</p>
+<p>主要用于存储单个数据，是最简单也是最常用的数据存储类型</p>
+<p>一个存储空间存储一个数据</p>
+<p>存储的数据如果是整数类型，则可进行数字操作</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: set key value</span></span><br><span class="line"><span class="comment"># 存储一个键为name, 值为tom的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> name tom</span><br><span class="line"><span class="comment"># 存储一个键为age, 值为26的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> age 26</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: get key</span></span><br><span class="line"><span class="comment"># 获取name键对应的值</span></span><br><span class="line">get name</span><br><span class="line"><span class="comment"># 获取age键对应的值</span></span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: del key</span></span><br><span class="line"><span class="comment"># 删除name键对应的值</span></span><br><span class="line">del name</span><br><span class="line"><span class="comment">#删除age键对应的值</span></span><br><span class="line">del age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新获取值, 确认是否已经删除</span></span><br><span class="line">get name</span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数字操作命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自增处理incr key, 当key不存在时会自动创建, 默认自增值1</span></span><br><span class="line">incr num <span class="comment">#num键若不存在, 则自动创建</span></span><br><span class="line"><span class="comment"># 自增指定数据incrby key increment</span></span><br><span class="line">incrby num 20 <span class="comment">#指定num键的值自增20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自减处理decr key, 同样的若key不存在会自动创建, 默认自减值1</span></span><br><span class="line">decr num</span><br><span class="line"><span class="comment"># 自减指定数据decrby key decrement</span></span><br><span class="line">decrby num 30</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>哈希类型：hash</p>
+<p>主要用于分组存储有一定关联性的数据，比如java对象中的一系列成员变量数据</p>
+<p>一个存储空间存储多个键值对数据</p>
+<p>底层使用哈希表结构实现数据存储</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: hset key field value</span></span><br><span class="line"><span class="comment"># 在myhash键中存储一个name字段, 值为jerry的数据</span></span><br><span class="line">hset myhash name jerry</span><br><span class="line"><span class="comment"># 在myhash键中存储一个password字段, 值为pass的数据</span></span><br><span class="line">hset myhash password pass</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式一: hget key field 获取指定的field所对应的值</span></span><br><span class="line"><span class="comment"># 获取myhash键中name字段的值</span></span><br><span class="line">hget myhash name</span><br><span class="line"><span class="comment"># 格式二: hgetall key 获取指定key下的所有field和value</span></span><br><span class="line"><span class="comment"># 获取myhash键下的所有键值对数据</span></span><br><span class="line">hgetall myhash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: hdel key field</span></span><br><span class="line"><span class="comment"># 删除myhash键下的name字段及其对应的值</span></span><br><span class="line">hdel myhash name</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>列表类型：list</p>
+<p>主要用于存储多个数据，并对数据先后进入存储空间的顺序进行区分</p>
+<p>一个存储空间存储多个数据，且区分数据存储的先后顺序</p>
+<p>底层使用双向链表结构实现数据存储</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式一: lpush key value 在列表左边(头部)添加数据</span></span><br><span class="line"><span class="comment"># 格式二: rpush key value 在列表右边(尾部)添加数据</span></span><br><span class="line"><span class="comment"># 先任意添加一个测试的初始数据</span></span><br><span class="line">lpush mylist origin</span><br><span class="line"><span class="comment"># 在mylist键列表头部添加一个数据</span></span><br><span class="line">lpush mylist <span class="built_in">head</span></span><br><span class="line"><span class="comment"># 在mylist键列表尾部添加一个数据</span></span><br><span class="line">rpush mylist <span class="built_in">tail</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># lrange key start end 根据start和end的范围获取</span></span><br><span class="line"><span class="comment"># list数据下标从0开始, 若使用负数, 则表示从列表尾部倒数第几个数据</span></span><br><span class="line"><span class="comment"># 获取mylist下标0-2的数据</span></span><br><span class="line">lrange mylist 0 2</span><br><span class="line">lrange mylist 0 -1 <span class="comment">#-1表示列表倒数第一个数据, 即正数最后一个数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式一: lpop key 删除列表最左边的数据</span></span><br><span class="line"><span class="comment"># 格式二: rpop key 删除列表最右边的数据</span></span><br><span class="line"><span class="comment"># 删除mylist键列表头部的一个数据</span></span><br><span class="line">lpop mylist</span><br><span class="line"><span class="comment"># 删除mylist键列表尾部的一个数据</span></span><br><span class="line">rpop mylist</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>集合类型：set</p>
+<p>主要用于存储大量的数据，提供更高的数据查询效率</p>
+<p>一个存储空间能够存储大量数据，且具有高效的内部存储机制</p>
+<p>底层与hash存储结构相同，并且不允许存储重复的值</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: sadd key value</span></span><br><span class="line"><span class="comment"># 在myset键存储一个值为a的数据</span></span><br><span class="line">sadd myset a <span class="comment">#第二次重复执行, 不会再新增数据</span></span><br><span class="line">sadd myset b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: smembers key</span></span><br><span class="line"><span class="comment"># 获取myset键中的所有数据</span></span><br><span class="line">smembers myset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: srem key value</span></span><br><span class="line"><span class="comment"># 删除myset键中值为a的数据</span></span><br><span class="line">srem myset a</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>有序集合类型：sorted_set</p>
+<p>不允许存储重复数据，并且存储的数据是有顺序的，每个数据会关联一个double类型的分数作为排序的依据</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: zadd key score value</span></span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为3, 值为pascal的数据</span></span><br><span class="line">zadd mysort 3 pascal</span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为1, 值为visual的数据</span></span><br><span class="line">zadd mysort 1 visual</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: zrange key start end 范围获取, 可参考list列表类型的获取命令来理解</span></span><br><span class="line"><span class="comment"># 获取mysort键下的所有数据</span></span><br><span class="line">zrange mysort 0 -1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: zrem key value</span></span><br><span class="line"><span class="comment"># 删除mysort键下值为visual的数据</span></span><br><span class="line">zrem mysort visual</span><br></pre></td></tr></table></figure>
+<p><strong>通用命令操作</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查询所有的键</span></span><br><span class="line">keys *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取指定键对应的数据类型</span></span><br><span class="line"><span class="comment"># 获取mysort键对应的数据类型</span></span><br><span class="line"><span class="built_in">type</span> mysort</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除指定的键及其数据</span></span><br><span class="line"><span class="comment"># 删除myhash键下的所有键值对数据</span></span><br><span class="line">del myhash</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="持久化"><a class="markdownIt-Anchor" href="#持久化"></a> 持久化</h4>
+<h5 id="rdb方式"><a class="markdownIt-Anchor" href="#rdb方式"></a> RDB方式</h5>
+<p>redis作为一个内存数据库，当redis服务器重启后，数据就会丢失。为了能够在redis服务器重启后能够快速恢复缓存的数据，就需要使用持久化技术</p>
+<ul>
+<li>
+<p>redis持久化机制：每隔一定时间检测key的变化情况，根据配置决定是否进行持久化。持久化的数据就存储在dump.rdb文件中。</p>
+</li>
+<li>
+<p>持久化配置过程：打开redis.windows.conf文件，找到<code># Save the DB on disk</code>所在的位置，在#注释的下方可以看到<code>save 900 1</code>的字样，这些原始的字样就是默认的持久化机制。通过修改这些字样就能设置持久化机制。</p>
+</li>
+<li>
+<p>关于持久化配置的简单说明：</p>
+<p><code>save 900 1</code></p>
+<h6 id="after-900-sec-15-min-if-at-least-1-key-changed"><a class="markdownIt-Anchor" href="#after-900-sec-15-min-if-at-least-1-key-changed"></a> after 900 sec (15 min) if at least 1 key changed</h6>
+<h6 id="经过15分钟如果至少有一个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过15分钟如果至少有一个key发生变化那么就进行一次持久化"></a> 经过15分钟，如果至少有一个key发生变化，那么就进行一次持久化</h6>
+<p><code>save 300 10</code></p>
+<h6 id="after-300-sec-5-min-if-at-least-10-keys-changed"><a class="markdownIt-Anchor" href="#after-300-sec-5-min-if-at-least-10-keys-changed"></a> after 300 sec (5 min) if at least 10 keys changed</h6>
+<h6 id="经过5分钟如果至少有10个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过5分钟如果至少有10个key发生变化那么就进行一次持久化"></a> 经过5分钟，如果至少有10个key发生变化，那么就进行一次持久化</h6>
+<p><code>save 60 10000</code></p>
+<h6 id="after-60-sec-1-min-if-at-least-10000-keys-changed"><a class="markdownIt-Anchor" href="#after-60-sec-1-min-if-at-least-10000-keys-changed"></a> after 60 sec (1 min) if at least 10000 keys changed</h6>
+<h6 id="经过1分钟如果至少有10000个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过1分钟如果至少有10000个key发生变化那么就进行一次持久化"></a> 经过1分钟，如果至少有10000个key发生变化，那么就进行一次持久化</h6>
+</li>
+<li>
+<p>持久化机制测试：</p>
+<blockquote>
+<p>配置之前请先确保关闭redis服务器，以防配置无法生效</p>
+<ol>
+<li>
+<p>修改配置文件在指定位置添加字样<code>save 10 5</code>，10秒后有5个key发生变化，则持久化</p>
+</li>
+<li>
+<p>在redis根目录下打开cmd，通过<code>redis-server.exe redis.windows.conf</code>命令启动redis服务器，否则持久化机制还是使用默认方式，如果觉得麻烦可以看<a href="#bc">补充</a></p>
+</li>
+<li>
+<p>打开redis客户端</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 测试数据, 修改5个key</span></span><br><span class="line"><span class="built_in">set</span> name 1</span><br><span class="line"><span class="built_in">set</span> name 2</span><br><span class="line"><span class="built_in">set</span> name 3</span><br><span class="line"><span class="built_in">set</span> name 4</span><br><span class="line"><span class="built_in">set</span> name 5</span><br><span class="line"><span class="comment"># 之后根据save 10 5的配置, 会在redis的根目录下生成dump.rdb文件</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>关闭redis服务器和客户端，再重启服务器和客户端重新查询数据，测试数据是否实现持久化</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h5 id="aof方式"><a class="markdownIt-Anchor" href="#aof方式"></a> AOF方式</h5>
+<p>AOF是一种日志记录，用于记录redis每一条命令执行的历史操作，可在每一次命令操作后持久化数据</p>
+<p>AOF配置过程：打开redis.windows.conf文件，找到<code>appendonly no</code>字样修改<code>no</code>为<code>yes</code>开启AOF支持。再找到<code>#appendfsync</code>开头的字样，去掉前面的<code>#</code>启动持久化机制</p>
+<p>AOF持久化机制简单说明：<code>appendfsync always</code>每一次操作进行一次持久化，<code>appendfsync everysec</code>每隔一秒进行一次持久化，<code>appendfsync no</code>不进行持久化</p>
+<p>注意：在redis根目录下用cmd执行<code>redis-server.exe redis.windows.conf</code>命令启动服务器，否则配置可能不生效</p>
+<h4 id="span-idbc补充span"><a class="markdownIt-Anchor" href="#span-idbc补充span"></a> <span id='bc'>补充</span></h4>
+<h5 id="关于redis-serverexe启动时默认加载配置文件"><a class="markdownIt-Anchor" href="#关于redis-serverexe启动时默认加载配置文件"></a> 关于redis-server.exe启动时默认加载配置文件</h5>
+<p>右击文件<strong>创建快捷方式</strong>，右击快捷方式<strong>设置属性</strong>，在<strong>目标</strong>的后面<strong>添加空格和配置文件名</strong>，配置完后的示例<code>D:\redis-2.8.9\redis-server.exe redis.windows.conf</code>，前面的exe文件路径根据本地实际情况配置，默认是已有的，然后<strong>点击应用</strong>。之后使用该快捷方式启动服务器就能自动加载配置文件</p>
+<h5 id="关于redisqfork_8412dat文件"><a class="markdownIt-Anchor" href="#关于redisqfork_8412dat文件"></a> 关于RedisQFork_8412.dat文件</h5>
+<p>这是redis的内存映射文件。当redis启动时会自动创建，redis关闭后会自动消失。不过这个文件会随数据量的增长而增长，没有限制能够增长到几十G的大小，如果硬盘空间无法容纳这几十G的大小，就无法启动redis服务。可以通过修改配置文件中的<code>maxheap</code>字样后的参数实现（单位B），如设置最大为4G，则填写4294967296（4GB换算成B）</p>
+]]></content>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一封数字签名邮件</title>
     <url>/2022/11/10/digital-signature/</url>
     <content><![CDATA[<h3 id="使用outlook邮箱发送一封带有数字签名的邮件"><a class="markdownIt-Anchor" href="#使用outlook邮箱发送一封带有数字签名的邮件"></a> 使用outlook邮箱发送一封带有数字签名的邮件</h3>
@@ -2604,708 +2723,6 @@
 ]]></content>
       <tags>
         <tag>前后端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在Linux上配置Java环境</title>
-    <url>/2022/11/26/java-in-linux/</url>
-    <content><![CDATA[<h3 id="基于ubuntu2004lts配置java环境"><a class="markdownIt-Anchor" href="#基于ubuntu2004lts配置java环境"></a> 基于Ubuntu20.04LTS配置Java环境</h3>
-<p>在Linux上配置Java环境的方式有3种, 系统级配置、用户级配置、临时配置</p>
-<p>配置好Java环境就能够在Linux上运行基于Java环境运行的相关程序, 你可以在Linux系统上搭建基于Java实现的网站。这里以<strong>系统级配置</strong>为例, 适合个人开发者使用<span id="more"></span></p>
-<h4 id="1下载targz压缩包-java官网"><a class="markdownIt-Anchor" href="#1下载targz压缩包-java官网"></a> 1.下载tar.gz压缩包 <a href="https://www.oracle.com/java/technologies/downloads/">Java官网</a></h4>
-<p>tar.gz包先下载到windows中, 再通过远程文件传输工具, 将压缩包传送到Linux的目录下, 这里是/root目录</p>
-<p>本文以<strong>jdk-8u151-linux-i586.tar.gz</strong>为例配置Java环境, 高版本可能有所区别, 32位与64位版本在不同linux发行版上可能有所区别</p>
-<h4 id="2在linux中配置环境"><a class="markdownIt-Anchor" href="#2在linux中配置环境"></a> 2.在Linux中配置环境</h4>
-<h5 id="1前提准备"><a class="markdownIt-Anchor" href="#1前提准备"></a> 1.前提准备</h5>
-<p>默认当前目录是<strong>初始目录/root</strong>, 默认当前用户权限为<strong>root权限</strong>, 默认<strong>tar.gz包已经传送到/root目录下</strong></p>
-<h5 id="2创建用于存放java文件夹的目录"><a class="markdownIt-Anchor" href="#2创建用于存放java文件夹的目录"></a> 2.创建用于存放Java文件夹的目录</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /usr/java</span><br></pre></td></tr></table></figure>
-<h5 id="3解压targz压缩包到该目录"><a class="markdownIt-Anchor" href="#3解压targz压缩包到该目录"></a> 3.解压tar.gz压缩包到该目录</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf jdk-8u151-linux-i586.tar.gz -C /usr/java</span><br></pre></td></tr></table></figure>
-<h5 id="4编辑环境变量文件"><a class="markdownIt-Anchor" href="#4编辑环境变量文件"></a> 4.编辑环境变量文件</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure>
-<p>在文件末尾追加下面内容, 具体目录根据实际情况编写</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-<dl>
-<dt><strong>一些特殊符号说明</strong></dt>
-<dd>表示并列符号, 说明某个变量的值有多个, 用 : 来区分。相当于Windows下的 ;</dd>
-</dl>
-<p>$ 表示引用变量, {} 则用于限定变量边界, 如上面的 ${JAVA_HOME} 就表示 /usr/java/jdk1.8.0_151</p>
-<h5 id="5使环境变量马上生效"><a class="markdownIt-Anchor" href="#5使环境变量马上生效"></a> 5.使环境变量马上生效</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
-<h4 id="3测试java环境"><a class="markdownIt-Anchor" href="#3测试java环境"></a> 3.测试Java环境</h4>
-<p>运行以下命令, 如果都成功运行, 则说明Java环境配置完成</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -version</span><br><span class="line">java</span><br><span class="line">javac</span><br></pre></td></tr></table></figure>
-<h5 id="可能遇到的问题"><a class="markdownIt-Anchor" href="#可能遇到的问题"></a> 可能遇到的问题</h5>
-<p>安装i586后缀jdk, 即<strong>安装32位的jdk</strong>后测试Java环境时提示<strong>bash: /usr/lib/java/jdk1.8.0_151/bin/java: 没有那个文件或目录</strong>, 可能是由于当前Linux发行版<strong>默认没有用于amd64系统的32位libc开发包</strong></p>
-<p>可通过以下5个常用命令查看Linux发行版的架构信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line">dpkg --print-architecture <span class="comment"># 这条命令只适用于基于Debian和Ubuntu的Linux发行版</span></span><br><span class="line">getconf LONG_BIT</span><br><span class="line"><span class="built_in">arch</span></span><br><span class="line">file /sbin/init </span><br><span class="line"><span class="comment"># file命令需要配合它链接的另一个文件使用</span></span><br><span class="line"><span class="comment"># 在Ubuntu中是链接的是/lib/systemd/systemd</span></span><br><span class="line"><span class="comment"># 通过file /lib/systemd/systemd查看到架构信息</span></span><br></pre></td></tr></table></figure>
-<h5 id="安装缺失的32位开发包"><a class="markdownIt-Anchor" href="#安装缺失的32位开发包"></a> 安装缺失的32位开发包</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libc6-i386</span><br></pre></td></tr></table></figure>
-<p>如果安装libc6-i386失败, 请先更新软件列表, 再尝试重新安装, 并重新测试Java环境</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-<p>如果还是失败请选择64位的jdk版本重新进行配置</p>
-<h5 id="重新测试java环境"><a class="markdownIt-Anchor" href="#重新测试java环境"></a> 重新测试Java环境</h5>
-<h4 id="4update-alternatives软件版本管理"><a class="markdownIt-Anchor" href="#4update-alternatives软件版本管理"></a> 4.update-alternatives软件版本管理</h4>
-<h5 id="1系统注册jdk需要使用多个jdk版本时"><a class="markdownIt-Anchor" href="#1系统注册jdk需要使用多个jdk版本时"></a> 1.系统注册jdk(需要使用多个jdk版本时)</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_151/bin/java 300</span><br></pre></td></tr></table></figure>
-<p><strong>参数说明</strong></p>
-<p>第一个参数: --install表示向update-alternatives注册服务名</p>
-<p>第二个参数: 注册<strong>最终地址</strong>, 成功后将会把命令在这个固定的目的地址做真实命令的<strong>软链接</strong>, 通过管理这个软链就能实现不同版本jdk的切换</p>
-<p>第三个参数: <strong>服务名</strong>, 管理时以它为关联依据</p>
-<p>第四个参数: 被管理命令的<strong>绝对路径</strong></p>
-<p>第五个参数: <strong>优先级</strong>, 数字越大优先级越高</p>
-<h5 id="2交互式修改"><a class="markdownIt-Anchor" href="#2交互式修改"></a> 2.交互式修改</h5>
-<p>如果有多个版本的jdk, 可执行下面的命令通过交互界面进行切换</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
-<p>查看多个版本的jdk以及当前状态</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --display java</span><br></pre></td></tr></table></figure>
-<p>调整为<strong>auto</strong>模式, 如果上面查看的状态是<strong>manual</strong>, 则还不能自动选择优先级高的jdk版本, 需要调整为auto模式</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --auto java</span><br></pre></td></tr></table></figure>
-<h4 id="5补充"><a class="markdownIt-Anchor" href="#5补充"></a> 5.补充</h4>
-<p><strong>将上述的/etc/profile替换成~/.bashrc就是用户级配置</strong></p>
-<p><strong>/etc/profile</strong>: 此文件为系统的每个用户设置环境信息, 当用户第一次登录时, 该文件被执行, 是<strong>系统全局</strong>对终端环境的设置, 它是login时最先被系统加载的, 是它调用了/etc/bashrc, 以及/etc/profile.d目录下的*.sh文件, 如果有一个软件包, 系统上只安装一份, 供所有开发者使用, 建议在/etc/profile.d下创建一个新的xxx.sh, 配置环境变量</p>
-<p><strong>~/.bashrc</strong>: 是<strong>用户</strong>相关的终端（shell）的环境设置, 通常打开一个新终端时, 默认会加载里面的设置, 在这里的设置不会影响其它用户。如果一个服务器多个开发者使用, 需要配置多个sdk, 则推荐使用该设置</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Redis基础</title>
-    <url>/2022/09/14/Redis-Base/</url>
-    <content><![CDATA[<h3 id="redis基础"><a class="markdownIt-Anchor" href="#redis基础"></a> Redis基础</h3>
-<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
-<p>redis是一款高性能的NoSQL系列的非关系型数据库，全称Remote Dictionary Server远程字典服务器，是基于C语言开发的一个开源的高性能键值对数据库<span id="more"></span></p>
-<p>NoSQL，全称Not-Only SQL，泛指非关系型的数据库，专门用于应对基于海量用户和海量数据下的数据处理问，不同于MySQL这类关系型数据库，NoSQL系列的非关系型数据库减少了磁盘读写次数、去除了数据间的关联性弥补关系型数据库在磁盘读写性能、复杂的数据关联性难于扩展的不足，专门用于应对大量用户<strong>高并发</strong>的问题</p>
-<p>但非关系型数据库与关系型数据库在开发中一般会配合使用，非关系型数据库能实现大量数据的高效率访问，关系型数据库能实现复杂的数据查询以及保障安全性能的事务机制。单一的非关系数据库则无法实现复杂查询、安全保障，单一的关系型数据库也无法实现高效访问。因此联合使用非关系数据库和关系型数据库，相互弥补缺点，才能提供最好的用户体验。</p>
-<h4 id="开始使用"><a class="markdownIt-Anchor" href="#开始使用"></a> 开始使用</h4>
-<h5 id="下载安装"><a class="markdownIt-Anchor" href="#下载安装"></a> 下载安装</h5>
-<p>redis<a href="https://redis.io">官网</a>以及<a href="http://www.redis.net.cn/">中文官网</a>主要提供的是Linux发行版下的redis版本，用于投入开发使用。本文章以windows系统下的redis版本做为学习使用，在GitHub上的<a href="https://github.com/microsoftarchive/redis/releases">Releases · microsoftarchive/redis</a>下载zip压缩包找到内部的release目录下含有redis主要的exe文件的压缩包后解压即可（这里是以2.8.9版本为例）</p>
-<p>关于redis的图形化管理工具<a href="https://github.com/uglide/RedisDesktopManager">下载</a>(最新版本需要收费使用)</p>
-<h5 id="重要文件"><a class="markdownIt-Anchor" href="#重要文件"></a> 重要文件</h5>
-<p>redis压缩包解压后目录下的重要文件主要是以下文件：</p>
-<ul>
-<li>redis.windows.conf：配置文件</li>
-<li>redis-cli.exe：redis客户端</li>
-<li>redis-server.exe：redis服务器端</li>
-</ul>
-<h5 id="基本操作"><a class="markdownIt-Anchor" href="#基本操作"></a> 基本操作</h5>
-<p><strong>请确保redis服务器端先启动，否则redis客户端在启动后将会无法连接至redis服务器端</strong></p>
-<p>redis数据类型：string、hash、list、set、sorted_set/zset</p>
-<p>注意：在未持久化redis中的数据时，关闭redis服务器端会导致在redis客户端存储的数据全部丢失，因此请在确保redis服务器端一直运行的前提下，测试下面的命令操作</p>
-<ol>
-<li>
-<p>字符串类型：string</p>
-<p>主要用于存储单个数据，是最简单也是最常用的数据存储类型</p>
-<p>一个存储空间存储一个数据</p>
-<p>存储的数据如果是整数类型，则可进行数字操作</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: set key value</span></span><br><span class="line"><span class="comment"># 存储一个键为name, 值为tom的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> name tom</span><br><span class="line"><span class="comment"># 存储一个键为age, 值为26的字符串数据</span></span><br><span class="line"><span class="built_in">set</span> age 26</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: get key</span></span><br><span class="line"><span class="comment"># 获取name键对应的值</span></span><br><span class="line">get name</span><br><span class="line"><span class="comment"># 获取age键对应的值</span></span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: del key</span></span><br><span class="line"><span class="comment"># 删除name键对应的值</span></span><br><span class="line">del name</span><br><span class="line"><span class="comment">#删除age键对应的值</span></span><br><span class="line">del age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新获取值, 确认是否已经删除</span></span><br><span class="line">get name</span><br><span class="line">get age</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数字操作命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自增处理incr key, 当key不存在时会自动创建, 默认自增值1</span></span><br><span class="line">incr num <span class="comment">#num键若不存在, 则自动创建</span></span><br><span class="line"><span class="comment"># 自增指定数据incrby key increment</span></span><br><span class="line">incrby num 20 <span class="comment">#指定num键的值自增20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自减处理decr key, 同样的若key不存在会自动创建, 默认自减值1</span></span><br><span class="line">decr num</span><br><span class="line"><span class="comment"># 自减指定数据decrby key decrement</span></span><br><span class="line">decrby num 30</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>哈希类型：hash</p>
-<p>主要用于分组存储有一定关联性的数据，比如java对象中的一系列成员变量数据</p>
-<p>一个存储空间存储多个键值对数据</p>
-<p>底层使用哈希表结构实现数据存储</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: hset key field value</span></span><br><span class="line"><span class="comment"># 在myhash键中存储一个name字段, 值为jerry的数据</span></span><br><span class="line">hset myhash name jerry</span><br><span class="line"><span class="comment"># 在myhash键中存储一个password字段, 值为pass的数据</span></span><br><span class="line">hset myhash password pass</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式一: hget key field 获取指定的field所对应的值</span></span><br><span class="line"><span class="comment"># 获取myhash键中name字段的值</span></span><br><span class="line">hget myhash name</span><br><span class="line"><span class="comment"># 格式二: hgetall key 获取指定key下的所有field和value</span></span><br><span class="line"><span class="comment"># 获取myhash键下的所有键值对数据</span></span><br><span class="line">hgetall myhash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: hdel key field</span></span><br><span class="line"><span class="comment"># 删除myhash键下的name字段及其对应的值</span></span><br><span class="line">hdel myhash name</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>列表类型：list</p>
-<p>主要用于存储多个数据，并对数据先后进入存储空间的顺序进行区分</p>
-<p>一个存储空间存储多个数据，且区分数据存储的先后顺序</p>
-<p>底层使用双向链表结构实现数据存储</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式一: lpush key value 在列表左边(头部)添加数据</span></span><br><span class="line"><span class="comment"># 格式二: rpush key value 在列表右边(尾部)添加数据</span></span><br><span class="line"><span class="comment"># 先任意添加一个测试的初始数据</span></span><br><span class="line">lpush mylist origin</span><br><span class="line"><span class="comment"># 在mylist键列表头部添加一个数据</span></span><br><span class="line">lpush mylist <span class="built_in">head</span></span><br><span class="line"><span class="comment"># 在mylist键列表尾部添加一个数据</span></span><br><span class="line">rpush mylist <span class="built_in">tail</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># lrange key start end 根据start和end的范围获取</span></span><br><span class="line"><span class="comment"># list数据下标从0开始, 若使用负数, 则表示从列表尾部倒数第几个数据</span></span><br><span class="line"><span class="comment"># 获取mylist下标0-2的数据</span></span><br><span class="line">lrange mylist 0 2</span><br><span class="line">lrange mylist 0 -1 <span class="comment">#-1表示列表倒数第一个数据, 即正数最后一个数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式一: lpop key 删除列表最左边的数据</span></span><br><span class="line"><span class="comment"># 格式二: rpop key 删除列表最右边的数据</span></span><br><span class="line"><span class="comment"># 删除mylist键列表头部的一个数据</span></span><br><span class="line">lpop mylist</span><br><span class="line"><span class="comment"># 删除mylist键列表尾部的一个数据</span></span><br><span class="line">rpop mylist</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>集合类型：set</p>
-<p>主要用于存储大量的数据，提供更高的数据查询效率</p>
-<p>一个存储空间能够存储大量数据，且具有高效的内部存储机制</p>
-<p>底层与hash存储结构相同，并且不允许存储重复的值</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: sadd key value</span></span><br><span class="line"><span class="comment"># 在myset键存储一个值为a的数据</span></span><br><span class="line">sadd myset a <span class="comment">#第二次重复执行, 不会再新增数据</span></span><br><span class="line">sadd myset b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: smembers key</span></span><br><span class="line"><span class="comment"># 获取myset键中的所有数据</span></span><br><span class="line">smembers myset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: srem key value</span></span><br><span class="line"><span class="comment"># 删除myset键中值为a的数据</span></span><br><span class="line">srem myset a</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>有序集合类型：sorted_set</p>
-<p>不允许存储重复数据，并且存储的数据是有顺序的，每个数据会关联一个double类型的分数作为排序的依据</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 存储命令</span></span><br><span class="line"><span class="comment"># 格式: zadd key score value</span></span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为3, 值为pascal的数据</span></span><br><span class="line">zadd mysort 3 pascal</span><br><span class="line"><span class="comment"># 在mysort键存储一个分数为1, 值为visual的数据</span></span><br><span class="line">zadd mysort 1 visual</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取命令</span></span><br><span class="line"><span class="comment"># 格式: zrange key start end 范围获取, 可参考list列表类型的获取命令来理解</span></span><br><span class="line"><span class="comment"># 获取mysort键下的所有数据</span></span><br><span class="line">zrange mysort 0 -1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除命令</span></span><br><span class="line"><span class="comment"># 格式: zrem key value</span></span><br><span class="line"><span class="comment"># 删除mysort键下值为visual的数据</span></span><br><span class="line">zrem mysort visual</span><br></pre></td></tr></table></figure>
-<p><strong>通用命令操作</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查询所有的键</span></span><br><span class="line">keys *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取指定键对应的数据类型</span></span><br><span class="line"><span class="comment"># 获取mysort键对应的数据类型</span></span><br><span class="line"><span class="built_in">type</span> mysort</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除指定的键及其数据</span></span><br><span class="line"><span class="comment"># 删除myhash键下的所有键值对数据</span></span><br><span class="line">del myhash</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4 id="持久化"><a class="markdownIt-Anchor" href="#持久化"></a> 持久化</h4>
-<h5 id="rdb方式"><a class="markdownIt-Anchor" href="#rdb方式"></a> RDB方式</h5>
-<p>redis作为一个内存数据库，当redis服务器重启后，数据就会丢失。为了能够在redis服务器重启后能够快速恢复缓存的数据，就需要使用持久化技术</p>
-<ul>
-<li>
-<p>redis持久化机制：每隔一定时间检测key的变化情况，根据配置决定是否进行持久化。持久化的数据就存储在dump.rdb文件中。</p>
-</li>
-<li>
-<p>持久化配置过程：打开redis.windows.conf文件，找到<code># Save the DB on disk</code>所在的位置，在#注释的下方可以看到<code>save 900 1</code>的字样，这些原始的字样就是默认的持久化机制。通过修改这些字样就能设置持久化机制。</p>
-</li>
-<li>
-<p>关于持久化配置的简单说明：</p>
-<p><code>save 900 1</code></p>
-<h6 id="after-900-sec-15-min-if-at-least-1-key-changed"><a class="markdownIt-Anchor" href="#after-900-sec-15-min-if-at-least-1-key-changed"></a> after 900 sec (15 min) if at least 1 key changed</h6>
-<h6 id="经过15分钟如果至少有一个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过15分钟如果至少有一个key发生变化那么就进行一次持久化"></a> 经过15分钟，如果至少有一个key发生变化，那么就进行一次持久化</h6>
-<p><code>save 300 10</code></p>
-<h6 id="after-300-sec-5-min-if-at-least-10-keys-changed"><a class="markdownIt-Anchor" href="#after-300-sec-5-min-if-at-least-10-keys-changed"></a> after 300 sec (5 min) if at least 10 keys changed</h6>
-<h6 id="经过5分钟如果至少有10个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过5分钟如果至少有10个key发生变化那么就进行一次持久化"></a> 经过5分钟，如果至少有10个key发生变化，那么就进行一次持久化</h6>
-<p><code>save 60 10000</code></p>
-<h6 id="after-60-sec-1-min-if-at-least-10000-keys-changed"><a class="markdownIt-Anchor" href="#after-60-sec-1-min-if-at-least-10000-keys-changed"></a> after 60 sec (1 min) if at least 10000 keys changed</h6>
-<h6 id="经过1分钟如果至少有10000个key发生变化那么就进行一次持久化"><a class="markdownIt-Anchor" href="#经过1分钟如果至少有10000个key发生变化那么就进行一次持久化"></a> 经过1分钟，如果至少有10000个key发生变化，那么就进行一次持久化</h6>
-</li>
-<li>
-<p>持久化机制测试：</p>
-<blockquote>
-<p>配置之前请先确保关闭redis服务器，以防配置无法生效</p>
-<ol>
-<li>
-<p>修改配置文件在指定位置添加字样<code>save 10 5</code>，10秒后有5个key发生变化，则持久化</p>
-</li>
-<li>
-<p>在redis根目录下打开cmd，通过<code>redis-server.exe redis.windows.conf</code>命令启动redis服务器，否则持久化机制还是使用默认方式，如果觉得麻烦可以看<a href="#bc">补充</a></p>
-</li>
-<li>
-<p>打开redis客户端</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 测试数据, 修改5个key</span></span><br><span class="line"><span class="built_in">set</span> name 1</span><br><span class="line"><span class="built_in">set</span> name 2</span><br><span class="line"><span class="built_in">set</span> name 3</span><br><span class="line"><span class="built_in">set</span> name 4</span><br><span class="line"><span class="built_in">set</span> name 5</span><br><span class="line"><span class="comment"># 之后根据save 10 5的配置, 会在redis的根目录下生成dump.rdb文件</span></span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>关闭redis服务器和客户端，再重启服务器和客户端重新查询数据，测试数据是否实现持久化</p>
-</li>
-</ol>
-</blockquote>
-</li>
-</ul>
-<h5 id="aof方式"><a class="markdownIt-Anchor" href="#aof方式"></a> AOF方式</h5>
-<p>AOF是一种日志记录，用于记录redis每一条命令执行的历史操作，可在每一次命令操作后持久化数据</p>
-<p>AOF配置过程：打开redis.windows.conf文件，找到<code>appendonly no</code>字样修改<code>no</code>为<code>yes</code>开启AOF支持。再找到<code>#appendfsync</code>开头的字样，去掉前面的<code>#</code>启动持久化机制</p>
-<p>AOF持久化机制简单说明：<code>appendfsync always</code>每一次操作进行一次持久化，<code>appendfsync everysec</code>每隔一秒进行一次持久化，<code>appendfsync no</code>不进行持久化</p>
-<p>注意：在redis根目录下用cmd执行<code>redis-server.exe redis.windows.conf</code>命令启动服务器，否则配置可能不生效</p>
-<h4 id="span-idbc补充span"><a class="markdownIt-Anchor" href="#span-idbc补充span"></a> <span id='bc'>补充</span></h4>
-<h5 id="关于redis-serverexe启动时默认加载配置文件"><a class="markdownIt-Anchor" href="#关于redis-serverexe启动时默认加载配置文件"></a> 关于redis-server.exe启动时默认加载配置文件</h5>
-<p>右击文件<strong>创建快捷方式</strong>，右击快捷方式<strong>设置属性</strong>，在<strong>目标</strong>的后面<strong>添加空格和配置文件名</strong>，配置完后的示例<code>D:\redis-2.8.9\redis-server.exe redis.windows.conf</code>，前面的exe文件路径根据本地实际情况配置，默认是已有的，然后<strong>点击应用</strong>。之后使用该快捷方式启动服务器就能自动加载配置文件</p>
-<h5 id="关于redisqfork_8412dat文件"><a class="markdownIt-Anchor" href="#关于redisqfork_8412dat文件"></a> 关于RedisQFork_8412.dat文件</h5>
-<p>这是redis的内存映射文件。当redis启动时会自动创建，redis关闭后会自动消失。不过这个文件会随数据量的增长而增长，没有限制能够增长到几十G的大小，如果硬盘空间无法容纳这几十G的大小，就无法启动redis服务。可以通过修改配置文件中的<code>maxheap</code>字样后的参数实现（单位B），如设置最大为4G，则填写4294967296（4GB换算成B）</p>
-]]></content>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>后缀表达式</title>
-    <url>/2022/10/27/suffix-expression/</url>
-    <content><![CDATA[<h3 id="基于stl的中缀转后缀实现"><a class="markdownIt-Anchor" href="#基于stl的中缀转后缀实现"></a> 基于STL的中缀转后缀实现</h3>
-<h4 id="1定义分析"><a class="markdownIt-Anchor" href="#1定义分析"></a> 1.定义分析</h4>
-<p><strong>首先明确后缀表达式的定义</strong></p>
-<p>后缀表达式是一种不需要括号的表达式，这表示在将中缀表达式转化为后缀表达式时，如果中缀表达式中存在括号，<strong>不能将括号写入后缀表达式</strong><span id="more"></span></p>
-<p>那么这里引出一个问题，后缀表达式中不存在括号那要如何表示运算的优先级？</p>
-<p><strong>理解后缀表达式的运算过程</strong></p>
-<p>以(1+5-4)*(6-9)为例，它的后缀表达式是15+4-69-*</p>
-<p>先分析中缀表达式的运算过程，参与运算过程的操作符依次是+ - - *，正好是后缀表达式中从左往右的操作符顺序。而操作符所涉及到的2个操作数都是位于该操作符的前面。</p>
-<p>那么回到上面的问题来看，中缀表达式中的<strong>括号的作用如何在后缀表达式中体现出来</strong>？</p>
-<p>以1+2*3、(1+2)*3为例</p>
-<p>1+2*3的后缀表达式为123*+</p>
-<p>(1+2)*3的后缀表达式为12+3*</p>
-<p>通过对比可以发现当表达式中存在括号时，<strong>括号中的操作符提前输出</strong>了，这表示在遇到括号的情况时，可以将括号内的操作符提前输出。</p>
-<p><strong>此外，还需要考虑四则运算中，乘除的优先级高于加减</strong></p>
-<p>以1+2*3为例，如果不加以判断直接转化后缀表达式，结果为12+3*，先运算+再运算*，这显然违背了基本的四则运算法则，实际上正确的结果应该是123*+</p>
-<p>通过对比两个结果，可以发现优先级较低的操作符移到了后面，这表示在运算过程中可以<strong>先将优先级低的操作符存储起来</strong>，而将<strong>优先级高的运算符输出</strong>。</p>
-<h4 id="2思路分析"><a class="markdownIt-Anchor" href="#2思路分析"></a> 2.思路分析</h4>
-<p>采用STL模板实现中缀转后缀，这里使用的是stack。定义一个stack字符栈专门用于存储操作符</p>
-<p><font color='red'>这里特别说明一下字符栈，字符栈栈底的操作符优先级最低，栈顶的操作符优先级最高</font></p>
-<p><strong>1.输入中缀表达式的字符串依次获取字符串中的每个字符</strong></p>
-<p><strong>2.对字符进行以下的判断和操作</strong></p>
-<ul>
-<li>数字字符，直接输出</li>
-<li>左括号字符，直接存入stack</li>
-<li>右括号字符，将stack中的操作符依次输出，直到遇到左括号时停止，将左括号出栈但不输出</li>
-<li>加减乘除字符
-<ul>
-<li>优先级高的字符直接存入stack</li>
-<li>优先级低的字符，则比较当前字符栈栈顶操作符的优先级，遇到优先级更低的操作符或左括号字符时不出栈，并将当前操作符入栈</li>
-</ul>
-</li>
-</ul>
-<p><strong>3.当字符串遍历完成后，再依次输出字符栈内剩余的操作符</strong></p>
-<h4 id="3实现过程分析"><a class="markdownIt-Anchor" href="#3实现过程分析"></a> 3.实现过程分析</h4>
-<p>以(1+5-4)*(6-9)为例，字符串长度为13</p>
-<p>获取到的字符：(</p>
-<blockquote>
-<p>表达式：</p>
-<p>字符栈：(</p>
-</blockquote>
-<p>获取到的字符：1</p>
-<blockquote>
-<p>表达式：1</p>
-<p>字符栈：(</p>
-</blockquote>
-<p>获取到的字符：+</p>
-<blockquote>
-<p>表达式：1</p>
-<p>字符栈：(+</p>
-</blockquote>
-<p>获取到的字符：5</p>
-<blockquote>
-<p>表达式：15</p>
-<p>字符栈：(+</p>
-</blockquote>
-<p>获取到的字符：-</p>
-<blockquote>
-<p>表达式：15+</p>
-<p>字符栈：(-</p>
-</blockquote>
-<p>获取到的字符：4</p>
-<blockquote>
-<p>表达式：15+4</p>
-<p>字符栈：(-</p>
-</blockquote>
-<p>获取到的字符：)</p>
-<blockquote>
-<p>表达式：15+4-</p>
-<p>字符栈：</p>
-</blockquote>
-<p>获取到的字符：*</p>
-<blockquote>
-<p>表达式：15+4-</p>
-<p>字符栈：*</p>
-</blockquote>
-<p>获取到的字符：(</p>
-<blockquote>
-<p>表达式：15+4-</p>
-<p>字符栈：*(</p>
-</blockquote>
-<p>获取到的字符：6</p>
-<blockquote>
-<p>表达式：15+4-6</p>
-<p>字符栈：*(</p>
-</blockquote>
-<p>获取到的字符：-</p>
-<blockquote>
-<p>表达式：15+4-6</p>
-<p>字符栈：*(-</p>
-</blockquote>
-<p>获取到的字符：9</p>
-<blockquote>
-<p>表达式：15+4-69</p>
-<p>字符栈：*(-</p>
-</blockquote>
-<p>获取到的字符：)</p>
-<blockquote>
-<p>表达式：15+4-69-</p>
-<p>字符栈：*</p>
-</blockquote>
-<p>最后，依次输出字符栈中所有的操作符</p>
-<blockquote>
-<p>表达式：15+4-69-*</p>
-</blockquote>
-<h4 id="4源代码"><a class="markdownIt-Anchor" href="#4源代码"></a> 4.源代码</h4>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;list&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">list&lt;string&gt; <span class="title">transfer</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> len = s.<span class="built_in">length</span>(); <span class="comment">//记录长度</span></span><br><span class="line">    list&lt;string&gt; listIn;  <span class="comment">//存储中缀表达式</span></span><br><span class="line">    list&lt;string&gt; listOut; <span class="comment">//存储后缀表达式</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; symbol;   <span class="comment">//符号栈</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; ans;      <span class="comment">//结果表达式</span></span><br><span class="line"></span><br><span class="line">    listIn.<span class="built_in">push_back</span>(s);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//思路</span></span><br><span class="line">        <span class="comment">//数字直接存入ans</span></span><br><span class="line">        <span class="comment">//运算符:</span></span><br><span class="line">        <span class="comment">//如果是&#x27;(&#x27;直接存入symbol</span></span><br><span class="line">        <span class="comment">//如果是&#x27;)&#x27;依次出栈symbol中的运算符并存入ans, 直到遇到&#x27;(&#x27;, &#x27;(&#x27;不存入ans</span></span><br><span class="line">        <span class="comment">//其他符号, 依次出栈symbol中的运算符并存入ans, 直到遇到优先级更低的运算符或&#x27;(&#x27;时, 将当前符号存入symbol</span></span><br><span class="line">        <span class="comment">//字符串遍历完成后, 依次出栈符号栈中剩余的运算符并存入ans</span></span><br><span class="line">        <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; listIn.<span class="built_in">back</span>()[i] &lt;= <span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">            ans.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;)&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (symbol.<span class="built_in">top</span>() != <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>());</span><br><span class="line">                symbol.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            symbol.<span class="built_in">pop</span>(); <span class="comment">//将&#x27;(&#x27;出栈</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//这里手动优先考虑乘除的优先级高于加减</span></span><br><span class="line">            <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;+&#x27;</span> || listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;-&#x27;</span>) <span class="comment">//加减符号优先级最低</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>() &amp;&amp; symbol.<span class="built_in">top</span>() != <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>()); <span class="comment">//直接存入symbol中的运算符</span></span><br><span class="line">                    symbol.<span class="built_in">pop</span>();</span><br><span class="line">                &#125;</span><br><span class="line">                symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]); <span class="comment">//符号栈存入当前从listIn中获取的符号</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//乘除符号优先级高直接存入符号栈</span></span><br><span class="line">            &#123;</span><br><span class="line">                symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>());</span><br><span class="line">        symbol.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将结果表达式的值存入listOut</span></span><br><span class="line">    <span class="comment">//先利用已经清空的symbol实现反转</span></span><br><span class="line">    <span class="keyword">while</span> (!ans.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        symbol.<span class="built_in">push</span>(ans.<span class="built_in">top</span>());</span><br><span class="line">        ans.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    string res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        res += symbol.<span class="built_in">top</span>();</span><br><span class="line">        symbol.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    listOut.<span class="built_in">push_back</span>(res);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> listOut;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="keyword">while</span> (cin &gt;&gt; s)</span><br><span class="line">    &#123;</span><br><span class="line">        list&lt;string&gt; res = <span class="built_in">transfer</span>(s);</span><br><span class="line">        cout &lt;&lt; res.<span class="built_in">front</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>数据结构与算法</tag>
-        <tag>cpp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在linux终端显示系统信息</title>
-    <url>/2022/12/30/screenfetch-neofetch/</url>
-    <content><![CDATA[<p>在linux操作系统的桌面用户群体中, 一个能够打印linux发行版logo以及相关系统信息的命令, 一定程度上能够使不同用户的linux系统更加个性化。基于Ubuntu22.04LTS, 下面介绍两个相关命令<span id="more"></span></p>
-<h3 id="screenfetch命令"><a class="markdownIt-Anchor" href="#screenfetch命令"></a> screenfetch命令</h3>
-<h4 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h4>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install screenfetch</span><br></pre></td></tr></table></figure>
-<h4 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h4>
-<p>直接在终端输入以下命令即可</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">screenfetch</span><br></pre></td></tr></table></figure>
-<p>效果如下</p>
-<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/screenfetch-202212300156995.png" alt="image-20221230014403780" /></p>
-<h4 id="可能出现的问题"><a class="markdownIt-Anchor" href="#可能出现的问题"></a> 可能出现的问题</h4>
-<p>Ubuntu22.04LTS直接使用screenfetch可能会出现操作数问题, 从而导致部分信息无法正确显示。可以根据提示信息找到对应脚本文件进行修改</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /usr/bin/screenfetch</span><br></pre></td></tr></table></figure>
-<p>找到提示的配置文件所在行</p>
-<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/screenfetch202212300215987.png" alt="image-20221230021511877" /></p>
-<p><strong>经过测试实际上是awk命令识别错误</strong></p>
-<p>使用free命令查看相关信息, 配合awk查看输出情况</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">free -b</span><br><span class="line">free -b | awk <span class="string">&#x27;&#123;print $1&quot;-&quot;$6&#125;&#x27;</span></span><br><span class="line">free -b | awk <span class="string">&#x27;&#123;print $2&quot;-&quot;$7&#125;&#x27;</span></span><br><span class="line">free -b | awk -F <span class="string">&#x27;:&#x27;</span> <span class="string">&#x27;NR==2&#123;print $1&#125;&#x27;</span> | awk <span class="string">&#x27;&#123;print $2&quot;-&quot;$7&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/screenfetch202212300228383.png" alt="image-20221230022845310" /></p>
-<p>修改脚本文件中的命令</p>
-<p>将原本的<code>free -b | awk -F ':' 'NR==2&#123;print $2&#125;' | awk '&#123;print $1&quot;-&quot;$6&#125;'</code>替换为<code>free -b | awk -F ':' 'NR==2&#123;print $1&#125;' | awk '&#123;print $2&quot;-&quot;$7&#125;'</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/screenfetch202212300256553.png" alt="image-20221230025640469" /></p>
-<p>重新运行screenfetch, 效果如下, 所有信息都能正常输出</p>
-<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/screenfetch202212300258212.png" alt="image-20221230025832144" /></p>
-<h3 id="neofetch命令"><a class="markdownIt-Anchor" href="#neofetch命令"></a> neofetch命令</h3>
-<p>neofetch相对于screenfetch可定制性更高, 推荐使用</p>
-<h4 id="安装-2"><a class="markdownIt-Anchor" href="#安装-2"></a> 安装</h4>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install neofetch</span><br></pre></td></tr></table></figure>
-<h4 id="手动编译安装"><a class="markdownIt-Anchor" href="#手动编译安装"></a> 手动编译安装</h4>
-<p>从github克隆下来的源代码编译安装, 可使用最新版本的neofetch</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/dylanaraps/neofetch</span><br><span class="line"><span class="built_in">cd</span> neofetch</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<h4 id="使用-2"><a class="markdownIt-Anchor" href="#使用-2"></a> 使用</h4>
-<p>直接在终端输入以下命令即可</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">neofetch</span><br></pre></td></tr></table></figure>
-<p>效果如下(这里我使用了kde环境)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/neofetch202212300318461.png" alt="image-20221230031810370" /></p>
-<p>注意neofetch默认不显示Disk信息, 可修改配置文件来显示Disk信息</p>
-<p>编辑配置文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim ~/.config/neofetch/config.conf</span><br></pre></td></tr></table></figure>
-<p>添加如下的Disk配置即可, 同理其它信息显示也可以通过类似配置实现输出</p>
-<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/neofetch202212300326391.png" alt="image-20221230032639272" /></p>
-<h4 id="其他用法"><a class="markdownIt-Anchor" href="#其他用法"></a> 其他用法</h4>
-<h5 id="显示另一个发行版的标志"><a class="markdownIt-Anchor" href="#显示另一个发行版的标志"></a> 显示另一个发行版的标志</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># neofetch --ascii_distro distroname</span></span><br><span class="line">neofetch --ascii_distro <span class="built_in">arch</span></span><br><span class="line">neofetch --ascii_distro debian</span><br><span class="line"><span class="comment"># 在发行版名称后面加上后缀_small可输出对应发行版的迷你标志</span></span><br><span class="line">neofetch --ascii_distro arch_small</span><br><span class="line">neofetch --ascii_distro debian_small</span><br></pre></td></tr></table></figure>
-<p>效果如下</p>
-<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/neofetch202212300335106.png" alt="image-20221230033519980" /></p>
-<h5 id="隐藏logo信息"><a class="markdownIt-Anchor" href="#隐藏logo信息"></a> 隐藏logo信息</h5>
-<p>只输出系统信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">neofetch --off</span><br></pre></td></tr></table></figure>
-<h5 id="隐藏系统信息"><a class="markdownIt-Anchor" href="#隐藏系统信息"></a> 隐藏系统信息</h5>
-<p>只输出logo信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">neofetch -l</span><br></pre></td></tr></table></figure>
-<h5 id="渐变色logo"><a class="markdownIt-Anchor" href="#渐变色logo"></a> 渐变色logo</h5>
-<p><strong>neofetch配合lolcat实现渐变色的logo</strong></p>
-<p>安装lolcat</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install lolcat</span><br></pre></td></tr></table></figure>
-<p>使用管道命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">neofetch | lolcat</span><br></pre></td></tr></table></figure>
-<h5 id="自定义图片logo"><a class="markdownIt-Anchor" href="#自定义图片logo"></a> 自定义图片logo</h5>
-<p><strong>neofetch配合w3m自定义图片作为logo在终端展示</strong></p>
-<p>安装w3m-img</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install w3m-img</span><br></pre></td></tr></table></figure>
-<p>测试一下能否显示图片</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">w3m www.baidu.com</span><br></pre></td></tr></table></figure>
-<p>添加图片路径, 否则默认为桌面壁纸</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">neofetch --w3m img/logo.png <span class="comment"># 图片路径根据实际情况编写</span></span><br></pre></td></tr></table></figure>
-<p>在这边的测试环境下w3m出现了一定的显示问题, 可仿照上述格式替换参数进行测试</p>
-<p>其它的显示图片参数caca、jp2a显示的是字符组成的logo, chafa显示的是低像素图, iterm2、sixel显示的是高像素图</p>
-<p><strong>注意: 测试环境为kde, 不同环境包括不同配置在终端展示的图片不一定具有同等效果, 且存在一定的瑕疵, 请根据实际情况进行配置</strong></p>
-<h4 id="默认终端启动时自动执行neofetch"><a class="markdownIt-Anchor" href="#默认终端启动时自动执行neofetch"></a> 默认终端启动时自动执行neofetch</h4>
-<p>查看shell配置</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/shells</span><br></pre></td></tr></table></figure>
-<p>根据实际配置修改对应配置文件, Ubuntu22.04LTS默认为bash, 另外还有zsh</p>
-<p>修改bash配置文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim ~/.bashrc</span><br></pre></td></tr></table></figure>
-<p>修改zsh配置文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo vim ~/.zshrc</span><br></pre></td></tr></table></figure>
-<p>在文件末尾添加<strong>neofetch</strong>即可</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux-base</title>
-    <url>/2022/11/17/linux-base/</url>
-    <content><![CDATA[<h3 id="关于linux的通用操作"><a class="markdownIt-Anchor" href="#关于linux的通用操作"></a> 关于Linux的通用操作</h3>
-<p>基于Ubuntu22.04发行版的环境，本文整理了一些在Linux系统下基本通用的操作，使初学者能初步学会Linux系统的操作或使老用户重新回顾一下常用操作<span id="more"></span></p>
-<h4 id="参考文章-linux-幕布-mubucom-作者时光逝"><a class="markdownIt-Anchor" href="#参考文章-linux-幕布-mubucom-作者时光逝"></a> 参考文章 <a href="https://mubu.com/doc/28TtabEpGV3">Linux - 幕布 (mubu.com) 作者：时光＆逝 </a></h4>
-<h4 id="准备工作"><a class="markdownIt-Anchor" href="#准备工作"></a> 准备工作</h4>
-<p>远程连接工具<a href="https://www.xshell.com/zh/xshell/">XSHELL - NetSarang Website</a></p>
-<p>远程文件传输工具 <a href="https://www.xshell.com/zh/xftp/">XFTP - NetSarang Website</a></p>
-<p>配合XFTP可以较为直观地观察文件及目录的变化</p>
-<p>注：一些发行版可能需要手动安装部分命令。另外，在执行命令时<strong>请确认自己所处的当前目录</strong></p>
-<h4 id="提示"><a class="markdownIt-Anchor" href="#提示"></a> 提示</h4>
-<p>一些命令可能需要在root权限下执行，或者在执行命令的前面都加上<code>sudo</code>的前缀，表示临时使用root权限执行这条命令</p>
-<p>如果忘记了root密码可以通过以下方法重新设置</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo passwd <span class="comment"># 进入密码设置</span></span><br><span class="line"><span class="comment"># 输入当初安装时设置的非root普通用户密码</span></span><br><span class="line"><span class="comment"># 输入新的root密码</span></span><br><span class="line"><span class="comment"># 重复输入root密码</span></span><br><span class="line">su <span class="comment"># 切换到root</span></span><br><span class="line"><span class="comment"># 输入刚刚设置的root密码，就能切换到root用户</span></span><br></pre></td></tr></table></figure>
-<h4 id="vim文本编辑器"><a class="markdownIt-Anchor" href="#vim文本编辑器"></a> vim文本编辑器</h4>
-<p><strong>查看vim配置信息</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim --version</span><br></pre></td></tr></table></figure>
-<p><strong>简易配置一下vim</strong></p>
-<p>用vim打开用户vimrc文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim <span class="variable">$HOME</span>/.vimrc</span><br></pre></td></tr></table></figure>
-<p>写入以下内容（后面的注释不需要）</p>
-<blockquote>
-<p>syntax on   # 开启语法高亮</p>
-<p>set ts = 4    #  设置tab的缩进显示为四个空格的宽度</p>
-<p>set expandtab # 设置tab字符替换为等宽的4个空格字符</p>
-<p>set autoindent # 开启自动缩进</p>
-<p>set number # 开启行号显示</p>
-<p>set relativenumber # 使用相对行号</p>
-</blockquote>
-<p>关于vim的基本操作可以参考其它文章 <a href="https://www.runoob.com/linux/linux-vim.html">Linux vi/vim | 菜鸟教程 (runoob.com)</a> 或者视频<a href="https://www.bilibili.com/video/BV13t4y1t7Wg/?share_source=copy_web&amp;vd_source=f4fedbdbfad10afdb2269285bd340510">【保姆级入门】Vim编辑器</a></p>
-<h4 id="用户管理"><a class="markdownIt-Anchor" href="#用户管理"></a> 用户管理</h4>
-<p>linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户都必须先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
-<p>linux的用户至少要属于一个组</p>
-<h5 id="基本命令"><a class="markdownIt-Anchor" href="#基本命令"></a> 基本命令</h5>
-<p><strong>useradd命令</strong>：创建一个用户</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># useradd [参数] 用户名</span></span><br><span class="line">useradd normal <span class="comment"># 创建一个名为normal的用户，用户目录默认家目录</span></span><br><span class="line">useradd -d /myuser normal <span class="comment"># 创建一个名为normal的用户，指定用户目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># useradd [参数] 组名 用户名</span></span><br><span class="line">useradd -g visitor vis <span class="comment"># 创建一个名为vis的用户的同时指定用户组为visitor</span></span><br></pre></td></tr></table></figure>
-<p><strong>passwd命令</strong>：指定或修改用户的密码</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># passwd 用户名</span></span><br><span class="line">passwd normal <span class="comment"># 指定或修改normal用户的密码</span></span><br></pre></td></tr></table></figure>
-<p><strong>userdel命令</strong>：删除用户</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># userdel 用户名</span></span><br><span class="line">userdel normal <span class="comment"># 删除normal用户</span></span><br><span class="line">userdel -r normal <span class="comment"># 同时删除该用户的目录</span></span><br></pre></td></tr></table></figure>
-<p><strong>usermod命令</strong>：修改用户信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># usermod [参数] 新用户名 旧用户名</span></span><br><span class="line">usermod -l vis normal <span class="comment"># 修改normal用户名为vis、</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># usermod [参数] 组名 用户名</span></span><br><span class="line">groupadd demo</span><br><span class="line">usermod -g demo vis <span class="comment"># 修改vis用户所在的用户组为demo组</span></span><br></pre></td></tr></table></figure>
-<p><strong>id命令</strong>：查询用户信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># id 用户名</span></span><br><span class="line"><span class="built_in">id</span> normal <span class="comment"># 查询normal用户信息</span></span><br></pre></td></tr></table></figure>
-<p><strong>su命令</strong>：用户切换</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># su [参数] 用户名</span></span><br><span class="line">su common <span class="comment"># 切换到一个名为common的用户</span></span><br><span class="line">su - common <span class="comment"># 将环境变量一并切换为common用户的环境变量</span></span><br></pre></td></tr></table></figure>
-<p><strong>groupadd命令</strong>：添加一个名为visitor的用户组</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># groupadd 组名</span></span><br><span class="line">groupadd visitor</span><br></pre></td></tr></table></figure>
-<p><strong>groupdel命令</strong>：删除visitor用户组</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># groupdel 组名</span></span><br><span class="line">groupdel visitor</span><br></pre></td></tr></table></figure>
-<p><strong>groupmod命令</strong>：修改用户组</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># groupmod [选项 参数] 组名</span></span><br><span class="line">groupmod -n demo <span class="built_in">test</span> <span class="comment"># 修改test组名为demo</span></span><br><span class="line">groupmod -g 9999 <span class="built_in">test</span> <span class="comment"># 修改test组ID为9999</span></span><br></pre></td></tr></table></figure>
-<h5 id="用户信息文件"><a class="markdownIt-Anchor" href="#用户信息文件"></a> 用户信息文件</h5>
-<ul>
-<li>
-<p><strong>/etc/passwd</strong>是用户(user)的配置文件，记录用户的各种信息</p>
-</li>
-<li>
-<p><strong>/ect/shadow</strong>是口令的配置文件</p>
-</li>
-<li>
-<p><strong>/etc/group</strong>是组(group)的配置文件，记录组的各种信息</p>
-</li>
-</ul>
-<h4 id="常用命令"><a class="markdownIt-Anchor" href="#常用命令"></a> 常用命令</h4>
-<h5 id="进程命令"><a class="markdownIt-Anchor" href="#进程命令"></a> 进程命令</h5>
-<p><strong>init命令</strong>：Linux下的进程初始化工具，用于切换运行级别</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">init 0 <span class="comment"># 停机(不要将initdefault设置为0)</span></span><br><span class="line">init 1 <span class="comment"># 单用户模式，一般用于系统级维护</span></span><br><span class="line">init 2 <span class="comment"># 多用户模式，无法使用NFS(网络文件系统)挂载，没有网络支持</span></span><br><span class="line">init 3 <span class="comment"># 多用户模式，标准的运行级，有网络支持</span></span><br><span class="line">init 4 <span class="comment"># 保留，未使用</span></span><br><span class="line">init 5 <span class="comment"># X11(xwindow)图形化界面模式，多用户，有网络支持，一般用于远程连接时使用Linux图形化界面</span></span><br><span class="line">init 6 <span class="comment"># 重新启动(不要将initdefault设置为6)</span></span><br></pre></td></tr></table></figure>
-<h5 id="帮助命令"><a class="markdownIt-Anchor" href="#帮助命令"></a> 帮助命令</h5>
-<p><strong>man命令</strong>：用于获取帮助手册</p>
-<p><strong>help命令</strong>：获取shell内置命令的帮助信息</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">man vim <span class="comment"># 获取vim的帮助手册</span></span><br><span class="line"><span class="built_in">help</span> <span class="built_in">cd</span> <span class="comment"># 获取cd命令的帮助信息</span></span><br><span class="line"><span class="built_in">help</span> <span class="built_in">mv</span> <span class="comment"># 获取mv命令的帮助信息，但会失败，因为mv不是内置命令</span></span><br><span class="line"><span class="built_in">type</span> <span class="built_in">mv</span> <span class="comment"># 查看mv命令的类型(内置命令或外部命令)</span></span><br></pre></td></tr></table></figure>
-<h5 id="文件目录命令"><a class="markdownIt-Anchor" href="#文件目录命令"></a> 文件目录命令</h5>
-<p><strong>pwd命令</strong>：查看当前所在目录的绝对路径</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
-<p><strong>ls命令</strong>：查看当前所在目录的所有文件和目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ls [参数] [目录或文件名]</span></span><br><span class="line"><span class="built_in">ls</span> -a <span class="comment"># 显示当前所有文件和目录，包括不可见的</span></span><br><span class="line"><span class="built_in">ls</span> -l <span class="comment"># 以列表的形式显示信息</span></span><br></pre></td></tr></table></figure>
-<p><strong>cd命令</strong>：切换到指定目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cd [目录路径]</span></span><br><span class="line"><span class="built_in">cd</span> ~  <span class="comment"># 进入默认初始目录</span></span><br><span class="line"><span class="built_in">cd</span> .. <span class="comment"># 返回上一级目录</span></span><br><span class="line"><span class="built_in">cd</span> /opt <span class="comment"># 进入opt目录</span></span><br></pre></td></tr></table></figure>
-<p><strong>mkdir命令</strong>：创建指定目录，可根据绝对路径或相对路径创建</p>
-<p><strong>rmdir命令</strong>：删除指定的空目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mkdir [参数] 目录名</span></span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">test</span> <span class="comment"># 在当前目录下创建一个test目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p a/b/c <span class="comment"># 在当前目录下创建a/b/c的嵌套多级目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># rmdir [参数] 目录名</span></span><br><span class="line"><span class="built_in">rmdir</span> <span class="built_in">test</span> <span class="comment"># 删除test目录，test目录下不能有其它内容</span></span><br><span class="line"><span class="comment"># 删除有其它内容的目录时需要使用rm -rf命令</span></span><br></pre></td></tr></table></figure>
-<p><strong>touch命令</strong>：创建空文件，可根据绝对路径或相对路径创建</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># touch 文件名</span></span><br><span class="line"><span class="built_in">touch</span> demo.txt <span class="comment"># 在当前目录下创建demo.txt文件</span></span><br></pre></td></tr></table></figure>
-<p><strong>cp命令</strong>：拷贝文件到指定目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cp [参数] 源目录 指定目录</span></span><br><span class="line"><span class="built_in">cp</span> demo.txt <span class="built_in">test</span> <span class="comment"># 复制demo.txt文件到当前同级的test目录下</span></span><br><span class="line"><span class="built_in">cp</span> -r <span class="built_in">source</span> <span class="built_in">test</span> <span class="comment"># 将source文件夹以及文件夹下所有内容复制到同级的test文件夹下(递归复制)</span></span><br></pre></td></tr></table></figure>
-<p><strong>rm命令</strong>：删除文件或目录（文件夹）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># rm [参数] 文件名</span></span><br><span class="line"><span class="built_in">rm</span> demo.txt <span class="comment"># 删除demo.txt文件</span></span><br><span class="line"><span class="built_in">rm</span> -r <span class="built_in">source</span> <span class="comment"># 递归删除整个source目录</span></span><br><span class="line"><span class="built_in">rm</span> -rf <span class="built_in">test</span> <span class="comment"># 无提示地强制删除整个test目录 </span></span><br></pre></td></tr></table></figure>
-<p><strong>cat命令</strong>：只读地查看文件内容</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cat [参数] 文件名</span></span><br><span class="line"><span class="built_in">cat</span> demo.txt <span class="comment"># 查看demo.txt的内容</span></span><br><span class="line"><span class="built_in">cat</span> -n demo.txt <span class="comment"># 查看文件时显示行号</span></span><br></pre></td></tr></table></figure>
-<p><strong>more命令</strong>：基于vi编辑器的文本过滤器，以全屏方式按页显示文件内容，适合阅读长内容的文本</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">快捷键</th>
-<th style="text-align:center">具体功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">空格(space)</td>
-<td style="text-align:center">向下翻一页</td>
-</tr>
-<tr>
-<td style="text-align:center">Enter</td>
-<td style="text-align:center">向下翻一行</td>
-</tr>
-<tr>
-<td style="text-align:center">q</td>
-<td style="text-align:center">退出</td>
-</tr>
-<tr>
-<td style="text-align:center">Ctrl+F</td>
-<td style="text-align:center">向下滚动一屏</td>
-</tr>
-<tr>
-<td style="text-align:center">Ctrl+B</td>
-<td style="text-align:center">返回上一屏</td>
-</tr>
-<tr>
-<td style="text-align:center">=</td>
-<td style="text-align:center">输出当前行行号</td>
-</tr>
-<tr>
-<td style="text-align:center">:f</td>
-<td style="text-align:center">输出文件名和行号</td>
-</tr>
-</tbody>
-</table>
-<p><strong>less命令</strong>： 来分屏查看文件内容，与<strong>more命令</strong>类似，但功能更加强大。能根据显示需要加载文件内容，而不是一次性加载，对于显示大型文件有较高的效率</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">快捷键</th>
-<th style="text-align:center">具体功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">空格(space)</td>
-<td style="text-align:center">向下翻一页</td>
-</tr>
-<tr>
-<td style="text-align:center">[pagedown]</td>
-<td style="text-align:center">向下翻一页</td>
-</tr>
-<tr>
-<td style="text-align:center">[pageup]</td>
-<td style="text-align:center">向上翻一页</td>
-</tr>
-<tr>
-<td style="text-align:center">/字串</td>
-<td style="text-align:center">向下搜寻字串 n向下 N向上</td>
-</tr>
-<tr>
-<td style="text-align:center">?字串</td>
-<td style="text-align:center">向上搜寻字串 n向上 N向下</td>
-</tr>
-<tr>
-<td style="text-align:center">q</td>
-<td style="text-align:center">退出</td>
-</tr>
-</tbody>
-</table>
-<p><strong>&gt;指令</strong>：输出重定向，会覆盖文件的内容</p>
-<p><strong>&gt;&gt;指令</strong>：追加内容到文件尾部，不会覆盖文件的内容</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> &gt; info.txt <span class="comment"># 将当前目录的信息写入info.txt</span></span><br><span class="line"><span class="built_in">ls</span> -l &gt; info.txt <span class="comment"># 覆盖info.txt的内容为列表形式的目录信息</span></span><br><span class="line"><span class="built_in">ls</span> &gt;&gt; info.txt <span class="comment"># 将目录信息追加到文件末尾</span></span><br></pre></td></tr></table></figure>
-<p><strong>echo命令</strong>：输出内容到控制台，可与**&gt;指令或&gt;&gt;指令**组合使用</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># echo [参数] [字符串]</span></span><br><span class="line"><span class="built_in">echo</span> hello world <span class="comment"># 输出hello world到控制台</span></span><br><span class="line"><span class="built_in">echo</span> happy &gt;&gt; info.txt <span class="comment"># 此时控制台不会输出内容，内容追加到info.txt中，具体内容可以自定义</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span> <span class="comment"># 获取PATH变量，PATH是原本就存在于Linux下的环境变量</span></span><br></pre></td></tr></table></figure>
-<p><strong>head命令</strong>：查看文件前n行内容，n默认为10</p>
-<p><strong>tail命令</strong>：查看文件后n行内容，n默认为10</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># head [参数] [行数] 文件名</span></span><br><span class="line"><span class="built_in">head</span> info.txt <span class="comment"># 查看info.txt的前10行内容</span></span><br><span class="line"><span class="built_in">head</span> -n 3 info.txt <span class="comment"># 查看info.txt的前3行内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># tail [参数] [行数] 文件名</span></span><br><span class="line"><span class="built_in">tail</span> info.txt <span class="comment"># 查看info.txt的后10行内容</span></span><br><span class="line"><span class="built_in">tail</span> -n 3 info.txt <span class="comment"># 查看info.txt的后3行内容</span></span><br></pre></td></tr></table></figure>
-<p><strong>ln命令</strong>：给源文件创建一个<strong>软链接</strong>。软链接也称符号链接，类似于快捷方式，主要存放了链接其他文件的路径。可以通过ln命令<strong>软链接的方式</strong>设置<strong>全局</strong>环境变量（这是一种方式）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ln -s 源文件路径 目标路径</span></span><br><span class="line"><span class="built_in">ln</span> -s info.txt <span class="built_in">test</span>/ <span class="comment"># 将info.txt软链接到同级的test目录下</span></span><br></pre></td></tr></table></figure>
-<h5 id="时间日期命令"><a class="markdownIt-Anchor" href="#时间日期命令"></a> 时间日期命令</h5>
-<p><strong>date命令</strong>：显示或设定系统的日期和时间</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># date [参数] [格式]</span></span><br><span class="line"><span class="built_in">date</span> <span class="comment"># 显示当前系统时间</span></span><br><span class="line"><span class="built_in">date</span> -u <span class="comment"># 显示UTC时间</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;+1 day&quot;</span> +%Y%m%d <span class="comment"># 显示后一天的日期</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;-1 month&quot;</span> +%Y%m%d <span class="comment"># 显示上一月的日期</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">date</span> -s <span class="string">&quot;2022-11-18 06:30:00&quot;</span> <span class="comment"># 设置系统时间为2022年11月18日 6时30分0秒，重启系统后会失效</span></span><br></pre></td></tr></table></figure>
-<p><strong>cal命令</strong>：显示月历，需要手动安装命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt install ncal <span class="comment"># 安装命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cal [参数] [月份] [年份]</span></span><br><span class="line">cal <span class="comment"># 查看本月月历</span></span><br><span class="line">cal 12 2022 <span class="comment"># 查看2022年12月月历</span></span><br></pre></td></tr></table></figure>
-<h5 id="搜索查找命令"><a class="markdownIt-Anchor" href="#搜索查找命令"></a> 搜索查找命令</h5>
-<p><strong>find命令</strong>：从指定目录向下递归地遍历各个子目录，将满足条件的文件或目录显示在终端</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># find [搜索范围] [参数] ...</span></span><br><span class="line">find . -name <span class="string">&quot;*.txt&quot;</span> <span class="comment"># 查找当前目录及子目录下文件名后缀为txt的文件</span></span><br><span class="line">find . -<span class="built_in">type</span> f <span class="comment"># 查找当前目录及子目录下普通类型的文件</span></span><br><span class="line">find . -user root <span class="comment"># 查找当前目录及子目录下属于root用户的文件</span></span><br><span class="line">find . -size 0 <span class="comment"># 查找当前目录及子目录下长度为0的文件</span></span><br></pre></td></tr></table></figure>
-<p><strong>locate命令</strong>：可以快速定位文件路径，需要手动安装命令。利用事先建立的包含系统中所有文件名称路径的locate数据库实现快速定位，无需遍历整个文件夹，查询速度较快。</p>
-<p>locate数据库不是实时更新的(默认情况下每天自动更新一次)，无法查询当天新建的文件，但可以手动更新locate数据库</p>
-<p><font color='red'>注意：测试命令需要新建文件时，记得随时手动更新locate数据库</font></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt install plocate <span class="comment"># 安装命令</span></span><br><span class="line">updatedb <span class="comment"># 手动更新locate数据库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># locate [参数] [文件名]</span></span><br><span class="line">locate passwd <span class="comment"># 查找passwd文件</span></span><br><span class="line">locate /etc/sh <span class="comment"># 查找etc目录下所有以sh开头的文件</span></span><br><span class="line">locate -n 2 passwd <span class="comment"># 最多显示2个输出</span></span><br><span class="line">locate -i ~/r <span class="comment"># 忽略大小写查找当前用户目录下r开头的文件</span></span><br></pre></td></tr></table></figure>
-<p><strong>grep命令</strong>：在指定文件里查找指定的内容</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># grep [内容] [文件名]</span></span><br><span class="line">grep root info.txt <span class="comment"># 在info.txt里查找root字符所在的行并输出到控制台</span></span><br><span class="line">grep -n root info.txt <span class="comment"># 显示在完整文本中对应匹配的行号</span></span><br><span class="line">grep -i root info.txt <span class="comment"># 忽略大小写进行查找</span></span><br></pre></td></tr></table></figure>
-<h5 id="压缩与解压命令"><a class="markdownIt-Anchor" href="#压缩与解压命令"></a> 压缩与解压命令</h5>
-<p><strong>gzip命令</strong>：压缩文件，格式只能为*.gz，它的设计目标是为了处理单个文件</p>
-<p><strong>gunzip命令</strong>：解压文件，只能解压*.gz后缀的文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># gzip 文件</span></span><br><span class="line">gzip info.txt <span class="comment"># 压缩info.txt文件为info.txt.gz文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># gunzip 文件</span></span><br><span class="line">gunzip info.txt.gz <span class="comment"># 解压info.txt.gz文件为info.txt文件</span></span><br></pre></td></tr></table></figure>
-<p><strong>zip命令</strong>：压缩文件和目录，适用于多个文件和目录</p>
-<p><strong>unzip命令</strong>：解压文件和目录</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># zip [参数] 文件名.zip 要压缩的文件名</span></span><br><span class="line">zip info.zip info.txt <span class="comment"># 将info.txt压缩到info.zip中</span></span><br><span class="line">zip -r test.zip <span class="built_in">test</span>/ <span class="comment"># 将test目录下所有文件和子目录递归压缩，用于处理多文件多目录的压缩</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># unzip [参数] 文件名.zip</span></span><br><span class="line">unzip test.zip <span class="comment"># 直接解压test.zip</span></span><br><span class="line">unzip -d beta/ test.zip <span class="comment"># 指定解压test.zip到同级的beta目录下 </span></span><br></pre></td></tr></table></figure>
-<p><strong>tar命令</strong>：打包目录或解包tar文件，并且能附加压缩和解压功能</p>
-<p>注意：打包和压缩包不是一个概念，解包和解压也不是</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># tar 必填参数[选填参数] 打包文件名 源文件名</span></span><br><span class="line">tar -cvf info.tar info.txt <span class="comment"># 打包info.txt到info.tar中</span></span><br><span class="line">tar -zcvf info.tar.gz info.txt <span class="comment"># 打包的同时使用gzip进行压缩</span></span><br><span class="line"></span><br><span class="line">tar -xvf info.tar <span class="comment"># 解包info.tar</span></span><br><span class="line">tar -zxvf info.tar.gz <span class="comment"># 解压并解包info.tar.gz</span></span><br><span class="line"></span><br><span class="line">tar -tvf info.tar <span class="comment"># 不解压，仅查看包中的文件信息</span></span><br><span class="line"><span class="comment"># 指定解包到哪个目录</span></span><br><span class="line">tar -xvf info.tar -C /tmp <span class="comment"># 解包到tmp目录下</span></span><br></pre></td></tr></table></figure>
-<h5 id="路由表命令"><a class="markdownIt-Anchor" href="#路由表命令"></a> 路由表命令</h5>
-<p><strong>route命令</strong>： 显示和操作IP路由表</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># route [参数]</span></span><br><span class="line">route <span class="comment"># 查看路由表</span></span><br><span class="line">route -n <span class="comment"># 不解析名字</span></span><br></pre></td></tr></table></figure>
-<h5 id="文本操作命令"><a class="markdownIt-Anchor" href="#文本操作命令"></a> 文本操作命令</h5>
-<p><strong>sed命令</strong>：能够在不打开文件的情况下处理、编辑文本文件， 主要用来自动编辑一个或多个文件、简化对文件的反复操作、编写转换程序等</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sed [参数] 文件名</span></span><br><span class="line">sed -e <span class="string">&#x27;s/-/*/g&#x27;</span> info.txt &gt;&gt; info.txt <span class="comment"># 将info.txt中所有的字符-替换为*，并应用修改到info.txt中</span></span><br></pre></td></tr></table></figure>
-<h4 id="组管理与权限管理"><a class="markdownIt-Anchor" href="#组管理与权限管理"></a> 组管理与权限管理</h4>
-<h5 id="组管理"><a class="markdownIt-Anchor" href="#组管理"></a> 组管理</h5>
-<p>在linux中的每个用户必须属于一个组，不能独立于组外</p>
-<p>在linux中每个文件有所有者、所在组、其它组的概念</p>
-<p>文件的所有者就是创建该文件的用户</p>
-<p>除文件的所有者和所在组的用户外，系统的其它用户都是文件的其它组</p>
-<p>提示：<strong>查看文件权限、所有者等信息</strong>可以使用<strong>ls -l 指定的文件名</strong>实现；<strong>查看用户相关信息</strong>可以使用<strong>id 指定的用户名</strong>实现</p>
-<h5 id="基本命令-2"><a class="markdownIt-Anchor" href="#基本命令-2"></a> 基本命令</h5>
-<p><strong>chown命令</strong>：修改文件所有者，但不改变组</p>
-<p><strong>chgrp命令</strong>：修改文件所在组</p>
-<p><strong>usermod命令</strong>：改变用户所在组</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># chown 用户名 文件名</span></span><br><span class="line"><span class="built_in">chown</span> common info.txt <span class="comment"># info.txt所有者改为common用户</span></span><br><span class="line"><span class="built_in">ls</span> -l info.txt <span class="comment"># 查看info.txt的信息</span></span><br><span class="line"><span class="comment"># chgrp 组名 文件名</span></span><br><span class="line"><span class="built_in">chgrp</span> common info.txt <span class="comment"># info.txt所在组改为common组</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># usermod -g 组名 用户名</span></span><br><span class="line">usermod -g ok common <span class="comment"># common用户所在组改为ok组</span></span><br><span class="line"><span class="built_in">id</span> common <span class="comment"># 查看common用户的信息</span></span><br></pre></td></tr></table></figure>
-<h5 id="权限管理"><a class="markdownIt-Anchor" href="#权限管理"></a> 权限管理</h5>
-<p>文件权限内容，通过ls -l 指定文件名查看</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 一个示例</span></span><br><span class="line">-rw-r--r-- 1 root root 320 11月 18 17:49 info.txt</span><br></pre></td></tr></table></figure>
-<p><strong>-rw-r–r--解读</strong>(下标从0开始)</p>
-<ol>
-<li>第0位确定文件类型(d, - , l , c , b)</li>
-<li>第1-3位确定所有者（该文件的所有者）拥有该文件的权限</li>
-<li>第4-6位确定所属组（同用户组的）拥有该文件的权限</li>
-<li>第7-9位确定其他用户拥有该文件的权限</li>
-</ol>
-<p><strong>rwx权限说明</strong></p>
-<ol>
-<li>
-<p>r表示可读read</p>
-</li>
-<li>
-<p>w表示可写write</p>
-</li>
-<li>
-<p>x表示可执行execute</p>
-</li>
-<li>
-<p>对于文件来说</p>
-<ul>
-<li>
-<p>r表示可以读取查看文件</p>
-</li>
-<li>
-<p>w表示可以修改，但不能删除文件，删除一个文件必须拥有父文件夹的rwx权限(存在一个特例，在提前知道目录里的具体内容的情况下，手动指定对应的完整文件名进行删除)</p>
-</li>
-<li>
-<p>x表示文件可执行</p>
-</li>
-</ul>
-</li>
-<li>
-<p>对于目录来说</p>
-<ul>
-<li>r表示可以读取，查看目录内容</li>
-<li>w表示可修改，<strong>目录内</strong>创建+删除+重命名目录</li>
-<li>x表示可以进入该目录</li>
-</ul>
-</li>
-</ol>
-<h5 id="基本命令-3"><a class="markdownIt-Anchor" href="#基本命令-3"></a> 基本命令</h5>
-<p><strong>chmod命令</strong>：修改文件或目录的权限</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 参数</span></span><br><span class="line"><span class="comment"># u:所有者 g:使用组 o:其他人 a:所有人</span></span><br><span class="line"><span class="comment"># +:添加权限 -:删除权限 =:设置权限</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> a=--- info.txt <span class="comment"># 取消所有人对info.txt的rwx权限</span></span><br><span class="line"><span class="built_in">chmod</span> u=rwx,g=rw-,o=r info.txt</span><br><span class="line"><span class="built_in">chmod</span> g+x,o-r info.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过rwx权限对应的数字设置权限</span></span><br><span class="line"><span class="comment"># r=4 w=2 x=1  rwx=4+2+1=7</span></span><br><span class="line"><span class="built_in">chmod</span> 611 info.txt</span><br></pre></td></tr></table></figure>
-<h4 id="进程管理"><a class="markdownIt-Anchor" href="#进程管理"></a> 进程管理</h4>
-<p>在linux中，每个执行的程序（代码）都称为一个进程。每一个进程都分配一个 ID 号</p>
-<p>每一个进程，都会对应一个父进程，而这个父进程可以复制多个子进程</p>
-<p>每个进程都可能以两种方式存在的：前台与后台</p>
-<p>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机</p>
-<h5 id="fg和bg命令进程前后台调度命令"><a class="markdownIt-Anchor" href="#fg和bg命令进程前后台调度命令"></a> fg和bg命令：进程前后台调度命令</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在前台结束一个进程</span></span><br><span class="line">Control+c</span><br><span class="line"><span class="comment"># 在前台暂停一个进程</span></span><br><span class="line">Control+z</span><br><span class="line"><span class="comment"># 查看后台执行进程的进程号</span></span><br><span class="line"><span class="built_in">jobs</span></span><br><span class="line"><span class="comment"># 运行命令时，在命令末尾加上&amp;可让命令在后台执行</span></span><br><span class="line">&amp;</span><br><span class="line"><span class="comment"># 将命令进程号码为N的命令进程放到前台执行</span></span><br><span class="line"><span class="built_in">fg</span> N</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">%N</span><br><span class="line"><span class="comment"># 将命令进程号码为N的命令进程放到后台执行</span></span><br><span class="line"><span class="built_in">bg</span> N</span><br></pre></td></tr></table></figure>
-<h5 id="ps命令查看系统进程"><a class="markdownIt-Anchor" href="#ps命令查看系统进程"></a> ps命令查看系统进程</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ps [参数]</span></span><br><span class="line">ps -a <span class="comment"># 显示当前终端的所有进程信息</span></span><br><span class="line">ps -u <span class="comment"># 以用户的格式显示进程信息</span></span><br><span class="line">ps -x <span class="comment"># 显示后台进程运行的参数</span></span><br></pre></td></tr></table></figure>
-<h5 id="kill命令终止进程"><a class="markdownIt-Anchor" href="#kill命令终止进程"></a> kill命令终止进程</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kill [参数] 进程号PID</span></span><br><span class="line"><span class="comment"># 参数(基本都使用9)</span></span><br><span class="line"><span class="comment"># 1:重新加载 9:强制停止 15:正常停止</span></span><br><span class="line"><span class="comment"># kill命令需要与ps命令配合使用</span></span><br><span class="line"><span class="built_in">kill</span> -9 9899 <span class="comment"># 9899是通过ps获取的PID号，强制停止9899的进程</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># killall命令能终止指定名称的所有进程，适合系统负载过大时使用</span></span><br><span class="line"><span class="comment"># killall -9 进程名称</span></span><br></pre></td></tr></table></figure>
-<h5 id="pstree命令查看进程信息"><a class="markdownIt-Anchor" href="#pstree命令查看进程信息"></a> pstree命令查看进程信息</h5>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pstree [参数]</span></span><br><span class="line"><span class="comment"># pstree相对ps可以更直观地查看进程信息</span></span><br><span class="line">pstree -p <span class="comment"># 额外显示进程的PID</span></span><br><span class="line">pstree -u <span class="comment"># 额外显示进程的所属用户</span></span><br></pre></td></tr></table></figure>
-<h5 id="service命令操作进程后台服务"><a class="markdownIt-Anchor" href="#service命令操作进程后台服务"></a> service命令操作进程（后台服务）</h5>
-<p>服务(service) 本质就是进程，但是是<strong>运行在后台的一个特殊进程</strong>。这个特殊进程通常都会监听某个端口等待其它程序的请求，比如(mysql , sshd 防火墙等)。因此这个进程又称为<strong>守护进程</strong>。</p>
-<p><strong>telnet命令</strong>可以用于远程登录主机，也可以测试某个端口</p>
-<p><strong>查看服务</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chkconfig --list | grep 8989 <span class="comment"># 该命令已被弃用</span></span><br></pre></td></tr></table></figure>
-<p><strong>top命令持续监听运行状态</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># top [参数]</span></span><br><span class="line"><span class="comment"># 参数</span></span><br><span class="line"><span class="comment"># -d 秒数:指定每隔几秒更新，默认3秒</span></span><br><span class="line"><span class="comment"># -i:不显示任何闲置或僵死进程</span></span><br><span class="line"><span class="comment"># -p 进程PID:监控指定的PID的进程状态</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># top命令会进入一个交互页面，可以通过以下操作进行交互</span></span><br><span class="line"><span class="comment"># P:以CPU使用率排序，默认</span></span><br><span class="line"><span class="comment"># M:以内存的使用率排序</span></span><br><span class="line"><span class="comment"># N:以PID排序</span></span><br><span class="line"><span class="comment"># q:退出top交互页面</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于yarn禁止在此系统上运行脚本</title>
-    <url>/2022/09/05/yarn-problem/</url>
-    <content><![CDATA[<h3 id="nodejs中使用yarn安装依赖失败"><a class="markdownIt-Anchor" href="#nodejs中使用yarn安装依赖失败"></a> nodejs中使用yarn安装依赖失败</h3>
-<h4 id="错误原因"><a class="markdownIt-Anchor" href="#错误原因"></a> 错误原因</h4>
-<p>windows默认执行策略禁止脚本<span id="more"></span></p>
-<h4 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h4>
-<ol>
-<li>在电脑的开始菜单中，搜索<strong>PowerShell</strong>，并<strong>以管理员身份运行</strong></li>
-<li>在窗口输入命令<code>get-ExecutionPolicy</code>查看权限，如果返回值是<strong>Restricted</strong>，则表示当前是禁用状态</li>
-<li>在窗口输入命令<code>set-ExecutionPolicy</code>设置权限</li>
-<li>为<strong>ExecutionPolicy</strong>参数提供值<strong>RemoteSigned</strong>，后面输入<strong>A</strong>之后再回车（默认为否），开启所有脚本权限</li>
-<li>重新测试yarn命令</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>nodejs</tag>
       </tags>
   </entry>
   <entry>
@@ -3982,6 +3399,882 @@
       <tags>
         <tag>学习笔记</tag>
         <tag>青训营</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在Linux上配置Java环境</title>
+    <url>/2022/11/26/java-in-linux/</url>
+    <content><![CDATA[<h3 id="基于ubuntu2004lts配置java环境"><a class="markdownIt-Anchor" href="#基于ubuntu2004lts配置java环境"></a> 基于Ubuntu20.04LTS配置Java环境</h3>
+<p>在Linux上配置Java环境的方式有3种, 系统级配置、用户级配置、临时配置</p>
+<p>配置好Java环境就能够在Linux上运行基于Java环境运行的相关程序, 你可以在Linux系统上搭建基于Java实现的网站。这里以<strong>系统级配置</strong>为例, 适合个人开发者使用<span id="more"></span></p>
+<h4 id="1下载targz压缩包-java官网"><a class="markdownIt-Anchor" href="#1下载targz压缩包-java官网"></a> 1.下载tar.gz压缩包 <a href="https://www.oracle.com/java/technologies/downloads/">Java官网</a></h4>
+<p>tar.gz包先下载到windows中, 再通过远程文件传输工具, 将压缩包传送到Linux的目录下, 这里是/root目录</p>
+<p>本文以<strong>jdk-8u151-linux-i586.tar.gz</strong>为例配置Java环境, 高版本可能有所区别, 32位与64位版本在不同linux发行版上可能有所区别</p>
+<h4 id="2在linux中配置环境"><a class="markdownIt-Anchor" href="#2在linux中配置环境"></a> 2.在Linux中配置环境</h4>
+<h5 id="1前提准备"><a class="markdownIt-Anchor" href="#1前提准备"></a> 1.前提准备</h5>
+<p>默认当前目录是<strong>初始目录/root</strong>, 默认当前用户权限为<strong>root权限</strong>, 默认<strong>tar.gz包已经传送到/root目录下</strong></p>
+<h5 id="2创建用于存放java文件夹的目录"><a class="markdownIt-Anchor" href="#2创建用于存放java文件夹的目录"></a> 2.创建用于存放Java文件夹的目录</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /usr/java</span><br></pre></td></tr></table></figure>
+<h5 id="3解压targz压缩包到该目录"><a class="markdownIt-Anchor" href="#3解压targz压缩包到该目录"></a> 3.解压tar.gz压缩包到该目录</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf jdk-8u151-linux-i586.tar.gz -C /usr/java</span><br></pre></td></tr></table></figure>
+<h5 id="4编辑环境变量文件"><a class="markdownIt-Anchor" href="#4编辑环境变量文件"></a> 4.编辑环境变量文件</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p>在文件末尾追加下面内容, 具体目录根据实际情况编写</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<dl>
+<dt><strong>一些特殊符号说明</strong></dt>
+<dd>表示并列符号, 说明某个变量的值有多个, 用 : 来区分。相当于Windows下的 ;</dd>
+</dl>
+<p>$ 表示引用变量, {} 则用于限定变量边界, 如上面的 ${JAVA_HOME} 就表示 /usr/java/jdk1.8.0_151</p>
+<h5 id="5使环境变量马上生效"><a class="markdownIt-Anchor" href="#5使环境变量马上生效"></a> 5.使环境变量马上生效</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+<h4 id="3测试java环境"><a class="markdownIt-Anchor" href="#3测试java环境"></a> 3.测试Java环境</h4>
+<p>运行以下命令, 如果都成功运行, 则说明Java环境配置完成</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">java -version</span><br><span class="line">java</span><br><span class="line">javac</span><br></pre></td></tr></table></figure>
+<h5 id="可能遇到的问题"><a class="markdownIt-Anchor" href="#可能遇到的问题"></a> 可能遇到的问题</h5>
+<p>安装i586后缀jdk, 即<strong>安装32位的jdk</strong>后测试Java环境时提示<strong>bash: /usr/lib/java/jdk1.8.0_151/bin/java: 没有那个文件或目录</strong>, 可能是由于当前Linux发行版<strong>默认没有用于amd64系统的32位libc开发包</strong></p>
+<p>可通过以下5个常用命令查看Linux发行版的架构信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line">dpkg --print-architecture <span class="comment"># 这条命令只适用于基于Debian和Ubuntu的Linux发行版</span></span><br><span class="line">getconf LONG_BIT</span><br><span class="line"><span class="built_in">arch</span></span><br><span class="line">file /sbin/init </span><br><span class="line"><span class="comment"># file命令需要配合它链接的另一个文件使用</span></span><br><span class="line"><span class="comment"># 在Ubuntu中是链接的是/lib/systemd/systemd</span></span><br><span class="line"><span class="comment"># 通过file /lib/systemd/systemd查看到架构信息</span></span><br></pre></td></tr></table></figure>
+<h5 id="安装缺失的32位开发包"><a class="markdownIt-Anchor" href="#安装缺失的32位开发包"></a> 安装缺失的32位开发包</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libc6-i386</span><br></pre></td></tr></table></figure>
+<p>如果安装libc6-i386失败, 请先更新软件列表, 再尝试重新安装, 并重新测试Java环境</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<p>如果还是失败请选择64位的jdk版本重新进行配置</p>
+<h5 id="重新测试java环境"><a class="markdownIt-Anchor" href="#重新测试java环境"></a> 重新测试Java环境</h5>
+<h4 id="4update-alternatives软件版本管理"><a class="markdownIt-Anchor" href="#4update-alternatives软件版本管理"></a> 4.update-alternatives软件版本管理</h4>
+<h5 id="1系统注册jdk需要使用多个jdk版本时"><a class="markdownIt-Anchor" href="#1系统注册jdk需要使用多个jdk版本时"></a> 1.系统注册jdk(需要使用多个jdk版本时)</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_151/bin/java 300</span><br></pre></td></tr></table></figure>
+<p><strong>参数说明</strong></p>
+<p>第一个参数: --install表示向update-alternatives注册服务名</p>
+<p>第二个参数: 注册<strong>最终地址</strong>, 成功后将会把命令在这个固定的目的地址做真实命令的<strong>软链接</strong>, 通过管理这个软链就能实现不同版本jdk的切换</p>
+<p>第三个参数: <strong>服务名</strong>, 管理时以它为关联依据</p>
+<p>第四个参数: 被管理命令的<strong>绝对路径</strong></p>
+<p>第五个参数: <strong>优先级</strong>, 数字越大优先级越高</p>
+<h5 id="2交互式修改"><a class="markdownIt-Anchor" href="#2交互式修改"></a> 2.交互式修改</h5>
+<p>如果有多个版本的jdk, 可执行下面的命令通过交互界面进行切换</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
+<p>查看多个版本的jdk以及当前状态</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --display java</span><br></pre></td></tr></table></figure>
+<p>调整为<strong>auto</strong>模式, 如果上面查看的状态是<strong>manual</strong>, 则还不能自动选择优先级高的jdk版本, 需要调整为auto模式</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --auto java</span><br></pre></td></tr></table></figure>
+<h4 id="5补充"><a class="markdownIt-Anchor" href="#5补充"></a> 5.补充</h4>
+<p><strong>将上述的/etc/profile替换成~/.bashrc就是用户级配置</strong></p>
+<p><strong>/etc/profile</strong>: 此文件为系统的每个用户设置环境信息, 当用户第一次登录时, 该文件被执行, 是<strong>系统全局</strong>对终端环境的设置, 它是login时最先被系统加载的, 是它调用了/etc/bashrc, 以及/etc/profile.d目录下的*.sh文件, 如果有一个软件包, 系统上只安装一份, 供所有开发者使用, 建议在/etc/profile.d下创建一个新的xxx.sh, 配置环境变量</p>
+<p><strong>~/.bashrc</strong>: 是<strong>用户</strong>相关的终端（shell）的环境设置, 通常打开一个新终端时, 默认会加载里面的设置, 在这里的设置不会影响其它用户。如果一个服务器多个开发者使用, 需要配置多个sdk, 则推荐使用该设置</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Go 语言内存管理详解</title>
+    <url>/2023/01/30/golang-day4/</url>
+    <content><![CDATA[<p>本文已收录到<a href="https://juejin.cn/post/7194838118955450428">Go 语言内存管理详解 | 青训营笔记 - 掘金 (juejin.cn)</a>，主要记录了对golang内存管理的学习<span id="more"></span></p>
+<h2 id="内存管理详解"><a class="markdownIt-Anchor" href="#内存管理详解"></a> 内存管理详解</h2>
+<h3 id="追求极致性能"><a class="markdownIt-Anchor" href="#追求极致性能"></a> 追求极致性能</h3>
+<p>性能优化：提升软件系统处理能力，减少不必要的消耗，充分发掘计算机算力。</p>
+<p>性能优化的目的</p>
+<ul>
+<li>用户体验：带来用户体验的提升</li>
+<li>资源高效利用：降低成本。提高效率</li>
+</ul>
+<h3 id="性能优化的层面"><a class="markdownIt-Anchor" href="#性能优化的层面"></a> 性能优化的层面</h3>
+<ul>
+<li>业务层优化
+<ul>
+<li>针对特定场景，具体问题具体分析</li>
+<li>容易获得较大性能收益</li>
+</ul>
+</li>
+<li>语言运行时优化
+<ul>
+<li>解决更通用的性能问题</li>
+<li>考虑更多场景</li>
+<li>Tradeoffs权衡</li>
+</ul>
+</li>
+<li>数据驱动
+<ul>
+<li>自动化性能分析工具——pprof</li>
+<li>依靠数据而非猜测</li>
+<li>首先优化最大瓶颈</li>
+</ul>
+</li>
+</ul>
+<h3 id="性能优化与软件质量"><a class="markdownIt-Anchor" href="#性能优化与软件质量"></a> 性能优化与软件质量</h3>
+<ul>
+<li>软件质量至关重要</li>
+<li>在保证接口稳定的前提下改进具体实现</li>
+<li>测试用例：覆盖尽可能多的场景，方便回归</li>
+<li>文档：做了什么，没做什么，能达到怎样的效果</li>
+<li>隔离：通过选项控制是否开启优化</li>
+<li>可观测：必要的日志输出</li>
+</ul>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
+<ul>
+<li>性能优化的基本问题</li>
+<li>性能优化的两个层面</li>
+<li>性能优化的可维护性</li>
+</ul>
+<h3 id="1自动内存管理"><a class="markdownIt-Anchor" href="#1自动内存管理"></a> 1.自动内存管理</h3>
+<h4 id="11-自动内存管理"><a class="markdownIt-Anchor" href="#11-自动内存管理"></a> 1.1 自动内存管理</h4>
+<ul>
+<li>动态内存
+<ul>
+<li>程序在运行时根据需求动态分配的内存：malloc()</li>
+</ul>
+</li>
+<li>自动内存管理（垃圾回收）：由程序语言的运行时系统管理动态内存
+<ul>
+<li>避免手动内存管理，专注于实现业务逻辑</li>
+<li>保证内存使用的正确性和安全性：double-free problem，use-after-free problem</li>
+</ul>
+</li>
+<li>三个任务
+<ul>
+<li>为新对象分配空间</li>
+<li>找到存活对象</li>
+<li>回收死亡对象的内存空间</li>
+</ul>
+</li>
+</ul>
+<p><strong>相关概念</strong></p>
+<ul>
+<li>
+<p>Mutator：业务线程，分配新对象，修改对象的指向关系</p>
+</li>
+<li>
+<p>Collector：GC线程，找到存活对象，回收死亡对象的内存空间</p>
+</li>
+<li>
+<p>Serial GC：只有一个collector</p>
+</li>
+<li>
+<p>Parallel GC：支持多个collector同时回收的GC算法</p>
+</li>
+<li>
+<p>Concurrent GC：mutator(s)和collector(s)可以同时执行</p>
+</li>
+<li>
+<p>Collectors必须感知对象指向关系的改变</p>
+</li>
+<li>
+<p>评价GC算法</p>
+<ul>
+<li>安全性（Safety）：不能回收存活的对象。这是基本要求</li>
+<li>吞吐率（Throughput）：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>−</mo><mfrac><mrow><mi>G</mi><mi>C</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">间</mi></mrow><mrow><mi mathvariant="normal">程</mi><mi mathvariant="normal">序</mi><mi mathvariant="normal">执</mi><mi mathvariant="normal">行</mi><mi mathvariant="normal">总</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">间</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">1-\frac {GC时间}{程序执行总时间}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">程</span><span class="mord cjk_fallback mtight">序</span><span class="mord cjk_fallback mtight">执</span><span class="mord cjk_fallback mtight">行</span><span class="mord cjk_fallback mtight">总</span><span class="mord cjk_fallback mtight">时</span><span class="mord cjk_fallback mtight">间</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">G</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord cjk_fallback mtight">时</span><span class="mord cjk_fallback mtight">间</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。花在GC上的时间</li>
+<li>暂停时间（Pause time）：stop the world（STW）。业务是否感知</li>
+<li>内存开销（Space overhead）：GC元数据开销</li>
+</ul>
+</li>
+<li>
+<p>追踪垃圾回收（Tracing garbage collection）</p>
+</li>
+<li>
+<p>引用计数（Reference counting）</p>
+</li>
+</ul>
+<h4 id="12-追踪垃圾回收"><a class="markdownIt-Anchor" href="#12-追踪垃圾回收"></a> 1.2 追踪垃圾回收</h4>
+<ul>
+<li>
+<p>对象被回收的条件：指针指向关系不可达的对象</p>
+</li>
+<li>
+<p>标记根对象</p>
+<ul>
+<li>静态变量、全局变量、常量、线程栈等</li>
+</ul>
+</li>
+<li>
+<p>标记：找到可达对象</p>
+<ul>
+<li>求指针指向关系的传递闭包：从根对象出发，找到所有可达对象</li>
+</ul>
+</li>
+<li>
+<p>清理：所有不可达对象</p>
+<ul>
+<li>
+<p>将存活对象复制到另外的内存空间（Copying GC）</p>
+<p>Copying GC：将对象复制到另外的内存空间</p>
+</li>
+<li>
+<p>将死亡对象的内存标记为“可分配”（Mark-sweep GC）</p>
+<p>Mark-sweep GC：使用free list管理空闲内存</p>
+</li>
+<li>
+<p>移动并整理存活对象（Mark-compact GC）</p>
+<p>Compact GC：原地整理对象</p>
+</li>
+</ul>
+</li>
+<li>
+<p>根据对象的生命周期，使用不同的标记和清理策略</p>
+</li>
+</ul>
+<h4 id="13-分代-gcgenerational-gc"><a class="markdownIt-Anchor" href="#13-分代-gcgenerational-gc"></a> 1.3 分代 GC（Generational GC）</h4>
+<ul>
+<li>分代假说（Generational hypothesis）：most objects die young</li>
+<li>Intuition：很多对象在分配出来后很快就不在使用了</li>
+<li>每个对象都有年龄：经历过GC的次数</li>
+<li>目的：对年轻和年老的对象，制定不同的GC策略，降低整体内存管理的开销</li>
+<li>不同年龄的对象处于heap的不同区域</li>
+<li>年轻代（Young generation）
+<ul>
+<li>常规的对象分配</li>
+<li>由于存活对象很少，可以采用copying collection</li>
+<li>GC吞吐率很高</li>
+</ul>
+</li>
+<li>老年代（Old generation）
+<ul>
+<li>对象趋向一直活着，反复复制开销较大</li>
+<li>可以采用mark-sweep collection</li>
+</ul>
+</li>
+</ul>
+<h4 id="14-引用计数"><a class="markdownIt-Anchor" href="#14-引用计数"></a> 1.4 引用计数</h4>
+<ul>
+<li>每个对象都有一个与之关联的引用数目</li>
+<li>对象存活的条件：当且仅当引用数大于0</li>
+<li>优点
+<ul>
+<li>内存管理的操作被平摊到程序执行过程中</li>
+<li>内存管理不需要了解runtime的实现细节：C++智能指针（smart pointer）</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>维护引用计数的开销较大：通过原子操作保证对引用计数操作的原子性和可见性</li>
+<li>无法回收环形数据结构——weak reference</li>
+<li>内存开销：每个对象都引入的额外内存空间存储引用数目</li>
+<li>回收内存时依然可能引发暂停</li>
+</ul>
+</li>
+</ul>
+<h4 id="总结-2"><a class="markdownIt-Anchor" href="#总结-2"></a> 总结</h4>
+<ul>
+<li>自动内存管理的背景和意义</li>
+<li>概念和评价方法</li>
+<li>追踪垃圾回收</li>
+<li>引用计数</li>
+<li>分代 GC</li>
+<li>学术界和工业界一直致力于解决自动内存管理技术的不足之处
+<ul>
+<li>相关信息<a href="https://pldi22.sigplan.org/details/pldi-2022-pldi/15/Low-Latency-High-Throughput-Garbage-Collection">Low-Latency, High-Throughput Garbage Collection (PLDI 2022 - PLDI Research Papers) </a></li>
+<li>相关介绍<a href="https://zhuanlan.zhihu.com/p/525093935">PLDI’22 | June 13-17，编程语言顶级会议</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="2go管理及优化"><a class="markdownIt-Anchor" href="#2go管理及优化"></a> 2.Go管理及优化</h3>
+<h4 id="21-go-内存分配"><a class="markdownIt-Anchor" href="#21-go-内存分配"></a> 2.1 Go 内存分配</h4>
+<p><strong>分块</strong></p>
+<ul>
+<li>目标：为对象在heap上分配内存</li>
+<li>提前将内存分块
+<ul>
+<li>调用系统调用 mmap() 向OS申请一大块内存，例如 4 MB</li>
+<li>先将内存划分成大块，例如 8 KB，称作 mspan</li>
+<li>再将大块继续划分成特定大小的小块，用于对象分配</li>
+<li>noscan mspan：分配不包含指针的对象——GC 不需要扫描</li>
+<li>scan mspan：分配包含指针的对象——GC 需要扫描</li>
+</ul>
+</li>
+<li>对象分配：根据对象的大小，选择最合适的块返回</li>
+</ul>
+<p><strong>缓存</strong></p>
+<ul>
+<li>TCMalloc：thread caching</li>
+<li>每个 p 包含一个 mcache 用于快速分配，用于为绑定于 p 上的 g 分配对象</li>
+<li>mcache 管理一组 mspan</li>
+<li>当 mcache 中的 mspan 分配完毕，向 mcentral 申请带有未分配块的 mspan</li>
+<li>当 mspan 中没有分配的对象，mspan 会被缓存在 mcentral 中，而不是立刻释放并归还给 OS</li>
+</ul>
+<h4 id="22-go-内存管理优化"><a class="markdownIt-Anchor" href="#22-go-内存管理优化"></a> 2.2 Go 内存管理优化</h4>
+<ul>
+<li>对象分配是非常高频的操作：每秒分配 GB 级别的内存</li>
+<li>小对象占比较高</li>
+<li>Go 内存分配比较耗时
+<ul>
+<li>分配路径长：g -&gt; m -&gt; p -&gt; mcache -&gt; mspan -&gt; memory block -&gt; return pointer</li>
+<li>pprof：对象分配的函数是最频繁调用的函数之一</li>
+</ul>
+</li>
+</ul>
+<h4 id="23-优化方案balanced-gc"><a class="markdownIt-Anchor" href="#23-优化方案balanced-gc"></a> 2.3 优化方案：Balanced GC</h4>
+<ul>
+<li>
+<p>每个 g 都绑定一大块内存（1KB），称作 goroutine allocation buffer（GAB）</p>
+</li>
+<li>
+<p>GAB 用于 noscan 类型的小对象分配：&lt; 128 B</p>
+</li>
+<li>
+<p>使用三个指针维护 GAB：base，end，top</p>
+</li>
+<li>
+<p>Bump pointer（指针碰撞）风格对象分配</p>
+<ul>
+<li>无须和其他分配请求互斥</li>
+<li>分配动作简单高效</li>
+</ul>
+</li>
+<li>
+<p>GAB 对于 Go 内存管理来说是一个大对象</p>
+</li>
+<li>
+<p>本质：将多个小对象的分配合并成一次大对象的分配</p>
+</li>
+<li>
+<p>问题：GAB的对象分配方式会导致内存被延迟释放</p>
+</li>
+<li>
+<p>方案：移动 GAB 中存活的对象</p>
+<ul>
+<li>当 GAB 总大小超过一定阈值时，将 GAB 中存活的对象复制到另外分配的 GAB 中</li>
+<li>原先的 GAB 可以释放，避免内存泄漏</li>
+<li>本质：用 copying GC 的算法管理小对象。根据对象的生命周期，使用不同的标记和清理策略。</li>
+</ul>
+</li>
+</ul>
+<p><strong>性能收益</strong>（数据仅供参考）</p>
+<ul>
+<li>高峰期 CPU usage 降低 4.6%，核心接口时延下降 4.5%~7.7%</li>
+</ul>
+<h4 id="总结-3"><a class="markdownIt-Anchor" href="#总结-3"></a> 总结</h4>
+<ul>
+<li>Go 内存管理 — 分块</li>
+<li>Go 内存管理 — 缓存</li>
+<li>Go 对象分配的性能问题
+<ul>
+<li>分配路径过长</li>
+<li>小对象居多</li>
+</ul>
+</li>
+<li>Balanced GC
+<ul>
+<li>指针碰撞风格的对象分配</li>
+<li>实现了 copying GC</li>
+<li>性能收益</li>
+</ul>
+</li>
+</ul>
+<h3 id="3编译器和静态分析"><a class="markdownIt-Anchor" href="#3编译器和静态分析"></a> 3.编译器和静态分析</h3>
+<h4 id="31-编译器的结构"><a class="markdownIt-Anchor" href="#31-编译器的结构"></a> 3.1 编译器的结构</h4>
+<ul>
+<li>重要的软件系统
+<ul>
+<li>识别符号语法和非法的程序</li>
+<li>生成正确且高效的代码</li>
+</ul>
+</li>
+<li>分析部分（前端 front end）
+<ul>
+<li>词法分析，生成词素（lexeme）</li>
+<li>语法分析，生成语法树</li>
+<li>语义分析，收集类型信息，进行语义检查</li>
+<li>中间代码生成，生成intermediate representation（IR）</li>
+</ul>
+</li>
+<li>综合部分（后端 back end）
+<ul>
+<li>代码优化，机器无关优化，生成优化后的 IR</li>
+<li>代码生成，生成目标代码</li>
+</ul>
+</li>
+</ul>
+<p>后端是优化重点，同时控制流和数据流分析是优化的基础。</p>
+<h4 id="32-静态分析"><a class="markdownIt-Anchor" href="#32-静态分析"></a> 3.2 静态分析</h4>
+<ul>
+<li>静态分析：不执行程序代码，推导程序的行为，分析程序的性质。</li>
+<li>控制流（Control flow）：程序执行的流程</li>
+<li>数据流（Data flow）：数据在控制流上的传递</li>
+<li>通过分析控制流和数据流，可以知道更多关于程序的性质（properties）</li>
+<li>根据这些性质优化代码</li>
+</ul>
+<h4 id="33-过程内分析和过程间分析"><a class="markdownIt-Anchor" href="#33-过程内分析和过程间分析"></a> 3.3 过程内分析和过程间分析</h4>
+<ul>
+<li>过程内分析（Intra-procedural analysis）
+<ul>
+<li>仅在函数内部进行分析</li>
+</ul>
+</li>
+<li>过程间分析
+<ul>
+<li>考虑函数调用时参数传递和返回值的数据流和控制流</li>
+</ul>
+</li>
+<li>过程间分析是个问题
+<ul>
+<li>需要通过数据流分析得知接口 i 的具体类型，才能知道有多个同名方法（比如<code>func (a *A) foo()</code>和<code>func (b *B) foo()</code>）存在时，接口 i 调用的是哪个<code>foo()</code></li>
+<li>根据接口的具体类型，产生了新的控制流，<code>i.foo()</code>，分析继续</li>
+<li>过程间分析需要同时分析控制流和数据流——联合求解，比较复杂</li>
+</ul>
+</li>
+</ul>
+<h4 id="总结-4"><a class="markdownIt-Anchor" href="#总结-4"></a> 总结</h4>
+<ul>
+<li>编译器的结构与编译的流程</li>
+<li>编译器后端优化</li>
+<li>数据流分析和控制流分析</li>
+<li>过程内分析和过程间分析</li>
+</ul>
+<h3 id="4go编译器优化"><a class="markdownIt-Anchor" href="#4go编译器优化"></a> 4.Go编译器优化</h3>
+<ul>
+<li>为什么做编译器优化
+<ul>
+<li>用户无感知，重新编译即可获得性能收益</li>
+<li>通用性优化</li>
+</ul>
+</li>
+<li>现状
+<ul>
+<li>采用的优化少</li>
+<li>编译时间较短，没有进行复杂的代码分析和优化</li>
+</ul>
+</li>
+<li>编译优化的思路
+<ul>
+<li>场景：面向后端长期执行任务</li>
+<li>Tradeoff：用编译时间换取更高效的机器码</li>
+</ul>
+</li>
+<li>Beast mode
+<ul>
+<li>函数内联分析</li>
+<li>逃逸分析</li>
+<li>默认栈大小调整</li>
+<li>边界检查消除</li>
+<li>循环展开</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h4 id="41-函数内联inlining"><a class="markdownIt-Anchor" href="#41-函数内联inlining"></a> 4.1 函数内联（Inlining）</h4>
+<ul>
+<li>
+<p>内联：将被调用函数的函数体（callee）的副本替换到调用位置（caller）上，同时重写代码以反映参数的绑定</p>
+</li>
+<li>
+<p>优点</p>
+<ul>
+<li>消除函数调用开销，例如传递函数、保存寄存器等</li>
+<li>将过程间分析转化为过程内分析，帮助其他优化，例如逃逸分析</li>
+</ul>
+</li>
+<li>
+<p>函数内联对性能的影响程度——使用 micro-benchmark验证</p>
+<p>示例</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkInline</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	x := genInteger()</span><br><span class="line">	y := genInteger()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		addInline(x, y)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addInline</span><span class="params">(a, b <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkInlineDisabled</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	x := genInteger()</span><br><span class="line">	y := genInteger()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		addNoInline(x, y)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//go:noinline</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addNoInline</span><span class="params">(a, b <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">genInteger</span><span class="params">()</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	rand.Seed(time.Now().UnixNano())</span><br><span class="line">	<span class="keyword">return</span> rand.Intn(<span class="number">100</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意这里的<code>//go:noinline</code>是一种编译指示，<code>noinline</code>表示不要内联，固定写法。这种编译指示类似于C语言中的<code>#include</code>。</p>
+</li>
+<li>
+<p>使用 micro-benchmark快速验证和对比性能优化结果</p>
+<p>使用以下命令进行性能测试</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">test</span> -bench .</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>缺点</p>
+<ul>
+<li>函数体变大，instruction cache（icache）不友好</li>
+<li>编译生成的 Go 镜像变大</li>
+</ul>
+</li>
+<li>
+<p>函数内联在大多数情况下是正向优化</p>
+</li>
+<li>
+<p>内联策略</p>
+<ul>
+<li>调用和被函数的规模</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h4 id="42-beast-mode"><a class="markdownIt-Anchor" href="#42-beast-mode"></a> 4.2 Beast Mode</h4>
+<ul>
+<li>Go 函数内联受到的限制较多
+<ul>
+<li>语言特性，例如 interface，defer等，限制了函数内联</li>
+<li>内联策略非常保守</li>
+</ul>
+</li>
+<li>Beast Mode：调整函数内联的策略，使更多函数被内联
+<ul>
+<li>降低函数调用的开销</li>
+<li>增加了其他优化的机会：逃逸分析</li>
+</ul>
+</li>
+<li>开销
+<ul>
+<li>Go 镜像增加约 10%</li>
+<li>编译时间增加</li>
+</ul>
+</li>
+</ul>
+<p><strong>性能收益</strong>（数据仅供参考）</p>
+<ul>
+<li>高峰期 CPU usage 降低 9%，时延降低 10%</li>
+<li>内存使用降低 3%</li>
+</ul>
+<h4 id="43-逃逸分析"><a class="markdownIt-Anchor" href="#43-逃逸分析"></a> 4.3 逃逸分析</h4>
+<p>逃逸分析：分析代码中指针的动态作用域，即指针在何处可以被访问</p>
+<ul>
+<li>大致思路
+<ul>
+<li>从对象分配处出发，沿着控制流，观察对象的数据流</li>
+<li>若发现指针 p 在当前作用域 s
+<ul>
+<li>作为参数传递给其他函数</li>
+<li>传递给全局变量</li>
+<li>传递给其他的 goroutine</li>
+<li>传递给已逃逸的指针指向的对象</li>
+</ul>
+</li>
+<li>则指针 p 指向的对象逃逸出 s，反之则没有逃逸出 s</li>
+</ul>
+</li>
+<li>Beast Mode：函数内联拓展了函数边界，更多对象不逃逸</li>
+<li>优化：未逃逸的对象可以在栈上分配
+<ul>
+<li>对象在栈上分配和回收很快：移动 sp</li>
+<li>减少在 heap 上的分配，降低 GC 负担</li>
+</ul>
+</li>
+</ul>
+<h4 id="总结-5"><a class="markdownIt-Anchor" href="#总结-5"></a> 总结</h4>
+<ul>
+<li>Go 编译器优化问题</li>
+<li>Beast Mode</li>
+<li>函数内联</li>
+<li>逃逸分析</li>
+<li>通过 micro-benchmark 快速验证性能优化</li>
+<li>性能收益</li>
+</ul>
+<h3 id="归纳"><a class="markdownIt-Anchor" href="#归纳"></a> 归纳</h3>
+<ul>
+<li>性能优化
+<ul>
+<li>自动内存管理</li>
+<li>Go 内存管理</li>
+<li>编译器与静态分析</li>
+<li>编译器优化</li>
+</ul>
+</li>
+<li>实践
+<ul>
+<li>Balanced GC 优化对象分配</li>
+<li>Beast Mode 提升代码性能</li>
+</ul>
+</li>
+<li>分析问题的方法与解决问题的思路，不仅适用于Go 语言，也适用于其他语言的优化</li>
+</ul>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a href="https://juejin.cn/post/7189525739836801085/">【后端专场 学习资料二】第五届字节跳动青训营 - 掘金 (juejin.cn)</a></p>
+<p><a href="https://segmentfault.com/a/1190000016743220">Go 语言编译器的 “//go:” 详解 - Golang 攻略 - SegmentFault 思否</a></p>
+]]></content>
+      <categories>
+        <category>golang</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>青训营</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux-base</title>
+    <url>/2022/11/17/linux-base/</url>
+    <content><![CDATA[<h3 id="关于linux的通用操作"><a class="markdownIt-Anchor" href="#关于linux的通用操作"></a> 关于Linux的通用操作</h3>
+<p>基于Ubuntu22.04发行版的环境，本文整理了一些在Linux系统下基本通用的操作，使初学者能初步学会Linux系统的操作或使老用户重新回顾一下常用操作<span id="more"></span></p>
+<h4 id="参考文章-linux-幕布-mubucom-作者时光逝"><a class="markdownIt-Anchor" href="#参考文章-linux-幕布-mubucom-作者时光逝"></a> 参考文章 <a href="https://mubu.com/doc/28TtabEpGV3">Linux - 幕布 (mubu.com) 作者：时光＆逝 </a></h4>
+<h4 id="准备工作"><a class="markdownIt-Anchor" href="#准备工作"></a> 准备工作</h4>
+<p>远程连接工具<a href="https://www.xshell.com/zh/xshell/">XSHELL - NetSarang Website</a></p>
+<p>远程文件传输工具 <a href="https://www.xshell.com/zh/xftp/">XFTP - NetSarang Website</a></p>
+<p>配合XFTP可以较为直观地观察文件及目录的变化</p>
+<p>注：一些发行版可能需要手动安装部分命令。另外，在执行命令时<strong>请确认自己所处的当前目录</strong></p>
+<h4 id="提示"><a class="markdownIt-Anchor" href="#提示"></a> 提示</h4>
+<p>一些命令可能需要在root权限下执行，或者在执行命令的前面都加上<code>sudo</code>的前缀，表示临时使用root权限执行这条命令</p>
+<p>如果忘记了root密码可以通过以下方法重新设置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo passwd <span class="comment"># 进入密码设置</span></span><br><span class="line"><span class="comment"># 输入当初安装时设置的非root普通用户密码</span></span><br><span class="line"><span class="comment"># 输入新的root密码</span></span><br><span class="line"><span class="comment"># 重复输入root密码</span></span><br><span class="line">su <span class="comment"># 切换到root</span></span><br><span class="line"><span class="comment"># 输入刚刚设置的root密码，就能切换到root用户</span></span><br></pre></td></tr></table></figure>
+<h4 id="vim文本编辑器"><a class="markdownIt-Anchor" href="#vim文本编辑器"></a> vim文本编辑器</h4>
+<p><strong>查看vim配置信息</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim --version</span><br></pre></td></tr></table></figure>
+<p><strong>简易配置一下vim</strong></p>
+<p>用vim打开用户vimrc文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim <span class="variable">$HOME</span>/.vimrc</span><br></pre></td></tr></table></figure>
+<p>写入以下内容（后面的注释不需要）</p>
+<blockquote>
+<p>syntax on   # 开启语法高亮</p>
+<p>set ts = 4    #  设置tab的缩进显示为四个空格的宽度</p>
+<p>set expandtab # 设置tab字符替换为等宽的4个空格字符</p>
+<p>set autoindent # 开启自动缩进</p>
+<p>set number # 开启行号显示</p>
+<p>set relativenumber # 使用相对行号</p>
+</blockquote>
+<p>关于vim的基本操作可以参考其它文章 <a href="https://www.runoob.com/linux/linux-vim.html">Linux vi/vim | 菜鸟教程 (runoob.com)</a> 或者视频<a href="https://www.bilibili.com/video/BV13t4y1t7Wg/?share_source=copy_web&amp;vd_source=f4fedbdbfad10afdb2269285bd340510">【保姆级入门】Vim编辑器</a></p>
+<h4 id="用户管理"><a class="markdownIt-Anchor" href="#用户管理"></a> 用户管理</h4>
+<p>linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户都必须先向系统管理员申请一个账号，然后以这个账号的身份进入系统</p>
+<p>linux的用户至少要属于一个组</p>
+<h5 id="基本命令"><a class="markdownIt-Anchor" href="#基本命令"></a> 基本命令</h5>
+<p><strong>useradd命令</strong>：创建一个用户</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># useradd [参数] 用户名</span></span><br><span class="line">useradd normal <span class="comment"># 创建一个名为normal的用户，用户目录默认家目录</span></span><br><span class="line">useradd -d /myuser normal <span class="comment"># 创建一个名为normal的用户，指定用户目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># useradd [参数] 组名 用户名</span></span><br><span class="line">useradd -g visitor vis <span class="comment"># 创建一个名为vis的用户的同时指定用户组为visitor</span></span><br></pre></td></tr></table></figure>
+<p><strong>passwd命令</strong>：指定或修改用户的密码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># passwd 用户名</span></span><br><span class="line">passwd normal <span class="comment"># 指定或修改normal用户的密码</span></span><br></pre></td></tr></table></figure>
+<p><strong>userdel命令</strong>：删除用户</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># userdel 用户名</span></span><br><span class="line">userdel normal <span class="comment"># 删除normal用户</span></span><br><span class="line">userdel -r normal <span class="comment"># 同时删除该用户的目录</span></span><br></pre></td></tr></table></figure>
+<p><strong>usermod命令</strong>：修改用户信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># usermod [参数] 新用户名 旧用户名</span></span><br><span class="line">usermod -l vis normal <span class="comment"># 修改normal用户名为vis、</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># usermod [参数] 组名 用户名</span></span><br><span class="line">groupadd demo</span><br><span class="line">usermod -g demo vis <span class="comment"># 修改vis用户所在的用户组为demo组</span></span><br></pre></td></tr></table></figure>
+<p><strong>id命令</strong>：查询用户信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># id 用户名</span></span><br><span class="line"><span class="built_in">id</span> normal <span class="comment"># 查询normal用户信息</span></span><br></pre></td></tr></table></figure>
+<p><strong>su命令</strong>：用户切换</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># su [参数] 用户名</span></span><br><span class="line">su common <span class="comment"># 切换到一个名为common的用户</span></span><br><span class="line">su - common <span class="comment"># 将环境变量一并切换为common用户的环境变量</span></span><br></pre></td></tr></table></figure>
+<p><strong>groupadd命令</strong>：添加一个名为visitor的用户组</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># groupadd 组名</span></span><br><span class="line">groupadd visitor</span><br></pre></td></tr></table></figure>
+<p><strong>groupdel命令</strong>：删除visitor用户组</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># groupdel 组名</span></span><br><span class="line">groupdel visitor</span><br></pre></td></tr></table></figure>
+<p><strong>groupmod命令</strong>：修改用户组</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># groupmod [选项 参数] 组名</span></span><br><span class="line">groupmod -n demo <span class="built_in">test</span> <span class="comment"># 修改test组名为demo</span></span><br><span class="line">groupmod -g 9999 <span class="built_in">test</span> <span class="comment"># 修改test组ID为9999</span></span><br></pre></td></tr></table></figure>
+<h5 id="用户信息文件"><a class="markdownIt-Anchor" href="#用户信息文件"></a> 用户信息文件</h5>
+<ul>
+<li>
+<p><strong>/etc/passwd</strong>是用户(user)的配置文件，记录用户的各种信息</p>
+</li>
+<li>
+<p><strong>/ect/shadow</strong>是口令的配置文件</p>
+</li>
+<li>
+<p><strong>/etc/group</strong>是组(group)的配置文件，记录组的各种信息</p>
+</li>
+</ul>
+<h4 id="常用命令"><a class="markdownIt-Anchor" href="#常用命令"></a> 常用命令</h4>
+<h5 id="进程命令"><a class="markdownIt-Anchor" href="#进程命令"></a> 进程命令</h5>
+<p><strong>init命令</strong>：Linux下的进程初始化工具，用于切换运行级别</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">init 0 <span class="comment"># 停机(不要将initdefault设置为0)</span></span><br><span class="line">init 1 <span class="comment"># 单用户模式，一般用于系统级维护</span></span><br><span class="line">init 2 <span class="comment"># 多用户模式，无法使用NFS(网络文件系统)挂载，没有网络支持</span></span><br><span class="line">init 3 <span class="comment"># 多用户模式，标准的运行级，有网络支持</span></span><br><span class="line">init 4 <span class="comment"># 保留，未使用</span></span><br><span class="line">init 5 <span class="comment"># X11(xwindow)图形化界面模式，多用户，有网络支持，一般用于远程连接时使用Linux图形化界面</span></span><br><span class="line">init 6 <span class="comment"># 重新启动(不要将initdefault设置为6)</span></span><br></pre></td></tr></table></figure>
+<h5 id="帮助命令"><a class="markdownIt-Anchor" href="#帮助命令"></a> 帮助命令</h5>
+<p><strong>man命令</strong>：用于获取帮助手册</p>
+<p><strong>help命令</strong>：获取shell内置命令的帮助信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">man vim <span class="comment"># 获取vim的帮助手册</span></span><br><span class="line"><span class="built_in">help</span> <span class="built_in">cd</span> <span class="comment"># 获取cd命令的帮助信息</span></span><br><span class="line"><span class="built_in">help</span> <span class="built_in">mv</span> <span class="comment"># 获取mv命令的帮助信息，但会失败，因为mv不是内置命令</span></span><br><span class="line"><span class="built_in">type</span> <span class="built_in">mv</span> <span class="comment"># 查看mv命令的类型(内置命令或外部命令)</span></span><br></pre></td></tr></table></figure>
+<h5 id="文件目录命令"><a class="markdownIt-Anchor" href="#文件目录命令"></a> 文件目录命令</h5>
+<p><strong>pwd命令</strong>：查看当前所在目录的绝对路径</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+<p><strong>ls命令</strong>：查看当前所在目录的所有文件和目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ls [参数] [目录或文件名]</span></span><br><span class="line"><span class="built_in">ls</span> -a <span class="comment"># 显示当前所有文件和目录，包括不可见的</span></span><br><span class="line"><span class="built_in">ls</span> -l <span class="comment"># 以列表的形式显示信息</span></span><br></pre></td></tr></table></figure>
+<p><strong>cd命令</strong>：切换到指定目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cd [目录路径]</span></span><br><span class="line"><span class="built_in">cd</span> ~  <span class="comment"># 进入默认初始目录</span></span><br><span class="line"><span class="built_in">cd</span> .. <span class="comment"># 返回上一级目录</span></span><br><span class="line"><span class="built_in">cd</span> /opt <span class="comment"># 进入opt目录</span></span><br></pre></td></tr></table></figure>
+<p><strong>mkdir命令</strong>：创建指定目录，可根据绝对路径或相对路径创建</p>
+<p><strong>rmdir命令</strong>：删除指定的空目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mkdir [参数] 目录名</span></span><br><span class="line"><span class="built_in">mkdir</span> <span class="built_in">test</span> <span class="comment"># 在当前目录下创建一个test目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p a/b/c <span class="comment"># 在当前目录下创建a/b/c的嵌套多级目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># rmdir [参数] 目录名</span></span><br><span class="line"><span class="built_in">rmdir</span> <span class="built_in">test</span> <span class="comment"># 删除test目录，test目录下不能有其它内容</span></span><br><span class="line"><span class="comment"># 删除有其它内容的目录时需要使用rm -rf命令</span></span><br></pre></td></tr></table></figure>
+<p><strong>touch命令</strong>：创建空文件，可根据绝对路径或相对路径创建</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># touch 文件名</span></span><br><span class="line"><span class="built_in">touch</span> demo.txt <span class="comment"># 在当前目录下创建demo.txt文件</span></span><br></pre></td></tr></table></figure>
+<p><strong>cp命令</strong>：拷贝文件到指定目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cp [参数] 源目录 指定目录</span></span><br><span class="line"><span class="built_in">cp</span> demo.txt <span class="built_in">test</span> <span class="comment"># 复制demo.txt文件到当前同级的test目录下</span></span><br><span class="line"><span class="built_in">cp</span> -r <span class="built_in">source</span> <span class="built_in">test</span> <span class="comment"># 将source文件夹以及文件夹下所有内容复制到同级的test文件夹下(递归复制)</span></span><br></pre></td></tr></table></figure>
+<p><strong>rm命令</strong>：删除文件或目录（文件夹）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># rm [参数] 文件名</span></span><br><span class="line"><span class="built_in">rm</span> demo.txt <span class="comment"># 删除demo.txt文件</span></span><br><span class="line"><span class="built_in">rm</span> -r <span class="built_in">source</span> <span class="comment"># 递归删除整个source目录</span></span><br><span class="line"><span class="built_in">rm</span> -rf <span class="built_in">test</span> <span class="comment"># 无提示地强制删除整个test目录 </span></span><br></pre></td></tr></table></figure>
+<p><strong>cat命令</strong>：只读地查看文件内容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cat [参数] 文件名</span></span><br><span class="line"><span class="built_in">cat</span> demo.txt <span class="comment"># 查看demo.txt的内容</span></span><br><span class="line"><span class="built_in">cat</span> -n demo.txt <span class="comment"># 查看文件时显示行号</span></span><br></pre></td></tr></table></figure>
+<p><strong>more命令</strong>：基于vi编辑器的文本过滤器，以全屏方式按页显示文件内容，适合阅读长内容的文本</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">快捷键</th>
+<th style="text-align:center">具体功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">空格(space)</td>
+<td style="text-align:center">向下翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">Enter</td>
+<td style="text-align:center">向下翻一行</td>
+</tr>
+<tr>
+<td style="text-align:center">q</td>
+<td style="text-align:center">退出</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+F</td>
+<td style="text-align:center">向下滚动一屏</td>
+</tr>
+<tr>
+<td style="text-align:center">Ctrl+B</td>
+<td style="text-align:center">返回上一屏</td>
+</tr>
+<tr>
+<td style="text-align:center">=</td>
+<td style="text-align:center">输出当前行行号</td>
+</tr>
+<tr>
+<td style="text-align:center">:f</td>
+<td style="text-align:center">输出文件名和行号</td>
+</tr>
+</tbody>
+</table>
+<p><strong>less命令</strong>： 来分屏查看文件内容，与<strong>more命令</strong>类似，但功能更加强大。能根据显示需要加载文件内容，而不是一次性加载，对于显示大型文件有较高的效率</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">快捷键</th>
+<th style="text-align:center">具体功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">空格(space)</td>
+<td style="text-align:center">向下翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">[pagedown]</td>
+<td style="text-align:center">向下翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">[pageup]</td>
+<td style="text-align:center">向上翻一页</td>
+</tr>
+<tr>
+<td style="text-align:center">/字串</td>
+<td style="text-align:center">向下搜寻字串 n向下 N向上</td>
+</tr>
+<tr>
+<td style="text-align:center">?字串</td>
+<td style="text-align:center">向上搜寻字串 n向上 N向下</td>
+</tr>
+<tr>
+<td style="text-align:center">q</td>
+<td style="text-align:center">退出</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&gt;指令</strong>：输出重定向，会覆盖文件的内容</p>
+<p><strong>&gt;&gt;指令</strong>：追加内容到文件尾部，不会覆盖文件的内容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> &gt; info.txt <span class="comment"># 将当前目录的信息写入info.txt</span></span><br><span class="line"><span class="built_in">ls</span> -l &gt; info.txt <span class="comment"># 覆盖info.txt的内容为列表形式的目录信息</span></span><br><span class="line"><span class="built_in">ls</span> &gt;&gt; info.txt <span class="comment"># 将目录信息追加到文件末尾</span></span><br></pre></td></tr></table></figure>
+<p><strong>echo命令</strong>：输出内容到控制台，可与**&gt;指令或&gt;&gt;指令**组合使用</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># echo [参数] [字符串]</span></span><br><span class="line"><span class="built_in">echo</span> hello world <span class="comment"># 输出hello world到控制台</span></span><br><span class="line"><span class="built_in">echo</span> happy &gt;&gt; info.txt <span class="comment"># 此时控制台不会输出内容，内容追加到info.txt中，具体内容可以自定义</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span> <span class="comment"># 获取PATH变量，PATH是原本就存在于Linux下的环境变量</span></span><br></pre></td></tr></table></figure>
+<p><strong>head命令</strong>：查看文件前n行内容，n默认为10</p>
+<p><strong>tail命令</strong>：查看文件后n行内容，n默认为10</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># head [参数] [行数] 文件名</span></span><br><span class="line"><span class="built_in">head</span> info.txt <span class="comment"># 查看info.txt的前10行内容</span></span><br><span class="line"><span class="built_in">head</span> -n 3 info.txt <span class="comment"># 查看info.txt的前3行内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># tail [参数] [行数] 文件名</span></span><br><span class="line"><span class="built_in">tail</span> info.txt <span class="comment"># 查看info.txt的后10行内容</span></span><br><span class="line"><span class="built_in">tail</span> -n 3 info.txt <span class="comment"># 查看info.txt的后3行内容</span></span><br></pre></td></tr></table></figure>
+<p><strong>ln命令</strong>：给源文件创建一个<strong>软链接</strong>。软链接也称符号链接，类似于快捷方式，主要存放了链接其他文件的路径。可以通过ln命令<strong>软链接的方式</strong>设置<strong>全局</strong>环境变量（这是一种方式）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ln -s 源文件路径 目标路径</span></span><br><span class="line"><span class="built_in">ln</span> -s info.txt <span class="built_in">test</span>/ <span class="comment"># 将info.txt软链接到同级的test目录下</span></span><br></pre></td></tr></table></figure>
+<h5 id="时间日期命令"><a class="markdownIt-Anchor" href="#时间日期命令"></a> 时间日期命令</h5>
+<p><strong>date命令</strong>：显示或设定系统的日期和时间</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># date [参数] [格式]</span></span><br><span class="line"><span class="built_in">date</span> <span class="comment"># 显示当前系统时间</span></span><br><span class="line"><span class="built_in">date</span> -u <span class="comment"># 显示UTC时间</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;+1 day&quot;</span> +%Y%m%d <span class="comment"># 显示后一天的日期</span></span><br><span class="line"><span class="built_in">date</span> -d <span class="string">&quot;-1 month&quot;</span> +%Y%m%d <span class="comment"># 显示上一月的日期</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">date</span> -s <span class="string">&quot;2022-11-18 06:30:00&quot;</span> <span class="comment"># 设置系统时间为2022年11月18日 6时30分0秒，重启系统后会失效</span></span><br></pre></td></tr></table></figure>
+<p><strong>cal命令</strong>：显示月历，需要手动安装命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt install ncal <span class="comment"># 安装命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cal [参数] [月份] [年份]</span></span><br><span class="line">cal <span class="comment"># 查看本月月历</span></span><br><span class="line">cal 12 2022 <span class="comment"># 查看2022年12月月历</span></span><br></pre></td></tr></table></figure>
+<h5 id="搜索查找命令"><a class="markdownIt-Anchor" href="#搜索查找命令"></a> 搜索查找命令</h5>
+<p><strong>find命令</strong>：从指定目录向下递归地遍历各个子目录，将满足条件的文件或目录显示在终端</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># find [搜索范围] [参数] ...</span></span><br><span class="line">find . -name <span class="string">&quot;*.txt&quot;</span> <span class="comment"># 查找当前目录及子目录下文件名后缀为txt的文件</span></span><br><span class="line">find . -<span class="built_in">type</span> f <span class="comment"># 查找当前目录及子目录下普通类型的文件</span></span><br><span class="line">find . -user root <span class="comment"># 查找当前目录及子目录下属于root用户的文件</span></span><br><span class="line">find . -size 0 <span class="comment"># 查找当前目录及子目录下长度为0的文件</span></span><br></pre></td></tr></table></figure>
+<p><strong>locate命令</strong>：可以快速定位文件路径，需要手动安装命令。利用事先建立的包含系统中所有文件名称路径的locate数据库实现快速定位，无需遍历整个文件夹，查询速度较快。</p>
+<p>locate数据库不是实时更新的(默认情况下每天自动更新一次)，无法查询当天新建的文件，但可以手动更新locate数据库</p>
+<p><font color='red'>注意：测试命令需要新建文件时，记得随时手动更新locate数据库</font></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt install plocate <span class="comment"># 安装命令</span></span><br><span class="line">updatedb <span class="comment"># 手动更新locate数据库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># locate [参数] [文件名]</span></span><br><span class="line">locate passwd <span class="comment"># 查找passwd文件</span></span><br><span class="line">locate /etc/sh <span class="comment"># 查找etc目录下所有以sh开头的文件</span></span><br><span class="line">locate -n 2 passwd <span class="comment"># 最多显示2个输出</span></span><br><span class="line">locate -i ~/r <span class="comment"># 忽略大小写查找当前用户目录下r开头的文件</span></span><br></pre></td></tr></table></figure>
+<p><strong>grep命令</strong>：在指定文件里查找指定的内容</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># grep [内容] [文件名]</span></span><br><span class="line">grep root info.txt <span class="comment"># 在info.txt里查找root字符所在的行并输出到控制台</span></span><br><span class="line">grep -n root info.txt <span class="comment"># 显示在完整文本中对应匹配的行号</span></span><br><span class="line">grep -i root info.txt <span class="comment"># 忽略大小写进行查找</span></span><br></pre></td></tr></table></figure>
+<h5 id="压缩与解压命令"><a class="markdownIt-Anchor" href="#压缩与解压命令"></a> 压缩与解压命令</h5>
+<p><strong>gzip命令</strong>：压缩文件，格式只能为*.gz，它的设计目标是为了处理单个文件</p>
+<p><strong>gunzip命令</strong>：解压文件，只能解压*.gz后缀的文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># gzip 文件</span></span><br><span class="line">gzip info.txt <span class="comment"># 压缩info.txt文件为info.txt.gz文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># gunzip 文件</span></span><br><span class="line">gunzip info.txt.gz <span class="comment"># 解压info.txt.gz文件为info.txt文件</span></span><br></pre></td></tr></table></figure>
+<p><strong>zip命令</strong>：压缩文件和目录，适用于多个文件和目录</p>
+<p><strong>unzip命令</strong>：解压文件和目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># zip [参数] 文件名.zip 要压缩的文件名</span></span><br><span class="line">zip info.zip info.txt <span class="comment"># 将info.txt压缩到info.zip中</span></span><br><span class="line">zip -r test.zip <span class="built_in">test</span>/ <span class="comment"># 将test目录下所有文件和子目录递归压缩，用于处理多文件多目录的压缩</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># unzip [参数] 文件名.zip</span></span><br><span class="line">unzip test.zip <span class="comment"># 直接解压test.zip</span></span><br><span class="line">unzip -d beta/ test.zip <span class="comment"># 指定解压test.zip到同级的beta目录下 </span></span><br></pre></td></tr></table></figure>
+<p><strong>tar命令</strong>：打包目录或解包tar文件，并且能附加压缩和解压功能</p>
+<p>注意：打包和压缩包不是一个概念，解包和解压也不是</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># tar 必填参数[选填参数] 打包文件名 源文件名</span></span><br><span class="line">tar -cvf info.tar info.txt <span class="comment"># 打包info.txt到info.tar中</span></span><br><span class="line">tar -zcvf info.tar.gz info.txt <span class="comment"># 打包的同时使用gzip进行压缩</span></span><br><span class="line"></span><br><span class="line">tar -xvf info.tar <span class="comment"># 解包info.tar</span></span><br><span class="line">tar -zxvf info.tar.gz <span class="comment"># 解压并解包info.tar.gz</span></span><br><span class="line"></span><br><span class="line">tar -tvf info.tar <span class="comment"># 不解压，仅查看包中的文件信息</span></span><br><span class="line"><span class="comment"># 指定解包到哪个目录</span></span><br><span class="line">tar -xvf info.tar -C /tmp <span class="comment"># 解包到tmp目录下</span></span><br></pre></td></tr></table></figure>
+<h5 id="路由表命令"><a class="markdownIt-Anchor" href="#路由表命令"></a> 路由表命令</h5>
+<p><strong>route命令</strong>： 显示和操作IP路由表</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># route [参数]</span></span><br><span class="line">route <span class="comment"># 查看路由表</span></span><br><span class="line">route -n <span class="comment"># 不解析名字</span></span><br></pre></td></tr></table></figure>
+<h5 id="文本操作命令"><a class="markdownIt-Anchor" href="#文本操作命令"></a> 文本操作命令</h5>
+<p><strong>sed命令</strong>：能够在不打开文件的情况下处理、编辑文本文件， 主要用来自动编辑一个或多个文件、简化对文件的反复操作、编写转换程序等</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sed [参数] 文件名</span></span><br><span class="line">sed -e <span class="string">&#x27;s/-/*/g&#x27;</span> info.txt &gt;&gt; info.txt <span class="comment"># 将info.txt中所有的字符-替换为*，并应用修改到info.txt中</span></span><br></pre></td></tr></table></figure>
+<h4 id="组管理与权限管理"><a class="markdownIt-Anchor" href="#组管理与权限管理"></a> 组管理与权限管理</h4>
+<h5 id="组管理"><a class="markdownIt-Anchor" href="#组管理"></a> 组管理</h5>
+<p>在linux中的每个用户必须属于一个组，不能独立于组外</p>
+<p>在linux中每个文件有所有者、所在组、其它组的概念</p>
+<p>文件的所有者就是创建该文件的用户</p>
+<p>除文件的所有者和所在组的用户外，系统的其它用户都是文件的其它组</p>
+<p>提示：<strong>查看文件权限、所有者等信息</strong>可以使用<strong>ls -l 指定的文件名</strong>实现；<strong>查看用户相关信息</strong>可以使用<strong>id 指定的用户名</strong>实现</p>
+<h5 id="基本命令-2"><a class="markdownIt-Anchor" href="#基本命令-2"></a> 基本命令</h5>
+<p><strong>chown命令</strong>：修改文件所有者，但不改变组</p>
+<p><strong>chgrp命令</strong>：修改文件所在组</p>
+<p><strong>usermod命令</strong>：改变用户所在组</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># chown 用户名 文件名</span></span><br><span class="line"><span class="built_in">chown</span> common info.txt <span class="comment"># info.txt所有者改为common用户</span></span><br><span class="line"><span class="built_in">ls</span> -l info.txt <span class="comment"># 查看info.txt的信息</span></span><br><span class="line"><span class="comment"># chgrp 组名 文件名</span></span><br><span class="line"><span class="built_in">chgrp</span> common info.txt <span class="comment"># info.txt所在组改为common组</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># usermod -g 组名 用户名</span></span><br><span class="line">usermod -g ok common <span class="comment"># common用户所在组改为ok组</span></span><br><span class="line"><span class="built_in">id</span> common <span class="comment"># 查看common用户的信息</span></span><br></pre></td></tr></table></figure>
+<h5 id="权限管理"><a class="markdownIt-Anchor" href="#权限管理"></a> 权限管理</h5>
+<p>文件权限内容，通过ls -l 指定文件名查看</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 一个示例</span></span><br><span class="line">-rw-r--r-- 1 root root 320 11月 18 17:49 info.txt</span><br></pre></td></tr></table></figure>
+<p><strong>-rw-r–r--解读</strong>(下标从0开始)</p>
+<ol>
+<li>第0位确定文件类型(d, - , l , c , b)</li>
+<li>第1-3位确定所有者（该文件的所有者）拥有该文件的权限</li>
+<li>第4-6位确定所属组（同用户组的）拥有该文件的权限</li>
+<li>第7-9位确定其他用户拥有该文件的权限</li>
+</ol>
+<p><strong>rwx权限说明</strong></p>
+<ol>
+<li>
+<p>r表示可读read</p>
+</li>
+<li>
+<p>w表示可写write</p>
+</li>
+<li>
+<p>x表示可执行execute</p>
+</li>
+<li>
+<p>对于文件来说</p>
+<ul>
+<li>
+<p>r表示可以读取查看文件</p>
+</li>
+<li>
+<p>w表示可以修改，但不能删除文件，删除一个文件必须拥有父文件夹的rwx权限(存在一个特例，在提前知道目录里的具体内容的情况下，手动指定对应的完整文件名进行删除)</p>
+</li>
+<li>
+<p>x表示文件可执行</p>
+</li>
+</ul>
+</li>
+<li>
+<p>对于目录来说</p>
+<ul>
+<li>r表示可以读取，查看目录内容</li>
+<li>w表示可修改，<strong>目录内</strong>创建+删除+重命名目录</li>
+<li>x表示可以进入该目录</li>
+</ul>
+</li>
+</ol>
+<h5 id="基本命令-3"><a class="markdownIt-Anchor" href="#基本命令-3"></a> 基本命令</h5>
+<p><strong>chmod命令</strong>：修改文件或目录的权限</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 参数</span></span><br><span class="line"><span class="comment"># u:所有者 g:使用组 o:其他人 a:所有人</span></span><br><span class="line"><span class="comment"># +:添加权限 -:删除权限 =:设置权限</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> a=--- info.txt <span class="comment"># 取消所有人对info.txt的rwx权限</span></span><br><span class="line"><span class="built_in">chmod</span> u=rwx,g=rw-,o=r info.txt</span><br><span class="line"><span class="built_in">chmod</span> g+x,o-r info.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过rwx权限对应的数字设置权限</span></span><br><span class="line"><span class="comment"># r=4 w=2 x=1  rwx=4+2+1=7</span></span><br><span class="line"><span class="built_in">chmod</span> 611 info.txt</span><br></pre></td></tr></table></figure>
+<h4 id="进程管理"><a class="markdownIt-Anchor" href="#进程管理"></a> 进程管理</h4>
+<p>在linux中，每个执行的程序（代码）都称为一个进程。每一个进程都分配一个 ID 号</p>
+<p>每一个进程，都会对应一个父进程，而这个父进程可以复制多个子进程</p>
+<p>每个进程都可能以两种方式存在的：前台与后台</p>
+<p>一般系统的服务都是以后台进程的方式存在，而且都会常驻在系统中，直到关机</p>
+<h5 id="fg和bg命令进程前后台调度命令"><a class="markdownIt-Anchor" href="#fg和bg命令进程前后台调度命令"></a> fg和bg命令：进程前后台调度命令</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在前台结束一个进程</span></span><br><span class="line">Control+c</span><br><span class="line"><span class="comment"># 在前台暂停一个进程</span></span><br><span class="line">Control+z</span><br><span class="line"><span class="comment"># 查看后台执行进程的进程号</span></span><br><span class="line"><span class="built_in">jobs</span></span><br><span class="line"><span class="comment"># 运行命令时，在命令末尾加上&amp;可让命令在后台执行</span></span><br><span class="line">&amp;</span><br><span class="line"><span class="comment"># 将命令进程号码为N的命令进程放到前台执行</span></span><br><span class="line"><span class="built_in">fg</span> N</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">%N</span><br><span class="line"><span class="comment"># 将命令进程号码为N的命令进程放到后台执行</span></span><br><span class="line"><span class="built_in">bg</span> N</span><br></pre></td></tr></table></figure>
+<h5 id="ps命令查看系统进程"><a class="markdownIt-Anchor" href="#ps命令查看系统进程"></a> ps命令查看系统进程</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ps [参数]</span></span><br><span class="line">ps -a <span class="comment"># 显示当前终端的所有进程信息</span></span><br><span class="line">ps -u <span class="comment"># 以用户的格式显示进程信息</span></span><br><span class="line">ps -x <span class="comment"># 显示后台进程运行的参数</span></span><br></pre></td></tr></table></figure>
+<h5 id="kill命令终止进程"><a class="markdownIt-Anchor" href="#kill命令终止进程"></a> kill命令终止进程</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># kill [参数] 进程号PID</span></span><br><span class="line"><span class="comment"># 参数(基本都使用9)</span></span><br><span class="line"><span class="comment"># 1:重新加载 9:强制停止 15:正常停止</span></span><br><span class="line"><span class="comment"># kill命令需要与ps命令配合使用</span></span><br><span class="line"><span class="built_in">kill</span> -9 9899 <span class="comment"># 9899是通过ps获取的PID号，强制停止9899的进程</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># killall命令能终止指定名称的所有进程，适合系统负载过大时使用</span></span><br><span class="line"><span class="comment"># killall -9 进程名称</span></span><br></pre></td></tr></table></figure>
+<h5 id="pstree命令查看进程信息"><a class="markdownIt-Anchor" href="#pstree命令查看进程信息"></a> pstree命令查看进程信息</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># pstree [参数]</span></span><br><span class="line"><span class="comment"># pstree相对ps可以更直观地查看进程信息</span></span><br><span class="line">pstree -p <span class="comment"># 额外显示进程的PID</span></span><br><span class="line">pstree -u <span class="comment"># 额外显示进程的所属用户</span></span><br></pre></td></tr></table></figure>
+<h5 id="service命令操作进程后台服务"><a class="markdownIt-Anchor" href="#service命令操作进程后台服务"></a> service命令操作进程（后台服务）</h5>
+<p>服务(service) 本质就是进程，但是是<strong>运行在后台的一个特殊进程</strong>。这个特殊进程通常都会监听某个端口等待其它程序的请求，比如(mysql , sshd 防火墙等)。因此这个进程又称为<strong>守护进程</strong>。</p>
+<p><strong>telnet命令</strong>可以用于远程登录主机，也可以测试某个端口</p>
+<p><strong>查看服务</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chkconfig --list | grep 8989 <span class="comment"># 该命令已被弃用</span></span><br></pre></td></tr></table></figure>
+<p><strong>top命令持续监听运行状态</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># top [参数]</span></span><br><span class="line"><span class="comment"># 参数</span></span><br><span class="line"><span class="comment"># -d 秒数:指定每隔几秒更新，默认3秒</span></span><br><span class="line"><span class="comment"># -i:不显示任何闲置或僵死进程</span></span><br><span class="line"><span class="comment"># -p 进程PID:监控指定的PID的进程状态</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># top命令会进入一个交互页面，可以通过以下操作进行交互</span></span><br><span class="line"><span class="comment"># P:以CPU使用率排序，默认</span></span><br><span class="line"><span class="comment"># M:以内存的使用率排序</span></span><br><span class="line"><span class="comment"># N:以PID排序</span></span><br><span class="line"><span class="comment"># q:退出top交互页面</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -4691,518 +4984,225 @@
       </tags>
   </entry>
   <entry>
-    <title>Go 语言内存管理详解</title>
-    <url>/2023/01/30/golang-day4/</url>
-    <content><![CDATA[<p>本文已收录到<a href="https://juejin.cn/post/7194838118955450428">Go 语言内存管理详解 | 青训营笔记 - 掘金 (juejin.cn)</a>，主要记录了对golang内存管理的学习<span id="more"></span></p>
-<h2 id="内存管理详解"><a class="markdownIt-Anchor" href="#内存管理详解"></a> 内存管理详解</h2>
-<h3 id="追求极致性能"><a class="markdownIt-Anchor" href="#追求极致性能"></a> 追求极致性能</h3>
-<p>性能优化：提升软件系统处理能力，减少不必要的消耗，充分发掘计算机算力。</p>
-<p>性能优化的目的</p>
-<ul>
-<li>用户体验：带来用户体验的提升</li>
-<li>资源高效利用：降低成本。提高效率</li>
-</ul>
-<h3 id="性能优化的层面"><a class="markdownIt-Anchor" href="#性能优化的层面"></a> 性能优化的层面</h3>
-<ul>
-<li>业务层优化
-<ul>
-<li>针对特定场景，具体问题具体分析</li>
-<li>容易获得较大性能收益</li>
-</ul>
-</li>
-<li>语言运行时优化
-<ul>
-<li>解决更通用的性能问题</li>
-<li>考虑更多场景</li>
-<li>Tradeoffs权衡</li>
-</ul>
-</li>
-<li>数据驱动
-<ul>
-<li>自动化性能分析工具——pprof</li>
-<li>依靠数据而非猜测</li>
-<li>首先优化最大瓶颈</li>
-</ul>
-</li>
-</ul>
-<h3 id="性能优化与软件质量"><a class="markdownIt-Anchor" href="#性能优化与软件质量"></a> 性能优化与软件质量</h3>
-<ul>
-<li>软件质量至关重要</li>
-<li>在保证接口稳定的前提下改进具体实现</li>
-<li>测试用例：覆盖尽可能多的场景，方便回归</li>
-<li>文档：做了什么，没做什么，能达到怎样的效果</li>
-<li>隔离：通过选项控制是否开启优化</li>
-<li>可观测：必要的日志输出</li>
-</ul>
-<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
-<ul>
-<li>性能优化的基本问题</li>
-<li>性能优化的两个层面</li>
-<li>性能优化的可维护性</li>
-</ul>
-<h3 id="1自动内存管理"><a class="markdownIt-Anchor" href="#1自动内存管理"></a> 1.自动内存管理</h3>
-<h4 id="11-自动内存管理"><a class="markdownIt-Anchor" href="#11-自动内存管理"></a> 1.1 自动内存管理</h4>
-<ul>
-<li>动态内存
-<ul>
-<li>程序在运行时根据需求动态分配的内存：malloc()</li>
-</ul>
-</li>
-<li>自动内存管理（垃圾回收）：由程序语言的运行时系统管理动态内存
-<ul>
-<li>避免手动内存管理，专注于实现业务逻辑</li>
-<li>保证内存使用的正确性和安全性：double-free problem，use-after-free problem</li>
-</ul>
-</li>
-<li>三个任务
-<ul>
-<li>为新对象分配空间</li>
-<li>找到存活对象</li>
-<li>回收死亡对象的内存空间</li>
-</ul>
-</li>
-</ul>
-<p><strong>相关概念</strong></p>
-<ul>
-<li>
-<p>Mutator：业务线程，分配新对象，修改对象的指向关系</p>
-</li>
-<li>
-<p>Collector：GC线程，找到存活对象，回收死亡对象的内存空间</p>
-</li>
-<li>
-<p>Serial GC：只有一个collector</p>
-</li>
-<li>
-<p>Parallel GC：支持多个collector同时回收的GC算法</p>
-</li>
-<li>
-<p>Concurrent GC：mutator(s)和collector(s)可以同时执行</p>
-</li>
-<li>
-<p>Collectors必须感知对象指向关系的改变</p>
-</li>
-<li>
-<p>评价GC算法</p>
-<ul>
-<li>安全性（Safety）：不能回收存活的对象。这是基本要求</li>
-<li>吞吐率（Throughput）：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mo>−</mo><mfrac><mrow><mi>G</mi><mi>C</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">间</mi></mrow><mrow><mi mathvariant="normal">程</mi><mi mathvariant="normal">序</mi><mi mathvariant="normal">执</mi><mi mathvariant="normal">行</mi><mi mathvariant="normal">总</mi><mi mathvariant="normal">时</mi><mi mathvariant="normal">间</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">1-\frac {GC时间}{程序执行总时间}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">程</span><span class="mord cjk_fallback mtight">序</span><span class="mord cjk_fallback mtight">执</span><span class="mord cjk_fallback mtight">行</span><span class="mord cjk_fallback mtight">总</span><span class="mord cjk_fallback mtight">时</span><span class="mord cjk_fallback mtight">间</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">G</span><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord cjk_fallback mtight">时</span><span class="mord cjk_fallback mtight">间</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。花在GC上的时间</li>
-<li>暂停时间（Pause time）：stop the world（STW）。业务是否感知</li>
-<li>内存开销（Space overhead）：GC元数据开销</li>
-</ul>
-</li>
-<li>
-<p>追踪垃圾回收（Tracing garbage collection）</p>
-</li>
-<li>
-<p>引用计数（Reference counting）</p>
-</li>
-</ul>
-<h4 id="12-追踪垃圾回收"><a class="markdownIt-Anchor" href="#12-追踪垃圾回收"></a> 1.2 追踪垃圾回收</h4>
-<ul>
-<li>
-<p>对象被回收的条件：指针指向关系不可达的对象</p>
-</li>
-<li>
-<p>标记根对象</p>
-<ul>
-<li>静态变量、全局变量、常量、线程栈等</li>
-</ul>
-</li>
-<li>
-<p>标记：找到可达对象</p>
-<ul>
-<li>求指针指向关系的传递闭包：从根对象出发，找到所有可达对象</li>
-</ul>
-</li>
-<li>
-<p>清理：所有不可达对象</p>
-<ul>
-<li>
-<p>将存活对象复制到另外的内存空间（Copying GC）</p>
-<p>Copying GC：将对象复制到另外的内存空间</p>
-</li>
-<li>
-<p>将死亡对象的内存标记为“可分配”（Mark-sweep GC）</p>
-<p>Mark-sweep GC：使用free list管理空闲内存</p>
-</li>
-<li>
-<p>移动并整理存活对象（Mark-compact GC）</p>
-<p>Compact GC：原地整理对象</p>
-</li>
-</ul>
-</li>
-<li>
-<p>根据对象的生命周期，使用不同的标记和清理策略</p>
-</li>
-</ul>
-<h4 id="13-分代-gcgenerational-gc"><a class="markdownIt-Anchor" href="#13-分代-gcgenerational-gc"></a> 1.3 分代 GC（Generational GC）</h4>
-<ul>
-<li>分代假说（Generational hypothesis）：most objects die young</li>
-<li>Intuition：很多对象在分配出来后很快就不在使用了</li>
-<li>每个对象都有年龄：经历过GC的次数</li>
-<li>目的：对年轻和年老的对象，制定不同的GC策略，降低整体内存管理的开销</li>
-<li>不同年龄的对象处于heap的不同区域</li>
-<li>年轻代（Young generation）
-<ul>
-<li>常规的对象分配</li>
-<li>由于存活对象很少，可以采用copying collection</li>
-<li>GC吞吐率很高</li>
-</ul>
-</li>
-<li>老年代（Old generation）
-<ul>
-<li>对象趋向一直活着，反复复制开销较大</li>
-<li>可以采用mark-sweep collection</li>
-</ul>
-</li>
-</ul>
-<h4 id="14-引用计数"><a class="markdownIt-Anchor" href="#14-引用计数"></a> 1.4 引用计数</h4>
-<ul>
-<li>每个对象都有一个与之关联的引用数目</li>
-<li>对象存活的条件：当且仅当引用数大于0</li>
-<li>优点
-<ul>
-<li>内存管理的操作被平摊到程序执行过程中</li>
-<li>内存管理不需要了解runtime的实现细节：C++智能指针（smart pointer）</li>
-</ul>
-</li>
-<li>缺点
-<ul>
-<li>维护引用计数的开销较大：通过原子操作保证对引用计数操作的原子性和可见性</li>
-<li>无法回收环形数据结构——weak reference</li>
-<li>内存开销：每个对象都引入的额外内存空间存储引用数目</li>
-<li>回收内存时依然可能引发暂停</li>
-</ul>
-</li>
-</ul>
-<h4 id="总结-2"><a class="markdownIt-Anchor" href="#总结-2"></a> 总结</h4>
-<ul>
-<li>自动内存管理的背景和意义</li>
-<li>概念和评价方法</li>
-<li>追踪垃圾回收</li>
-<li>引用计数</li>
-<li>分代 GC</li>
-<li>学术界和工业界一直致力于解决自动内存管理技术的不足之处
-<ul>
-<li>相关信息<a href="https://pldi22.sigplan.org/details/pldi-2022-pldi/15/Low-Latency-High-Throughput-Garbage-Collection">Low-Latency, High-Throughput Garbage Collection (PLDI 2022 - PLDI Research Papers) </a></li>
-<li>相关介绍<a href="https://zhuanlan.zhihu.com/p/525093935">PLDI’22 | June 13-17，编程语言顶级会议</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2go管理及优化"><a class="markdownIt-Anchor" href="#2go管理及优化"></a> 2.Go管理及优化</h3>
-<h4 id="21-go-内存分配"><a class="markdownIt-Anchor" href="#21-go-内存分配"></a> 2.1 Go 内存分配</h4>
-<p><strong>分块</strong></p>
-<ul>
-<li>目标：为对象在heap上分配内存</li>
-<li>提前将内存分块
-<ul>
-<li>调用系统调用 mmap() 向OS申请一大块内存，例如 4 MB</li>
-<li>先将内存划分成大块，例如 8 KB，称作 mspan</li>
-<li>再将大块继续划分成特定大小的小块，用于对象分配</li>
-<li>noscan mspan：分配不包含指针的对象——GC 不需要扫描</li>
-<li>scan mspan：分配包含指针的对象——GC 需要扫描</li>
-</ul>
-</li>
-<li>对象分配：根据对象的大小，选择最合适的块返回</li>
-</ul>
-<p><strong>缓存</strong></p>
-<ul>
-<li>TCMalloc：thread caching</li>
-<li>每个 p 包含一个 mcache 用于快速分配，用于为绑定于 p 上的 g 分配对象</li>
-<li>mcache 管理一组 mspan</li>
-<li>当 mcache 中的 mspan 分配完毕，向 mcentral 申请带有未分配块的 mspan</li>
-<li>当 mspan 中没有分配的对象，mspan 会被缓存在 mcentral 中，而不是立刻释放并归还给 OS</li>
-</ul>
-<h4 id="22-go-内存管理优化"><a class="markdownIt-Anchor" href="#22-go-内存管理优化"></a> 2.2 Go 内存管理优化</h4>
-<ul>
-<li>对象分配是非常高频的操作：每秒分配 GB 级别的内存</li>
-<li>小对象占比较高</li>
-<li>Go 内存分配比较耗时
-<ul>
-<li>分配路径长：g -&gt; m -&gt; p -&gt; mcache -&gt; mspan -&gt; memory block -&gt; return pointer</li>
-<li>pprof：对象分配的函数是最频繁调用的函数之一</li>
-</ul>
-</li>
-</ul>
-<h4 id="23-优化方案balanced-gc"><a class="markdownIt-Anchor" href="#23-优化方案balanced-gc"></a> 2.3 优化方案：Balanced GC</h4>
-<ul>
-<li>
-<p>每个 g 都绑定一大块内存（1KB），称作 goroutine allocation buffer（GAB）</p>
-</li>
-<li>
-<p>GAB 用于 noscan 类型的小对象分配：&lt; 128 B</p>
-</li>
-<li>
-<p>使用三个指针维护 GAB：base，end，top</p>
-</li>
-<li>
-<p>Bump pointer（指针碰撞）风格对象分配</p>
-<ul>
-<li>无须和其他分配请求互斥</li>
-<li>分配动作简单高效</li>
-</ul>
-</li>
-<li>
-<p>GAB 对于 Go 内存管理来说是一个大对象</p>
-</li>
-<li>
-<p>本质：将多个小对象的分配合并成一次大对象的分配</p>
-</li>
-<li>
-<p>问题：GAB的对象分配方式会导致内存被延迟释放</p>
-</li>
-<li>
-<p>方案：移动 GAB 中存活的对象</p>
-<ul>
-<li>当 GAB 总大小超过一定阈值时，将 GAB 中存活的对象复制到另外分配的 GAB 中</li>
-<li>原先的 GAB 可以释放，避免内存泄漏</li>
-<li>本质：用 copying GC 的算法管理小对象。根据对象的生命周期，使用不同的标记和清理策略。</li>
-</ul>
-</li>
-</ul>
-<p><strong>性能收益</strong>（数据仅供参考）</p>
-<ul>
-<li>高峰期 CPU usage 降低 4.6%，核心接口时延下降 4.5%~7.7%</li>
-</ul>
-<h4 id="总结-3"><a class="markdownIt-Anchor" href="#总结-3"></a> 总结</h4>
-<ul>
-<li>Go 内存管理 — 分块</li>
-<li>Go 内存管理 — 缓存</li>
-<li>Go 对象分配的性能问题
-<ul>
-<li>分配路径过长</li>
-<li>小对象居多</li>
-</ul>
-</li>
-<li>Balanced GC
-<ul>
-<li>指针碰撞风格的对象分配</li>
-<li>实现了 copying GC</li>
-<li>性能收益</li>
-</ul>
-</li>
-</ul>
-<h3 id="3编译器和静态分析"><a class="markdownIt-Anchor" href="#3编译器和静态分析"></a> 3.编译器和静态分析</h3>
-<h4 id="31-编译器的结构"><a class="markdownIt-Anchor" href="#31-编译器的结构"></a> 3.1 编译器的结构</h4>
-<ul>
-<li>重要的软件系统
-<ul>
-<li>识别符号语法和非法的程序</li>
-<li>生成正确且高效的代码</li>
-</ul>
-</li>
-<li>分析部分（前端 front end）
-<ul>
-<li>词法分析，生成词素（lexeme）</li>
-<li>语法分析，生成语法树</li>
-<li>语义分析，收集类型信息，进行语义检查</li>
-<li>中间代码生成，生成intermediate representation（IR）</li>
-</ul>
-</li>
-<li>综合部分（后端 back end）
-<ul>
-<li>代码优化，机器无关优化，生成优化后的 IR</li>
-<li>代码生成，生成目标代码</li>
-</ul>
-</li>
-</ul>
-<p>后端是优化重点，同时控制流和数据流分析是优化的基础。</p>
-<h4 id="32-静态分析"><a class="markdownIt-Anchor" href="#32-静态分析"></a> 3.2 静态分析</h4>
-<ul>
-<li>静态分析：不执行程序代码，推导程序的行为，分析程序的性质。</li>
-<li>控制流（Control flow）：程序执行的流程</li>
-<li>数据流（Data flow）：数据在控制流上的传递</li>
-<li>通过分析控制流和数据流，可以知道更多关于程序的性质（properties）</li>
-<li>根据这些性质优化代码</li>
-</ul>
-<h4 id="33-过程内分析和过程间分析"><a class="markdownIt-Anchor" href="#33-过程内分析和过程间分析"></a> 3.3 过程内分析和过程间分析</h4>
-<ul>
-<li>过程内分析（Intra-procedural analysis）
-<ul>
-<li>仅在函数内部进行分析</li>
-</ul>
-</li>
-<li>过程间分析
-<ul>
-<li>考虑函数调用时参数传递和返回值的数据流和控制流</li>
-</ul>
-</li>
-<li>过程间分析是个问题
-<ul>
-<li>需要通过数据流分析得知接口 i 的具体类型，才能知道有多个同名方法（比如<code>func (a *A) foo()</code>和<code>func (b *B) foo()</code>）存在时，接口 i 调用的是哪个<code>foo()</code></li>
-<li>根据接口的具体类型，产生了新的控制流，<code>i.foo()</code>，分析继续</li>
-<li>过程间分析需要同时分析控制流和数据流——联合求解，比较复杂</li>
-</ul>
-</li>
-</ul>
-<h4 id="总结-4"><a class="markdownIt-Anchor" href="#总结-4"></a> 总结</h4>
-<ul>
-<li>编译器的结构与编译的流程</li>
-<li>编译器后端优化</li>
-<li>数据流分析和控制流分析</li>
-<li>过程内分析和过程间分析</li>
-</ul>
-<h3 id="4go编译器优化"><a class="markdownIt-Anchor" href="#4go编译器优化"></a> 4.Go编译器优化</h3>
-<ul>
-<li>为什么做编译器优化
-<ul>
-<li>用户无感知，重新编译即可获得性能收益</li>
-<li>通用性优化</li>
-</ul>
-</li>
-<li>现状
-<ul>
-<li>采用的优化少</li>
-<li>编译时间较短，没有进行复杂的代码分析和优化</li>
-</ul>
-</li>
-<li>编译优化的思路
-<ul>
-<li>场景：面向后端长期执行任务</li>
-<li>Tradeoff：用编译时间换取更高效的机器码</li>
-</ul>
-</li>
-<li>Beast mode
-<ul>
-<li>函数内联分析</li>
-<li>逃逸分析</li>
-<li>默认栈大小调整</li>
-<li>边界检查消除</li>
-<li>循环展开</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<h4 id="41-函数内联inlining"><a class="markdownIt-Anchor" href="#41-函数内联inlining"></a> 4.1 函数内联（Inlining）</h4>
-<ul>
-<li>
-<p>内联：将被调用函数的函数体（callee）的副本替换到调用位置（caller）上，同时重写代码以反映参数的绑定</p>
-</li>
-<li>
-<p>优点</p>
-<ul>
-<li>消除函数调用开销，例如传递函数、保存寄存器等</li>
-<li>将过程间分析转化为过程内分析，帮助其他优化，例如逃逸分析</li>
-</ul>
-</li>
-<li>
-<p>函数内联对性能的影响程度——使用 micro-benchmark验证</p>
-<p>示例</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkInline</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	x := genInteger()</span><br><span class="line">	y := genInteger()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		addInline(x, y)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addInline</span><span class="params">(a, b <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkInlineDisabled</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	x := genInteger()</span><br><span class="line">	y := genInteger()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		addNoInline(x, y)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//go:noinline</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addNoInline</span><span class="params">(a, b <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">genInteger</span><span class="params">()</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	rand.Seed(time.Now().UnixNano())</span><br><span class="line">	<span class="keyword">return</span> rand.Intn(<span class="number">100</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意这里的<code>//go:noinline</code>是一种编译指示，<code>noinline</code>表示不要内联，固定写法。这种编译指示类似于C语言中的<code>#include</code>。</p>
-</li>
-<li>
-<p>使用 micro-benchmark快速验证和对比性能优化结果</p>
-<p>使用以下命令进行性能测试</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">test</span> -bench .</span><br></pre></td></tr></table></figure>
-</li>
-<li>
-<p>缺点</p>
-<ul>
-<li>函数体变大，instruction cache（icache）不友好</li>
-<li>编译生成的 Go 镜像变大</li>
-</ul>
-</li>
-<li>
-<p>函数内联在大多数情况下是正向优化</p>
-</li>
-<li>
-<p>内联策略</p>
-<ul>
-<li>调用和被函数的规模</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<h4 id="42-beast-mode"><a class="markdownIt-Anchor" href="#42-beast-mode"></a> 4.2 Beast Mode</h4>
-<ul>
-<li>Go 函数内联受到的限制较多
-<ul>
-<li>语言特性，例如 interface，defer等，限制了函数内联</li>
-<li>内联策略非常保守</li>
-</ul>
-</li>
-<li>Beast Mode：调整函数内联的策略，使更多函数被内联
-<ul>
-<li>降低函数调用的开销</li>
-<li>增加了其他优化的机会：逃逸分析</li>
-</ul>
-</li>
-<li>开销
-<ul>
-<li>Go 镜像增加约 10%</li>
-<li>编译时间增加</li>
-</ul>
-</li>
-</ul>
-<p><strong>性能收益</strong>（数据仅供参考）</p>
-<ul>
-<li>高峰期 CPU usage 降低 9%，时延降低 10%</li>
-<li>内存使用降低 3%</li>
-</ul>
-<h4 id="43-逃逸分析"><a class="markdownIt-Anchor" href="#43-逃逸分析"></a> 4.3 逃逸分析</h4>
-<p>逃逸分析：分析代码中指针的动态作用域，即指针在何处可以被访问</p>
-<ul>
-<li>大致思路
-<ul>
-<li>从对象分配处出发，沿着控制流，观察对象的数据流</li>
-<li>若发现指针 p 在当前作用域 s
-<ul>
-<li>作为参数传递给其他函数</li>
-<li>传递给全局变量</li>
-<li>传递给其他的 goroutine</li>
-<li>传递给已逃逸的指针指向的对象</li>
-</ul>
-</li>
-<li>则指针 p 指向的对象逃逸出 s，反之则没有逃逸出 s</li>
-</ul>
-</li>
-<li>Beast Mode：函数内联拓展了函数边界，更多对象不逃逸</li>
-<li>优化：未逃逸的对象可以在栈上分配
-<ul>
-<li>对象在栈上分配和回收很快：移动 sp</li>
-<li>减少在 heap 上的分配，降低 GC 负担</li>
-</ul>
-</li>
-</ul>
-<h4 id="总结-5"><a class="markdownIt-Anchor" href="#总结-5"></a> 总结</h4>
-<ul>
-<li>Go 编译器优化问题</li>
-<li>Beast Mode</li>
-<li>函数内联</li>
-<li>逃逸分析</li>
-<li>通过 micro-benchmark 快速验证性能优化</li>
-<li>性能收益</li>
-</ul>
-<h3 id="归纳"><a class="markdownIt-Anchor" href="#归纳"></a> 归纳</h3>
-<ul>
-<li>性能优化
-<ul>
-<li>自动内存管理</li>
-<li>Go 内存管理</li>
-<li>编译器与静态分析</li>
-<li>编译器优化</li>
-</ul>
-</li>
-<li>实践
-<ul>
-<li>Balanced GC 优化对象分配</li>
-<li>Beast Mode 提升代码性能</li>
-</ul>
-</li>
-<li>分析问题的方法与解决问题的思路，不仅适用于Go 语言，也适用于其他语言的优化</li>
-</ul>
-<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
-<p><a href="https://juejin.cn/post/7189525739836801085/">【后端专场 学习资料二】第五届字节跳动青训营 - 掘金 (juejin.cn)</a></p>
-<p><a href="https://segmentfault.com/a/1190000016743220">Go 语言编译器的 “//go:” 详解 - Golang 攻略 - SegmentFault 思否</a></p>
+    <title>在linux终端显示系统信息</title>
+    <url>/2022/12/30/screenfetch-neofetch/</url>
+    <content><![CDATA[<p>在linux操作系统的桌面用户群体中, 一个能够打印linux发行版logo以及相关系统信息的命令, 一定程度上能够使不同用户的linux系统更加个性化。基于Ubuntu22.04LTS, 下面介绍两个相关命令<span id="more"></span></p>
+<h3 id="screenfetch命令"><a class="markdownIt-Anchor" href="#screenfetch命令"></a> screenfetch命令</h3>
+<h4 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install screenfetch</span><br></pre></td></tr></table></figure>
+<h4 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h4>
+<p>直接在终端输入以下命令即可</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">screenfetch</span><br></pre></td></tr></table></figure>
+<p>效果如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/screenfetch-202212300156995.png" alt="image-20221230014403780" /></p>
+<h4 id="可能出现的问题"><a class="markdownIt-Anchor" href="#可能出现的问题"></a> 可能出现的问题</h4>
+<p>Ubuntu22.04LTS直接使用screenfetch可能会出现操作数问题, 从而导致部分信息无法正确显示。可以根据提示信息找到对应脚本文件进行修改</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /usr/bin/screenfetch</span><br></pre></td></tr></table></figure>
+<p>找到提示的配置文件所在行</p>
+<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/screenfetch202212300215987.png" alt="image-20221230021511877" /></p>
+<p><strong>经过测试实际上是awk命令识别错误</strong></p>
+<p>使用free命令查看相关信息, 配合awk查看输出情况</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">free -b</span><br><span class="line">free -b | awk <span class="string">&#x27;&#123;print $1&quot;-&quot;$6&#125;&#x27;</span></span><br><span class="line">free -b | awk <span class="string">&#x27;&#123;print $2&quot;-&quot;$7&#125;&#x27;</span></span><br><span class="line">free -b | awk -F <span class="string">&#x27;:&#x27;</span> <span class="string">&#x27;NR==2&#123;print $1&#125;&#x27;</span> | awk <span class="string">&#x27;&#123;print $2&quot;-&quot;$7&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/screenfetch202212300228383.png" alt="image-20221230022845310" /></p>
+<p>修改脚本文件中的命令</p>
+<p>将原本的<code>free -b | awk -F ':' 'NR==2&#123;print $2&#125;' | awk '&#123;print $1&quot;-&quot;$6&#125;'</code>替换为<code>free -b | awk -F ':' 'NR==2&#123;print $1&#125;' | awk '&#123;print $2&quot;-&quot;$7&#125;'</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/screenfetch202212300256553.png" alt="image-20221230025640469" /></p>
+<p>重新运行screenfetch, 效果如下, 所有信息都能正常输出</p>
+<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/screenfetch202212300258212.png" alt="image-20221230025832144" /></p>
+<h3 id="neofetch命令"><a class="markdownIt-Anchor" href="#neofetch命令"></a> neofetch命令</h3>
+<p>neofetch相对于screenfetch可定制性更高, 推荐使用</p>
+<h4 id="安装-2"><a class="markdownIt-Anchor" href="#安装-2"></a> 安装</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install neofetch</span><br></pre></td></tr></table></figure>
+<h4 id="手动编译安装"><a class="markdownIt-Anchor" href="#手动编译安装"></a> 手动编译安装</h4>
+<p>从github克隆下来的源代码编译安装, 可使用最新版本的neofetch</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/dylanaraps/neofetch</span><br><span class="line"><span class="built_in">cd</span> neofetch</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h4 id="使用-2"><a class="markdownIt-Anchor" href="#使用-2"></a> 使用</h4>
+<p>直接在终端输入以下命令即可</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">neofetch</span><br></pre></td></tr></table></figure>
+<p>效果如下(这里我使用了kde环境)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/neofetch202212300318461.png" alt="image-20221230031810370" /></p>
+<p>注意neofetch默认不显示Disk信息, 可修改配置文件来显示Disk信息</p>
+<p>编辑配置文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim ~/.config/neofetch/config.conf</span><br></pre></td></tr></table></figure>
+<p>添加如下的Disk配置即可, 同理其它信息显示也可以通过类似配置实现输出</p>
+<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/neofetch202212300326391.png" alt="image-20221230032639272" /></p>
+<h4 id="其他用法"><a class="markdownIt-Anchor" href="#其他用法"></a> 其他用法</h4>
+<h5 id="显示另一个发行版的标志"><a class="markdownIt-Anchor" href="#显示另一个发行版的标志"></a> 显示另一个发行版的标志</h5>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># neofetch --ascii_distro distroname</span></span><br><span class="line">neofetch --ascii_distro <span class="built_in">arch</span></span><br><span class="line">neofetch --ascii_distro debian</span><br><span class="line"><span class="comment"># 在发行版名称后面加上后缀_small可输出对应发行版的迷你标志</span></span><br><span class="line">neofetch --ascii_distro arch_small</span><br><span class="line">neofetch --ascii_distro debian_small</span><br></pre></td></tr></table></figure>
+<p>效果如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/neofetch202212300335106.png" alt="image-20221230033519980" /></p>
+<h5 id="隐藏logo信息"><a class="markdownIt-Anchor" href="#隐藏logo信息"></a> 隐藏logo信息</h5>
+<p>只输出系统信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">neofetch --off</span><br></pre></td></tr></table></figure>
+<h5 id="隐藏系统信息"><a class="markdownIt-Anchor" href="#隐藏系统信息"></a> 隐藏系统信息</h5>
+<p>只输出logo信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">neofetch -l</span><br></pre></td></tr></table></figure>
+<h5 id="渐变色logo"><a class="markdownIt-Anchor" href="#渐变色logo"></a> 渐变色logo</h5>
+<p><strong>neofetch配合lolcat实现渐变色的logo</strong></p>
+<p>安装lolcat</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install lolcat</span><br></pre></td></tr></table></figure>
+<p>使用管道命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">neofetch | lolcat</span><br></pre></td></tr></table></figure>
+<h5 id="自定义图片logo"><a class="markdownIt-Anchor" href="#自定义图片logo"></a> 自定义图片logo</h5>
+<p><strong>neofetch配合w3m自定义图片作为logo在终端展示</strong></p>
+<p>安装w3m-img</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install w3m-img</span><br></pre></td></tr></table></figure>
+<p>测试一下能否显示图片</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">w3m www.baidu.com</span><br></pre></td></tr></table></figure>
+<p>添加图片路径, 否则默认为桌面壁纸</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">neofetch --w3m img/logo.png <span class="comment"># 图片路径根据实际情况编写</span></span><br></pre></td></tr></table></figure>
+<p>在这边的测试环境下w3m出现了一定的显示问题, 可仿照上述格式替换参数进行测试</p>
+<p>其它的显示图片参数caca、jp2a显示的是字符组成的logo, chafa显示的是低像素图, iterm2、sixel显示的是高像素图</p>
+<p><strong>注意: 测试环境为kde, 不同环境包括不同配置在终端展示的图片不一定具有同等效果, 且存在一定的瑕疵, 请根据实际情况进行配置</strong></p>
+<h4 id="默认终端启动时自动执行neofetch"><a class="markdownIt-Anchor" href="#默认终端启动时自动执行neofetch"></a> 默认终端启动时自动执行neofetch</h4>
+<p>查看shell配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/shells</span><br></pre></td></tr></table></figure>
+<p>根据实际配置修改对应配置文件, Ubuntu22.04LTS默认为bash, 另外还有zsh</p>
+<p>修改bash配置文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>修改zsh配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo vim ~/.zshrc</span><br></pre></td></tr></table></figure>
+<p>在文件末尾添加<strong>neofetch</strong>即可</p>
 ]]></content>
       <categories>
-        <category>golang</category>
+        <category>linux</category>
       </categories>
       <tags>
-        <tag>学习笔记</tag>
-        <tag>青训营</tag>
+        <tag>linux优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>后缀表达式</title>
+    <url>/2022/10/27/suffix-expression/</url>
+    <content><![CDATA[<h3 id="基于stl的中缀转后缀实现"><a class="markdownIt-Anchor" href="#基于stl的中缀转后缀实现"></a> 基于STL的中缀转后缀实现</h3>
+<h4 id="1定义分析"><a class="markdownIt-Anchor" href="#1定义分析"></a> 1.定义分析</h4>
+<p><strong>首先明确后缀表达式的定义</strong></p>
+<p>后缀表达式是一种不需要括号的表达式，这表示在将中缀表达式转化为后缀表达式时，如果中缀表达式中存在括号，<strong>不能将括号写入后缀表达式</strong><span id="more"></span></p>
+<p>那么这里引出一个问题，后缀表达式中不存在括号那要如何表示运算的优先级？</p>
+<p><strong>理解后缀表达式的运算过程</strong></p>
+<p>以(1+5-4)*(6-9)为例，它的后缀表达式是15+4-69-*</p>
+<p>先分析中缀表达式的运算过程，参与运算过程的操作符依次是+ - - *，正好是后缀表达式中从左往右的操作符顺序。而操作符所涉及到的2个操作数都是位于该操作符的前面。</p>
+<p>那么回到上面的问题来看，中缀表达式中的<strong>括号的作用如何在后缀表达式中体现出来</strong>？</p>
+<p>以1+2*3、(1+2)*3为例</p>
+<p>1+2*3的后缀表达式为123*+</p>
+<p>(1+2)*3的后缀表达式为12+3*</p>
+<p>通过对比可以发现当表达式中存在括号时，<strong>括号中的操作符提前输出</strong>了，这表示在遇到括号的情况时，可以将括号内的操作符提前输出。</p>
+<p><strong>此外，还需要考虑四则运算中，乘除的优先级高于加减</strong></p>
+<p>以1+2*3为例，如果不加以判断直接转化后缀表达式，结果为12+3*，先运算+再运算*，这显然违背了基本的四则运算法则，实际上正确的结果应该是123*+</p>
+<p>通过对比两个结果，可以发现优先级较低的操作符移到了后面，这表示在运算过程中可以<strong>先将优先级低的操作符存储起来</strong>，而将<strong>优先级高的运算符输出</strong>。</p>
+<h4 id="2思路分析"><a class="markdownIt-Anchor" href="#2思路分析"></a> 2.思路分析</h4>
+<p>采用STL模板实现中缀转后缀，这里使用的是stack。定义一个stack字符栈专门用于存储操作符</p>
+<p><font color='red'>这里特别说明一下字符栈，字符栈栈底的操作符优先级最低，栈顶的操作符优先级最高</font></p>
+<p><strong>1.输入中缀表达式的字符串依次获取字符串中的每个字符</strong></p>
+<p><strong>2.对字符进行以下的判断和操作</strong></p>
+<ul>
+<li>数字字符，直接输出</li>
+<li>左括号字符，直接存入stack</li>
+<li>右括号字符，将stack中的操作符依次输出，直到遇到左括号时停止，将左括号出栈但不输出</li>
+<li>加减乘除字符
+<ul>
+<li>优先级高的字符直接存入stack</li>
+<li>优先级低的字符，则比较当前字符栈栈顶操作符的优先级，遇到优先级更低的操作符或左括号字符时不出栈，并将当前操作符入栈</li>
+</ul>
+</li>
+</ul>
+<p><strong>3.当字符串遍历完成后，再依次输出字符栈内剩余的操作符</strong></p>
+<h4 id="3实现过程分析"><a class="markdownIt-Anchor" href="#3实现过程分析"></a> 3.实现过程分析</h4>
+<p>以(1+5-4)*(6-9)为例，字符串长度为13</p>
+<p>获取到的字符：(</p>
+<blockquote>
+<p>表达式：</p>
+<p>字符栈：(</p>
+</blockquote>
+<p>获取到的字符：1</p>
+<blockquote>
+<p>表达式：1</p>
+<p>字符栈：(</p>
+</blockquote>
+<p>获取到的字符：+</p>
+<blockquote>
+<p>表达式：1</p>
+<p>字符栈：(+</p>
+</blockquote>
+<p>获取到的字符：5</p>
+<blockquote>
+<p>表达式：15</p>
+<p>字符栈：(+</p>
+</blockquote>
+<p>获取到的字符：-</p>
+<blockquote>
+<p>表达式：15+</p>
+<p>字符栈：(-</p>
+</blockquote>
+<p>获取到的字符：4</p>
+<blockquote>
+<p>表达式：15+4</p>
+<p>字符栈：(-</p>
+</blockquote>
+<p>获取到的字符：)</p>
+<blockquote>
+<p>表达式：15+4-</p>
+<p>字符栈：</p>
+</blockquote>
+<p>获取到的字符：*</p>
+<blockquote>
+<p>表达式：15+4-</p>
+<p>字符栈：*</p>
+</blockquote>
+<p>获取到的字符：(</p>
+<blockquote>
+<p>表达式：15+4-</p>
+<p>字符栈：*(</p>
+</blockquote>
+<p>获取到的字符：6</p>
+<blockquote>
+<p>表达式：15+4-6</p>
+<p>字符栈：*(</p>
+</blockquote>
+<p>获取到的字符：-</p>
+<blockquote>
+<p>表达式：15+4-6</p>
+<p>字符栈：*(-</p>
+</blockquote>
+<p>获取到的字符：9</p>
+<blockquote>
+<p>表达式：15+4-69</p>
+<p>字符栈：*(-</p>
+</blockquote>
+<p>获取到的字符：)</p>
+<blockquote>
+<p>表达式：15+4-69-</p>
+<p>字符栈：*</p>
+</blockquote>
+<p>最后，依次输出字符栈中所有的操作符</p>
+<blockquote>
+<p>表达式：15+4-69-*</p>
+</blockquote>
+<h4 id="4源代码"><a class="markdownIt-Anchor" href="#4源代码"></a> 4.源代码</h4>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;list&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">list&lt;string&gt; <span class="title">transfer</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> len = s.<span class="built_in">length</span>(); <span class="comment">//记录长度</span></span><br><span class="line">    list&lt;string&gt; listIn;  <span class="comment">//存储中缀表达式</span></span><br><span class="line">    list&lt;string&gt; listOut; <span class="comment">//存储后缀表达式</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; symbol;   <span class="comment">//符号栈</span></span><br><span class="line">    stack&lt;<span class="type">char</span>&gt; ans;      <span class="comment">//结果表达式</span></span><br><span class="line"></span><br><span class="line">    listIn.<span class="built_in">push_back</span>(s);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//思路</span></span><br><span class="line">        <span class="comment">//数字直接存入ans</span></span><br><span class="line">        <span class="comment">//运算符:</span></span><br><span class="line">        <span class="comment">//如果是&#x27;(&#x27;直接存入symbol</span></span><br><span class="line">        <span class="comment">//如果是&#x27;)&#x27;依次出栈symbol中的运算符并存入ans, 直到遇到&#x27;(&#x27;, &#x27;(&#x27;不存入ans</span></span><br><span class="line">        <span class="comment">//其他符号, 依次出栈symbol中的运算符并存入ans, 直到遇到优先级更低的运算符或&#x27;(&#x27;时, 将当前符号存入symbol</span></span><br><span class="line">        <span class="comment">//字符串遍历完成后, 依次出栈符号栈中剩余的运算符并存入ans</span></span><br><span class="line">        <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; listIn.<span class="built_in">back</span>()[i] &lt;= <span class="string">&#x27;9&#x27;</span>)</span><br><span class="line">            ans.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;)&#x27;</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (symbol.<span class="built_in">top</span>() != <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>());</span><br><span class="line">                symbol.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            symbol.<span class="built_in">pop</span>(); <span class="comment">//将&#x27;(&#x27;出栈</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//这里手动优先考虑乘除的优先级高于加减</span></span><br><span class="line">            <span class="keyword">if</span> (listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;+&#x27;</span> || listIn.<span class="built_in">back</span>()[i] == <span class="string">&#x27;-&#x27;</span>) <span class="comment">//加减符号优先级最低</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>() &amp;&amp; symbol.<span class="built_in">top</span>() != <span class="string">&#x27;(&#x27;</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>()); <span class="comment">//直接存入symbol中的运算符</span></span><br><span class="line">                    symbol.<span class="built_in">pop</span>();</span><br><span class="line">                &#125;</span><br><span class="line">                symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]); <span class="comment">//符号栈存入当前从listIn中获取的符号</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//乘除符号优先级高直接存入符号栈</span></span><br><span class="line">            &#123;</span><br><span class="line">                symbol.<span class="built_in">push</span>(listIn.<span class="built_in">back</span>()[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        ans.<span class="built_in">push</span>(symbol.<span class="built_in">top</span>());</span><br><span class="line">        symbol.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将结果表达式的值存入listOut</span></span><br><span class="line">    <span class="comment">//先利用已经清空的symbol实现反转</span></span><br><span class="line">    <span class="keyword">while</span> (!ans.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        symbol.<span class="built_in">push</span>(ans.<span class="built_in">top</span>());</span><br><span class="line">        ans.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    string res = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (!symbol.<span class="built_in">empty</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        res += symbol.<span class="built_in">top</span>();</span><br><span class="line">        symbol.<span class="built_in">pop</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    listOut.<span class="built_in">push_back</span>(res);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> listOut;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="keyword">while</span> (cin &gt;&gt; s)</span><br><span class="line">    &#123;</span><br><span class="line">        list&lt;string&gt; res = <span class="built_in">transfer</span>(s);</span><br><span class="line">        cout &lt;&lt; res.<span class="built_in">front</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>数据结构与算法</tag>
+        <tag>cpp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于yarn禁止在此系统上运行脚本</title>
+    <url>/2022/09/05/yarn-problem/</url>
+    <content><![CDATA[<h3 id="nodejs中使用yarn安装依赖失败"><a class="markdownIt-Anchor" href="#nodejs中使用yarn安装依赖失败"></a> nodejs中使用yarn安装依赖失败</h3>
+<h4 id="错误原因"><a class="markdownIt-Anchor" href="#错误原因"></a> 错误原因</h4>
+<p>windows默认执行策略禁止脚本<span id="more"></span></p>
+<h4 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h4>
+<ol>
+<li>在电脑的开始菜单中，搜索<strong>PowerShell</strong>，并<strong>以管理员身份运行</strong></li>
+<li>在窗口输入命令<code>get-ExecutionPolicy</code>查看权限，如果返回值是<strong>Restricted</strong>，则表示当前是禁用状态</li>
+<li>在窗口输入命令<code>set-ExecutionPolicy</code>设置权限</li>
+<li>为<strong>ExecutionPolicy</strong>参数提供值<strong>RemoteSigned</strong>，后面输入<strong>A</strong>之后再回车（默认为否），开启所有脚本权限</li>
+<li>重新测试yarn命令</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>nodejs</tag>
       </tags>
   </entry>
 </search>
