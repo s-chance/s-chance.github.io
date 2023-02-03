@@ -20,28 +20,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"s-chance.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="开发模式 前后端分离已成为web大型项目的标准开发方式, 主要解决了传统的前后端不分离所带来的一系列开发过程中的问题">
+    <meta name="description" content="本文已收录到规则引擎与设计实现 | 青训营笔记 - 掘金 (juejin.cn)，主要记录了对规则引擎的学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前后端知识">
-<meta property="og:url" content="https://s-chance.github.io/2022/12/18/font-back-end/index.html">
+<meta property="og:title" content="规则引擎与设计实现">
+<meta property="og:url" content="https://s-chance.github.io/2023/02/03/golang-day6/index.html">
 <meta property="og:site_name" content="Entropy Tree">
-<meta property="og:description" content="开发模式 前后端分离已成为web大型项目的标准开发方式, 主要解决了传统的前后端不分离所带来的一系列开发过程中的问题">
+<meta property="og:description" content="本文已收录到规则引擎与设计实现 | 青训营笔记 - 掘金 (juejin.cn)，主要记录了对规则引擎的学习">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-12-18T09:40:47.000Z">
-<meta property="article:modified_time" content="2022-12-18T17:13:20.591Z">
+<meta property="article:published_time" content="2023-02-03T13:26:34.000Z">
+<meta property="article:modified_time" content="2023-02-03T13:43:56.599Z">
 <meta property="article:author" content="Entropy">
-<meta property="article:tag" content="前后端">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="青训营">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://s-chance.github.io/2022/12/18/font-back-end/">
+<link rel="canonical" href="https://s-chance.github.io/2023/02/03/golang-day6/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://s-chance.github.io/2022/12/18/font-back-end/","path":"2022/12/18/font-back-end/","title":"前后端知识"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://s-chance.github.io/2023/02/03/golang-day6/","path":"2023/02/03/golang-day6/","title":"规则引擎与设计实现"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>前后端知识 | Entropy Tree</title>
+<title>规则引擎与设计实现 | Entropy Tree</title>
   
 
 
@@ -142,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F"><span class="nav-text"> 开发模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-text"> 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%B6%89%E5%8F%8A%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="nav-text"> 前后端分离涉及的技术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-text"> 对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E6%96%B9%E5%BC%8F"><span class="nav-text"> 渲染方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spa%E5%92%8Cmpa"><span class="nav-text"> SPA和MPA</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0"><span class="nav-text"> 规则引擎与设计实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%AE%A4%E8%AF%86%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E"><span class="nav-text"> 1. 认识规则引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text"> 规则引擎的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="nav-text"> 组成部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text"> 应用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text"> 2.编译原理基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90-lexicel-analysis"><span class="nav-text"> 词法分析 Lexicel Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90-syntax-analysis"><span class="nav-text"> 语法分析 Syntax Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91-abstract-syntax-tree"><span class="nav-text"> 抽象语法树 Abstract Syntax Tree</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5"><span class="nav-text"> 类型检查</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E"><span class="nav-text"> 3.设计一个规则引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87"><span class="nav-text"> 设计目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90"><span class="nav-text"> 词法分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90"><span class="nav-text"> 语法分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E6%A0%91%E7%9A%84%E6%89%A7%E8%A1%8C%E4%B8%8E%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5"><span class="nav-text"> 语法树的执行与类型检查</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-text"> 4.规则引擎的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -221,7 +222,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2022/12/18/font-back-end/">
+    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2023/02/03/golang-day6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/./images/avatar.jpg">
@@ -234,12 +235,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="前后端知识 | Entropy Tree">
+      <meta itemprop="name" content="规则引擎与设计实现 | Entropy Tree">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          前后端知识
+          规则引擎与设计实现
         </h1>
 
         <div class="post-meta-container">
@@ -249,15 +250,18 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-12-18 17:40:47" itemprop="dateCreated datePublished" datetime="2022-12-18T17:40:47+08:00">2022-12-18</time>
+      <time title="创建时间：2023-02-03 21:26:34 / 修改时间：21:43:56" itemprop="dateCreated datePublished" datetime="2023-02-03T21:26:34+08:00">2023-02-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
+        <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-19 01:13:20" itemprop="dateModified" datetime="2022-12-19T01:13:20+08:00">2022-12-19</time>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
+        </span>
     </span>
 
   
@@ -269,8 +273,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/2022/12/18/font-back-end/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2022/12/18/font-back-end/" itemprop="commentCount"></span>
+    <a title="waline" href="/2023/02/03/golang-day6/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/02/03/golang-day6/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -281,14 +285,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
+      <span>1.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -299,94 +303,144 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="开发模式"><a class="markdownIt-Anchor" href="#开发模式"></a> 开发模式</h3>
-<p><strong>前后端分离</strong>已成为web大型项目的标准开发方式, 主要解决了<strong>传统的前后端不分离</strong>所带来的一系列开发过程中的问题<span id="more"></span></p>
-<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
-<p><strong>前后端不分离</strong>: 前后端代码放在一个工程下或同一个目录下, 前端页面中含有后端的代码(如典型的jsp页面内嵌java代码)。前后端代码以及前后端工作开发<strong>耦合度极高</strong>, 前后端需要同时协作才能完成开发</p>
-<p><strong>前后端分离</strong>: 前后端代码放在不同的工程下, 只需要<strong>提前约定好API数据规范</strong>, 前后端就可以各自独立开发。前端可以通过<strong>Mock技术模拟后端API服务</strong>来独立运行和测试; 后端也可以独立开发、运行、测试, 通过<strong>Swagger技术自动生成API文档</strong>提供给前端, 还能进行自动化接口测试API的可用性</p>
-<h4 id="前后端分离涉及的技术"><a class="markdownIt-Anchor" href="#前后端分离涉及的技术"></a> 前后端分离涉及的技术</h4>
-<p>1.Ajax、axios和json等基础交互技术</p>
-<p>2.Http协议在同源策略下引发的跨域访问</p>
-<p>3.Nodejs搭建中间层服务器以及前端Mock测试</p>
-<h4 id="对比"><a class="markdownIt-Anchor" href="#对比"></a> 对比</h4>
-<p><strong>以一个SpringBoot项目为例</strong></p>
-<p>前后端不分离的情况下, <strong>直接使用SpringBoot启动即可</strong></p>
-<ul>
-<li>需要考虑静态资源所存放的相对路径(例如需要存放在某个指定的静态资源static目录下)</li>
-<li>在测试过程中遇到问题难以快速定位到问题位于前端还是后端</li>
-<li>运行时出现问题会直接导致SpringBoot项目无法启动或者运行时无法正确地进行前后端交互测试</li>
-<li>对于**SEO(Search Engine Optimization, 搜索引擎优化)**的支持较好</li>
-</ul>
-<p>前后端分离的情况下, <strong>后端使用SpringBoot启动, 前端使用Nodejs启动</strong></p>
-<ul>
-<li>不再需要考虑相对路径的限制</li>
-<li>可以使用特定的技术来模拟前后端进行数据交互测试, 从而准确定位问题</li>
-<li>会有跨域访问的限制</li>
-<li>由于前端与后端分离导致服务端无法去渲染前端页面, 即<strong>一般情况下不支持SSR(Server-Side-Rendering，服务器端渲染)</strong></li>
-</ul>
-<h3 id="渲染方式"><a class="markdownIt-Anchor" href="#渲染方式"></a> 渲染方式</h3>
-<p>渲染方式可分为<strong>SSR服务端渲染</strong>和<strong>CSR客户端渲染</strong></p>
-<p><strong>SSR服务端渲染</strong></p>
+        <p>本文已收录到<a target="_blank" rel="noopener" href="https://juejin.cn/post/7195554661318967351">规则引擎与设计实现 | 青训营笔记 - 掘金 (juejin.cn)</a>，主要记录了对规则引擎的学习<span id="more"></span></p>
+<h2 id="规则引擎与设计实现"><a class="markdownIt-Anchor" href="#规则引擎与设计实现"></a> 规则引擎与设计实现</h2>
+<blockquote>
+<p>规则引擎的组成部分及应用场景</p>
+<p>规则引擎的核心原理——编译原理的相关概念</p>
+<p>设计并实现一个规则引擎——YoungEngine</p>
+<p>实现一个Web版规则引擎</p>
+</blockquote>
+<h3 id="1-认识规则引擎"><a class="markdownIt-Anchor" href="#1-认识规则引擎"></a> 1. 认识规则引擎</h3>
+<h4 id="规则引擎的定义"><a class="markdownIt-Anchor" href="#规则引擎的定义"></a> 规则引擎的定义</h4>
 <ul>
 <li>
-<p>SSR拥有很好的SEO搜索引擎优化</p>
+<p>规则引擎是一种嵌入在应用程序中的组件，实现了将业务决策从应用程序代码中分离出来，并使用预定义的语义模块编写业务决策。接收数据输入，解释业务规则，并根据业务逻辑做出业务决策。</p>
 </li>
 <li>
-<p>SSR的首屏优化很好, 即首屏时间短</p>
-</li>
-<li>
-<p>SSR加重了服务端的负载, 因为渲染需要在服务端完成</p>
-</li>
-<li>
-<p>SSR的页面交互性较差</p>
-</li>
-<li>
-<p>使用SSR基本说明了前后端不分离</p>
-</li>
-<li>
-<p>SSR非常适合开发静态网站以及业务逻辑复杂的网站</p>
+<p>解决开发人员重复编码的问题</p>
+<p>业务决策与服务本身解耦，提高服务的可维护性，缩短开发路径，提高效率</p>
 </li>
 </ul>
-<p><strong>CSR客户端渲染</strong></p>
+<h4 id="组成部分"><a class="markdownIt-Anchor" href="#组成部分"></a> 组成部分</h4>
+<ul>
+<li>数据输入
+<ul>
+<li>支持接受使用预定义的语义编写的规则作为策略集。比如“price &gt; 500”</li>
+<li>接受业务的数据作为执行过程中的参数。比如价格、标签等</li>
+</ul>
+</li>
+<li>规则理解
+<ul>
+<li>能够按照预先定义的词法、语法、优先级、运算符等正确理解业务规则所表达的语义。</li>
+</ul>
+</li>
+<li>规则执行
+<ul>
+<li>根据执行时输入的参数对策略集中的规则进行正确的解释和执行。</li>
+<li>同时对规则执行过程中的数据类型进行检查，确保执行结果的正确。</li>
+</ul>
+</li>
+</ul>
+<h4 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h4>
+<ul>
+<li>风控对抗。快速识别和对抗，以实现最好的风控识别效果。</li>
+<li>活动策略运营。提高运营策略的迭代效率，方便新玩法的探索和效果验证。</li>
+<li>数据分析和清洗。方便快捷地产出所需要的数据。</li>
+</ul>
+<h3 id="2编译原理基本概念"><a class="markdownIt-Anchor" href="#2编译原理基本概念"></a> 2.编译原理基本概念</h3>
+<p>规则引擎和编译原理具有一定的关联性。它们都有理解、执行、输入输出的流程。</p>
+<ul>
+<li>理解：词法分析、语法分析</li>
+<li>执行：抽象语法树</li>
+<li>输入输出：参数注入、类型检查</li>
+</ul>
+<h4 id="词法分析-lexicel-analysis"><a class="markdownIt-Anchor" href="#词法分析-lexicel-analysis"></a> 词法分析 Lexicel Analysis</h4>
+<p>词法分析就是把源代码字符串转换为词法单元（Token）的过程。</p>
 <ul>
 <li>
-<p>CSR不支持SEO搜索引擎优化, 因为数据是异步获取的, 很难被SEO收录</p>
-</li>
-<li>
-<p>CSR的首屏时间较长</p>
-</li>
-<li>
-<p>CSR减轻了服务器的负载, 因为渲染是在客户端完成的</p>
-</li>
-<li>
-<p>CSR的页面交互性非常好</p>
-</li>
-<li>
-<p>使用CSR基本说明了前后端分离</p>
-</li>
-<li>
-<p>CSR非常适合开发对即时交互性要求较高的Web应用程序以及app小程序</p>
+<p>识别Token：有限自动机（Finite-State Automaton）</p>
+<p>有限自动机就是一个状态机，它的状态数量是有限的。该状态在任何一个状态，基于输入的字符，都能做一个确定的状态转换。</p>
 </li>
 </ul>
-<p>基于不同的渲染方式又可以引出<strong>SPA</strong>和<strong>MPA</strong></p>
-<h3 id="spa和mpa"><a class="markdownIt-Anchor" href="#spa和mpa"></a> SPA和MPA</h3>
-<p><strong>SPA单页面应用模式</strong></p>
+<h4 id="语法分析-syntax-analysis"><a class="markdownIt-Anchor" href="#语法分析-syntax-analysis"></a> 语法分析 Syntax Analysis</h4>
+<p>语法分析就是在词法分析的基础上，识别表达式的语法结构的过程。</p>
 <ul>
-<li>SPA模式只拥有一个主页面, 所有的静态资源都包含在主页面中, 只需要加载一次</li>
-<li>所有的功能模块组件化, 通过刷新局部资源来实现功能</li>
-<li>几乎不存在<strong>转发</strong>和<strong>重定向</strong>的概念</li>
-<li>传统SPA通常都是CSR渲染, 也可以借助SSR渲染来优化SEO</li>
-<li>SPA的实现核心是<strong>前端路由</strong>, 前端路由的核心: 改变视图的同时不会向后端发出请求</li>
-<li>单个vue+vite的工程就是典型的SPA模式</li>
+<li>抽象语法树：表达式的语法结构可以用树来表示，其每个节点（子树）是一个语法单元，这个单元的构成规则就叫语法。每个节点还可以有下级节点。</li>
 </ul>
-<p><strong>MPA多页面应用模式</strong></p>
+<h4 id="抽象语法树-abstract-syntax-tree"><a class="markdownIt-Anchor" href="#抽象语法树-abstract-syntax-tree"></a> 抽象语法树 Abstract Syntax Tree</h4>
 <ul>
-<li>MPA模式拥有多个页面, 所有的静态资源都是公共资源, 每个页面都需要重新加载</li>
-<li>所有的功能会划分到多个页面中, 通过转发和重定向页面来实现功能</li>
-<li>MPA通常都是SSR渲染, 基本不会使用CSR渲染, 因为逻辑较为复杂</li>
-<li>MPA中基本没有前端路由</li>
+<li>
+<p>上下文无关语法 Context-Free Grammar</p>
+<p>语言句子无需考虑上下文，就可以判断正确性。可以使用巴克斯范式（BNF）来表达。</p>
+<p>产生式：一个表达式可以由另外已知类型的表达式或者符号推导产生。</p>
+<p>内置符号：字面量（string、bool、number）标识符、运算符。</p>
+<p>一个基础表达式可以由常量（string、bool、number）或标识符（identifier），一个乘法表达式可以由基础表达式或者乘法表达式+基础表达式组成。</p>
+</li>
+<li>
+<p>递归下降算法 Recursive Descent Parsing</p>
+<p>递归下降算法就是自顶向下构造语法树，不断地对Token进行语法展开（下降），展开过程中可能会遇到递归的情况。</p>
+</li>
 </ul>
-<p>目前大型Web项目开发可能更多的是使用MPA+SPA的混合模式</p>
+<h4 id="类型检查"><a class="markdownIt-Anchor" href="#类型检查"></a> 类型检查</h4>
+<ul>
+<li>
+<p>类型综合</p>
+<p>根据表达式的类型构造出父表达式的类型。例如，表达式A+B的类型是根据A和B的类型定义的。</p>
+</li>
+<li>
+<p>编译时检查和运行时检查</p>
+<p>类型检查可以发生在表达式的编译阶段，即在构造语法树的阶段，也可以发生在执行时的阶段。</p>
+<ul>
+<li>编译时：需要提前声明参数的类型，在构建语法树过程中进行类型检查</li>
+<li>执行时：可以根据执行时的参数输入的值类型，在执行过程中进行类型检查</li>
+</ul>
+</li>
+</ul>
+<h3 id="3设计一个规则引擎"><a class="markdownIt-Anchor" href="#3设计一个规则引擎"></a> 3.设计一个规则引擎</h3>
+<h4 id="设计目标"><a class="markdownIt-Anchor" href="#设计目标"></a> 设计目标</h4>
+<p>设计一个规则引擎，支持特定的词法、运算符、数据类型和优先级，并且支持基于以上预定义语法的规则表达式的编译和执行。</p>
+<ul>
+<li>词法（合法Token）：参数、布尔值、字符串、十进制int、十进制float、预定义运算符的规定写法</li>
+<li>数据类型：字符串、布尔值、十进制int、十进制float</li>
+<li>运算符：一元运算符、二元运算符、逻辑操作符、括号</li>
+<li>优先级：各种运算符的优先级定义</li>
+</ul>
+<h4 id="词法分析"><a class="markdownIt-Anchor" href="#词法分析"></a> 词法分析</h4>
+<ul>
+<li>设计词法分析的状态机</li>
+</ul>
+<h4 id="语法分析"><a class="markdownIt-Anchor" href="#语法分析"></a> 语法分析</h4>
+<ul>
+<li>优先级的表达</li>
+<li>语法树结构</li>
+</ul>
+<h4 id="语法树的执行与类型检查"><a class="markdownIt-Anchor" href="#语法树的执行与类型检查"></a> 语法树的执行与类型检查</h4>
+<ul>
+<li>
+<p>语法树执行</p>
+<p>预先定义好每种操作符的执行逻辑</p>
+<p>对抽象语法树进行后缀遍历执行，即</p>
+<ul>
+<li>先执行左子树，得到左节点的值</li>
+<li>再执行右子树，得到右节点的值</li>
+<li>最后根据根节点的操作符执行得到根节点的值</li>
+</ul>
+</li>
+<li>
+<p>类型检查</p>
+<p>检查时机：执行时检查</p>
+<p>检查方法：在一个节点的左右子节点执行完成后，分别校验左右子节点的类型是否符合对应操作符的类型检查预设规则。</p>
+<ul>
+<li>‘&gt;’ 符号要求左右子节点的值都存在且为int或float</li>
+<li>‘!’ 符号要求左节点为空且右节点的值为bool</li>
+</ul>
+</li>
+</ul>
+<h3 id="4规则引擎的实现"><a class="markdownIt-Anchor" href="#4规则引擎的实现"></a> 4.规则引擎的实现</h3>
+<p>可参考<a target="_blank" rel="noopener" href="https://github.com/qimengxingyuan/young_engine">qimengxingyuan/young_engine: 简单的规则引擎 </a>实现。</p>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7193363381804335161/#heading-11">【后端专场 学习资料三】第五届字节跳动青训营</a></p>
 
     </div>
 
@@ -404,7 +458,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://s-chance.github.io/2022/12/18/font-back-end/" title="前后端知识">https://s-chance.github.io/2022/12/18/font-back-end/</a>
+      <a href="https://s-chance.github.io/2023/02/03/golang-day6/" title="规则引擎与设计实现">https://s-chance.github.io/2023/02/03/golang-day6/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -413,20 +467,21 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E5%89%8D%E5%90%8E%E7%AB%AF/" rel="tag"><i class="fa fa-tag"></i> 前后端</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 学习笔记</a>
+              <a href="/tags/%E9%9D%92%E8%AE%AD%E8%90%A5/" rel="tag"><i class="fa fa-tag"></i> 青训营</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/11/26/java-in-linux/" rel="prev" title="在Linux上配置Java环境">
-                  <i class="fa fa-chevron-left"></i> 在Linux上配置Java环境
+                <a href="/2023/02/01/golang-day5/" rel="prev" title="Go 框架三件套详解">
+                  <i class="fa fa-chevron-left"></i> Go 框架三件套详解
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/12/30/screenfetch-neofetch/" rel="next" title="在linux终端显示系统信息">
-                  在linux终端显示系统信息 <i class="fa fa-chevron-right"></i>
+                <a href="/2023/02/03/golang-day7/" rel="next" title="架构初探">
+                  架构初探 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -511,7 +566,7 @@
 
 
 
-<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-hexo-nu.vercel.app/","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":true,"comment_count":true,"requiredFields":["nick"],"el":"#waline","comment":true,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","path":"/2022/12/18/font-back-end/"}</script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-hexo-nu.vercel.app/","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":true,"comment_count":true,"requiredFields":["nick"],"el":"#waline","comment":true,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","path":"/2023/02/03/golang-day6/"}</script>
 <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
 <script>
 document.addEventListener('page:loaded', () => {
