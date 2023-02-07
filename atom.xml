@@ -6,7 +6,7 @@
   <link href="https://s-chance.github.io/atom.xml" rel="self"/>
   
   <link href="https://s-chance.github.io/"/>
-  <updated>2023-02-04T15:51:00.692Z</updated>
+  <updated>2023-02-07T17:51:22.142Z</updated>
   <id>https://s-chance.github.io/</id>
   
   <author>
@@ -15,6 +15,75 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>黑灰产监控与防御</title>
+    <link href="https://s-chance.github.io/2023/02/07/golang-day11/"/>
+    <id>https://s-chance.github.io/2023/02/07/golang-day11/</id>
+    <published>2023-02-07T13:12:07.000Z</published>
+    <updated>2023-02-07T17:51:22.142Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文已收录到<a href="https://juejin.cn/post/7197404867802038330">黑灰产监控与防御 | 青训营笔记 - 掘金 (juejin.cn)</a>，主要记录了对黑灰产监控与防御的学习<span id="more"></span></p><h2 id="黑灰产监控与防御"><a class="markdownIt-Anchor" href="#黑灰产监控与防御"></a> 黑灰产监控与防御</h2><h3 id="1黑产介绍"><a class="markdownIt-Anchor" href="#1黑产介绍"></a> 1.黑产介绍</h3><h4 id="一些常见的黑产"><a class="markdownIt-Anchor" href="#一些常见的黑产"></a> 一些常见的黑产</h4><p>诈骗、木马、薅羊毛、钓鱼、黄牛、病毒、博彩、拖库、引流、盗号、跑分、勒索软件</p><h4 id="黑色产业规模"><a class="markdownIt-Anchor" href="#黑色产业规模"></a> 黑色产业规模</h4><ul><li><p>中国“网络黑产”从业人员已超过 150 万，市场规模已经达到千亿级别 - 中国法院网 2017 年</p></li><li><p>截止 2022 年 12 曰，haveibeenpwned 已收录了约 120 亿条账号密码数据</p><p>可访问 <a href="https://haveibeenpwned.com/">https://haveibeenpwned.com/</a> 查看一下自己的账号密码是否在其中</p></li><li><p>某互联网风控公司统计，2018 年各类黑产攻击（业务层）总数超过 300 亿次</p></li><li><p>据不完全统计，2019 年全网约有 5000 万左右的非实名手机卡被频繁用于各种欺诈活动</p></li><li><p>据不完全统计，仅中国境内每天约有 350-400 万个代理 IP 被用于各类欺诈活动</p></li><li><p>…</p></li></ul><h4 id="黑产发展趋势"><a class="markdownIt-Anchor" href="#黑产发展趋势"></a> 黑产发展趋势</h4><ul><li>规模化：借助脚本软件实现自动化、批量化攻击</li><li>组织化：以工作室甚至公司的形式运作，分工明确、合作紧密</li><li>平台化：<ul><li>出现很多平台级的爬虫、群控、钓鱼木马等，难以追查</li><li>通过各类平台将黑产手中零散的资源进行整合</li></ul></li></ul><h3 id="2常见的黑产技术分析"><a class="markdownIt-Anchor" href="#2常见的黑产技术分析"></a> 2.常见的黑产技术分析</h3><h4 id="开户流程"><a class="markdownIt-Anchor" href="#开户流程"></a> 开户流程</h4><p>实名认证 —&gt; 绑定银行卡 —&gt; 审核开户</p><h4 id="对抗攻击手段"><a class="markdownIt-Anchor" href="#对抗攻击手段"></a> 对抗攻击手段</h4><ul><li>人脸识别对抗<ul><li>伪造人脸数据</li></ul></li><li>地理位置对抗<ul><li>定位打卡</li><li>摇一摇、附近的人</li><li>出租车抢单</li><li>某些线下优惠</li><li>…</li></ul></li></ul><h3 id="3安全防护体系的建设"><a class="markdownIt-Anchor" href="#3安全防护体系的建设"></a> 3.安全防护体系的建设</h3><h4 id="事前"><a class="markdownIt-Anchor" href="#事前"></a> 事前</h4><ul><li>情报监控<ul><li>暗网</li><li>贴吧</li><li>TG</li><li>破解论坛</li></ul></li><li>SDLC：软件开发生命周期的阶段和模型</li><li>漏洞扫描</li></ul><h4 id="事中"><a class="markdownIt-Anchor" href="#事中"></a> 事中</h4><ul><li>渗透测试</li><li>威胁感知<ul><li>用户行为异常</li><li>接口数据异常</li><li>恶意流量检测</li></ul></li><li>风控/安全策略</li></ul><h4 id="事后"><a class="markdownIt-Anchor" href="#事后"></a> 事后</h4><ul><li>威胁建模</li><li>攻击溯源</li></ul><h4 id="关键要素"><a class="markdownIt-Anchor" href="#关键要素"></a> 关键要素</h4><p>验证码、安全 SDK、代理检测、人脸识别、黑产名单、…</p><p>WAF（WEB应用程序防火墙）、IDS（入侵检测系统）、DLP、终端安全防护、行为审计、…</p><h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3><p><a href="https://zhuanlan.zhihu.com/p/450678659">对抗攻击-人脸识别</a></p><p><a href="https://zhuanlan.zhihu.com/p/575438524">解密地理位置模拟攻防之道</a></p><p><a href="https://www.jianshu.com/p/8e570d9049e0">SDLC：软件开发生命周期的阶段和模型</a></p><p><a href="https://juejin.cn/post/7196959046603227195">黑灰产监控与防御</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;本文已收录到&lt;a href=&quot;https://juejin.cn/post/7197404867802038330&quot;&gt;黑灰产监控与防御 | 青训营笔记 - 掘金 (juejin.cn)&lt;/a&gt;，主要记录了对黑灰产监控与防御的学习</summary>
+    
+    
+    
+    <category term="golang" scheme="https://s-chance.github.io/categories/golang/"/>
+    
+    
+    <category term="学习笔记" scheme="https://s-chance.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="青训营" scheme="https://s-chance.github.io/tags/%E9%9D%92%E8%AE%AD%E8%90%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>系统设计</title>
+    <link href="https://s-chance.github.io/2023/02/06/golang-day10/"/>
+    <id>https://s-chance.github.io/2023/02/06/golang-day10/</id>
+    <published>2023-02-06T12:37:26.000Z</published>
+    <updated>2023-02-06T14:23:22.050Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文已收录到<a href="https://juejin.cn/post/7197022389850439735">系统设计 | 青训营笔记 - 掘金 (juejin.cn)</a>，主要记录了对秒杀系统设计的学习<span id="more"></span></p><h2 id="系统设计之秒杀系统"><a class="markdownIt-Anchor" href="#系统设计之秒杀系统"></a> 系统设计之秒杀系统</h2><h3 id="1系统设计方法论"><a class="markdownIt-Anchor" href="#1系统设计方法论"></a> 1.系统设计方法论</h3><h4 id="系统设计的思考问题"><a class="markdownIt-Anchor" href="#系统设计的思考问题"></a> 系统设计的思考问题</h4><ul><li>为什么要做系统设计</li><li>系统设计的定义是什么</li><li>怎么做系统设计，如何落地一个系统</li><li>系统功能实现之后，如何分析瓶颈并优化</li><li>如何验证系统的可用性和稳定性</li></ul><h4 id="系统设计的目的"><a class="markdownIt-Anchor" href="#系统设计的目的"></a> 系统设计的目的</h4><p>对个人</p><ul><li>面试</li><li>个人能力提升</li><li>拓展技术视野</li></ul><p>对工作</p><ul><li>业务驱动</li><li>系统重构</li><li>突破和创新</li></ul><h4 id="系统评估角度"><a class="markdownIt-Anchor" href="#系统评估角度"></a> 系统评估角度</h4><p>可用性、易用性、可维护性、安全性、性能、扩展性、耦合性、伸缩性</p><h4 id="系统设计的定义"><a class="markdownIt-Anchor" href="#系统设计的定义"></a> 系统设计的定义</h4><p>系统</p><ul><li>关联的个体</li><li>规则运作</li><li>组成工作的整体</li></ul><p>设计</p><ul><li>设想和计划</li><li>目的</li><li>过程安排</li></ul><p>系统设计是为了达成某种目的，通过个体组成整体的过程</p><h4 id="系统设计的流程"><a class="markdownIt-Anchor" href="#系统设计的流程"></a> 系统设计的流程</h4><ul><li>场景：用什么系统，需要哪些功能，多大的并发量</li><li>存储：数据如何组织，SQL 存储，NoSQL 存储</li><li>服务：业务功能实现和逻辑整合</li><li>扩展：解决设计缺陷，提高鲁棒性、扩展性</li></ul><h4 id="系统瓶颈的发现"><a class="markdownIt-Anchor" href="#系统瓶颈的发现"></a> 系统瓶颈的发现</h4><p>方法角度</p><ul><li>火焰图分析</li><li>链路追踪</li><li>性能测试</li></ul><h4 id="如何保证系统的可用性和稳定性"><a class="markdownIt-Anchor" href="#如何保证系统的可用性和稳定性"></a> 如何保证系统的可用性和稳定性</h4><ul><li>链路梳理：核心链路、流量漏洞、强弱依赖</li><li>可观测性：链路追踪、核心监控、业务报警</li><li>全链路测试：压力测试、负载测试、容量测试</li><li>稳定性控制：系统限流、业务兜底、熔断降级</li><li>容灾演练：混沌工程、应急手册、容灾预案</li></ul><h3 id="2电商秒杀业务介绍"><a class="markdownIt-Anchor" href="#2电商秒杀业务介绍"></a> 2.电商秒杀业务介绍</h3><h4 id="电商介绍"><a class="markdownIt-Anchor" href="#电商介绍"></a> 电商介绍</h4><ul><li>供给侧：商品、商家、供应链</li><li>消费侧：消费者、用户、流量来源</li><li>交易环境：线下商城、线上电商</li></ul><p>进一步分析</p><ul><li><p>商品：具有交易价值和属性的信息载体。</p></li><li><p>关于电商涉及到两个概念：SPU 和 SKU</p><blockquote><p>SPU(Standard Product Unit)：标准化产品单元。是商品信息聚合的最小单位，是一组可复用、易检索的标准化信息的集合，该集合描述了一个产品的特性。通俗点讲，属性值、特性相同的商品就可以称为一个SPU</p><p>SKU(Stock Keeping Unit): 库存量单位。SKU即库存进出计量的单位， 可以是以件、盒、托盘等为单位</p></blockquote></li></ul><h4 id="秒杀业务的特点"><a class="markdownIt-Anchor" href="#秒杀业务的特点"></a> 秒杀业务的特点</h4><ul><li>瞬时流量高</li><li>读多写少</li><li>实时性要求高</li></ul><h4 id="秒杀业务的难点"><a class="markdownIt-Anchor" href="#秒杀业务的难点"></a> 秒杀业务的难点</h4><p>高性能、资源成本、扩展性、防止超卖、反欺诈、鲁棒性、流量管控</p><h4 id="设计秒杀系统"><a class="markdownIt-Anchor" href="#设计秒杀系统"></a> 设计秒杀系统</h4><h5 id="场景scenario"><a class="markdownIt-Anchor" href="#场景scenario"></a> 场景（Scenario）</h5><ul><li>功能：秒杀活动发布、秒杀商品详情、秒杀下单</li><li>并发：万人参与秒杀、QPS 1w+、TPS 1k+</li></ul><h5 id="存储storage"><a class="markdownIt-Anchor" href="#存储storage"></a> 存储（Storage）</h5><p>MySQL —&gt; Redis —&gt; Localcache</p><h5 id="服务service"><a class="markdownIt-Anchor" href="#服务service"></a> 服务（Service）</h5><ul><li><p>子服务：用户服务、风控服务、活动服务、订单服务</p></li><li><p>基础组件：ID 生成器、缓存组件、MQ 组件、限流组件</p></li></ul><h5 id="扩展scale"><a class="markdownIt-Anchor" href="#扩展scale"></a> 扩展（Scale）</h5><ul><li>流量隔离、CDN、缓存优化、流量管控（例如基于速率或信号控制、限流、拦截、过滤以及设置机房流量配比等）</li><li>数据库扩展、服务·水平扩展、MQ 扩展、Redis 扩展、服务垂直扩展</li></ul><h4 id="系统架构"><a class="markdownIt-Anchor" href="#系统架构"></a> 系统架构</h4><ul><li>用户层：WEB、IOS、Android</li><li>接入层：Nginx</li><li>应用层：发布活动、秒杀详情、秒杀下单、ID 生成器、限流组件、MQ 组件、Cache 组件</li><li>基础层：Redis、RocketMQ、MySQL</li></ul><h3 id="3实践"><a class="markdownIt-Anchor" href="#3实践"></a> 3.实践</h3><p>流程图</p><p><img src="https://cdn.jsdelivr.net/gh/s-chance/firgure-bed/img/golang-day10.png" alt="image-20230206221621722" /></p><h3 id="4总结"><a class="markdownIt-Anchor" href="#4总结"></a> 4.总结</h3><ul><li><p>服务无状态</p></li><li><p>批量写入</p></li><li><p>最终一致性</p></li></ul><h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3><p><a href="https://zhuanlan.zhihu.com/p/523479439">鲁棒性的含义以及如何提高模型的鲁棒性 - 知乎 (zhihu.com)</a></p><p><a href="https://zhuanlan.zhihu.com/p/150101068">浅谈电商中的spu和sku - 知乎 (zhihu.com)</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;本文已收录到&lt;a href=&quot;https://juejin.cn/post/7197022389850439735&quot;&gt;系统设计 | 青训营笔记 - 掘金 (juejin.cn)&lt;/a&gt;，主要记录了对秒杀系统设计的学习</summary>
+    
+    
+    
+    <category term="golang" scheme="https://s-chance.github.io/categories/golang/"/>
+    
+    
+    <category term="学习笔记" scheme="https://s-chance.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="青训营" scheme="https://s-chance.github.io/tags/%E9%9D%92%E8%AE%AD%E8%90%A5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微服务架构</title>
+    <link href="https://s-chance.github.io/2023/02/04/golang-day9/"/>
+    <id>https://s-chance.github.io/2023/02/04/golang-day9/</id>
+    <published>2023-02-04T15:56:51.000Z</published>
+    <updated>2023-02-07T18:06:56.955Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文已收录到<a href="https://juejin.cn/post/7196678344573337656">微服务架构 | 青训营笔记 - 掘金 (juejin.cn)</a>，主要记录了对微服务架构原理与治理实践的学习<span id="more"></span></p><h2 id="微服务架构原理与治理实践"><a class="markdownIt-Anchor" href="#微服务架构原理与治理实践"></a> 微服务架构原理与治理实践</h2><h3 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h3><p>微服务架构是当前大多数互联网公司的标准架构。</p><p>主要学习微服务架构的由来及原理、服务治理功能工作机制。</p><h3 id="1微服务架构介绍"><a class="markdownIt-Anchor" href="#1微服务架构介绍"></a> 1.微服务架构介绍</h3><h4 id="11-系统架构演变历史"><a class="markdownIt-Anchor" href="#11-系统架构演变历史"></a> 1.1 系统架构演变历史</h4><p>架构演变的原因</p><ul><li>互联网的爆炸性发展</li><li>硬件设施的快速发展</li><li>需求复杂性的多样化</li><li>开发人员的急剧增加</li><li>计算机理论及技术的发展</li></ul><p>单体架构 —&gt; 垂直应用架构 —&gt; 分布式架构 —&gt; SOA 架构 —&gt; 微服务架构</p><h5 id="单体架构"><a class="markdownIt-Anchor" href="#单体架构"></a> 单体架构</h5><ul><li><p>优势</p><ol><li><p>性能最高</p></li><li><p>冗余小</p></li></ol></li><li><p>劣势</p><ol><li><p>debug 困难</p></li><li><p>模块相互影响（非核心功能可能导致程序崩溃）</p></li><li><p>模块分工、依赖管理困难，开发流程几乎无法分工</p></li></ol></li></ul><h5 id="垂直应用架构"><a class="markdownIt-Anchor" href="#垂直应用架构"></a> 垂直应用架构</h5><p>安装业务线垂直划分</p><ul><li>优势：业务独立开发维护</li><li>劣势<ol><li>不同业务存在冗余，无法复用</li><li>每个业务还是单体</li></ol></li></ul><h5 id="分布式架构"><a class="markdownIt-Anchor" href="#分布式架构"></a> 分布式架构</h5><p>抽取出业务无关的公共模块</p><ul><li>优势：业务无关的独立服务</li><li>劣势<ol><li>服务模块 bug 可能导致全站瘫痪</li><li>调用关系复杂</li><li>不同服务冗余</li></ol></li></ul><h5 id="soa-架构service-oriented-architecture"><a class="markdownIt-Anchor" href="#soa-架构service-oriented-architecture"></a> SOA 架构（Service Oriented Architecture）</h5><p>面向服务的架构</p><ul><li>优势：服务注册</li><li>劣势<ol><li>整个系统设计是中心化的</li><li>需要从上至下设计</li><li>重构困难</li></ol></li></ul><h5 id="微服务架构"><a class="markdownIt-Anchor" href="#微服务架构"></a> 微服务架构</h5><p>彻底服务化的架构</p><ul><li>优势<ol><li>高效的开发迭代效率</li><li>业务独立设计</li><li>自下而上设计</li><li>故障隔离可控</li></ol></li><li>劣势<ol><li>治理、运维难度急剧增加</li><li>观测挑战</li><li>安全性问题</li><li>分布式系统本身的复杂性</li></ol></li></ul><h4 id="12-微服务架构概览"><a class="markdownIt-Anchor" href="#12-微服务架构概览"></a> 1.2 微服务架构概览</h4><p>从组件的维度去分析微服务架构的整体视角</p><ul><li>服务配置和治理：服务配置、服务治理</li><li>消息队列 MQ<ul><li>用户服务：用户数据库</li><li>商品服务：商品数据库</li><li>订单服务：订单数据库</li><li>广告服务：数据仓库、Redis</li></ul></li><li>链路追踪和监控：链路追踪、服务监控</li><li>网关</li></ul><h4 id="13-微服务架构核心要素"><a class="markdownIt-Anchor" href="#13-微服务架构核心要素"></a> 1.3 微服务架构核心要素</h4><ul><li>服务治理：服务注册、服务发现、负载均衡、扩缩容、流量治理、稳定性治理、…</li><li>可观测性：日志采集、日志分析、监控打点、监控大盘、异常报警、链路追踪、…</li><li>安全：身份验证、认证授权、访问令牌、审计、传输加密、黑产攻击、…</li></ul><h4 id="14-总结"><a class="markdownIt-Anchor" href="#14-总结"></a> 1.4 总结</h4><ul><li>系统架构的演变历史</li><li>微服务架构的整体概览</li><li>微服务架构的核心要素</li></ul><h3 id="2微服务架构原理及特征"><a class="markdownIt-Anchor" href="#2微服务架构原理及特征"></a> 2.微服务架构原理及特征</h3><h4 id="21-基本概念"><a class="markdownIt-Anchor" href="#21-基本概念"></a> 2.1 基本概念</h4><ul><li><p>服务（service）</p><p>一组具有相同逻辑的运行实体。</p></li><li><p>实例（instance）</p><p>一个服务中，每个运行实体即为一个实例。</p></li><li><p>实例与进程的关系</p><p>实例与进程之间没有必然对应关系，一个实例可以对应一个或多个进程（反过来不常见）。</p></li><li><p>集群（cluster）</p><p>通常指服务内部的逻辑划分，包含多个实例。</p></li><li><p>常见的实例承载形式</p><p>进程、VM、k8s pod、…</p></li><li><p>有状态/无状态服务</p><p>服务的实例是否存储了可持久化的数据，例如磁盘文件。</p></li><li><p>服务间通信</p><p>对于单体服务，不同模块通信只是简单的函数调用。</p><p>对于微服务，服务间通信意味着网络传输。</p></li></ul><h4 id="22-服务注册与发现"><a class="markdownIt-Anchor" href="#22-服务注册与发现"></a> 2.2 服务注册与发现</h4><p>问题：在代码层面，如何指定调用一个目标服务的地址（ip:port）？</p><h5 id="硬编码-hardcode"><a class="markdownIt-Anchor" href="#硬编码-hardcode"></a> 硬编码 hardcode</h5><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Service A want to call Service B.</span></span><br><span class="line">client := grpc.NewClient(<span class="string">&quot;10.23.45.67:8080&quot;</span>)</span><br></pre></td></tr></table></figure><p>硬编码 hardcode 的问题：当服务存在多个实例时，hardcode 无法调用动态变化的服务地址。</p><h5 id="dns"><a class="markdownIt-Anchor" href="#dns"></a> DNS</h5><p>DNS 的思想就是中间层。</p><p>DNS 的问题</p><ul><li>本地 DNS 存在缓存，导致延时。</li><li>负载均衡问题。</li><li>不支持服务实例的探活检查。</li><li>域名无法配置端口。</li></ul><h5 id="服务注册中心-service-registry"><a class="markdownIt-Anchor" href="#服务注册中心-service-registry"></a> 服务注册中心 Service Registry</h5><p>解决思路：新增一个统一的服务注册中心，用于存储服务名到服务实例的映射。与 DNS 类似，也是一个中间层。</p><h5 id="服务实例上线及下线过程"><a class="markdownIt-Anchor" href="#服务实例上线及下线过程"></a> 服务实例上线及下线过程</h5><ul><li><p>当一个实例还有流量时，不能直接下线，当它没有流量时，可以下线。</p></li><li><p>当一个服务下线几个实例后访问压力过大，可以添加新的实例到服务中。</p></li><li><p>新启用的实例会先进行健康检查，检查无误后再注册到服务中心。</p></li><li><p>健康检查是在服务运作期间一直持续进行的。</p></li></ul><h4 id="23-流量特征"><a class="markdownIt-Anchor" href="#23-流量特征"></a> 2.3 流量特征</h4><ul><li>统一网关路口</li><li>内网通信多数采用 RPC</li><li>网状调用链路</li></ul><p>弱化连接的概念，强调“请求”，即同一个客户端长连接发出的请求，理论上可以到达服务中所有实例。网关 gateway 可以用于身份认证，进而将 token 附在请求上。</p><h4 id="24-总结"><a class="markdownIt-Anchor" href="#24-总结"></a> 2.4 总结</h4><ul><li>微服务架构中的基本组件及术语</li><li>服务注册及发现中间层</li><li>平滑无损的服务实例上下线流程</li><li>微服务架构中的基本流量特征</li></ul><h3 id="3核心服务治理功能"><a class="markdownIt-Anchor" href="#3核心服务治理功能"></a> 3.核心服务治理功能</h3><h4 id="31-服务发布"><a class="markdownIt-Anchor" href="#31-服务发布"></a> 3.1 服务发布</h4><p>服务发布（deployment），即让一个服务升级运行新的代码的过程。</p><p>服务发布的难点</p><ul><li><p>服务不可用</p></li><li><p>服务抖动</p></li><li><p>服务回滚</p></li><li><p>蓝绿部署问题</p></li><li><p>灰度发布（金丝雀发布）问题</p></li></ul><h4 id="32-流量治理"><a class="markdownIt-Anchor" href="#32-流量治理"></a> 3.2 流量治理</h4><p>在微服务架构下，可以基于地区、集群、实例、请求等维度，对端到端流量的路由路径进行精确控制（这里就是狭义的对流量进行控制）。</p><h4 id="33-负载均衡"><a class="markdownIt-Anchor" href="#33-负载均衡"></a> 3.3 负载均衡</h4><p>负载均衡（Load Balance）负责分配请求在每个下游实例上以控制分布情况。</p><p>常见的 LB 策略</p><ul><li>Round Robin</li><li>Random</li><li>Ring Hash</li><li>Least Request</li><li>…</li></ul><h4 id="34-稳定性治理"><a class="markdownIt-Anchor" href="#34-稳定性治理"></a> 3.4 稳定性治理</h4><p>线上服务难免会出现问题，这和程序本身正确性无关。</p><ul><li>网络攻击</li><li>流量突增</li><li>机房断电</li><li>光纤断开</li><li>机器故障</li><li>网络故障</li><li>机房空调故障</li><li>…</li></ul><p>微服务架构中典型的稳定性治理功能</p><ul><li>限流</li><li>熔断</li><li>过载保护</li><li>降级</li></ul><h4 id="35-总结"><a class="markdownIt-Anchor" href="#35-总结"></a> 3.5 总结</h4><ul><li>服务发布：蓝绿部署、灰度发布</li><li>基于地区、集群、实例、请求等维度的流量治理功能</li><li>几种常见的负载均衡策略</li><li>微服务架构中的稳定性治理功能</li></ul><h3 id="4服务治理实践"><a class="markdownIt-Anchor" href="#4服务治理实践"></a> 4.服务治理实践</h3><h4 id="41-重试的意义"><a class="markdownIt-Anchor" href="#41-重试的意义"></a> 4.1 重试的意义</h4><h5 id="本地函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#本地函数调用可能引发的异常"></a> 本地函数调用可能引发的异常</h5><ul><li>参数非法</li><li>OOM（Out Of Memory）</li><li>NPE（Null Pointer Exception）</li><li>边界 case</li><li>系统崩溃</li><li>死循环</li><li>程序异常退出</li></ul><p>本地函数没有重试的意义</p><h5 id="远程函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#远程函数调用可能引发的异常"></a> 远程函数调用可能引发的异常</h5><ul><li>网络抖动</li><li>下游负载高导致超时</li><li>下游机器宕机</li><li>本地机器负载高，调度超时</li><li>下游熔断、限流</li><li>…</li></ul><p>远程函数需要进行重试</p><p><strong>重试可以避免掉偶然发生的错误，提高 SLA（Service-Level Agreement）</strong></p><ul><li><p>降低错误率</p><p>假设单次请求的错误率为 0.01，那么连续两次的错误的概率为 0.0001。</p></li><li><p>降低长尾延时</p><p>对于偶尔耗时较长的请求，重试请求有机会提前返回。</p></li><li><p>容忍暂时性错误</p><p>某些时候系统会有暂时性异常，例如网络抖动，重试可以尽量规避。</p></li><li><p>避开下游故障实例</p><p>一个服务中可能会有少量实例故障，例如机器故障，重试其他实例可以成功。</p></li></ul><h4 id="42-重试的难点"><a class="markdownIt-Anchor" href="#42-重试的难点"></a> 4.2 重试的难点</h4><ul><li>幂等性：多次请求可能会造成数据不一致。</li><li>重试风暴：随着调用深度的增加，重试次数会指数级上涨。</li><li>超时设置：间隔多少时间后发起重试请求。例如，服务 A 向服务 B 重试 3 次，但服务 B 需要向服务 C 重试 9 次，服务 C 需要向服务 D 重试 27 次，以此类推。</li></ul><h4 id="43-重试策略"><a class="markdownIt-Anchor" href="#43-重试策略"></a> 4.3 重试策略</h4><p>重试只有在大部分请求都成功，只有少部分请求失败时，才有必要。如果大部分请求都失败，重试只会加剧问题严重性。</p><h5 id="限制重试比例"><a class="markdownIt-Anchor" href="#限制重试比例"></a> 限制重试比例</h5><p>设定一个重试比例阈值，例如 1%，重试次数占所有请求次数比例不能超过该阈值。</p><h5 id="防止链路重试"><a class="markdownIt-Anchor" href="#防止链路重试"></a> 防止链路重试</h5><p>链路层面的防重试风暴的核心是限制每层都发生重试，理想情况下是只有最下一层发生重试。可以返回特殊的 status 表明“请求失败，但不进行重试”。</p><p>缺点是需要侵入性修改业务代码。</p><h5 id="hedged-requests"><a class="markdownIt-Anchor" href="#hedged-requests"></a> Hedged requests</h5><p>对于可能超时或延时高的请求，重新向另一个下游实例发送一个相同的请求，并等待先到达的响应。</p><h4 id="44-重试效果验证"><a class="markdownIt-Anchor" href="#44-重试效果验证"></a> 4.4 重试效果验证</h4><p>实际验证经过上述重试策略后，在链路上发生的重试放大效应。</p><h4 id="45-总结"><a class="markdownIt-Anchor" href="#45-总结"></a> 4.5 总结</h4><ul><li>重试的意义及难点</li><li>应对重试风暴的策略</li></ul><h3 id="归纳总结"><a class="markdownIt-Anchor" href="#归纳总结"></a> 归纳总结</h3><ul><li>微服务架构介绍</li><li>微服务架构原理及特征</li><li>核心服务治理功能</li><li>服务治理实践</li></ul><h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3><p><a href="https://zhuanlan.zhihu.com/p/42671353">什么是蓝绿部署、滚动发布和灰度发布？</a></p><p><a href="https://zhuanlan.zhihu.com/p/141398230">Motan系列6：负载均衡（LoadBalance）</a></p><p><a href="https://juejin.cn/post/7194381054797905981/#heading-0">【后端专场 学习资料四】第五届字节跳动青训营</a></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;本文已收录到&lt;a href=&quot;https://juejin.cn/post/7196678344573337656&quot;&gt;微服务架构 | 青训营笔记 - 掘金 (juejin.cn)&lt;/a&gt;，主要记录了对微服务架构原理与治理实践的学习</summary>
+    
+    
+    
+    <category term="golang" scheme="https://s-chance.github.io/categories/golang/"/>
+    
+    
+    <category term="学习笔记" scheme="https://s-chance.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="青训营" scheme="https://s-chance.github.io/tags/%E9%9D%92%E8%AE%AD%E8%90%A5/"/>
+    
+  </entry>
   
   <entry>
     <title>分布式理论</title>
@@ -390,68 +459,6 @@
     
     
     <category term="Redis" scheme="https://s-chance.github.io/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git分支重命名</title>
-    <link href="https://s-chance.github.io/2022/09/08/Git-Branch-Rename/"/>
-    <id>https://s-chance.github.io/2022/09/08/Git-Branch-Rename/</id>
-    <published>2022-09-08T04:20:19.000Z</published>
-    <updated>2022-09-20T17:43:08.119Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="git重命名分支"><a class="markdownIt-Anchor" href="#git重命名分支"></a> Git重命名分支</h3><p>在开发过程中，有时需要对分支进行重命名。重命名分支需要考虑到分支是否已经推送到远端的情况<span id="more"></span></p><h4 id="git重命名本地分支还未推送到远端"><a class="markdownIt-Anchor" href="#git重命名本地分支还未推送到远端"></a> Git重命名本地分支（还未推送到远端）</h4><ul><li><p>在需要重命名的分支处</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m <span class="string">&#x27;新的分支名&#x27;</span></span><br></pre></td></tr></table></figure></li><li><p>不在需要重命名的分支处</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m <span class="string">&#x27;需要重命名的分支名&#x27;</span> <span class="string">&#x27;新的分支名&#x27;</span></span><br></pre></td></tr></table></figure></li></ul><h4 id="git重命名远端分支已经推送到远端"><a class="markdownIt-Anchor" href="#git重命名远端分支已经推送到远端"></a> Git重命名远端分支（已经推送到远端）</h4><p><strong>假设已经处于需要重命名的分支上，参考上面的操作，并且在通过命令修改分支名之前没有手动去远端进行过修改，即修改之前本地分支名与远端分支名仍保持一致</strong></p><ul><li><p>重命名本地分支</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m 新的分支名</span><br></pre></td></tr></table></figure></li><li><p>删除远程分支</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push --delete origin 要删除的分支名</span><br></pre></td></tr></table></figure></li><li><p>上传新命名的分支</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin 新的分支名</span><br></pre></td></tr></table></figure></li><li><p>关联修改后的本地分支与远端分支</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to origin/新的分支名</span><br></pre></td></tr></table></figure></li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;git重命名分支&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#git重命名分支&quot;&gt;&lt;/a&gt; Git重命名分支&lt;/h3&gt;
-&lt;p&gt;在开发过程中，有时需要对分支进行重命名。重命名分支需要考虑到分支是否已经推送到远端的情况</summary>
-    
-    
-    
-    
-    <category term="Git" scheme="https://s-chance.github.io/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于yarn禁止在此系统上运行脚本</title>
-    <link href="https://s-chance.github.io/2022/09/05/yarn-problem/"/>
-    <id>https://s-chance.github.io/2022/09/05/yarn-problem/</id>
-    <published>2022-09-05T13:36:27.000Z</published>
-    <updated>2022-09-05T14:02:21.336Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="nodejs中使用yarn安装依赖失败"><a class="markdownIt-Anchor" href="#nodejs中使用yarn安装依赖失败"></a> nodejs中使用yarn安装依赖失败</h3><h4 id="错误原因"><a class="markdownIt-Anchor" href="#错误原因"></a> 错误原因</h4><p>windows默认执行策略禁止脚本<span id="more"></span></p><h4 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h4><ol><li>在电脑的开始菜单中，搜索<strong>PowerShell</strong>，并<strong>以管理员身份运行</strong></li><li>在窗口输入命令<code>get-ExecutionPolicy</code>查看权限，如果返回值是<strong>Restricted</strong>，则表示当前是禁用状态</li><li>在窗口输入命令<code>set-ExecutionPolicy</code>设置权限</li><li>为<strong>ExecutionPolicy</strong>参数提供值<strong>RemoteSigned</strong>，后面输入<strong>A</strong>之后再回车（默认为否），开启所有脚本权限</li><li>重新测试yarn命令</li></ol>]]></content>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;nodejs中使用yarn安装依赖失败&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#nodejs中使用yarn安装依赖失败&quot;&gt;&lt;/a&gt; nodejs中使用yarn安装依赖失败&lt;/h3&gt;
-&lt;h4 id=&quot;错误原因&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#错误原因&quot;&gt;&lt;/a&gt; 错误原因&lt;/h4&gt;
-&lt;p&gt;windows默认执行策略禁止脚本</summary>
-    
-    
-    
-    
-    <category term="nodejs" scheme="https://s-chance.github.io/tags/nodejs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>RSS订阅的使用以及优势</title>
-    <link href="https://s-chance.github.io/2022/09/04/RSS/"/>
-    <id>https://s-chance.github.io/2022/09/04/RSS/</id>
-    <published>2022-09-04T11:38:08.000Z</published>
-    <updated>2022-09-05T13:37:09.572Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3><h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4><p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p><h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4><ul><li>能够自主选择您感兴趣的内容和信息进行浏览</li><li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li><li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li><li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li></ul><h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4><p>windows平台这里推荐微软商店的Fluent Reader<a href="https://apps.microsoft.com/store/detail/9P71FC94LRH8">官网链接</a></p>]]></content>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;rssreally-simple-syndication简易信息聚合&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#rssreally-simple-syndication简易信息聚合&quot;&gt;&lt;/a&gt; RSS(Really Simple Syndication)简易信息聚合&lt;/h3&gt;
-&lt;h4 id=&quot;定义&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#定义&quot;&gt;&lt;/a&gt; 定义&lt;/h4&gt;
-&lt;p&gt;RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。</summary>
-    
-    
-    
-    
-    <category term="RSS" scheme="https://s-chance.github.io/tags/RSS/"/>
     
   </entry>
   

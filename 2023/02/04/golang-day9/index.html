@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"s-chance.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文已收录到微服务架构 | 青训营笔记 - 掘金 (juejin.cn)，主要记录了对微服务架构原理与治理实践的学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务架构">
+<meta property="og:url" content="https://s-chance.github.io/2023/02/04/golang-day9/index.html">
+<meta property="og:site_name" content="Entropy Tree">
+<meta property="og:description" content="本文已收录到微服务架构 | 青训营笔记 - 掘金 (juejin.cn)，主要记录了对微服务架构原理与治理实践的学习">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-04T15:56:51.000Z">
+<meta property="article:modified_time" content="2023-02-07T18:06:56.955Z">
+<meta property="article:author" content="Entropy">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="青训营">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://s-chance.github.io/2023/02/04/golang-day9/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://s-chance.github.io/2023/02/04/golang-day9/","path":"2023/02/04/golang-day9/","title":"微服务架构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>微服务架构 | Entropy Tree</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-hexo-nu.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Entropy Tree" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Entropy Tree</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">the truth of life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li><li class="menu-item menu-item-rss"><a href="/atom.xml" rel="section"><i class="fa fa-rss fa-fw"></i>rss</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E4%B8%8E%E6%B2%BB%E7%90%86%E5%AE%9E%E8%B7%B5"><span class="nav-text"> 微服务架构原理与治理实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-text"> 背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D"><span class="nav-text"> 1.微服务架构介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8F%98%E5%8E%86%E5%8F%B2"><span class="nav-text"> 1.1 系统架构演变历史</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-text"> 单体架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E5%BA%94%E7%94%A8%E6%9E%B6%E6%9E%84"><span class="nav-text"> 垂直应用架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84"><span class="nav-text"> 分布式架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#soa-%E6%9E%B6%E6%9E%84service-oriented-architecture"><span class="nav-text"> SOA 架构（Service Oriented Architecture）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84"><span class="nav-text"> 微服务架构</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E6%A6%82%E8%A7%88"><span class="nav-text"> 1.2 微服务架构概览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E6%A0%B8%E5%BF%83%E8%A6%81%E7%B4%A0"><span class="nav-text"> 1.3 微服务架构核心要素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-%E6%80%BB%E7%BB%93"><span class="nav-text"> 1.4 总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%8E%9F%E7%90%86%E5%8F%8A%E7%89%B9%E5%BE%81"><span class="nav-text"> 2.微服务架构原理及特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#21-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-text"> 2.1 基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0"><span class="nav-text"> 2.2 服务注册与发现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A1%AC%E7%BC%96%E7%A0%81-hardcode"><span class="nav-text"> 硬编码 hardcode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dns"><span class="nav-text"> DNS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83-service-registry"><span class="nav-text"> 服务注册中心 Service Registry</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B%E4%B8%8A%E7%BA%BF%E5%8F%8A%E4%B8%8B%E7%BA%BF%E8%BF%87%E7%A8%8B"><span class="nav-text"> 服务实例上线及下线过程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81"><span class="nav-text"> 2.3 流量特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#24-%E6%80%BB%E7%BB%93"><span class="nav-text"> 2.4 总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E6%A0%B8%E5%BF%83%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E5%8A%9F%E8%83%BD"><span class="nav-text"> 3.核心服务治理功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#31-%E6%9C%8D%E5%8A%A1%E5%8F%91%E5%B8%83"><span class="nav-text"> 3.1 服务发布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#32-%E6%B5%81%E9%87%8F%E6%B2%BB%E7%90%86"><span class="nav-text"> 3.2 流量治理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#33-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-text"> 3.3 负载均衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#34-%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%B2%BB%E7%90%86"><span class="nav-text"> 3.4 稳定性治理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#35-%E6%80%BB%E7%BB%93"><span class="nav-text"> 3.5 总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E5%AE%9E%E8%B7%B5"><span class="nav-text"> 4.服务治理实践</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#41-%E9%87%8D%E8%AF%95%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-text"> 4.1 重试的意义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%8F%AF%E8%83%BD%E5%BC%95%E5%8F%91%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="nav-text"> 本地函数调用可能引发的异常</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%8F%AF%E8%83%BD%E5%BC%95%E5%8F%91%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="nav-text"> 远程函数调用可能引发的异常</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#42-%E9%87%8D%E8%AF%95%E7%9A%84%E9%9A%BE%E7%82%B9"><span class="nav-text"> 4.2 重试的难点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#43-%E9%87%8D%E8%AF%95%E7%AD%96%E7%95%A5"><span class="nav-text"> 4.3 重试策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E9%87%8D%E8%AF%95%E6%AF%94%E4%BE%8B"><span class="nav-text"> 限制重试比例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E9%93%BE%E8%B7%AF%E9%87%8D%E8%AF%95"><span class="nav-text"> 防止链路重试</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hedged-requests"><span class="nav-text"> Hedged requests</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#44-%E9%87%8D%E8%AF%95%E6%95%88%E6%9E%9C%E9%AA%8C%E8%AF%81"><span class="nav-text"> 4.4 重试效果验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#45-%E6%80%BB%E7%BB%93"><span class="nav-text"> 4.5 总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%92%E7%BA%B3%E6%80%BB%E7%BB%93"><span class="nav-text"> 归纳总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Entropy"
+      src="/./images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Entropy</p>
+  <div class="site-description" itemprop="description">一名普通开发者的第一个博客</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/s-chance" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;s-chance" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/entropy_tree" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;entropy_tree" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/19329372/entropy" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;19329372&#x2F;entropy" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.entropy-tree.top/" title="https:&#x2F;&#x2F;www.entropy-tree.top" rel="noopener" target="_blank">镜像站</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://s-chance.github.io/2023/02/04/golang-day9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/./images/avatar.jpg">
+      <meta itemprop="name" content="Entropy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Entropy Tree">
+      <meta itemprop="description" content="一名普通开发者的第一个博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="微服务架构 | Entropy Tree">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微服务架构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-04 23:56:51" itemprop="dateCreated datePublished" datetime="2023-02-04T23:56:51+08:00">2023-02-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-08 02:06:56" itemprop="dateModified" datetime="2023-02-08T02:06:56+08:00">2023-02-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2023/02/04/golang-day9/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2023/02/04/golang-day9/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本文已收录到<a target="_blank" rel="noopener" href="https://juejin.cn/post/7196678344573337656">微服务架构 | 青训营笔记 - 掘金 (juejin.cn)</a>，主要记录了对微服务架构原理与治理实践的学习<span id="more"></span></p>
+<h2 id="微服务架构原理与治理实践"><a class="markdownIt-Anchor" href="#微服务架构原理与治理实践"></a> 微服务架构原理与治理实践</h2>
+<h3 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h3>
+<p>微服务架构是当前大多数互联网公司的标准架构。</p>
+<p>主要学习微服务架构的由来及原理、服务治理功能工作机制。</p>
+<h3 id="1微服务架构介绍"><a class="markdownIt-Anchor" href="#1微服务架构介绍"></a> 1.微服务架构介绍</h3>
+<h4 id="11-系统架构演变历史"><a class="markdownIt-Anchor" href="#11-系统架构演变历史"></a> 1.1 系统架构演变历史</h4>
+<p>架构演变的原因</p>
+<ul>
+<li>互联网的爆炸性发展</li>
+<li>硬件设施的快速发展</li>
+<li>需求复杂性的多样化</li>
+<li>开发人员的急剧增加</li>
+<li>计算机理论及技术的发展</li>
+</ul>
+<p>单体架构 —&gt; 垂直应用架构 —&gt; 分布式架构 —&gt; SOA 架构 —&gt; 微服务架构</p>
+<h5 id="单体架构"><a class="markdownIt-Anchor" href="#单体架构"></a> 单体架构</h5>
+<ul>
+<li>
+<p>优势</p>
+<ol>
+<li>
+<p>性能最高</p>
+</li>
+<li>
+<p>冗余小</p>
+</li>
+</ol>
+</li>
+<li>
+<p>劣势</p>
+<ol>
+<li>
+<p>debug 困难</p>
+</li>
+<li>
+<p>模块相互影响（非核心功能可能导致程序崩溃）</p>
+</li>
+<li>
+<p>模块分工、依赖管理困难，开发流程几乎无法分工</p>
+</li>
+</ol>
+</li>
+</ul>
+<h5 id="垂直应用架构"><a class="markdownIt-Anchor" href="#垂直应用架构"></a> 垂直应用架构</h5>
+<p>安装业务线垂直划分</p>
+<ul>
+<li>优势：业务独立开发维护</li>
+<li>劣势
+<ol>
+<li>不同业务存在冗余，无法复用</li>
+<li>每个业务还是单体</li>
+</ol>
+</li>
+</ul>
+<h5 id="分布式架构"><a class="markdownIt-Anchor" href="#分布式架构"></a> 分布式架构</h5>
+<p>抽取出业务无关的公共模块</p>
+<ul>
+<li>优势：业务无关的独立服务</li>
+<li>劣势
+<ol>
+<li>服务模块 bug 可能导致全站瘫痪</li>
+<li>调用关系复杂</li>
+<li>不同服务冗余</li>
+</ol>
+</li>
+</ul>
+<h5 id="soa-架构service-oriented-architecture"><a class="markdownIt-Anchor" href="#soa-架构service-oriented-architecture"></a> SOA 架构（Service Oriented Architecture）</h5>
+<p>面向服务的架构</p>
+<ul>
+<li>优势：服务注册</li>
+<li>劣势
+<ol>
+<li>整个系统设计是中心化的</li>
+<li>需要从上至下设计</li>
+<li>重构困难</li>
+</ol>
+</li>
+</ul>
+<h5 id="微服务架构"><a class="markdownIt-Anchor" href="#微服务架构"></a> 微服务架构</h5>
+<p>彻底服务化的架构</p>
+<ul>
+<li>优势
+<ol>
+<li>高效的开发迭代效率</li>
+<li>业务独立设计</li>
+<li>自下而上设计</li>
+<li>故障隔离可控</li>
+</ol>
+</li>
+<li>劣势
+<ol>
+<li>治理、运维难度急剧增加</li>
+<li>观测挑战</li>
+<li>安全性问题</li>
+<li>分布式系统本身的复杂性</li>
+</ol>
+</li>
+</ul>
+<h4 id="12-微服务架构概览"><a class="markdownIt-Anchor" href="#12-微服务架构概览"></a> 1.2 微服务架构概览</h4>
+<p>从组件的维度去分析微服务架构的整体视角</p>
+<ul>
+<li>服务配置和治理：服务配置、服务治理</li>
+<li>消息队列 MQ
+<ul>
+<li>用户服务：用户数据库</li>
+<li>商品服务：商品数据库</li>
+<li>订单服务：订单数据库</li>
+<li>广告服务：数据仓库、Redis</li>
+</ul>
+</li>
+<li>链路追踪和监控：链路追踪、服务监控</li>
+<li>网关</li>
+</ul>
+<h4 id="13-微服务架构核心要素"><a class="markdownIt-Anchor" href="#13-微服务架构核心要素"></a> 1.3 微服务架构核心要素</h4>
+<ul>
+<li>服务治理：服务注册、服务发现、负载均衡、扩缩容、流量治理、稳定性治理、…</li>
+<li>可观测性：日志采集、日志分析、监控打点、监控大盘、异常报警、链路追踪、…</li>
+<li>安全：身份验证、认证授权、访问令牌、审计、传输加密、黑产攻击、…</li>
+</ul>
+<h4 id="14-总结"><a class="markdownIt-Anchor" href="#14-总结"></a> 1.4 总结</h4>
+<ul>
+<li>系统架构的演变历史</li>
+<li>微服务架构的整体概览</li>
+<li>微服务架构的核心要素</li>
+</ul>
+<h3 id="2微服务架构原理及特征"><a class="markdownIt-Anchor" href="#2微服务架构原理及特征"></a> 2.微服务架构原理及特征</h3>
+<h4 id="21-基本概念"><a class="markdownIt-Anchor" href="#21-基本概念"></a> 2.1 基本概念</h4>
+<ul>
+<li>
+<p>服务（service）</p>
+<p>一组具有相同逻辑的运行实体。</p>
+</li>
+<li>
+<p>实例（instance）</p>
+<p>一个服务中，每个运行实体即为一个实例。</p>
+</li>
+<li>
+<p>实例与进程的关系</p>
+<p>实例与进程之间没有必然对应关系，一个实例可以对应一个或多个进程（反过来不常见）。</p>
+</li>
+<li>
+<p>集群（cluster）</p>
+<p>通常指服务内部的逻辑划分，包含多个实例。</p>
+</li>
+<li>
+<p>常见的实例承载形式</p>
+<p>进程、VM、k8s pod、…</p>
+</li>
+<li>
+<p>有状态/无状态服务</p>
+<p>服务的实例是否存储了可持久化的数据，例如磁盘文件。</p>
+</li>
+<li>
+<p>服务间通信</p>
+<p>对于单体服务，不同模块通信只是简单的函数调用。</p>
+<p>对于微服务，服务间通信意味着网络传输。</p>
+</li>
+</ul>
+<h4 id="22-服务注册与发现"><a class="markdownIt-Anchor" href="#22-服务注册与发现"></a> 2.2 服务注册与发现</h4>
+<p>问题：在代码层面，如何指定调用一个目标服务的地址（ip:port）？</p>
+<h5 id="硬编码-hardcode"><a class="markdownIt-Anchor" href="#硬编码-hardcode"></a> 硬编码 hardcode</h5>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Service A want to call Service B.</span></span><br><span class="line">client := grpc.NewClient(<span class="string">&quot;10.23.45.67:8080&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>硬编码 hardcode 的问题：当服务存在多个实例时，hardcode 无法调用动态变化的服务地址。</p>
+<h5 id="dns"><a class="markdownIt-Anchor" href="#dns"></a> DNS</h5>
+<p>DNS 的思想就是中间层。</p>
+<p>DNS 的问题</p>
+<ul>
+<li>本地 DNS 存在缓存，导致延时。</li>
+<li>负载均衡问题。</li>
+<li>不支持服务实例的探活检查。</li>
+<li>域名无法配置端口。</li>
+</ul>
+<h5 id="服务注册中心-service-registry"><a class="markdownIt-Anchor" href="#服务注册中心-service-registry"></a> 服务注册中心 Service Registry</h5>
+<p>解决思路：新增一个统一的服务注册中心，用于存储服务名到服务实例的映射。与 DNS 类似，也是一个中间层。</p>
+<h5 id="服务实例上线及下线过程"><a class="markdownIt-Anchor" href="#服务实例上线及下线过程"></a> 服务实例上线及下线过程</h5>
+<ul>
+<li>
+<p>当一个实例还有流量时，不能直接下线，当它没有流量时，可以下线。</p>
+</li>
+<li>
+<p>当一个服务下线几个实例后访问压力过大，可以添加新的实例到服务中。</p>
+</li>
+<li>
+<p>新启用的实例会先进行健康检查，检查无误后再注册到服务中心。</p>
+</li>
+<li>
+<p>健康检查是在服务运作期间一直持续进行的。</p>
+</li>
+</ul>
+<h4 id="23-流量特征"><a class="markdownIt-Anchor" href="#23-流量特征"></a> 2.3 流量特征</h4>
+<ul>
+<li>统一网关路口</li>
+<li>内网通信多数采用 RPC</li>
+<li>网状调用链路</li>
+</ul>
+<p>弱化连接的概念，强调“请求”，即同一个客户端长连接发出的请求，理论上可以到达服务中所有实例。网关 gateway 可以用于身份认证，进而将 token 附在请求上。</p>
+<h4 id="24-总结"><a class="markdownIt-Anchor" href="#24-总结"></a> 2.4 总结</h4>
+<ul>
+<li>微服务架构中的基本组件及术语</li>
+<li>服务注册及发现中间层</li>
+<li>平滑无损的服务实例上下线流程</li>
+<li>微服务架构中的基本流量特征</li>
+</ul>
+<h3 id="3核心服务治理功能"><a class="markdownIt-Anchor" href="#3核心服务治理功能"></a> 3.核心服务治理功能</h3>
+<h4 id="31-服务发布"><a class="markdownIt-Anchor" href="#31-服务发布"></a> 3.1 服务发布</h4>
+<p>服务发布（deployment），即让一个服务升级运行新的代码的过程。</p>
+<p>服务发布的难点</p>
+<ul>
+<li>
+<p>服务不可用</p>
+</li>
+<li>
+<p>服务抖动</p>
+</li>
+<li>
+<p>服务回滚</p>
+</li>
+<li>
+<p>蓝绿部署问题</p>
+</li>
+<li>
+<p>灰度发布（金丝雀发布）问题</p>
+</li>
+</ul>
+<h4 id="32-流量治理"><a class="markdownIt-Anchor" href="#32-流量治理"></a> 3.2 流量治理</h4>
+<p>在微服务架构下，可以基于地区、集群、实例、请求等维度，对端到端流量的路由路径进行精确控制（这里就是狭义的对流量进行控制）。</p>
+<h4 id="33-负载均衡"><a class="markdownIt-Anchor" href="#33-负载均衡"></a> 3.3 负载均衡</h4>
+<p>负载均衡（Load Balance）负责分配请求在每个下游实例上以控制分布情况。</p>
+<p>常见的 LB 策略</p>
+<ul>
+<li>Round Robin</li>
+<li>Random</li>
+<li>Ring Hash</li>
+<li>Least Request</li>
+<li>…</li>
+</ul>
+<h4 id="34-稳定性治理"><a class="markdownIt-Anchor" href="#34-稳定性治理"></a> 3.4 稳定性治理</h4>
+<p>线上服务难免会出现问题，这和程序本身正确性无关。</p>
+<ul>
+<li>网络攻击</li>
+<li>流量突增</li>
+<li>机房断电</li>
+<li>光纤断开</li>
+<li>机器故障</li>
+<li>网络故障</li>
+<li>机房空调故障</li>
+<li>…</li>
+</ul>
+<p>微服务架构中典型的稳定性治理功能</p>
+<ul>
+<li>限流</li>
+<li>熔断</li>
+<li>过载保护</li>
+<li>降级</li>
+</ul>
+<h4 id="35-总结"><a class="markdownIt-Anchor" href="#35-总结"></a> 3.5 总结</h4>
+<ul>
+<li>服务发布：蓝绿部署、灰度发布</li>
+<li>基于地区、集群、实例、请求等维度的流量治理功能</li>
+<li>几种常见的负载均衡策略</li>
+<li>微服务架构中的稳定性治理功能</li>
+</ul>
+<h3 id="4服务治理实践"><a class="markdownIt-Anchor" href="#4服务治理实践"></a> 4.服务治理实践</h3>
+<h4 id="41-重试的意义"><a class="markdownIt-Anchor" href="#41-重试的意义"></a> 4.1 重试的意义</h4>
+<h5 id="本地函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#本地函数调用可能引发的异常"></a> 本地函数调用可能引发的异常</h5>
+<ul>
+<li>参数非法</li>
+<li>OOM（Out Of Memory）</li>
+<li>NPE（Null Pointer Exception）</li>
+<li>边界 case</li>
+<li>系统崩溃</li>
+<li>死循环</li>
+<li>程序异常退出</li>
+</ul>
+<p>本地函数没有重试的意义</p>
+<h5 id="远程函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#远程函数调用可能引发的异常"></a> 远程函数调用可能引发的异常</h5>
+<ul>
+<li>网络抖动</li>
+<li>下游负载高导致超时</li>
+<li>下游机器宕机</li>
+<li>本地机器负载高，调度超时</li>
+<li>下游熔断、限流</li>
+<li>…</li>
+</ul>
+<p>远程函数需要进行重试</p>
+<p><strong>重试可以避免掉偶然发生的错误，提高 SLA（Service-Level Agreement）</strong></p>
+<ul>
+<li>
+<p>降低错误率</p>
+<p>假设单次请求的错误率为 0.01，那么连续两次的错误的概率为 0.0001。</p>
+</li>
+<li>
+<p>降低长尾延时</p>
+<p>对于偶尔耗时较长的请求，重试请求有机会提前返回。</p>
+</li>
+<li>
+<p>容忍暂时性错误</p>
+<p>某些时候系统会有暂时性异常，例如网络抖动，重试可以尽量规避。</p>
+</li>
+<li>
+<p>避开下游故障实例</p>
+<p>一个服务中可能会有少量实例故障，例如机器故障，重试其他实例可以成功。</p>
+</li>
+</ul>
+<h4 id="42-重试的难点"><a class="markdownIt-Anchor" href="#42-重试的难点"></a> 4.2 重试的难点</h4>
+<ul>
+<li>幂等性：多次请求可能会造成数据不一致。</li>
+<li>重试风暴：随着调用深度的增加，重试次数会指数级上涨。</li>
+<li>超时设置：间隔多少时间后发起重试请求。例如，服务 A 向服务 B 重试 3 次，但服务 B 需要向服务 C 重试 9 次，服务 C 需要向服务 D 重试 27 次，以此类推。</li>
+</ul>
+<h4 id="43-重试策略"><a class="markdownIt-Anchor" href="#43-重试策略"></a> 4.3 重试策略</h4>
+<p>重试只有在大部分请求都成功，只有少部分请求失败时，才有必要。如果大部分请求都失败，重试只会加剧问题严重性。</p>
+<h5 id="限制重试比例"><a class="markdownIt-Anchor" href="#限制重试比例"></a> 限制重试比例</h5>
+<p>设定一个重试比例阈值，例如 1%，重试次数占所有请求次数比例不能超过该阈值。</p>
+<h5 id="防止链路重试"><a class="markdownIt-Anchor" href="#防止链路重试"></a> 防止链路重试</h5>
+<p>链路层面的防重试风暴的核心是限制每层都发生重试，理想情况下是只有最下一层发生重试。可以返回特殊的 status 表明“请求失败，但不进行重试”。</p>
+<p>缺点是需要侵入性修改业务代码。</p>
+<h5 id="hedged-requests"><a class="markdownIt-Anchor" href="#hedged-requests"></a> Hedged requests</h5>
+<p>对于可能超时或延时高的请求，重新向另一个下游实例发送一个相同的请求，并等待先到达的响应。</p>
+<h4 id="44-重试效果验证"><a class="markdownIt-Anchor" href="#44-重试效果验证"></a> 4.4 重试效果验证</h4>
+<p>实际验证经过上述重试策略后，在链路上发生的重试放大效应。</p>
+<h4 id="45-总结"><a class="markdownIt-Anchor" href="#45-总结"></a> 4.5 总结</h4>
+<ul>
+<li>重试的意义及难点</li>
+<li>应对重试风暴的策略</li>
+</ul>
+<h3 id="归纳总结"><a class="markdownIt-Anchor" href="#归纳总结"></a> 归纳总结</h3>
+<ul>
+<li>微服务架构介绍</li>
+<li>微服务架构原理及特征</li>
+<li>核心服务治理功能</li>
+<li>服务治理实践</li>
+</ul>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/42671353">什么是蓝绿部署、滚动发布和灰度发布？</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/141398230">Motan系列6：负载均衡（LoadBalance）</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7194381054797905981/#heading-0">【后端专场 学习资料四】第五届字节跳动青训营</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Entropy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://s-chance.github.io/2023/02/04/golang-day9/" title="微服务架构">https://s-chance.github.io/2023/02/04/golang-day9/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 学习笔记</a>
+              <a href="/tags/%E9%9D%92%E8%AE%AD%E8%90%A5/" rel="tag"><i class="fa fa-tag"></i> 青训营</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/02/03/golang-day8/" rel="prev" title="分布式理论">
+                  <i class="fa fa-chevron-left"></i> 分布式理论
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/02/06/golang-day10/" rel="next" title="系统设计">
+                  系统设计 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Entropy</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">146k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:13</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-hexo-nu.vercel.app/","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请评论","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":true,"comment_count":true,"requiredFields":["nick"],"el":"#waline","comment":true,"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","path":"/2023/02/04/golang-day9/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+</body>
+</html>
