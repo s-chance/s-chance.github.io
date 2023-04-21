@@ -10653,7 +10653,7 @@ a*b=(a_1*10^{n/2}+a_0)*(b_1*10^{m/2}+b_0)\\
 <h2 id="tmux"><a class="markdownIt-Anchor" href="#tmux"></a> tmux</h2>
 <h3 id="概述-3"><a class="markdownIt-Anchor" href="#概述-3"></a> 概述</h3>
 <p><code>tmux</code>是一个类似于<code>screen</code>的终端复用器，总体功能上比<code>screen</code>更加丰富，且风格更加现代化。</p>
-<p><code>tmux</code>具有<strong>会话(session)</strong>、<strong>窗口(window)</strong>、**窗格(pane)**的三层结构。会话是所有虚拟终端的集合，窗口是整个屏幕，窗格是各个虚拟终端。一个会话可以创建多个窗口，一个窗口可以创建多个窗格。</p>
+<p><code>tmux</code>具有会话(session)、窗口(window)、窗格(pane)的三层结构。会话是所有虚拟终端的集合，窗口是整个屏幕，窗格是各个虚拟终端。一个会话可以创建多个窗口，一个窗口可以创建多个窗格。</p>
 <h3 id="基本使用-3"><a class="markdownIt-Anchor" href="#基本使用-3"></a> 基本使用</h3>
 <h4 id="安装-2"><a class="markdownIt-Anchor" href="#安装-2"></a> 安装</h4>
 <p><code>tmux</code>的安装</p>
