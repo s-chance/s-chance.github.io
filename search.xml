@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Git分支重命名</title>
+    <url>/2022/09/08/Git-Branch-Rename/</url>
+    <content><![CDATA[<h3 id="git重命名分支"><a class="markdownIt-Anchor" href="#git重命名分支"></a> Git重命名分支</h3>
+<p>在开发过程中，有时需要对分支进行重命名。重命名分支需要考虑到分支是否已经推送到远端的情况<span id="more"></span></p>
+<h4 id="git重命名本地分支还未推送到远端"><a class="markdownIt-Anchor" href="#git重命名本地分支还未推送到远端"></a> Git重命名本地分支（还未推送到远端）</h4>
+<ul>
+<li>
+<p>在需要重命名的分支处</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m <span class="string">&#x27;新的分支名&#x27;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>不在需要重命名的分支处</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m <span class="string">&#x27;需要重命名的分支名&#x27;</span> <span class="string">&#x27;新的分支名&#x27;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h4 id="git重命名远端分支已经推送到远端"><a class="markdownIt-Anchor" href="#git重命名远端分支已经推送到远端"></a> Git重命名远端分支（已经推送到远端）</h4>
+<p><strong>假设已经处于需要重命名的分支上，参考上面的操作，并且在通过命令修改分支名之前没有手动去远端进行过修改，即修改之前本地分支名与远端分支名仍保持一致</strong></p>
+<ul>
+<li>
+<p>重命名本地分支</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m 新的分支名</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>删除远程分支</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push --delete origin 要删除的分支名</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>上传新命名的分支</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin 新的分支名</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>关联修改后的本地分支与远端分支</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to origin/新的分支名</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>IDEA插件配置</title>
     <url>/2023/01/14/IDEA-plugins/</url>
     <content><![CDATA[<p>作为IntelliJ IDEA的用户之一，原始的IDE已经能够满足大部分需求，但IDE插件提供了更多拓展性的功能，使得开发者能够工作在适宜的“开发环境”中，提高开发效率，提升开发者体验。那么以下是笔者在使用过程中所搜寻到的一些插件，请注意其中部分插件并不能直接提升开发效率，另外过多的插件反而会造成开发效率的低下，请悉知。读者可自行选择感兴趣的插件进行配置<span id="more"></span></p>
@@ -95,47 +136,6 @@
 ]]></content>
       <tags>
         <tag>配置优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git分支重命名</title>
-    <url>/2022/09/08/Git-Branch-Rename/</url>
-    <content><![CDATA[<h3 id="git重命名分支"><a class="markdownIt-Anchor" href="#git重命名分支"></a> Git重命名分支</h3>
-<p>在开发过程中，有时需要对分支进行重命名。重命名分支需要考虑到分支是否已经推送到远端的情况<span id="more"></span></p>
-<h4 id="git重命名本地分支还未推送到远端"><a class="markdownIt-Anchor" href="#git重命名本地分支还未推送到远端"></a> Git重命名本地分支（还未推送到远端）</h4>
-<ul>
-<li>
-<p>在需要重命名的分支处</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m <span class="string">&#x27;新的分支名&#x27;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>不在需要重命名的分支处</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m <span class="string">&#x27;需要重命名的分支名&#x27;</span> <span class="string">&#x27;新的分支名&#x27;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<h4 id="git重命名远端分支已经推送到远端"><a class="markdownIt-Anchor" href="#git重命名远端分支已经推送到远端"></a> Git重命名远端分支（已经推送到远端）</h4>
-<p><strong>假设已经处于需要重命名的分支上，参考上面的操作，并且在通过命令修改分支名之前没有手动去远端进行过修改，即修改之前本地分支名与远端分支名仍保持一致</strong></p>
-<ul>
-<li>
-<p>重命名本地分支</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch -m 新的分支名</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>删除远程分支</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push --delete origin 要删除的分支名</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>上传新命名的分支</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git push origin 新的分支名</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>关联修改后的本地分支与远端分支</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git branch --set-upstream-to origin/新的分支名</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -1652,211 +1652,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MySQL高级</title>
-    <url>/2022/08/21/MySQL-Pro/</url>
-    <content><![CDATA[<h3 id="mysql高级"><a class="markdownIt-Anchor" href="#mysql高级"></a> MySQL高级</h3>
-<hr />
-<h4 id="一-distinct关键字"><a class="markdownIt-Anchor" href="#一-distinct关键字"></a> 一、distinct关键字</h4>
-<p>distinct能够去除查询结果中重复的记录</p>
-<p>注意：数据表中的数据并没有被修改，实际上所有的DQL查询语句都不会修改原始数据，只是对查询结果进行处理 <span id="more"></span></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 准备工作</span><br><span class="line">create database if not exists task;</span><br><span class="line">use task;</span><br><span class="line">create table emp (</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    age int,</span><br><span class="line">    sex char(20),</span><br><span class="line">    salary double</span><br><span class="line">);</span><br><span class="line">alter table emp modify sex char(20) character set gbk;</span><br><span class="line">insert into emp values</span><br><span class="line">(1,&#x27;a&#x27;,19,&#x27;男&#x27;,3500),</span><br><span class="line">(2,&#x27;b&#x27;,22,&#x27;男&#x27;,5600),</span><br><span class="line">(3,&#x27;c&#x27;,34,&#x27;女&#x27;,7700),</span><br><span class="line">(4,&#x27;d&#x27;,16,&#x27;男&#x27;,4300),</span><br><span class="line">(5,&#x27;e&#x27;,51,&#x27;女&#x27;,4300),</span><br><span class="line">(6,&#x27;f&#x27;,23,&#x27;女&#x27;,4300);</span><br><span class="line"></span><br><span class="line"># 格式: select distinct 字段名 from 数据表名;</span><br><span class="line"># distinct关键字写在所有字段前面</span><br><span class="line"># 查询salary的值有哪几种情况,不重复列出相同的情况</span><br><span class="line">select distinct salary from emp;</span><br><span class="line"># 对于多个字段,则需要在多个字段的值均重复的条件下才会去重</span><br><span class="line"># 查询数据表中存在的不重复的sex和salary的组合有哪几种情况</span><br><span class="line">select distinct salary,sex from emp;</span><br></pre></td></tr></table></figure></div>
-<h4 id="二-连接查询"><a class="markdownIt-Anchor" href="#二-连接查询"></a> 二、连接查询</h4>
-<h5 id="连接查询的概念"><a class="markdownIt-Anchor" href="#连接查询的概念"></a> 连接查询的概念</h5>
-<p>针对一张数据表进行查询，称为单表查询。<strong>join关键字</strong></p>
-<p>将两张及以上的数据表联合起来进行查询，获取到多张数据表组合出来的数据，称为连接查询。</p>
-<h5 id="连接查询的分类"><a class="markdownIt-Anchor" href="#连接查询的分类"></a> 连接查询的分类</h5>
-<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">根据表连接的方式分类</span><br><span class="line">├── 内连接</span><br><span class="line">│   ├── 等值连接</span><br><span class="line">│   ├── 非等值连接</span><br><span class="line">│   └── 自连接</span><br><span class="line"><span class="string">|</span></span><br><span class="line">├── 外连接</span><br><span class="line">│   ├── 左外连接</span><br><span class="line">│   └── 右外连接</span><br></pre></td></tr></table></figure>
-<h5 id="笛卡尔积现象"><a class="markdownIt-Anchor" href="#笛卡尔积现象"></a> 笛卡尔积现象</h5>
-<p>一般是由于没有加任何限制条件直接联合多张表进行查询。查询结果的数量是多张表的乘积，但一般这样的查询没有太大意义，要避免这种情况需要设计好限制条件。</p>
-<h5 id="内连接"><a class="markdownIt-Anchor" href="#内连接"></a> 内连接</h5>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 准备数据</span><br><span class="line">create database if not exists data;</span><br><span class="line">use data;</span><br><span class="line">create table employee(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    salary double,</span><br><span class="line">    department_id int</span><br><span class="line">);</span><br><span class="line">insert into employee values</span><br><span class="line">(1,&#x27;apple&#x27;,5469,101),</span><br><span class="line">(2,&#x27;grape&#x27;,4465,101),</span><br><span class="line">(3,&#x27;orange&#x27;,6544,102),</span><br><span class="line">(4,&#x27;mango&#x27;,4987,102),</span><br><span class="line">(5,&#x27;banana&#x27;,5323,102),</span><br><span class="line">(6,&#x27;peach&#x27;,6743,103);</span><br><span class="line">create table department(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line">insert into department values</span><br><span class="line">(101,&#x27;develop&#x27;),</span><br><span class="line">(102,&#x27;operate&#x27;),</span><br><span class="line">(103,&#x27;loaf&#x27;);</span><br><span class="line">create table salary_level(</span><br><span class="line">	grade varchar(20),</span><br><span class="line">    min int,</span><br><span class="line">    max int</span><br><span class="line">);</span><br><span class="line">insert into salary_level values</span><br><span class="line">(&#x27;A&#x27;,5501,7000),</span><br><span class="line">(&#x27;B&#x27;,4001,5500),</span><br><span class="line">(&#x27;C&#x27;,2500,4000);</span><br><span class="line"># 等值连接,where后的条件是等值判断</span><br><span class="line"># 查询enployee表中每条记录所对应的department的name</span><br><span class="line"># join前加inner关键字能直接表明这是内连接,当然inner本身可以省略不写</span><br><span class="line"># on关键字类似于where,但on是表示多表的连接条件,而where是表示对连接结果进一步筛选的条件,where写在on的后面</span><br><span class="line">select e.name,d.name from employee e join department d on e.department_id=d.id;</span><br><span class="line"></span><br><span class="line"># 非等值连接,where后的条件一般是在某个范围内判断</span><br><span class="line"># 查询employee表中每条记录所对应的salary_level的grade</span><br><span class="line">select e.name,e.salary,s.grade from employee e inner join salary_level s on e.salary between s.min and s.max;</span><br><span class="line"></span><br><span class="line"># 自连接,本质上是一张表,但进行了重复使用</span><br><span class="line"># 新增数据</span><br><span class="line">insert into employee (id,name) values</span><br><span class="line">(101,&#x27;leader_jackson&#x27;),</span><br><span class="line">(102,&#x27;leader_vim&#x27;),</span><br><span class="line">(103,&#x27;leader_fish&#x27;);</span><br><span class="line"># 查询employee表中department_id对应leader_name和name记录</span><br><span class="line">select e1.name &#x27;emp&#x27;,e2.name &#x27;leader&#x27; from employee e1 join employee e2 on e1.department_id=e2.id;</span><br><span class="line"># 一般需要使用自连接查询的话,说明表的设计还能进一步优化</span><br></pre></td></tr></table></figure></div>
-<h5 id="外连接"><a class="markdownIt-Anchor" href="#外连接"></a> 外连接</h5>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 内连接的多张表并没有主次关系,也就是说不需要考虑查询语句书写的先后顺序</span><br><span class="line"># 外连接分左外连接left join和右外连接right join,left或right关键字不可省略,表示将join关键字左右的数据表视为主表,当然也可以通过调整语句书写的先后顺序改变主次关系</span><br><span class="line"># 主表指定的数据会全部被查询,在此基础上再查询部分相关的次表的数据,也就是说指定查询的主表数据不会因为on的连接条件而有所缺失,但会受到where筛选条件的影响</span><br><span class="line"></span><br><span class="line"># 以employee为主表查询所有记录数</span><br><span class="line">select * from employee e left join department d on e.department_id=d.id;</span><br><span class="line"># 以department为主表查询所有记录数</span><br><span class="line">select * from employee e right join department d on e.department_id=d.id;</span><br><span class="line"></span><br><span class="line"># 通过对比相同的数据表在内外连接两种情况下的不同查询结果,可以找到主表中还未与次表建立逻辑关系的单独的数据</span><br></pre></td></tr></table></figure></div>
-<h5 id="更多表连接三张表"><a class="markdownIt-Anchor" href="#更多表连接三张表"></a> 更多表连接（三张表）</h5>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 三张及以上数据表连接查询,多个连接条件一般都与第一张表相关联,内外连接可以混合使用</span><br><span class="line"># 查询employee、department、salary_level的联合数据</span><br><span class="line"># 查询employee中department_id对应的department表数据,salary对应的salary_level表数据</span><br><span class="line">select e.name,e.salary,d.name,s.grade from employee e join department d on e.department_id=d.id join salary_level s on e.salary between s.min and s.max;</span><br></pre></td></tr></table></figure></div>
-<h4 id="三-子查询"><a class="markdownIt-Anchor" href="#三-子查询"></a> 三、子查询</h4>
-<h5 id="子查询的概念"><a class="markdownIt-Anchor" href="#子查询的概念"></a> 子查询的概念</h5>
-<p>DQL语句中嵌套DQL语句，被嵌套的DQL语句称为子查询。</p>
-<h5 id="子查询的使用"><a class="markdownIt-Anchor" href="#子查询的使用"></a> 子查询的使用</h5>
-<p>子查询可写在<strong>select</strong>、<strong>from</strong>、<strong>where</strong>关键字后面。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># where子句中的子查询,一般子查询结果是某个值</span><br><span class="line"># 查询employee表中大于平均值的salary记录,先查询出avg(salary)的值</span><br><span class="line">select salary from employee where salary&gt;(select avg(salary) from employee);</span><br><span class="line"></span><br><span class="line"># from子句中的子查询,把子查询结果视为一张新的数据表</span><br><span class="line"># 查询employee表中每个department_id对应的avg(salary)的grade,先查询出每个department_id的avg(salary)</span><br><span class="line">select e.*,s.grade from (select department_id,avg(salary) avg from employee group by department_id) e join salary_level s on avg between s.min and s.max;</span><br><span class="line"></span><br><span class="line"># select后的子查询,一般不经常使用,了解即可</span><br><span class="line"># 该子查询只能返回一条记录</span><br><span class="line">select e.name,e.salary,(select avg(salary) from employee) avg from employee e;</span><br></pre></td></tr></table></figure></div>
-<h4 id="四-union关键字"><a class="markdownIt-Anchor" href="#四-union关键字"></a> 四、union关键字</h4>
-<p><strong>union关键字</strong>能合并结果集，将多表查询的结果直接拼接起来，但多张表必须保持字段数一致。字段值在没有特殊逻辑关系下也要对应起来。</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># union和join</span><br><span class="line"># 将employee中salary大于5000的结果集和department_id为101的结果集合并起来,会自动去重</span><br><span class="line">select name from employee where salary &gt; 5000 union select name from employee where department_id=101;</span><br><span class="line"></span><br><span class="line"># 关于union和or关键字的区别</span><br><span class="line"># union能够实现多表查询(前提多张表的字段能够对应),而or只能在一张表里使用</span><br><span class="line"># union会自动去重,or不会去重而是直接取查询结果的并集(实际大部分情况下两者结果区别不大)</span><br><span class="line"># union能够使用不同的索引查询,索引即where后面所用到的字段,而or因为是针对一张表所以只能使用一个索引,一个where后仅能有一个索引,有多个字段时取其一作为索引</span><br><span class="line"></span><br><span class="line"># 一般情况下,数据量较大时(包括单表的数据量和数据表的数量)推荐使用union,多个查询条件涉及到的是同一个字段时推荐使用or</span><br></pre></td></tr></table></figure></div>
-<h4 id="五-limit关键字"><a class="markdownIt-Anchor" href="#五-limit关键字"></a> 五、limit关键字</h4>
-<h5 id="limit的作用"><a class="markdownIt-Anchor" href="#limit的作用"></a> limit的作用</h5>
-<p>将结果集的部分数据展示出来，常用于网页开发分页查询中</p>
-<h5 id="关键字执行优先级"><a class="markdownIt-Anchor" href="#关键字执行优先级"></a> 关键字执行优先级</h5>
-<p>执行优先级：from→where→group by→having→select→order by→<strong>limit</strong></p>
-<h5 id="limit的使用"><a class="markdownIt-Anchor" href="#limit的使用"></a> limit的使用</h5>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 格式:limit 开始下标(缺省的话,默认从0开始),长度(即数据条数)</span><br><span class="line"># 查询employee表前2条数据</span><br><span class="line">select * from employee limit 2; # 简写,实际上是limit 0,2;</span><br><span class="line">select * from employee limit 0,2;</span><br><span class="line"># 查询employee表第2-4条数据,下标从1开始起的3条数据</span><br><span class="line">select * from employee limit 1,3;</span><br><span class="line"></span><br><span class="line"># limit在order by之后执行,所以order by的依据和排序方式会一定程度上影响limit的结果集</span><br><span class="line"># 查询以name升序排序之后的结果集的前2条数据</span><br><span class="line">select * from employee order by name asc limit 2;</span><br><span class="line"># 查询以salary降序排序之后的结果集的前2条数据</span><br><span class="line">select * from employee order by salary desc limit 2;</span><br><span class="line"></span><br><span class="line"># 分页查询的公式:limit (pageNum-1)*pageSize,pageSize</span><br></pre></td></tr></table></figure></div>
-<h4 id="六-约束"><a class="markdownIt-Anchor" href="#六-约束"></a> 六、约束</h4>
-<h5 id="约束的概念"><a class="markdownIt-Anchor" href="#约束的概念"></a> 约束的概念</h5>
-<p>约束（constraint）是用于保证数据完整性、有效性的一种规则。</p>
-<h5 id="多种约束规则"><a class="markdownIt-Anchor" href="#多种约束规则"></a> 多种约束规则</h5>
-<p>非空：not null</p>
-<p>唯一：unique</p>
-<p>主键：primary key（PK）</p>
-<p>外键：foreign key（FK）</p>
-<p>检查：check（MySQL不支持，Oracle支持）</p>
-<h5 id="约束的使用"><a class="markdownIt-Anchor" href="#约束的使用"></a> 约束的使用</h5>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 非空 not null</span><br><span class="line"># 非空约束的字段不能为null</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20) not null</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into con(id,name) values (1,&#x27;a&#x27;);</span><br><span class="line">insert into con(id,name) values (2,null); # 出错,name不能为null</span><br><span class="line">insert into con(id) values (3); # 出错,name没有默认值</span><br><span class="line"></span><br><span class="line"># 唯一性 unique</span><br><span class="line"># 唯一性约束的字段不能重复</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20) unique</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into con(id,name) values (1,&#x27;a&#x27;);</span><br><span class="line">insert into con(id,name) values (2,&#x27;a&#x27;); # name不能出现重复的值</span><br><span class="line">insert into con(id) values (3,null); # name可以为null,且null不属于值重复</span><br><span class="line"></span><br><span class="line"># 多字段各自唯一(列级约束,每个约束仅对单个字段有效)</span><br><span class="line"># name不能重复且email也不能重复</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20) unique,</span><br><span class="line">    email varchar(20) unique</span><br><span class="line">);</span><br><span class="line"># 测试数据可以直接用下面的</span><br><span class="line"></span><br><span class="line"># 多字段组合唯一(表级约束,每个约束对整张表有效,多用于给多个字段添加联合约束)</span><br><span class="line"># name和email的组合不能重复</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    email varchar(20),</span><br><span class="line">    unique(name,email)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into con(id,name,email) values (1,&#x27;a&#x27;,&#x27;a@123.com&#x27;);</span><br><span class="line">insert into con(id,name,email) values (2,&#x27;a&#x27;,&#x27;a@456.com&#x27;);</span><br><span class="line">insert into con(id,name,email) values (3,&#x27;b&#x27;,&#x27;b@123.com&#x27;);</span><br><span class="line">insert into con(id,name,email) values (4,&#x27;a&#x27;,&#x27;a@456.com&#x27;);</span><br><span class="line"></span><br><span class="line"># not null和unique联合</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20) not null unique</span><br><span class="line">);</span><br><span class="line">desc con;</span><br><span class="line">insert into con(id,name) values (1,&#x27;abc&#x27;);</span><br><span class="line">insert into con(id,name) values (2,&#x27;abc&#x27;); # 出错,name不能重复</span><br><span class="line">insert into con(id,name) values (3,null); # 出错,name不能为null</span><br><span class="line"></span><br><span class="line"># 主键 primary key</span><br><span class="line"># 主键字段不能重复且不能为null,类似于unique联合not null但不完全相同</span><br><span class="line"># 根据设计规范,一张表应该存在且只能存在一个主键,主键通常是int、bigint、char等类型的字段,不建议使用varchar类型字段作为主键</span><br><span class="line"># 单一主键,列级约束,一般开发中经常使用</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int primary key,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line">desc con;</span><br><span class="line"># 测试数据可以直接用下面的</span><br><span class="line"></span><br><span class="line"># 复合主键,表级约束,由于复合主键涉及多字段,逻辑比较复杂,一般开发中不会使用</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    primary key(id,name)</span><br><span class="line">);</span><br><span class="line">desc con;</span><br><span class="line"></span><br><span class="line">insert into con(id,name) values (1,&#x27;a&#x27;);</span><br><span class="line">insert into con(id,name) values (1,&#x27;a&#x27;); </span><br><span class="line">insert into con(id,name) values (1,&#x27;b&#x27;); </span><br><span class="line">insert into con(id,name) values (2,&#x27;a&#x27;); </span><br><span class="line">insert into con(id,name) values (3,null);</span><br><span class="line">insert into con(name) values (null,&#x27;a&#x27;);</span><br><span class="line"></span><br><span class="line"># 主键自动递增,这里主键值默认从1开始,按1递增</span><br><span class="line"># 如果insert中途指定了主键值,则从该主键值开始按1递增,如果指定了较小的主键值,会自动升序排序</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con( </span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line">desc con;</span><br><span class="line">insert into con(name) values (&#x27;a&#x27;);</span><br><span class="line">insert into con(name) values (&#x27;b&#x27;);</span><br><span class="line">insert into con(name) values (&#x27;c&#x27;);</span><br><span class="line"># 此外,主键还能分为自然主键和业务主键,自然主键使用较多,业务主键较少</span><br><span class="line"></span><br><span class="line"># 外键 foreign key</span><br><span class="line"># 外键涉及到两张相互有逻辑关系的数据表,主要是为了保证两张表的逻辑关系有效</span><br><span class="line"># 外键关联的两张表有父表和子表之分</span><br><span class="line"># 删除数据时先子表后父表,新增数据时先父表后子表,删除表时先子表后父表,创建表时先父表后子表</span><br><span class="line">drop table if exists son;</span><br><span class="line">drop table if exists dad;</span><br><span class="line">create table dad(</span><br><span class="line">	no int primary key,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line">create table son(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    dad_no int,</span><br><span class="line">    foreign key(dad_no) references dad(no)</span><br><span class="line">);</span><br><span class="line">insert into dad(no,name) values (001,&#x27;fruit&#x27;);</span><br><span class="line">insert into dad(no,name) values (002,&#x27;animal&#x27;);</span><br><span class="line"></span><br><span class="line">insert into son(name,dad_no) values (&#x27;apple&#x27;,001);</span><br><span class="line">insert into son(name,dad_no) values (&#x27;pear&#x27;,001);</span><br><span class="line">insert into son(name,dad_no) values (&#x27;cat&#x27;,002);</span><br><span class="line">insert into son(name,dad_no) values (&#x27;rabbit&#x27;,002);</span><br><span class="line"># 另外被子表references的父表字段不一定是主键,但至少具有unique的约束</span><br></pre></td></tr></table></figure></div>
-<h4 id="七-存储引擎"><a class="markdownIt-Anchor" href="#七-存储引擎"></a> 七、存储引擎</h4>
-<h5 id="存储引擎的概念"><a class="markdownIt-Anchor" href="#存储引擎的概念"></a> 存储引擎的概念</h5>
-<p>存储引擎是MySQL中特有的术语，表示一个数据表存储、组织数据的方式。不同的存储引擎，数据表存储数据的方式不同。</p>
-<h5 id="存储引擎的使用"><a class="markdownIt-Anchor" href="#存储引擎的使用"></a> 存储引擎的使用</h5>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 准备工作</span><br><span class="line">drop table if exists engine;</span><br><span class="line">create table if not exists engine(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line"># 查看存储引擎,MySQL默认存储引擎为InnoDB</span><br><span class="line">show create table engine;</span><br><span class="line"></span><br><span class="line"># 在创建表时指定存储引擎</span><br><span class="line">drop table if exists engine;</span><br><span class="line">create table engine(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20)</span><br><span class="line">)engine=innodb default charset=gbk;</span><br><span class="line">show create table engine;</span><br><span class="line"></span><br><span class="line"># 查看MySQL版本</span><br><span class="line">select version();</span><br><span class="line"># 查看支持的存储引擎,不同的MySQL版本支持的存储引擎可能不一样</span><br><span class="line">show engines;</span><br></pre></td></tr></table></figure></div>
-<h5 id="常用存储引擎介绍"><a class="markdownIt-Anchor" href="#常用存储引擎介绍"></a> 常用存储引擎介绍</h5>
-<h6 id="myisam存储引擎"><a class="markdownIt-Anchor" href="#myisam存储引擎"></a> MyISAM存储引擎</h6>
-<p>使用三种文件来表示每个数据表：</p>
-<ul>
-<li>格式文件(.frm)：存储表结构的定义</li>
-<li>数据文件(.myd)：存储表行的内容</li>
-<li>索引文件(.myi)：存储表上索引（主键或unique约束字段会自动创建索引）</li>
-</ul>
-<p>特点：可以被转换为压缩，只读表里节省空间，但不支持事务，安全性低</p>
-<h6 id="innodb存储引擎"><a class="markdownIt-Anchor" href="#innodb存储引擎"></a> InnoDB存储引擎</h6>
-<p><strong>一般开发中最优先考虑的存储引擎</strong>，重量级的存储引擎，管理的数据表有以下特征：</p>
-<ul>
-<li>每个数据表在数据库目录中以.frm格式的文件表示</li>
-<li>提供一组用于记录事务性获得的日志文件</li>
-<li>通过commit、savepoint和rollback支持事务处理</li>
-<li>提供全ACID兼容</li>
-<li>在MySQL服务器崩溃后能够自动恢复</li>
-<li>多版本MVCC和行级锁定</li>
-<li>支持外键级引用的完整性，包括级联删除和更新</li>
-</ul>
-<p>特点：支持事务，以保证数据的安全性，但效率不高，不能压缩不能转换为只读，比较占存储空间</p>
-<h6 id="memory存储引擎"><a class="markdownIt-Anchor" href="#memory存储引擎"></a> MEMORY存储引擎</h6>
-<p>MEMORY存储引擎以前称为heap存储引擎，管理数据库有以下特征：</p>
-<ul>
-<li>在数据库目录内，每个数据表均以.frm格式的文件表示</li>
-<li>表的数据以及索引被存储在内存中（这显著提升了查询速度）</li>
-<li>表级锁机制</li>
-<li>不支持text和blob字段</li>
-</ul>
-<p>特点：字段长度固定，数据存储在内存，这使得它的数据处理效率非常高，但同时一旦MySQL服务重启，存储数据就会丢失，<strong>一般开发中只用于临时存储数据</strong>。</p>
-<h4 id="八-事务-视图-数据库设计"><a class="markdownIt-Anchor" href="#八-事务-视图-数据库设计"></a> 八、事务、视图、数据库设计</h4>
-<h5 id="事务transaction"><a class="markdownIt-Anchor" href="#事务transaction"></a> 事务(transaction)</h5>
-<ol>
-<li>
-<p>事务的概念：一个事务就是一个完整的业务逻辑，是一个不可再分的最小的工作单元。例如，银行转账，A向B转账1000，A扣除1000，B增加1000。可以用两个update语句实现，但它们必须同时成功或者失败，而不能单独拆分，否则就不构成一个完整的业务逻辑，这就是一个最小的工作单元。</p>
-</li>
-<li>
-<p>只有在使用DML语句时才会涉及到事务，因为只有DML语句会增加、删除、修改数据表的数据，这就离不开事务安全性的考虑。</p>
-</li>
-<li>
-<p>简单理解事务：就是要使多条DML语句同时成功或失败的一种规则。</p>
-</li>
-<li>
-<p>如何实现事务</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># InnoDB存储引擎提供了一组用来记录事务性活动的日志文件</span><br><span class="line"># 在事务的执行过程中,每一条DML的操作都会记录到“事务性活动的日志文件”中</span><br><span class="line"># 在事务的执行过程通过提交事务或者回滚事务就能实现事务要求的规则</span><br><span class="line"></span><br><span class="line"># MySQL默认是自动提交事务,即每执行一条DML语句就提交一次,但这不符合开发习惯</span><br><span class="line"># 关闭自动提交机制 start transaction(仅对一次事务有效)</span><br><span class="line"># 或者直接设置开启或关闭自动提交(对所有事务有效)</span><br><span class="line">set autocommit=0; # 关闭自动提交</span><br><span class="line">set autocommit=1; # 开启自动提交</span><br><span class="line"># 提交事务commit,回滚事务rollback</span><br><span class="line"># 准备工作</span><br><span class="line">drop table if exists test;</span><br><span class="line">create table test(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line">select * from test;</span><br><span class="line"></span><br><span class="line">start transaction; # 关闭自动提交机制,commit之后需要重新执行</span><br><span class="line">insert into test(name) values (&#x27;a&#x27;);</span><br><span class="line">insert into test(name) values (&#x27;b&#x27;);</span><br><span class="line">insert into test(name) values (&#x27;c&#x27;);</span><br><span class="line">select * from test;</span><br><span class="line"></span><br><span class="line">rollback; # 回滚事务</span><br><span class="line">select * from test; # 未提交的事务消失</span><br><span class="line"></span><br><span class="line">insert into test(name) values (&#x27;d&#x27;);</span><br><span class="line">commit; # 提交事务</span><br><span class="line">select * from test;</span><br><span class="line"></span><br><span class="line">rollback;</span><br><span class="line">select * from test; # 已经提交的事务,无法回滚</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>事务的4个特性（ACID）</p>
-<p>A：原子性，事务是最小的工作单元，不可再分。</p>
-<p>C：一致性，在同一个事务中，所有操作必须同时成功或者失败，保证数据的一致性。</p>
-<p>I：隔离性，A事务与B事务之间存在一定的隔离，根据隔离性可分成4个隔离级别。</p>
-<ul>
-<li>
-<p>读未提交：read uncommitted（隔离级别最低）</p>
-<p>事务A能够读取事务B<strong>未提交的数据</strong>，这种隔离级别存在读取到脏数据的问题，即读取到并不需要的数据。一般开发中不会使用这个隔离级别。</p>
-</li>
-<li>
-<p>读已提交：read committed</p>
-<p>事务A只能读取事务B<strong>已提交的数据</strong>，这种隔离级别避免了脏读问题，但存在不可重复读取数据的问题，事务B再做任何提交操作之后，事务A读取的数据就会相应地发生改变。读取的数据是比较真实的数据，这是<strong>Oracle数据库默认的隔离级别</strong>。</p>
-</li>
-<li>
-<p>可重复读：repeatable read</p>
-<p>事务B开启后，每次从事务B读取的数据都是一致的，即使事务B的数据修改并提交，事务A所<strong>读取到的数据都是事务B刚开始事务时的数据</strong>。这种隔离级别避免了不可重复读的问题，但出现了幻影读的问题，即每次读取到的数据都不是当前的真实数据，这是<strong>MySQL默认的隔离级别</strong>。</p>
-</li>
-<li>
-<p>序列化/串行化：serializable（最高隔离级别）</p>
-<p>效率最低，但解决了上面存在的所有问题。这种隔离级别的事务需要排队，不能并发。synchronized线程同步（事务同步），每次读取到的数据都是最真实的，效率也是最低的。</p>
-</li>
-</ul>
-<p>D：持久性，事务完成的保障，事务提交之后，数据就被持久地保存下来。</p>
-</li>
-<li>
-<p>隔离级别验证</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 在同一个命令行或同一个查询下可能无法展示出隔离级别的效果,建议事务A和事务B各打开一个命令行或者在navicat下各新建一个查询</span><br><span class="line"># 建议每次重新设置隔离级别之后重启命令行或navicat刷新</span><br><span class="line"># 查看隔离级别</span><br><span class="line">select @@tx_isolation;</span><br><span class="line"></span><br><span class="line"># 准备工作</span><br><span class="line">create table isolation_level(</span><br><span class="line">	name varchar(20)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># read uncommitted 读未提交</span><br><span class="line"># 设置全局隔离级别为read uncommitted</span><br><span class="line">set global transaction isolation level read uncommitted;</span><br><span class="line"># 事务A</span><br><span class="line">start transaction;</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">start transaction;</span><br><span class="line">insert into isolation_level values (&#x27;hello&#x27;);</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level; # 读取到了未提交的数据</span><br><span class="line"></span><br><span class="line"># read committed 读已提交</span><br><span class="line"># 设置全局隔离级别为read committed</span><br><span class="line">set global transaction isolation level read committed;</span><br><span class="line"># 事务A</span><br><span class="line">start transaction;</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">start transaction;</span><br><span class="line">insert into isolation_level values (&#x27;world&#x27;);</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level; # 未读取到事务B的数据</span><br><span class="line"># 事务B</span><br><span class="line">commit;</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level; # 读取到了事务B提交的数据</span><br><span class="line"></span><br><span class="line"># repeatable read 可重复读</span><br><span class="line"># 设置全局隔离级别为repeatable read</span><br><span class="line">set global transaction isolation level repeatable read;</span><br><span class="line"># 事务A</span><br><span class="line">start transaction;</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">start transaction; # 第一次开启事务</span><br><span class="line">insert into isolation_level values (&#x27;read&#x27;);</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">insert into isolation_level values (&#x27;repeat&#x27;);</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">commit;</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level; # 事务A读取到的始终是事务B第一次开启事务时的数据</span><br><span class="line"># 事务A</span><br><span class="line">commit;</span><br><span class="line">select * from isolation_level; # 事务A也提交后再查询,就能获取事务B的最近一次事务提交的数据</span><br><span class="line"># 补充说明:事务B第一次开启事务这个概念是以事务A开启事务后事务B第一次执行start transaction为准,也就是当事务A提交之后再次开启事务,重新计算事务B第一次开启事务</span><br><span class="line"></span><br><span class="line"># serializable 序列化</span><br><span class="line"># 设置全局隔离级别为serializable</span><br><span class="line">set global transaction isolation level serializable;</span><br><span class="line"># 事务A</span><br><span class="line">start transaction;</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">start transaction;</span><br><span class="line">insert into isolation_level values (&#x27;serializable&#x27;); # 卡住,因为事务A没有提交</span><br><span class="line"># 事务A</span><br><span class="line">commit; # 提交事务A后事务B新增数据完成</span><br><span class="line">start transaction; # 事务A重新开启事务</span><br><span class="line">select * from isolation_level; # 卡住或超时报错,因为事务B没有提交</span><br><span class="line"># 事务B</span><br><span class="line">commit; # 提交事务B后事务A查询完成视图</span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<h5 id="视图view"><a class="markdownIt-Anchor" href="#视图view"></a> 视图(view)</h5>
-<ol>
-<li>
-<p>视图的概念</p>
-<p>从多个角度观察处理同一份数据，每一个角度就是一种视图。  例如，对同一份数据进行不同的处理，根据不同的需求展示出相应部分的数据或者根据不同的权限展示出每个权限被允许接触到的数据。</p>
-</li>
-<li>
-<p>视图的使用</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 准备工作</span><br><span class="line">drop table if exists origin;</span><br><span class="line">create table origin(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    age int,</span><br><span class="line">    department varchar(20)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into origin(name,age,department) values</span><br><span class="line">(&#x27;apple&#x27;,13,&#x27;developer&#x27;),</span><br><span class="line">(&#x27;orange&#x27;,14,&#x27;operator&#x27;);</span><br><span class="line"># 先备份原表,复制原表</span><br><span class="line">create table origin_backup select * from origin;</span><br><span class="line"></span><br><span class="line"># 创建视图对象,需要as关键字,且只能通过DQL语句创建</span><br><span class="line">create view origin_view as select * from origin;</span><br><span class="line"># 删除视图对象</span><br><span class="line">drop view origin_view;</span><br><span class="line"></span><br><span class="line"># 对视图对象的增删改查会映射到原表的数据上</span><br><span class="line"># 查询视图</span><br><span class="line">select * from origin_view;</span><br><span class="line"># 新增视图数据</span><br><span class="line">insert into origin_view(name,age,department) values</span><br><span class="line">(&#x27;mango&#x27;,12,&#x27;manager&#x27;),</span><br><span class="line">(&#x27;banana&#x27;,16,&#x27;admin&#x27;);</span><br><span class="line"># 查询原表</span><br><span class="line">select * from origin;</span><br><span class="line"># 更新视图数据</span><br><span class="line">update origin_view set age=20 where name=&#x27;mango&#x27;;</span><br><span class="line">select * from origin;</span><br><span class="line"># 删除视图数据</span><br><span class="line">delete from origin_view;</span><br><span class="line">select * from origin;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>视图对象的实际开发用途</p>
-<ul>
-<li>视图的使用能够有效简化开发，方便维护，提高开发效率</li>
-<li>单独的SQL语句只能针对一张数据表的数据进行修改，而视图的使用将多张表的数据集中到一个视图，通过对这个视图数据的修改，就能一次性实现对多张表数据的修改，而不需要每一张数据表重复写一条SQL语句去修改</li>
-<li>另外对于后期大量数据表的维护，只需要重新修改视图对象所映射的DQL语句就能灵活地指定需要维护的数据表的数据</li>
-</ul>
-</li>
-</ol>
-<h5 id="数据库设计三大范式"><a class="markdownIt-Anchor" href="#数据库设计三大范式"></a> 数据库设计：三大范式</h5>
-<h6 id="三大范式的概念"><a class="markdownIt-Anchor" href="#三大范式的概念"></a> 三大范式的概念</h6>
-<p>范式是数据库数据表的设计依据，是一种规范和统一标准。设计数据库表时，按照以下3种范式进行，可以避免表中数据的冗余，空间的浪费。</p>
-<h6 id="第一范式"><a class="markdownIt-Anchor" href="#第一范式"></a> 第一范式</h6>
-<p>第一范式：要求任何一张表必须有主键，每一个字段原子性不可再分。</p>
-<p>字段原子性是指字段数据不能再拆分，例如，联系方式字段下的数据同时出现手机号和邮箱两个联系方式，说明联系方式字段还能拆分未手机号和邮箱两个字段。</p>
-<h6 id="第二范式"><a class="markdownIt-Anchor" href="#第二范式"></a> 第二范式</h6>
-<p>第二范式：建立在第一范式的基础之上，要求所有非主键字段完全依赖主键，<br />
-不要产生部分依赖。</p>
-<p>部分依赖通常出现在多对多逻辑关系(例如多个学生对应多个教师)的数据表中，假设把学生编号和教师编号设置为复合主键，学生依赖学生编号，教师依赖教师编号，这就产生了部分依赖(<strong>部分依赖产生的根源就是复合主键的存在，因此设计中一般不建议使用复合主键</strong>)。从根本上解决这个问题，就需要将这一张数据表分成学生表，教师表以及关系表三张数据表，并在关系表中设置学生表和教师表两个外键。</p>
-<h6 id="第三范式"><a class="markdownIt-Anchor" href="#第三范式"></a> 第三范式</h6>
-<p>第三范式：建立在第二范式的基础之上，要求所有非主键字段直接依赖主键，<br />
-不要产生传递依赖。</p>
-<p>传递依赖通常出现在一对多逻辑关系(例如一个班级对应多个学生)的数据表中，假设学生编号为主键，班级名称依赖班级编号，而一个班级编号依赖多个学生编号，这就产生了传递依赖。为了解决这个问题，就需要将这一张数据表分成学生表和班级表，外键则设置在数据相对较多的数据表中。</p>
-<h6 id="数据表设计总结"><a class="markdownIt-Anchor" href="#数据表设计总结"></a> 数据表设计总结</h6>
-<ul>
-<li>
-<p>一对多，两张表，数据多的加外键</p>
-</li>
-<li>
-<p>多对多，三张表，关系表两个外键</p>
-</li>
-<li>
-<p>另外对于一对一逻辑关系的数据表，如果字段数过多也建议进行表的拆分。一般拆分成两张表，这时只需要在其中一张表中添加一个唯一性约束(一对一逻辑关系的数据表理论上不可能出现重复的外键字段值)的外键字段即可，外键字段通常链接的是另一张表的主键字段。</p>
-</li>
-</ul>
-<p>最后，数据库设计三大范式也只是理想上的标准。实际开发中，结合实际需求，有必要牺牲一部分存储空间、规范等来换取更高的开发效率和更好的使用体验，这才是数据库数据表设计的最高目的。</p>
-]]></content>
-      <categories>
-        <category>MySQL5</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>RSS订阅的使用以及优势</title>
-    <url>/2022/09/04/RSS/</url>
-    <content><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3>
-<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
-<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
-<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
-<ul>
-<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
-<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
-<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
-<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
-</ul>
-<h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4>
-<p>windows平台这里推荐微软商店的Fluent Reader<a class="link"   href="https://apps.microsoft.com/store/detail/9P71FC94LRH8" >官网链接 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <tags>
-        <tag>RSS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL基础</title>
     <url>/2022/08/21/MySQL-Base/</url>
     <content><![CDATA[<h3 id="mysql基础"><a class="markdownIt-Anchor" href="#mysql基础"></a> MySQL基础</h3>
@@ -2342,6 +2137,349 @@
       </tags>
   </entry>
   <entry>
+    <title>RSS订阅的使用以及优势</title>
+    <url>/2022/09/04/RSS/</url>
+    <content><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3>
+<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
+<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
+<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
+<ul>
+<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
+<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
+<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
+<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
+</ul>
+<h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4>
+<p>windows平台这里推荐微软商店的Fluent Reader<a class="link"   href="https://apps.microsoft.com/store/detail/9P71FC94LRH8" >官网链接 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <tags>
+        <tag>RSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL高级</title>
+    <url>/2022/08/21/MySQL-Pro/</url>
+    <content><![CDATA[<h3 id="mysql高级"><a class="markdownIt-Anchor" href="#mysql高级"></a> MySQL高级</h3>
+<hr />
+<h4 id="一-distinct关键字"><a class="markdownIt-Anchor" href="#一-distinct关键字"></a> 一、distinct关键字</h4>
+<p>distinct能够去除查询结果中重复的记录</p>
+<p>注意：数据表中的数据并没有被修改，实际上所有的DQL查询语句都不会修改原始数据，只是对查询结果进行处理 <span id="more"></span></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 准备工作</span><br><span class="line">create database if not exists task;</span><br><span class="line">use task;</span><br><span class="line">create table emp (</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    age int,</span><br><span class="line">    sex char(20),</span><br><span class="line">    salary double</span><br><span class="line">);</span><br><span class="line">alter table emp modify sex char(20) character set gbk;</span><br><span class="line">insert into emp values</span><br><span class="line">(1,&#x27;a&#x27;,19,&#x27;男&#x27;,3500),</span><br><span class="line">(2,&#x27;b&#x27;,22,&#x27;男&#x27;,5600),</span><br><span class="line">(3,&#x27;c&#x27;,34,&#x27;女&#x27;,7700),</span><br><span class="line">(4,&#x27;d&#x27;,16,&#x27;男&#x27;,4300),</span><br><span class="line">(5,&#x27;e&#x27;,51,&#x27;女&#x27;,4300),</span><br><span class="line">(6,&#x27;f&#x27;,23,&#x27;女&#x27;,4300);</span><br><span class="line"></span><br><span class="line"># 格式: select distinct 字段名 from 数据表名;</span><br><span class="line"># distinct关键字写在所有字段前面</span><br><span class="line"># 查询salary的值有哪几种情况,不重复列出相同的情况</span><br><span class="line">select distinct salary from emp;</span><br><span class="line"># 对于多个字段,则需要在多个字段的值均重复的条件下才会去重</span><br><span class="line"># 查询数据表中存在的不重复的sex和salary的组合有哪几种情况</span><br><span class="line">select distinct salary,sex from emp;</span><br></pre></td></tr></table></figure></div>
+<h4 id="二-连接查询"><a class="markdownIt-Anchor" href="#二-连接查询"></a> 二、连接查询</h4>
+<h5 id="连接查询的概念"><a class="markdownIt-Anchor" href="#连接查询的概念"></a> 连接查询的概念</h5>
+<p>针对一张数据表进行查询，称为单表查询。<strong>join关键字</strong></p>
+<p>将两张及以上的数据表联合起来进行查询，获取到多张数据表组合出来的数据，称为连接查询。</p>
+<h5 id="连接查询的分类"><a class="markdownIt-Anchor" href="#连接查询的分类"></a> 连接查询的分类</h5>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">根据表连接的方式分类</span><br><span class="line">├── 内连接</span><br><span class="line">│   ├── 等值连接</span><br><span class="line">│   ├── 非等值连接</span><br><span class="line">│   └── 自连接</span><br><span class="line"><span class="string">|</span></span><br><span class="line">├── 外连接</span><br><span class="line">│   ├── 左外连接</span><br><span class="line">│   └── 右外连接</span><br></pre></td></tr></table></figure>
+<h5 id="笛卡尔积现象"><a class="markdownIt-Anchor" href="#笛卡尔积现象"></a> 笛卡尔积现象</h5>
+<p>一般是由于没有加任何限制条件直接联合多张表进行查询。查询结果的数量是多张表的乘积，但一般这样的查询没有太大意义，要避免这种情况需要设计好限制条件。</p>
+<h5 id="内连接"><a class="markdownIt-Anchor" href="#内连接"></a> 内连接</h5>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 准备数据</span><br><span class="line">create database if not exists data;</span><br><span class="line">use data;</span><br><span class="line">create table employee(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    salary double,</span><br><span class="line">    department_id int</span><br><span class="line">);</span><br><span class="line">insert into employee values</span><br><span class="line">(1,&#x27;apple&#x27;,5469,101),</span><br><span class="line">(2,&#x27;grape&#x27;,4465,101),</span><br><span class="line">(3,&#x27;orange&#x27;,6544,102),</span><br><span class="line">(4,&#x27;mango&#x27;,4987,102),</span><br><span class="line">(5,&#x27;banana&#x27;,5323,102),</span><br><span class="line">(6,&#x27;peach&#x27;,6743,103);</span><br><span class="line">create table department(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line">insert into department values</span><br><span class="line">(101,&#x27;develop&#x27;),</span><br><span class="line">(102,&#x27;operate&#x27;),</span><br><span class="line">(103,&#x27;loaf&#x27;);</span><br><span class="line">create table salary_level(</span><br><span class="line">	grade varchar(20),</span><br><span class="line">    min int,</span><br><span class="line">    max int</span><br><span class="line">);</span><br><span class="line">insert into salary_level values</span><br><span class="line">(&#x27;A&#x27;,5501,7000),</span><br><span class="line">(&#x27;B&#x27;,4001,5500),</span><br><span class="line">(&#x27;C&#x27;,2500,4000);</span><br><span class="line"># 等值连接,where后的条件是等值判断</span><br><span class="line"># 查询enployee表中每条记录所对应的department的name</span><br><span class="line"># join前加inner关键字能直接表明这是内连接,当然inner本身可以省略不写</span><br><span class="line"># on关键字类似于where,但on是表示多表的连接条件,而where是表示对连接结果进一步筛选的条件,where写在on的后面</span><br><span class="line">select e.name,d.name from employee e join department d on e.department_id=d.id;</span><br><span class="line"></span><br><span class="line"># 非等值连接,where后的条件一般是在某个范围内判断</span><br><span class="line"># 查询employee表中每条记录所对应的salary_level的grade</span><br><span class="line">select e.name,e.salary,s.grade from employee e inner join salary_level s on e.salary between s.min and s.max;</span><br><span class="line"></span><br><span class="line"># 自连接,本质上是一张表,但进行了重复使用</span><br><span class="line"># 新增数据</span><br><span class="line">insert into employee (id,name) values</span><br><span class="line">(101,&#x27;leader_jackson&#x27;),</span><br><span class="line">(102,&#x27;leader_vim&#x27;),</span><br><span class="line">(103,&#x27;leader_fish&#x27;);</span><br><span class="line"># 查询employee表中department_id对应leader_name和name记录</span><br><span class="line">select e1.name &#x27;emp&#x27;,e2.name &#x27;leader&#x27; from employee e1 join employee e2 on e1.department_id=e2.id;</span><br><span class="line"># 一般需要使用自连接查询的话,说明表的设计还能进一步优化</span><br></pre></td></tr></table></figure></div>
+<h5 id="外连接"><a class="markdownIt-Anchor" href="#外连接"></a> 外连接</h5>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 内连接的多张表并没有主次关系,也就是说不需要考虑查询语句书写的先后顺序</span><br><span class="line"># 外连接分左外连接left join和右外连接right join,left或right关键字不可省略,表示将join关键字左右的数据表视为主表,当然也可以通过调整语句书写的先后顺序改变主次关系</span><br><span class="line"># 主表指定的数据会全部被查询,在此基础上再查询部分相关的次表的数据,也就是说指定查询的主表数据不会因为on的连接条件而有所缺失,但会受到where筛选条件的影响</span><br><span class="line"></span><br><span class="line"># 以employee为主表查询所有记录数</span><br><span class="line">select * from employee e left join department d on e.department_id=d.id;</span><br><span class="line"># 以department为主表查询所有记录数</span><br><span class="line">select * from employee e right join department d on e.department_id=d.id;</span><br><span class="line"></span><br><span class="line"># 通过对比相同的数据表在内外连接两种情况下的不同查询结果,可以找到主表中还未与次表建立逻辑关系的单独的数据</span><br></pre></td></tr></table></figure></div>
+<h5 id="更多表连接三张表"><a class="markdownIt-Anchor" href="#更多表连接三张表"></a> 更多表连接（三张表）</h5>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 三张及以上数据表连接查询,多个连接条件一般都与第一张表相关联,内外连接可以混合使用</span><br><span class="line"># 查询employee、department、salary_level的联合数据</span><br><span class="line"># 查询employee中department_id对应的department表数据,salary对应的salary_level表数据</span><br><span class="line">select e.name,e.salary,d.name,s.grade from employee e join department d on e.department_id=d.id join salary_level s on e.salary between s.min and s.max;</span><br></pre></td></tr></table></figure></div>
+<h4 id="三-子查询"><a class="markdownIt-Anchor" href="#三-子查询"></a> 三、子查询</h4>
+<h5 id="子查询的概念"><a class="markdownIt-Anchor" href="#子查询的概念"></a> 子查询的概念</h5>
+<p>DQL语句中嵌套DQL语句，被嵌套的DQL语句称为子查询。</p>
+<h5 id="子查询的使用"><a class="markdownIt-Anchor" href="#子查询的使用"></a> 子查询的使用</h5>
+<p>子查询可写在<strong>select</strong>、<strong>from</strong>、<strong>where</strong>关键字后面。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># where子句中的子查询,一般子查询结果是某个值</span><br><span class="line"># 查询employee表中大于平均值的salary记录,先查询出avg(salary)的值</span><br><span class="line">select salary from employee where salary&gt;(select avg(salary) from employee);</span><br><span class="line"></span><br><span class="line"># from子句中的子查询,把子查询结果视为一张新的数据表</span><br><span class="line"># 查询employee表中每个department_id对应的avg(salary)的grade,先查询出每个department_id的avg(salary)</span><br><span class="line">select e.*,s.grade from (select department_id,avg(salary) avg from employee group by department_id) e join salary_level s on avg between s.min and s.max;</span><br><span class="line"></span><br><span class="line"># select后的子查询,一般不经常使用,了解即可</span><br><span class="line"># 该子查询只能返回一条记录</span><br><span class="line">select e.name,e.salary,(select avg(salary) from employee) avg from employee e;</span><br></pre></td></tr></table></figure></div>
+<h4 id="四-union关键字"><a class="markdownIt-Anchor" href="#四-union关键字"></a> 四、union关键字</h4>
+<p><strong>union关键字</strong>能合并结果集，将多表查询的结果直接拼接起来，但多张表必须保持字段数一致。字段值在没有特殊逻辑关系下也要对应起来。</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># union和join</span><br><span class="line"># 将employee中salary大于5000的结果集和department_id为101的结果集合并起来,会自动去重</span><br><span class="line">select name from employee where salary &gt; 5000 union select name from employee where department_id=101;</span><br><span class="line"></span><br><span class="line"># 关于union和or关键字的区别</span><br><span class="line"># union能够实现多表查询(前提多张表的字段能够对应),而or只能在一张表里使用</span><br><span class="line"># union会自动去重,or不会去重而是直接取查询结果的并集(实际大部分情况下两者结果区别不大)</span><br><span class="line"># union能够使用不同的索引查询,索引即where后面所用到的字段,而or因为是针对一张表所以只能使用一个索引,一个where后仅能有一个索引,有多个字段时取其一作为索引</span><br><span class="line"></span><br><span class="line"># 一般情况下,数据量较大时(包括单表的数据量和数据表的数量)推荐使用union,多个查询条件涉及到的是同一个字段时推荐使用or</span><br></pre></td></tr></table></figure></div>
+<h4 id="五-limit关键字"><a class="markdownIt-Anchor" href="#五-limit关键字"></a> 五、limit关键字</h4>
+<h5 id="limit的作用"><a class="markdownIt-Anchor" href="#limit的作用"></a> limit的作用</h5>
+<p>将结果集的部分数据展示出来，常用于网页开发分页查询中</p>
+<h5 id="关键字执行优先级"><a class="markdownIt-Anchor" href="#关键字执行优先级"></a> 关键字执行优先级</h5>
+<p>执行优先级：from→where→group by→having→select→order by→<strong>limit</strong></p>
+<h5 id="limit的使用"><a class="markdownIt-Anchor" href="#limit的使用"></a> limit的使用</h5>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 格式:limit 开始下标(缺省的话,默认从0开始),长度(即数据条数)</span><br><span class="line"># 查询employee表前2条数据</span><br><span class="line">select * from employee limit 2; # 简写,实际上是limit 0,2;</span><br><span class="line">select * from employee limit 0,2;</span><br><span class="line"># 查询employee表第2-4条数据,下标从1开始起的3条数据</span><br><span class="line">select * from employee limit 1,3;</span><br><span class="line"></span><br><span class="line"># limit在order by之后执行,所以order by的依据和排序方式会一定程度上影响limit的结果集</span><br><span class="line"># 查询以name升序排序之后的结果集的前2条数据</span><br><span class="line">select * from employee order by name asc limit 2;</span><br><span class="line"># 查询以salary降序排序之后的结果集的前2条数据</span><br><span class="line">select * from employee order by salary desc limit 2;</span><br><span class="line"></span><br><span class="line"># 分页查询的公式:limit (pageNum-1)*pageSize,pageSize</span><br></pre></td></tr></table></figure></div>
+<h4 id="六-约束"><a class="markdownIt-Anchor" href="#六-约束"></a> 六、约束</h4>
+<h5 id="约束的概念"><a class="markdownIt-Anchor" href="#约束的概念"></a> 约束的概念</h5>
+<p>约束（constraint）是用于保证数据完整性、有效性的一种规则。</p>
+<h5 id="多种约束规则"><a class="markdownIt-Anchor" href="#多种约束规则"></a> 多种约束规则</h5>
+<p>非空：not null</p>
+<p>唯一：unique</p>
+<p>主键：primary key（PK）</p>
+<p>外键：foreign key（FK）</p>
+<p>检查：check（MySQL不支持，Oracle支持）</p>
+<h5 id="约束的使用"><a class="markdownIt-Anchor" href="#约束的使用"></a> 约束的使用</h5>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 非空 not null</span><br><span class="line"># 非空约束的字段不能为null</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20) not null</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into con(id,name) values (1,&#x27;a&#x27;);</span><br><span class="line">insert into con(id,name) values (2,null); # 出错,name不能为null</span><br><span class="line">insert into con(id) values (3); # 出错,name没有默认值</span><br><span class="line"></span><br><span class="line"># 唯一性 unique</span><br><span class="line"># 唯一性约束的字段不能重复</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20) unique</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into con(id,name) values (1,&#x27;a&#x27;);</span><br><span class="line">insert into con(id,name) values (2,&#x27;a&#x27;); # name不能出现重复的值</span><br><span class="line">insert into con(id) values (3,null); # name可以为null,且null不属于值重复</span><br><span class="line"></span><br><span class="line"># 多字段各自唯一(列级约束,每个约束仅对单个字段有效)</span><br><span class="line"># name不能重复且email也不能重复</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20) unique,</span><br><span class="line">    email varchar(20) unique</span><br><span class="line">);</span><br><span class="line"># 测试数据可以直接用下面的</span><br><span class="line"></span><br><span class="line"># 多字段组合唯一(表级约束,每个约束对整张表有效,多用于给多个字段添加联合约束)</span><br><span class="line"># name和email的组合不能重复</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    email varchar(20),</span><br><span class="line">    unique(name,email)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into con(id,name,email) values (1,&#x27;a&#x27;,&#x27;a@123.com&#x27;);</span><br><span class="line">insert into con(id,name,email) values (2,&#x27;a&#x27;,&#x27;a@456.com&#x27;);</span><br><span class="line">insert into con(id,name,email) values (3,&#x27;b&#x27;,&#x27;b@123.com&#x27;);</span><br><span class="line">insert into con(id,name,email) values (4,&#x27;a&#x27;,&#x27;a@456.com&#x27;);</span><br><span class="line"></span><br><span class="line"># not null和unique联合</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20) not null unique</span><br><span class="line">);</span><br><span class="line">desc con;</span><br><span class="line">insert into con(id,name) values (1,&#x27;abc&#x27;);</span><br><span class="line">insert into con(id,name) values (2,&#x27;abc&#x27;); # 出错,name不能重复</span><br><span class="line">insert into con(id,name) values (3,null); # 出错,name不能为null</span><br><span class="line"></span><br><span class="line"># 主键 primary key</span><br><span class="line"># 主键字段不能重复且不能为null,类似于unique联合not null但不完全相同</span><br><span class="line"># 根据设计规范,一张表应该存在且只能存在一个主键,主键通常是int、bigint、char等类型的字段,不建议使用varchar类型字段作为主键</span><br><span class="line"># 单一主键,列级约束,一般开发中经常使用</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int primary key,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line">desc con;</span><br><span class="line"># 测试数据可以直接用下面的</span><br><span class="line"></span><br><span class="line"># 复合主键,表级约束,由于复合主键涉及多字段,逻辑比较复杂,一般开发中不会使用</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    primary key(id,name)</span><br><span class="line">);</span><br><span class="line">desc con;</span><br><span class="line"></span><br><span class="line">insert into con(id,name) values (1,&#x27;a&#x27;);</span><br><span class="line">insert into con(id,name) values (1,&#x27;a&#x27;); </span><br><span class="line">insert into con(id,name) values (1,&#x27;b&#x27;); </span><br><span class="line">insert into con(id,name) values (2,&#x27;a&#x27;); </span><br><span class="line">insert into con(id,name) values (3,null);</span><br><span class="line">insert into con(name) values (null,&#x27;a&#x27;);</span><br><span class="line"></span><br><span class="line"># 主键自动递增,这里主键值默认从1开始,按1递增</span><br><span class="line"># 如果insert中途指定了主键值,则从该主键值开始按1递增,如果指定了较小的主键值,会自动升序排序</span><br><span class="line">drop table if exists con;</span><br><span class="line">create table con( </span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line">desc con;</span><br><span class="line">insert into con(name) values (&#x27;a&#x27;);</span><br><span class="line">insert into con(name) values (&#x27;b&#x27;);</span><br><span class="line">insert into con(name) values (&#x27;c&#x27;);</span><br><span class="line"># 此外,主键还能分为自然主键和业务主键,自然主键使用较多,业务主键较少</span><br><span class="line"></span><br><span class="line"># 外键 foreign key</span><br><span class="line"># 外键涉及到两张相互有逻辑关系的数据表,主要是为了保证两张表的逻辑关系有效</span><br><span class="line"># 外键关联的两张表有父表和子表之分</span><br><span class="line"># 删除数据时先子表后父表,新增数据时先父表后子表,删除表时先子表后父表,创建表时先父表后子表</span><br><span class="line">drop table if exists son;</span><br><span class="line">drop table if exists dad;</span><br><span class="line">create table dad(</span><br><span class="line">	no int primary key,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line">create table son(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    dad_no int,</span><br><span class="line">    foreign key(dad_no) references dad(no)</span><br><span class="line">);</span><br><span class="line">insert into dad(no,name) values (001,&#x27;fruit&#x27;);</span><br><span class="line">insert into dad(no,name) values (002,&#x27;animal&#x27;);</span><br><span class="line"></span><br><span class="line">insert into son(name,dad_no) values (&#x27;apple&#x27;,001);</span><br><span class="line">insert into son(name,dad_no) values (&#x27;pear&#x27;,001);</span><br><span class="line">insert into son(name,dad_no) values (&#x27;cat&#x27;,002);</span><br><span class="line">insert into son(name,dad_no) values (&#x27;rabbit&#x27;,002);</span><br><span class="line"># 另外被子表references的父表字段不一定是主键,但至少具有unique的约束</span><br></pre></td></tr></table></figure></div>
+<h4 id="七-存储引擎"><a class="markdownIt-Anchor" href="#七-存储引擎"></a> 七、存储引擎</h4>
+<h5 id="存储引擎的概念"><a class="markdownIt-Anchor" href="#存储引擎的概念"></a> 存储引擎的概念</h5>
+<p>存储引擎是MySQL中特有的术语，表示一个数据表存储、组织数据的方式。不同的存储引擎，数据表存储数据的方式不同。</p>
+<h5 id="存储引擎的使用"><a class="markdownIt-Anchor" href="#存储引擎的使用"></a> 存储引擎的使用</h5>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 准备工作</span><br><span class="line">drop table if exists engine;</span><br><span class="line">create table if not exists engine(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line"># 查看存储引擎,MySQL默认存储引擎为InnoDB</span><br><span class="line">show create table engine;</span><br><span class="line"></span><br><span class="line"># 在创建表时指定存储引擎</span><br><span class="line">drop table if exists engine;</span><br><span class="line">create table engine(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20)</span><br><span class="line">)engine=innodb default charset=gbk;</span><br><span class="line">show create table engine;</span><br><span class="line"></span><br><span class="line"># 查看MySQL版本</span><br><span class="line">select version();</span><br><span class="line"># 查看支持的存储引擎,不同的MySQL版本支持的存储引擎可能不一样</span><br><span class="line">show engines;</span><br></pre></td></tr></table></figure></div>
+<h5 id="常用存储引擎介绍"><a class="markdownIt-Anchor" href="#常用存储引擎介绍"></a> 常用存储引擎介绍</h5>
+<h6 id="myisam存储引擎"><a class="markdownIt-Anchor" href="#myisam存储引擎"></a> MyISAM存储引擎</h6>
+<p>使用三种文件来表示每个数据表：</p>
+<ul>
+<li>格式文件(.frm)：存储表结构的定义</li>
+<li>数据文件(.myd)：存储表行的内容</li>
+<li>索引文件(.myi)：存储表上索引（主键或unique约束字段会自动创建索引）</li>
+</ul>
+<p>特点：可以被转换为压缩，只读表里节省空间，但不支持事务，安全性低</p>
+<h6 id="innodb存储引擎"><a class="markdownIt-Anchor" href="#innodb存储引擎"></a> InnoDB存储引擎</h6>
+<p><strong>一般开发中最优先考虑的存储引擎</strong>，重量级的存储引擎，管理的数据表有以下特征：</p>
+<ul>
+<li>每个数据表在数据库目录中以.frm格式的文件表示</li>
+<li>提供一组用于记录事务性获得的日志文件</li>
+<li>通过commit、savepoint和rollback支持事务处理</li>
+<li>提供全ACID兼容</li>
+<li>在MySQL服务器崩溃后能够自动恢复</li>
+<li>多版本MVCC和行级锁定</li>
+<li>支持外键级引用的完整性，包括级联删除和更新</li>
+</ul>
+<p>特点：支持事务，以保证数据的安全性，但效率不高，不能压缩不能转换为只读，比较占存储空间</p>
+<h6 id="memory存储引擎"><a class="markdownIt-Anchor" href="#memory存储引擎"></a> MEMORY存储引擎</h6>
+<p>MEMORY存储引擎以前称为heap存储引擎，管理数据库有以下特征：</p>
+<ul>
+<li>在数据库目录内，每个数据表均以.frm格式的文件表示</li>
+<li>表的数据以及索引被存储在内存中（这显著提升了查询速度）</li>
+<li>表级锁机制</li>
+<li>不支持text和blob字段</li>
+</ul>
+<p>特点：字段长度固定，数据存储在内存，这使得它的数据处理效率非常高，但同时一旦MySQL服务重启，存储数据就会丢失，<strong>一般开发中只用于临时存储数据</strong>。</p>
+<h4 id="八-事务-视图-数据库设计"><a class="markdownIt-Anchor" href="#八-事务-视图-数据库设计"></a> 八、事务、视图、数据库设计</h4>
+<h5 id="事务transaction"><a class="markdownIt-Anchor" href="#事务transaction"></a> 事务(transaction)</h5>
+<ol>
+<li>
+<p>事务的概念：一个事务就是一个完整的业务逻辑，是一个不可再分的最小的工作单元。例如，银行转账，A向B转账1000，A扣除1000，B增加1000。可以用两个update语句实现，但它们必须同时成功或者失败，而不能单独拆分，否则就不构成一个完整的业务逻辑，这就是一个最小的工作单元。</p>
+</li>
+<li>
+<p>只有在使用DML语句时才会涉及到事务，因为只有DML语句会增加、删除、修改数据表的数据，这就离不开事务安全性的考虑。</p>
+</li>
+<li>
+<p>简单理解事务：就是要使多条DML语句同时成功或失败的一种规则。</p>
+</li>
+<li>
+<p>如何实现事务</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># InnoDB存储引擎提供了一组用来记录事务性活动的日志文件</span><br><span class="line"># 在事务的执行过程中,每一条DML的操作都会记录到“事务性活动的日志文件”中</span><br><span class="line"># 在事务的执行过程通过提交事务或者回滚事务就能实现事务要求的规则</span><br><span class="line"></span><br><span class="line"># MySQL默认是自动提交事务,即每执行一条DML语句就提交一次,但这不符合开发习惯</span><br><span class="line"># 关闭自动提交机制 start transaction(仅对一次事务有效)</span><br><span class="line"># 或者直接设置开启或关闭自动提交(对所有事务有效)</span><br><span class="line">set autocommit=0; # 关闭自动提交</span><br><span class="line">set autocommit=1; # 开启自动提交</span><br><span class="line"># 提交事务commit,回滚事务rollback</span><br><span class="line"># 准备工作</span><br><span class="line">drop table if exists test;</span><br><span class="line">create table test(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20)</span><br><span class="line">);</span><br><span class="line">select * from test;</span><br><span class="line"></span><br><span class="line">start transaction; # 关闭自动提交机制,commit之后需要重新执行</span><br><span class="line">insert into test(name) values (&#x27;a&#x27;);</span><br><span class="line">insert into test(name) values (&#x27;b&#x27;);</span><br><span class="line">insert into test(name) values (&#x27;c&#x27;);</span><br><span class="line">select * from test;</span><br><span class="line"></span><br><span class="line">rollback; # 回滚事务</span><br><span class="line">select * from test; # 未提交的事务消失</span><br><span class="line"></span><br><span class="line">insert into test(name) values (&#x27;d&#x27;);</span><br><span class="line">commit; # 提交事务</span><br><span class="line">select * from test;</span><br><span class="line"></span><br><span class="line">rollback;</span><br><span class="line">select * from test; # 已经提交的事务,无法回滚</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>事务的4个特性（ACID）</p>
+<p>A：原子性，事务是最小的工作单元，不可再分。</p>
+<p>C：一致性，在同一个事务中，所有操作必须同时成功或者失败，保证数据的一致性。</p>
+<p>I：隔离性，A事务与B事务之间存在一定的隔离，根据隔离性可分成4个隔离级别。</p>
+<ul>
+<li>
+<p>读未提交：read uncommitted（隔离级别最低）</p>
+<p>事务A能够读取事务B<strong>未提交的数据</strong>，这种隔离级别存在读取到脏数据的问题，即读取到并不需要的数据。一般开发中不会使用这个隔离级别。</p>
+</li>
+<li>
+<p>读已提交：read committed</p>
+<p>事务A只能读取事务B<strong>已提交的数据</strong>，这种隔离级别避免了脏读问题，但存在不可重复读取数据的问题，事务B再做任何提交操作之后，事务A读取的数据就会相应地发生改变。读取的数据是比较真实的数据，这是<strong>Oracle数据库默认的隔离级别</strong>。</p>
+</li>
+<li>
+<p>可重复读：repeatable read</p>
+<p>事务B开启后，每次从事务B读取的数据都是一致的，即使事务B的数据修改并提交，事务A所<strong>读取到的数据都是事务B刚开始事务时的数据</strong>。这种隔离级别避免了不可重复读的问题，但出现了幻影读的问题，即每次读取到的数据都不是当前的真实数据，这是<strong>MySQL默认的隔离级别</strong>。</p>
+</li>
+<li>
+<p>序列化/串行化：serializable（最高隔离级别）</p>
+<p>效率最低，但解决了上面存在的所有问题。这种隔离级别的事务需要排队，不能并发。synchronized线程同步（事务同步），每次读取到的数据都是最真实的，效率也是最低的。</p>
+</li>
+</ul>
+<p>D：持久性，事务完成的保障，事务提交之后，数据就被持久地保存下来。</p>
+</li>
+<li>
+<p>隔离级别验证</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 在同一个命令行或同一个查询下可能无法展示出隔离级别的效果,建议事务A和事务B各打开一个命令行或者在navicat下各新建一个查询</span><br><span class="line"># 建议每次重新设置隔离级别之后重启命令行或navicat刷新</span><br><span class="line"># 查看隔离级别</span><br><span class="line">select @@tx_isolation;</span><br><span class="line"></span><br><span class="line"># 准备工作</span><br><span class="line">create table isolation_level(</span><br><span class="line">	name varchar(20)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># read uncommitted 读未提交</span><br><span class="line"># 设置全局隔离级别为read uncommitted</span><br><span class="line">set global transaction isolation level read uncommitted;</span><br><span class="line"># 事务A</span><br><span class="line">start transaction;</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">start transaction;</span><br><span class="line">insert into isolation_level values (&#x27;hello&#x27;);</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level; # 读取到了未提交的数据</span><br><span class="line"></span><br><span class="line"># read committed 读已提交</span><br><span class="line"># 设置全局隔离级别为read committed</span><br><span class="line">set global transaction isolation level read committed;</span><br><span class="line"># 事务A</span><br><span class="line">start transaction;</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">start transaction;</span><br><span class="line">insert into isolation_level values (&#x27;world&#x27;);</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level; # 未读取到事务B的数据</span><br><span class="line"># 事务B</span><br><span class="line">commit;</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level; # 读取到了事务B提交的数据</span><br><span class="line"></span><br><span class="line"># repeatable read 可重复读</span><br><span class="line"># 设置全局隔离级别为repeatable read</span><br><span class="line">set global transaction isolation level repeatable read;</span><br><span class="line"># 事务A</span><br><span class="line">start transaction;</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">start transaction; # 第一次开启事务</span><br><span class="line">insert into isolation_level values (&#x27;read&#x27;);</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">insert into isolation_level values (&#x27;repeat&#x27;);</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">commit;</span><br><span class="line"># 事务A</span><br><span class="line">select * from isolation_level; # 事务A读取到的始终是事务B第一次开启事务时的数据</span><br><span class="line"># 事务A</span><br><span class="line">commit;</span><br><span class="line">select * from isolation_level; # 事务A也提交后再查询,就能获取事务B的最近一次事务提交的数据</span><br><span class="line"># 补充说明:事务B第一次开启事务这个概念是以事务A开启事务后事务B第一次执行start transaction为准,也就是当事务A提交之后再次开启事务,重新计算事务B第一次开启事务</span><br><span class="line"></span><br><span class="line"># serializable 序列化</span><br><span class="line"># 设置全局隔离级别为serializable</span><br><span class="line">set global transaction isolation level serializable;</span><br><span class="line"># 事务A</span><br><span class="line">start transaction;</span><br><span class="line">select * from isolation_level;</span><br><span class="line"># 事务B</span><br><span class="line">start transaction;</span><br><span class="line">insert into isolation_level values (&#x27;serializable&#x27;); # 卡住,因为事务A没有提交</span><br><span class="line"># 事务A</span><br><span class="line">commit; # 提交事务A后事务B新增数据完成</span><br><span class="line">start transaction; # 事务A重新开启事务</span><br><span class="line">select * from isolation_level; # 卡住或超时报错,因为事务B没有提交</span><br><span class="line"># 事务B</span><br><span class="line">commit; # 提交事务B后事务A查询完成视图</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<h5 id="视图view"><a class="markdownIt-Anchor" href="#视图view"></a> 视图(view)</h5>
+<ol>
+<li>
+<p>视图的概念</p>
+<p>从多个角度观察处理同一份数据，每一个角度就是一种视图。  例如，对同一份数据进行不同的处理，根据不同的需求展示出相应部分的数据或者根据不同的权限展示出每个权限被允许接触到的数据。</p>
+</li>
+<li>
+<p>视图的使用</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 准备工作</span><br><span class="line">drop table if exists origin;</span><br><span class="line">create table origin(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    age int,</span><br><span class="line">    department varchar(20)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">insert into origin(name,age,department) values</span><br><span class="line">(&#x27;apple&#x27;,13,&#x27;developer&#x27;),</span><br><span class="line">(&#x27;orange&#x27;,14,&#x27;operator&#x27;);</span><br><span class="line"># 先备份原表,复制原表</span><br><span class="line">create table origin_backup select * from origin;</span><br><span class="line"></span><br><span class="line"># 创建视图对象,需要as关键字,且只能通过DQL语句创建</span><br><span class="line">create view origin_view as select * from origin;</span><br><span class="line"># 删除视图对象</span><br><span class="line">drop view origin_view;</span><br><span class="line"></span><br><span class="line"># 对视图对象的增删改查会映射到原表的数据上</span><br><span class="line"># 查询视图</span><br><span class="line">select * from origin_view;</span><br><span class="line"># 新增视图数据</span><br><span class="line">insert into origin_view(name,age,department) values</span><br><span class="line">(&#x27;mango&#x27;,12,&#x27;manager&#x27;),</span><br><span class="line">(&#x27;banana&#x27;,16,&#x27;admin&#x27;);</span><br><span class="line"># 查询原表</span><br><span class="line">select * from origin;</span><br><span class="line"># 更新视图数据</span><br><span class="line">update origin_view set age=20 where name=&#x27;mango&#x27;;</span><br><span class="line">select * from origin;</span><br><span class="line"># 删除视图数据</span><br><span class="line">delete from origin_view;</span><br><span class="line">select * from origin;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>视图对象的实际开发用途</p>
+<ul>
+<li>视图的使用能够有效简化开发，方便维护，提高开发效率</li>
+<li>单独的SQL语句只能针对一张数据表的数据进行修改，而视图的使用将多张表的数据集中到一个视图，通过对这个视图数据的修改，就能一次性实现对多张表数据的修改，而不需要每一张数据表重复写一条SQL语句去修改</li>
+<li>另外对于后期大量数据表的维护，只需要重新修改视图对象所映射的DQL语句就能灵活地指定需要维护的数据表的数据</li>
+</ul>
+</li>
+</ol>
+<h5 id="数据库设计三大范式"><a class="markdownIt-Anchor" href="#数据库设计三大范式"></a> 数据库设计：三大范式</h5>
+<h6 id="三大范式的概念"><a class="markdownIt-Anchor" href="#三大范式的概念"></a> 三大范式的概念</h6>
+<p>范式是数据库数据表的设计依据，是一种规范和统一标准。设计数据库表时，按照以下3种范式进行，可以避免表中数据的冗余，空间的浪费。</p>
+<h6 id="第一范式"><a class="markdownIt-Anchor" href="#第一范式"></a> 第一范式</h6>
+<p>第一范式：要求任何一张表必须有主键，每一个字段原子性不可再分。</p>
+<p>字段原子性是指字段数据不能再拆分，例如，联系方式字段下的数据同时出现手机号和邮箱两个联系方式，说明联系方式字段还能拆分未手机号和邮箱两个字段。</p>
+<h6 id="第二范式"><a class="markdownIt-Anchor" href="#第二范式"></a> 第二范式</h6>
+<p>第二范式：建立在第一范式的基础之上，要求所有非主键字段完全依赖主键，<br />
+不要产生部分依赖。</p>
+<p>部分依赖通常出现在多对多逻辑关系(例如多个学生对应多个教师)的数据表中，假设把学生编号和教师编号设置为复合主键，学生依赖学生编号，教师依赖教师编号，这就产生了部分依赖(<strong>部分依赖产生的根源就是复合主键的存在，因此设计中一般不建议使用复合主键</strong>)。从根本上解决这个问题，就需要将这一张数据表分成学生表，教师表以及关系表三张数据表，并在关系表中设置学生表和教师表两个外键。</p>
+<h6 id="第三范式"><a class="markdownIt-Anchor" href="#第三范式"></a> 第三范式</h6>
+<p>第三范式：建立在第二范式的基础之上，要求所有非主键字段直接依赖主键，<br />
+不要产生传递依赖。</p>
+<p>传递依赖通常出现在一对多逻辑关系(例如一个班级对应多个学生)的数据表中，假设学生编号为主键，班级名称依赖班级编号，而一个班级编号依赖多个学生编号，这就产生了传递依赖。为了解决这个问题，就需要将这一张数据表分成学生表和班级表，外键则设置在数据相对较多的数据表中。</p>
+<h6 id="数据表设计总结"><a class="markdownIt-Anchor" href="#数据表设计总结"></a> 数据表设计总结</h6>
+<ul>
+<li>
+<p>一对多，两张表，数据多的加外键</p>
+</li>
+<li>
+<p>多对多，三张表，关系表两个外键</p>
+</li>
+<li>
+<p>另外对于一对一逻辑关系的数据表，如果字段数过多也建议进行表的拆分。一般拆分成两张表，这时只需要在其中一张表中添加一个唯一性约束(一对一逻辑关系的数据表理论上不可能出现重复的外键字段值)的外键字段即可，外键字段通常链接的是另一张表的主键字段。</p>
+</li>
+</ul>
+<p>最后，数据库设计三大范式也只是理想上的标准。实际开发中，结合实际需求，有必要牺牲一部分存储空间、规范等来换取更高的开发效率和更好的使用体验，这才是数据库数据表设计的最高目的。</p>
+]]></content>
+      <categories>
+        <category>MySQL5</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于个人Hexo博客的搭建历史</title>
+    <url>/2023/01/17/blog-by-https/</url>
+    <content><![CDATA[<p>仅以此文回顾过去搭建Hexo博客的历程<span id="more"></span></p>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>在早期笔者一直是通过github pages服务来运行博客网站，从而省略了对<strong>域名解析</strong>、<strong>nginx反向代理</strong>以及<strong>SSL证书的申请与HTTPS服务的开启</strong>这些配置</p>
+<p>于是后期，笔者租赁了一台纯净Ubutun20.04LTS系统的轻量应用服务器，从零开始基于命令行配置hexo博客以及HTTPS服务的开启</p>
+<h2 id="hexo博客的搭建"><a class="markdownIt-Anchor" href="#hexo博客的搭建"></a> Hexo博客的搭建</h2>
+<h3 id="本地环境搭建"><a class="markdownIt-Anchor" href="#本地环境搭建"></a> 本地环境搭建</h3>
+<h4 id="git环境"><a class="markdownIt-Anchor" href="#git环境"></a> Git环境</h4>
+<ol>
+<li>
+<p>访问git官网<a class="link"   href="https://git-scm.com/download" >Git - Downloads (git-scm.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>或寻找镜像站<a class="link"   href="https://mirrors.tuna.tsinghua.edu.cn/github-release/git-for-windows/git/" >清华大学开源软件镜像站 | git for windows <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>下载对应系统的版本</p>
+</li>
+<li>
+<p>安装Git，除了安装路径可选择C盘或D盘，其它均可直接下一步</p>
+</li>
+<li>
+<p>配置环境变量，在系统环境变量的<strong>Path变量下</strong>增加变量值</p>
+<p>参考变量值：D:\Program Files\Git\cmd</p>
+</li>
+<li>
+<p>win+r输入powershell打开查看git版本信息</p>
+<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line">git <span class="literal">-v</span></span><br></pre></td></tr></table></figure></div>
+<p>显示出了版本号，则说明git配置完成</p>
+</li>
+</ol>
+<h4 id="nodejs环境"><a class="markdownIt-Anchor" href="#nodejs环境"></a> Nodejs环境</h4>
+<ol>
+<li>
+<p>访问nodejs官网<a class="link"   href="https://nodejs.org/en/download/" >Download | Node.js (nodejs.org) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>下载对应系统的nodejs版本。（linux系统可直接使用命令行下载而不需要手动配置，使用其它方式则需要手动添加环境变量或者软链接）</p>
+</li>
+<li>
+<p>windows下载完nodejs后需要配置环境变量（注意不要使用中文路径和带有空格的路径，默认路径中的<code>Program Files</code>中的空格会导致命令无法识别）</p>
+<p>windows参考配置</p>
+<ol>
+<li>
+<p>执行下载的nodejs的msi文件，选择安装路径<code>D:\nodejs</code></p>
+</li>
+<li>
+<p>配置<strong>系统环境变量</strong>，在<strong>Path变量</strong>下添加 D:\nodejs\ （这一步nodejs可能会自动配置好）</p>
+</li>
+<li>
+<p>应用配置，保存关闭。win+r输入powershell打开命令提示符，输入</p>
+<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看nodejs版本</span></span><br><span class="line">node <span class="literal">-v</span></span><br><span class="line"><span class="comment"># 查看包管理器npm的版本(npm是nodejs默认安装的包管理器)</span></span><br><span class="line">npm <span class="literal">-v</span></span><br></pre></td></tr></table></figure></div>
+<p>以上命令检测到两个版本号后说明配置完成</p>
+</li>
+<li>
+<p>完成以上步骤后基本就能够使用nodejs来搭建hexo。后续为<strong>非必须步骤</strong>，如果使用过程中存在一些问题可参考以下步骤解决</p>
+</li>
+<li>
+<p>如果npm下载失败或下载速度缓慢，可能是由于默认服务器在海外的缘故，可指定国内镜像源下载或配置npm的国内镜像源</p>
+<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定镜像源下载,下载时加上--registry的参数,每次下载需要指定</span></span><br><span class="line">npm install <span class="literal">-g</span> 包名 <span class="literal">--registry</span>=https://registry.npm.taobao.org</span><br><span class="line"><span class="comment"># 设置镜像源,将npm的默认源更换为镜像源</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line"><span class="comment"># 检测镜像站是否可用</span></span><br><span class="line">npm config get registry</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>按以上步骤nodejs安装在了D盘，但下载的包仍在C盘，这里的配置是将包从C盘迁移到D盘以减少C盘的占用</p>
+<p>在nodejs的根目录下，创建两个文件夹命名为node_global和node_cache，在文件夹的属性——安全里更改所有组或用户的权限为完全控制（防止权限不足而无法下载的问题）</p>
+<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置全局安装路径(路径根据实际情况填写)</span></span><br><span class="line">npm config <span class="built_in">set</span> prefix <span class="string">&quot;D:\nodejs\node_global&quot;</span></span><br><span class="line"><span class="comment"># 设置全局缓存路径(路径根据实际情况填写)</span></span><br><span class="line">npm config <span class="built_in">set</span> cache <span class="string">&quot;D:\nodejs\node_cache&quot;</span></span><br><span class="line"><span class="comment"># 以上命令会在C盘用户文件夹下产生一个.npmrc配置文件由于保存上面的配置信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加系统环境变量,在Path变量下新增变量值,变量值就是全局安装路径,否则新安装的命令工具无法执行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检测全局安装路径</span></span><br><span class="line">npm root <span class="literal">-g</span></span><br><span class="line"><span class="comment"># 查看配置信息</span></span><br><span class="line">npm config list</span><br></pre></td></tr></table></figure></div>
+<p>以上配置完成后，之后下载的包都会放到<strong>node_global/node_modules</strong>下</p>
+</li>
+</ol>
+</li>
+<li>
+<p>nodejs环境搭建完成</p>
+</li>
+</ol>
+<h4 id="hexo环境"><a class="markdownIt-Anchor" href="#hexo环境"></a> Hexo环境</h4>
+<ol>
+<li>
+<p>在完成了搭建git和nodejs的环境的基础上，就能够快速使用Hexo</p>
+</li>
+<li>
+<p>在powershell中执行以下命令</p>
+<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 全局安装Hexo命令行工具</span></span><br><span class="line">npm install <span class="literal">-g</span> hexo<span class="literal">-cli</span></span><br><span class="line"><span class="comment"># 查看Hexo版本信息</span></span><br><span class="line">hexo version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择一个合适的文件夹作为Hexo框架的存放目录(这里假设使用一个demo的空文件夹)</span></span><br><span class="line"><span class="comment"># 执行以下3条命令就搭建好了基本的框架</span></span><br><span class="line">hexo init demo</span><br><span class="line"><span class="built_in">cd</span> demo</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在本地运行Hexo</span></span><br><span class="line">hexo server <span class="comment"># 或简写为hexo s</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一些常用的Hexo命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一篇文章(文章内包含了Hexo的一些格式信息)</span></span><br><span class="line">hexo new <span class="string">&quot;first blog&quot;</span> <span class="comment"># 会在_posts目录下生成一个markdown初始文件,标题为first blog</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一篇草稿(草稿不会在网站上展示)</span></span><br><span class="line">hexo new draft <span class="string">&quot;my draft&quot;</span> <span class="comment"># 会在_drafts目录下生成相应的初始文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建导航页(导航页主要是展示文章分类、标签、作者简介、友情链接等信息)</span></span><br><span class="line">hexo new page <span class="literal">--path</span> about/me <span class="string">&quot;About me&quot;</span> <span class="comment"># 个人简介,这里是固定写法。默认情况下还需要修改配置文件才能生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态文件(一般是在新建文章并完成写作后使用或者在修改了文章的内容后使用)</span></span><br><span class="line">hexo generate <span class="comment"># 可简写为hexo g</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务器(用于预览网页效果)</span></span><br><span class="line">hexo server <span class="comment"># 可简写为hexo s</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署网站(需要配置远程服务器地址,部署之前需要先生成静态文件)</span></span><br><span class="line">hexo deploy <span class="comment"># 可简写为hexo d</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除缓存文件(一般是更换Hexo主题未生效时使用)</span></span><br><span class="line">hexo clean</span><br></pre></td></tr></table></figure></div>
+<p>更详细的介绍请移步官网<a class="link"   href="https://hexo.io/zh-cn/" >Hexo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ol>
+<h3 id="远程环境搭建"><a class="markdownIt-Anchor" href="#远程环境搭建"></a> 远程环境搭建</h3>
+<h4 id="创建git仓库"><a class="markdownIt-Anchor" href="#创建git仓库"></a> 创建Git仓库</h4>
+<p>先安装openssh，之后就可以通过ssh客户端远程连接服务器而不需要在浏览器上操作</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装SSH服务端</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"><span class="comment"># 查看SSH服务是否启动</span></span><br><span class="line">ps -e | grep ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个blog用户管理Hexo(默认的root用户权限过高,容易影响到系统)</span></span><br><span class="line">adduser blog</span><br><span class="line"><span class="comment"># 给予blog用户权限</span></span><br><span class="line">vim /etc/sudoers</span><br><span class="line"><span class="comment"># 找到User privilege specification这一段,在下面添加以下内容</span></span><br><span class="line">blog    ALL=(ALL:ALL) ALL</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到blog用户(密码可在网页服务器控制台那边重置密码获得)</span></span><br><span class="line">su blog</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装git</span></span><br><span class="line">sudo apt install git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入根目录,在/var/repo目录下创建一个名为hexo_static的裸仓库</span></span><br><span class="line"><span class="built_in">cd</span> /</span><br><span class="line">sudo <span class="built_in">mkdir</span> /var/repo/</span><br><span class="line">sudo <span class="built_in">chown</span> -R <span class="variable">$USER</span>:<span class="variable">$USER</span> /var/repo/</span><br><span class="line">sudo <span class="built_in">chmod</span> -R 755 /var/repo/</span><br><span class="line"><span class="built_in">cd</span> /var/repo/</span><br><span class="line"><span class="comment"># 创建裸仓库</span></span><br><span class="line">git init --bare hexo_static.git</span><br><span class="line"><span class="comment"># 裸仓库不同于普通仓库,裸仓库是专门的共享仓库,不会存储文件,只保存历史提交的版本信息</span></span><br><span class="line"><span class="comment"># 实际上裸仓库就相当于普通仓库中隐藏的.git文件夹</span></span><br></pre></td></tr></table></figure></div>
+<h4 id="配置nginx反向代理"><a class="markdownIt-Anchor" href="#配置nginx反向代理"></a> 配置Nginx反向代理</h4>
+<h5 id="安装nginx及可能遇到的问题"><a class="markdownIt-Anchor" href="#安装nginx及可能遇到的问题"></a> 安装Nginx及可能遇到的问题</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装nginx</span></span><br><span class="line">sudo apt install nginx</span><br><span class="line"><span class="comment"># 查看版本信息,注意大小写</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 注意这一步如果没有看到with-http_ssl_module字样的参数信息(如果有就跳过后续步骤),则需要从源码编译安装(已经安装了也没有关系,停止服务后替换配置文件即可)</span></span><br><span class="line"><span class="comment"># 如果想卸载也可以执行以下命令</span></span><br><span class="line">sudo apt --purge autoremove nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># Nginx 官网 https://nginx.org/en/download.html</span></span><br><span class="line"><span class="comment"># /usr/local/src目录通常用于存放用户手动编译程序的源码包</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/src/</span><br><span class="line"><span class="comment"># 这里使用wget下载nginx的源码包</span></span><br><span class="line"><span class="comment"># 如果已经安装并配置了nginx,又不想重新配置,使用nginx -v命令查看已安装的nginx版本并替换掉以下命令中的版本号</span></span><br><span class="line">wget https://nginx.org/download/nginx-1.22.1.tar.gz</span><br><span class="line"><span class="comment"># 解压提取包并进入解压目录</span></span><br><span class="line">tar -zxvf nginx-1.22.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> nginx-1.22.1</span><br><span class="line"><span class="comment"># 查看原有的nginx安装目录</span></span><br><span class="line"><span class="built_in">which</span> nginx</span><br><span class="line"><span class="comment"># 停止nginx的运行</span></span><br><span class="line">nginx -s stop</span><br><span class="line"><span class="comment"># 查看原有nginx的配置参数,注意大小写</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 在原有参数的基础上附加--with-http_ssl_module的参数配置SSL模块(下面只给出了一部分参数,完整参数由nginx -V显示的参数拼接SSL模块的参数而成)</span></span><br><span class="line">sudo ./configure --prefix=/usr/local/nginx --with-http_ssl_module</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这一步可能会缺少一些库,使用以下命令下载到相关库后重新编译</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少PCRE的相关库,如果不缺这个库就跳过</span></span><br><span class="line">sudo apt install libpcre3 libpcre3-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少zlib的库,如果不缺这个库就跳过</span></span><br><span class="line"><span class="comment"># 访问zlib官网http://zlib.net/下载zlib,这里直接用wget下载到当前的src目录</span></span><br><span class="line">wget http://zlib.net/zlib-1.2.13.tar.gz</span><br><span class="line">./configure --prefix=/usr/local/zlib</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少openssl的相关库,如果不缺这个库就跳过</span></span><br><span class="line">sudo apt install openssl libssl-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新编译nginx</span></span><br><span class="line">sudo make</span><br><span class="line"><span class="comment"># 如果没有安装过nginx或者已经卸载了nginx则执行以下2条命令覆盖安装后即可跳过后续步骤</span></span><br><span class="line">sudo make install</span><br><span class="line"><span class="comment"># 配置软链接使得在任意目录下能通过nginx的名称直接运行nginx的命令</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /usr/local/nginx/sbin/nginx /usr/sbin/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换原有nginx的文件</span></span><br><span class="line"><span class="comment"># 备份原有nginx安装目录下的文件(这里以安装文件位于/usr/sbin/目录下为例)</span></span><br><span class="line"><span class="built_in">cp</span> /usr/sbin/nginx /usr/sbin/nginx.bak</span><br><span class="line"><span class="comment"># 将编译好的nginx文件覆盖掉原有的nginx</span></span><br><span class="line"><span class="built_in">cp</span> ./objs/nginx /usr/sbin/</span><br><span class="line"><span class="comment"># 重新查看nginx参数信息</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 看到了--with-http_ssl_module的参数,SSL模块配置完成</span></span><br></pre></td></tr></table></figure></div>
+<h5 id="配置nginx托管文件目录"><a class="markdownIt-Anchor" href="#配置nginx托管文件目录"></a> 配置Nginx托管文件目录</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建/var/www/hexo目录用于存放Hexo生成的静态文件,修改目录所有权</span></span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /var/www/hexo</span><br><span class="line">sudo <span class="built_in">chown</span> -R <span class="variable">$USER</span>:<span class="variable">$USER</span> /var/www/hexo</span><br><span class="line">sudo <span class="built_in">chmod</span> -R 755 /var/www/hexo</span><br><span class="line"><span class="comment"># 修改/etc/nginx/sites-enabled/default,使nginx的root目录指向hexo目录</span></span><br><span class="line"><span class="comment"># 在server里面添加以下配置</span></span><br><span class="line">root /var/www/hexo;</span><br><span class="line"><span class="comment"># 重启nginx服务</span></span><br><span class="line">sudo systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置git钩子,用于实现本地Hexo生成的静态文件推送到指定目录</span></span><br><span class="line">vim /var/repo/hexo_static.git/hooks/post-receive</span><br><span class="line"><span class="comment"># 添加以下配置内容并保存退出</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">git --work-tree=/var/www/hexo --git-dir=/var/repo/hexo_static.git checkout -f</span><br><span class="line"><span class="comment"># 给予可执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x /var/repo/hexo_static.git/hooks/post-receive</span><br></pre></td></tr></table></figure></div>
+<h3 id="ssh远程连接配置"><a class="markdownIt-Anchor" href="#ssh远程连接配置"></a> SSH远程连接配置</h3>
+<p>在windows上搭建SSH客户端</p>
+<ol>
+<li>
+<p>使用powershell运行以下命令在用户文件夹的.ssh文件夹下生成密钥</p>
+<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>将生成的公钥id_rsa.pub中的内容拷贝到服务器的/home/blog/.ssh/authorized_keys文件上</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> .ssh</span><br><span class="line"><span class="built_in">cd</span> .ssh</span><br><span class="line">sudo <span class="built_in">touch</span> authorized_keys</span><br><span class="line">sudo vim .ssh/authorized_keys</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<h3 id="hexo部署到服务器"><a class="markdownIt-Anchor" href="#hexo部署到服务器"></a> Hexo部署到服务器</h3>
+<ol>
+<li>
+<p>编辑hexo根目录中的config.yml文件，在deploy处配置参数</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="comment"># server_ip为服务器的公网ip</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">blog@server_ip:/var/repo/hexo_static.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>执行以下命令部署Hexo</p>
+<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>查看服务器的/var/www/hexo目录，能够看到上传的静态文件</p>
+</li>
+<li>
+<p>访问服务器IP地址查看页面，如果访问失败则检查服务器内部是否开放了80端口并去浏览器控制台查看服务器厂商提供的安全组规则或外部防火墙是否开放了80端口。确认都开放之后重新访问</p>
+</li>
+</ol>
+<h3 id="域名解析配置"><a class="markdownIt-Anchor" href="#域名解析配置"></a> 域名解析配置</h3>
+<p>域名的购买很简单，到这里笔者已经提前购买好了一年期域名，重点就是配置域名解析。如果租赁域名的地方和租赁服务器的地方不是同一个地方，则域名解析需要在租赁域名的地方进行配置</p>
+<p>参考配置</p>
+<p>主机记录一般就是填<strong>www</strong>，记录类型为A，记录值为公网IP地址，其它的参数默认即可</p>
+<p>之后就可以通过www.域名来访问页面，如果想直接通过一级域名访问，也可以再添加一条主机记录为@，记录类型为A，记录值为公网IP地址的解析</p>
+<h3 id="ssl证书申请"><a class="markdownIt-Anchor" href="#ssl证书申请"></a> SSL证书申请</h3>
+<p>这里笔者找了一个能申请90天免费SSL证书的网站<a class="link"   href="https://ourl.co/zerossl" >https://ourl.co/zerossl <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。具体的操作参考<a class="link"   href="https://www.landiannews.com/archives/93605.html" >SSL证书申请 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="https服务开启"><a class="markdownIt-Anchor" href="#https服务开启"></a> HTTPS服务开启</h3>
+<p><strong>Nginx配置SSL证书</strong></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将下载到windows上的证书文件上传至服务器</span></span><br><span class="line"><span class="comment"># 指定一个目录用于存放证书文件(目录可自行选择,以下仅供参考)</span></span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /ssh/cert &amp;&amp; <span class="built_in">cd</span> /ssh/cert</span><br><span class="line"><span class="comment"># 使用远程文件传输上传文件至服务器</span></span><br><span class="line"><span class="comment"># 将证书文件信息合并</span></span><br><span class="line"><span class="built_in">cat</span> ca_bundle.crt &gt;&gt; certificate.crt</span><br></pre></td></tr></table></figure></div>
+<p><strong>Nginx配置参考</strong></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name example.com;</span><br><span class="line">        rewrite ^/(.*) https://$server_name<span class="variable">$request_uri</span>? permanent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen   443   ssl;</span><br><span class="line">        ssl_certificate /ssh/cert/certificate.crt;</span><br><span class="line">        ssl_certificate_key /ssh/cert/private.key;</span><br><span class="line">        server_name example.com; <span class="comment">#填写域名</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># ssl验证相关配置</span></span><br><span class="line">        ssl_session_timeout  5m;    <span class="comment">#缓存有效期</span></span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;    <span class="comment">#加密算法</span></span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;    <span class="comment">#安全链接可选的加密协议</span></span><br><span class="line">        ssl_prefer_server_ciphers on;   <span class="comment">#使用服务器端的首选算法</span></span><br><span class="line">        </span><br><span class="line">        root /var/www/hexo; <span class="comment">#Hexo项目目录</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add index.php to the list if you are using PHP</span></span><br><span class="line">        index index.html index.htm index.nginx-debian.html;</span><br><span class="line">        location / &#123;</span><br><span class="line">                <span class="comment"># First attempt to serve request as file, then</span></span><br><span class="line">                <span class="comment"># as directory, then fall back to displaying a 404.</span></span><br><span class="line">                try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ =404;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>至此HTTPS服务配置完成，在访问笔者的页面时可以看到https开头的URL</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<p><a class="link"   href="https://hexo.io/zh-cn/" >Hexo官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://cloud.tencent.com/developer/article/1945550" >Hexo部署至服务器 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://www.landiannews.com/archives/93605.html" >SSL证书申请 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://help.zerossl.com/hc/en-us/articles/360058295894" >在NGINX上安装SSL证书 - 零SSL和 (zerossl.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <tags>
+        <tag>生活记录</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Redis基础</title>
     <url>/2022/09/14/Redis-Base/</url>
     <content><![CDATA[<h3 id="redis基础"><a class="markdownIt-Anchor" href="#redis基础"></a> Redis基础</h3>
@@ -2544,172 +2682,99 @@
       </tags>
   </entry>
   <entry>
-    <title>一封数字签名邮件</title>
-    <url>/2022/11/10/digital-signature/</url>
-    <content><![CDATA[<h3 id="使用outlook邮箱发送一封带有数字签名的邮件"><a class="markdownIt-Anchor" href="#使用outlook邮箱发送一封带有数字签名的邮件"></a> 使用outlook邮箱发送一封带有数字签名的邮件</h3>
-<p>Digital Signature(数字签名)<strong>是</strong>Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。<span id="more"></span></p>
-<p>数字签名是使用数字证书来验证签名者的身份, 并通过密码算法将签名者身份绑定到文档中来证明签名行为的不可否认, 已签名文档无需包含签名过程审计报告, 签名者的身份验证则由证书颁发机构(CA)或信任服务提供商(TSP)完成。</p>
-<h4 id="1下载数字证书"><a class="markdownIt-Anchor" href="#1下载数字证书"></a> 1.下载数字证书</h4>
-<p>数字证书需要先到网站上申请下载, 这里提供了一个申请90天免费证书的网站 <a class="link"   href="https://www.cersign.com/smime-email-certificates.html" >证签安全电子邮件证书 - CerSign <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>按照网站上提示完成申请以及邮箱验证即可。免费邮件证书大约几分钟后就会签发, 点击下载证书设置保护口令即可</p>
-<h4 id="2在邮箱客户端中设置"><a class="markdownIt-Anchor" href="#2在邮箱客户端中设置"></a> 2.在邮箱客户端中设置</h4>
-<p>outlook邮箱中导入数字证书: <strong>文件→选项→信任中心→电子邮件安全性</strong>, 然后设置加密以及数字签名。在默认设置中选择<strong>签名证书和加密证书</strong>(需要先找到之前下载好的证书文件双击运行并导入证书)</p>
-<h4 id="3发送邮件进行测试"><a class="markdownIt-Anchor" href="#3发送邮件进行测试"></a> 3.发送邮件进行测试</h4>
-<p>选择收件人(可以选择本地的另外一个邮箱)后输入邮件内容发送, 通过outlook客户端查看邮件内容会有一个额外的数字签名的图标, 点击该图标能够查看到发件人的数字证书信息。另外经过加密的邮件还会有一个🔒的图标, 在收件人拥有发件人的<strong>公钥</strong>时, 就能够进行解密获取正文内容。其他情况下, 则只有一个加密的smime.p7m文件(无法直接获取正文内容)</p>
-<h4 id="4关于公钥和私钥的一些简单理解"><a class="markdownIt-Anchor" href="#4关于公钥和私钥的一些简单理解"></a> 4.关于公钥和私钥的一些简单理解</h4>
-<p>公钥是一种<strong>非对称加密算法</strong>, 一般都是公布给对方用于加密解密</p>
-<p>私钥是一种<strong>对称加密算法</strong>, 一般不对任何人公开, 同样可用于加密解密</p>
-<p>公钥和私钥是<strong>成对出现</strong>的, 且<strong>唯一对应</strong></p>
-<h5 id="思路1确保邮件只能由特定的收件人读取"><a class="markdownIt-Anchor" href="#思路1确保邮件只能由特定的收件人读取"></a> 思路1：确保邮件只能由特定的收件人读取</h5>
-<p><strong>收件人的公钥</strong>提前就公布给所有发件人用于进行加密但不能进行解密, <strong>收件人的私钥</strong>则用于解密来自对应的公钥加密的邮件但不能进行加密(这也是一种非对称加密)</p>
-<h5 id="思路2确认发件人的邮件未被篡改"><a class="markdownIt-Anchor" href="#思路2确认发件人的邮件未被篡改"></a> 思路2：确认发件人的邮件未被篡改</h5>
-<p><strong>发件人的公钥</strong>提前就公布给所有收件人用于进行<strong>解密</strong>, <strong>发件人的私钥</strong>则用于<strong>加密</strong>邮件</p>
-<p>具体流程：</p>
-<p>发件人使用自己的私钥先对邮件加密<strong>一个hash值</strong>, 再用来自收件人的公钥对<strong>内容及hash值</strong>二次加密, 然后发送给收件人</p>
-<p>收件人获取到了二次加密的邮件后, 先使用自己的私钥解密对应的公钥获取内容及<strong>加密的hash值</strong>, 再用来自收件人的公钥二次解密对应的私钥获取<strong>原始的hash值</strong>, 对内容进行hash计算, 如果计算的结果与之前hash值解密后的内容相同, 则说明内容未被篡改</p>
-<p>需要注意的是：公钥和私钥的用法不是固定的, 在收件人和发件人两种情景下, 它们的用法恰恰是相反的</p>
+    <title>前后端知识</title>
+    <url>/2022/12/18/font-back-end/</url>
+    <content><![CDATA[<h3 id="开发模式"><a class="markdownIt-Anchor" href="#开发模式"></a> 开发模式</h3>
+<p><strong>前后端分离</strong>已成为web大型项目的标准开发方式, 主要解决了<strong>传统的前后端不分离</strong>所带来的一系列开发过程中的问题<span id="more"></span></p>
+<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
+<p><strong>前后端不分离</strong>: 前后端代码放在一个工程下或同一个目录下, 前端页面中含有后端的代码(如典型的jsp页面内嵌java代码)。前后端代码以及前后端工作开发<strong>耦合度极高</strong>, 前后端需要同时协作才能完成开发</p>
+<p><strong>前后端分离</strong>: 前后端代码放在不同的工程下, 只需要<strong>提前约定好API数据规范</strong>, 前后端就可以各自独立开发。前端可以通过<strong>Mock技术模拟后端API服务</strong>来独立运行和测试; 后端也可以独立开发、运行、测试, 通过<strong>Swagger技术自动生成API文档</strong>提供给前端, 还能进行自动化接口测试API的可用性</p>
+<h4 id="前后端分离涉及的技术"><a class="markdownIt-Anchor" href="#前后端分离涉及的技术"></a> 前后端分离涉及的技术</h4>
+<p>1.Ajax、axios和json等基础交互技术</p>
+<p>2.Http协议在同源策略下引发的跨域访问</p>
+<p>3.Nodejs搭建中间层服务器以及前端Mock测试</p>
+<h4 id="对比"><a class="markdownIt-Anchor" href="#对比"></a> 对比</h4>
+<p><strong>以一个SpringBoot项目为例</strong></p>
+<p>前后端不分离的情况下, <strong>直接使用SpringBoot启动即可</strong></p>
+<ul>
+<li>需要考虑静态资源所存放的相对路径(例如需要存放在某个指定的静态资源static目录下)</li>
+<li>在测试过程中遇到问题难以快速定位到问题位于前端还是后端</li>
+<li>运行时出现问题会直接导致SpringBoot项目无法启动或者运行时无法正确地进行前后端交互测试</li>
+<li>对于**SEO(Search Engine Optimization, 搜索引擎优化)**的支持较好</li>
+</ul>
+<p>前后端分离的情况下, <strong>后端使用SpringBoot启动, 前端使用Nodejs启动</strong></p>
+<ul>
+<li>不再需要考虑相对路径的限制</li>
+<li>可以使用特定的技术来模拟前后端进行数据交互测试, 从而准确定位问题</li>
+<li>会有跨域访问的限制</li>
+<li>由于前端与后端分离导致服务端无法去渲染前端页面, 即<strong>一般情况下不支持SSR(Server-Side-Rendering，服务器端渲染)</strong></li>
+</ul>
+<h3 id="渲染方式"><a class="markdownIt-Anchor" href="#渲染方式"></a> 渲染方式</h3>
+<p>渲染方式可分为<strong>SSR服务端渲染</strong>和<strong>CSR客户端渲染</strong></p>
+<p><strong>SSR服务端渲染</strong></p>
+<ul>
+<li>
+<p>SSR拥有很好的SEO搜索引擎优化</p>
+</li>
+<li>
+<p>SSR的首屏优化很好, 即首屏时间短</p>
+</li>
+<li>
+<p>SSR加重了服务端的负载, 因为渲染需要在服务端完成</p>
+</li>
+<li>
+<p>SSR的页面交互性较差</p>
+</li>
+<li>
+<p>使用SSR基本说明了前后端不分离</p>
+</li>
+<li>
+<p>SSR非常适合开发静态网站以及业务逻辑复杂的网站</p>
+</li>
+</ul>
+<p><strong>CSR客户端渲染</strong></p>
+<ul>
+<li>
+<p>CSR不支持SEO搜索引擎优化, 因为数据是异步获取的, 很难被SEO收录</p>
+</li>
+<li>
+<p>CSR的首屏时间较长</p>
+</li>
+<li>
+<p>CSR减轻了服务器的负载, 因为渲染是在客户端完成的</p>
+</li>
+<li>
+<p>CSR的页面交互性非常好</p>
+</li>
+<li>
+<p>使用CSR基本说明了前后端分离</p>
+</li>
+<li>
+<p>CSR非常适合开发对即时交互性要求较高的Web应用程序以及app小程序</p>
+</li>
+</ul>
+<p>基于不同的渲染方式又可以引出<strong>SPA</strong>和<strong>MPA</strong></p>
+<h3 id="spa和mpa"><a class="markdownIt-Anchor" href="#spa和mpa"></a> SPA和MPA</h3>
+<p><strong>SPA单页面应用模式</strong></p>
+<ul>
+<li>SPA模式只拥有一个主页面, 所有的静态资源都包含在主页面中, 只需要加载一次</li>
+<li>所有的功能模块组件化, 通过刷新局部资源来实现功能</li>
+<li>几乎不存在<strong>转发</strong>和<strong>重定向</strong>的概念</li>
+<li>传统SPA通常都是CSR渲染, 也可以借助SSR渲染来优化SEO</li>
+<li>SPA的实现核心是<strong>前端路由</strong>, 前端路由的核心: 改变视图的同时不会向后端发出请求</li>
+<li>单个vue+vite的工程就是典型的SPA模式</li>
+</ul>
+<p><strong>MPA多页面应用模式</strong></p>
+<ul>
+<li>MPA模式拥有多个页面, 所有的静态资源都是公共资源, 每个页面都需要重新加载</li>
+<li>所有的功能会划分到多个页面中, 通过转发和重定向页面来实现功能</li>
+<li>MPA通常都是SSR渲染, 基本不会使用CSR渲染, 因为逻辑较为复杂</li>
+<li>MPA中基本没有前端路由</li>
+</ul>
+<p>目前大型Web项目开发可能更多的是使用MPA+SPA的混合模式</p>
 ]]></content>
       <tags>
-        <tag>数字签名</tag>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于个人Hexo博客的搭建历史</title>
-    <url>/2023/01/17/blog-by-https/</url>
-    <content><![CDATA[<p>仅以此文回顾过去搭建Hexo博客的历程<span id="more"></span></p>
-<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
-<p>在早期笔者一直是通过github pages服务来运行博客网站，从而省略了对<strong>域名解析</strong>、<strong>nginx反向代理</strong>以及<strong>SSL证书的申请与HTTPS服务的开启</strong>这些配置</p>
-<p>于是后期，笔者租赁了一台纯净Ubutun20.04LTS系统的轻量应用服务器，从零开始基于命令行配置hexo博客以及HTTPS服务的开启</p>
-<h2 id="hexo博客的搭建"><a class="markdownIt-Anchor" href="#hexo博客的搭建"></a> Hexo博客的搭建</h2>
-<h3 id="本地环境搭建"><a class="markdownIt-Anchor" href="#本地环境搭建"></a> 本地环境搭建</h3>
-<h4 id="git环境"><a class="markdownIt-Anchor" href="#git环境"></a> Git环境</h4>
-<ol>
-<li>
-<p>访问git官网<a class="link"   href="https://git-scm.com/download" >Git - Downloads (git-scm.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>或寻找镜像站<a class="link"   href="https://mirrors.tuna.tsinghua.edu.cn/github-release/git-for-windows/git/" >清华大学开源软件镜像站 | git for windows <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>下载对应系统的版本</p>
-</li>
-<li>
-<p>安装Git，除了安装路径可选择C盘或D盘，其它均可直接下一步</p>
-</li>
-<li>
-<p>配置环境变量，在系统环境变量的<strong>Path变量下</strong>增加变量值</p>
-<p>参考变量值：D:\Program Files\Git\cmd</p>
-</li>
-<li>
-<p>win+r输入powershell打开查看git版本信息</p>
-<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line">git <span class="literal">-v</span></span><br></pre></td></tr></table></figure></div>
-<p>显示出了版本号，则说明git配置完成</p>
-</li>
-</ol>
-<h4 id="nodejs环境"><a class="markdownIt-Anchor" href="#nodejs环境"></a> Nodejs环境</h4>
-<ol>
-<li>
-<p>访问nodejs官网<a class="link"   href="https://nodejs.org/en/download/" >Download | Node.js (nodejs.org) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>下载对应系统的nodejs版本。（linux系统可直接使用命令行下载而不需要手动配置，使用其它方式则需要手动添加环境变量或者软链接）</p>
-</li>
-<li>
-<p>windows下载完nodejs后需要配置环境变量（注意不要使用中文路径和带有空格的路径，默认路径中的<code>Program Files</code>中的空格会导致命令无法识别）</p>
-<p>windows参考配置</p>
-<ol>
-<li>
-<p>执行下载的nodejs的msi文件，选择安装路径<code>D:\nodejs</code></p>
-</li>
-<li>
-<p>配置<strong>系统环境变量</strong>，在<strong>Path变量</strong>下添加 D:\nodejs\ （这一步nodejs可能会自动配置好）</p>
-</li>
-<li>
-<p>应用配置，保存关闭。win+r输入powershell打开命令提示符，输入</p>
-<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看nodejs版本</span></span><br><span class="line">node <span class="literal">-v</span></span><br><span class="line"><span class="comment"># 查看包管理器npm的版本(npm是nodejs默认安装的包管理器)</span></span><br><span class="line">npm <span class="literal">-v</span></span><br></pre></td></tr></table></figure></div>
-<p>以上命令检测到两个版本号后说明配置完成</p>
-</li>
-<li>
-<p>完成以上步骤后基本就能够使用nodejs来搭建hexo。后续为<strong>非必须步骤</strong>，如果使用过程中存在一些问题可参考以下步骤解决</p>
-</li>
-<li>
-<p>如果npm下载失败或下载速度缓慢，可能是由于默认服务器在海外的缘故，可指定国内镜像源下载或配置npm的国内镜像源</p>
-<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 指定镜像源下载,下载时加上--registry的参数,每次下载需要指定</span></span><br><span class="line">npm install <span class="literal">-g</span> 包名 <span class="literal">--registry</span>=https://registry.npm.taobao.org</span><br><span class="line"><span class="comment"># 设置镜像源,将npm的默认源更换为镜像源</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line"><span class="comment"># 检测镜像站是否可用</span></span><br><span class="line">npm config get registry</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>按以上步骤nodejs安装在了D盘，但下载的包仍在C盘，这里的配置是将包从C盘迁移到D盘以减少C盘的占用</p>
-<p>在nodejs的根目录下，创建两个文件夹命名为node_global和node_cache，在文件夹的属性——安全里更改所有组或用户的权限为完全控制（防止权限不足而无法下载的问题）</p>
-<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置全局安装路径(路径根据实际情况填写)</span></span><br><span class="line">npm config <span class="built_in">set</span> prefix <span class="string">&quot;D:\nodejs\node_global&quot;</span></span><br><span class="line"><span class="comment"># 设置全局缓存路径(路径根据实际情况填写)</span></span><br><span class="line">npm config <span class="built_in">set</span> cache <span class="string">&quot;D:\nodejs\node_cache&quot;</span></span><br><span class="line"><span class="comment"># 以上命令会在C盘用户文件夹下产生一个.npmrc配置文件由于保存上面的配置信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加系统环境变量,在Path变量下新增变量值,变量值就是全局安装路径,否则新安装的命令工具无法执行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检测全局安装路径</span></span><br><span class="line">npm root <span class="literal">-g</span></span><br><span class="line"><span class="comment"># 查看配置信息</span></span><br><span class="line">npm config list</span><br></pre></td></tr></table></figure></div>
-<p>以上配置完成后，之后下载的包都会放到<strong>node_global/node_modules</strong>下</p>
-</li>
-</ol>
-</li>
-<li>
-<p>nodejs环境搭建完成</p>
-</li>
-</ol>
-<h4 id="hexo环境"><a class="markdownIt-Anchor" href="#hexo环境"></a> Hexo环境</h4>
-<ol>
-<li>
-<p>在完成了搭建git和nodejs的环境的基础上，就能够快速使用Hexo</p>
-</li>
-<li>
-<p>在powershell中执行以下命令</p>
-<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 全局安装Hexo命令行工具</span></span><br><span class="line">npm install <span class="literal">-g</span> hexo<span class="literal">-cli</span></span><br><span class="line"><span class="comment"># 查看Hexo版本信息</span></span><br><span class="line">hexo version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择一个合适的文件夹作为Hexo框架的存放目录(这里假设使用一个demo的空文件夹)</span></span><br><span class="line"><span class="comment"># 执行以下3条命令就搭建好了基本的框架</span></span><br><span class="line">hexo init demo</span><br><span class="line"><span class="built_in">cd</span> demo</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在本地运行Hexo</span></span><br><span class="line">hexo server <span class="comment"># 或简写为hexo s</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 一些常用的Hexo命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一篇文章(文章内包含了Hexo的一些格式信息)</span></span><br><span class="line">hexo new <span class="string">&quot;first blog&quot;</span> <span class="comment"># 会在_posts目录下生成一个markdown初始文件,标题为first blog</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一篇草稿(草稿不会在网站上展示)</span></span><br><span class="line">hexo new draft <span class="string">&quot;my draft&quot;</span> <span class="comment"># 会在_drafts目录下生成相应的初始文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建导航页(导航页主要是展示文章分类、标签、作者简介、友情链接等信息)</span></span><br><span class="line">hexo new page <span class="literal">--path</span> about/me <span class="string">&quot;About me&quot;</span> <span class="comment"># 个人简介,这里是固定写法。默认情况下还需要修改配置文件才能生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成静态文件(一般是在新建文章并完成写作后使用或者在修改了文章的内容后使用)</span></span><br><span class="line">hexo generate <span class="comment"># 可简写为hexo g</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动服务器(用于预览网页效果)</span></span><br><span class="line">hexo server <span class="comment"># 可简写为hexo s</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署网站(需要配置远程服务器地址,部署之前需要先生成静态文件)</span></span><br><span class="line">hexo deploy <span class="comment"># 可简写为hexo d</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清除缓存文件(一般是更换Hexo主题未生效时使用)</span></span><br><span class="line">hexo clean</span><br></pre></td></tr></table></figure></div>
-<p>更详细的介绍请移步官网<a class="link"   href="https://hexo.io/zh-cn/" >Hexo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</li>
-</ol>
-<h3 id="远程环境搭建"><a class="markdownIt-Anchor" href="#远程环境搭建"></a> 远程环境搭建</h3>
-<h4 id="创建git仓库"><a class="markdownIt-Anchor" href="#创建git仓库"></a> 创建Git仓库</h4>
-<p>先安装openssh，之后就可以通过ssh客户端远程连接服务器而不需要在浏览器上操作</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装SSH服务端</span></span><br><span class="line">sudo apt install openssh-server</span><br><span class="line"><span class="comment"># 查看SSH服务是否启动</span></span><br><span class="line">ps -e | grep ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个blog用户管理Hexo(默认的root用户权限过高,容易影响到系统)</span></span><br><span class="line">adduser blog</span><br><span class="line"><span class="comment"># 给予blog用户权限</span></span><br><span class="line">vim /etc/sudoers</span><br><span class="line"><span class="comment"># 找到User privilege specification这一段,在下面添加以下内容</span></span><br><span class="line">blog    ALL=(ALL:ALL) ALL</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换到blog用户(密码可在网页服务器控制台那边重置密码获得)</span></span><br><span class="line">su blog</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装git</span></span><br><span class="line">sudo apt install git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入根目录,在/var/repo目录下创建一个名为hexo_static的裸仓库</span></span><br><span class="line"><span class="built_in">cd</span> /</span><br><span class="line">sudo <span class="built_in">mkdir</span> /var/repo/</span><br><span class="line">sudo <span class="built_in">chown</span> -R <span class="variable">$USER</span>:<span class="variable">$USER</span> /var/repo/</span><br><span class="line">sudo <span class="built_in">chmod</span> -R 755 /var/repo/</span><br><span class="line"><span class="built_in">cd</span> /var/repo/</span><br><span class="line"><span class="comment"># 创建裸仓库</span></span><br><span class="line">git init --bare hexo_static.git</span><br><span class="line"><span class="comment"># 裸仓库不同于普通仓库,裸仓库是专门的共享仓库,不会存储文件,只保存历史提交的版本信息</span></span><br><span class="line"><span class="comment"># 实际上裸仓库就相当于普通仓库中隐藏的.git文件夹</span></span><br></pre></td></tr></table></figure></div>
-<h4 id="配置nginx反向代理"><a class="markdownIt-Anchor" href="#配置nginx反向代理"></a> 配置Nginx反向代理</h4>
-<h5 id="安装nginx及可能遇到的问题"><a class="markdownIt-Anchor" href="#安装nginx及可能遇到的问题"></a> 安装Nginx及可能遇到的问题</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装nginx</span></span><br><span class="line">sudo apt install nginx</span><br><span class="line"><span class="comment"># 查看版本信息,注意大小写</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 注意这一步如果没有看到with-http_ssl_module字样的参数信息(如果有就跳过后续步骤),则需要从源码编译安装(已经安装了也没有关系,停止服务后替换配置文件即可)</span></span><br><span class="line"><span class="comment"># 如果想卸载也可以执行以下命令</span></span><br><span class="line">sudo apt --purge autoremove nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># Nginx 官网 https://nginx.org/en/download.html</span></span><br><span class="line"><span class="comment"># /usr/local/src目录通常用于存放用户手动编译程序的源码包</span></span><br><span class="line"><span class="built_in">cd</span> /usr/local/src/</span><br><span class="line"><span class="comment"># 这里使用wget下载nginx的源码包</span></span><br><span class="line"><span class="comment"># 如果已经安装并配置了nginx,又不想重新配置,使用nginx -v命令查看已安装的nginx版本并替换掉以下命令中的版本号</span></span><br><span class="line">wget https://nginx.org/download/nginx-1.22.1.tar.gz</span><br><span class="line"><span class="comment"># 解压提取包并进入解压目录</span></span><br><span class="line">tar -zxvf nginx-1.22.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> nginx-1.22.1</span><br><span class="line"><span class="comment"># 查看原有的nginx安装目录</span></span><br><span class="line"><span class="built_in">which</span> nginx</span><br><span class="line"><span class="comment"># 停止nginx的运行</span></span><br><span class="line">nginx -s stop</span><br><span class="line"><span class="comment"># 查看原有nginx的配置参数,注意大小写</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 在原有参数的基础上附加--with-http_ssl_module的参数配置SSL模块(下面只给出了一部分参数,完整参数由nginx -V显示的参数拼接SSL模块的参数而成)</span></span><br><span class="line">sudo ./configure --prefix=/usr/local/nginx --with-http_ssl_module</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这一步可能会缺少一些库,使用以下命令下载到相关库后重新编译</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少PCRE的相关库,如果不缺这个库就跳过</span></span><br><span class="line">sudo apt install libpcre3 libpcre3-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少zlib的库,如果不缺这个库就跳过</span></span><br><span class="line"><span class="comment"># 访问zlib官网http://zlib.net/下载zlib,这里直接用wget下载到当前的src目录</span></span><br><span class="line">wget http://zlib.net/zlib-1.2.13.tar.gz</span><br><span class="line">./configure --prefix=/usr/local/zlib</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺少openssl的相关库,如果不缺这个库就跳过</span></span><br><span class="line">sudo apt install openssl libssl-dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新编译nginx</span></span><br><span class="line">sudo make</span><br><span class="line"><span class="comment"># 如果没有安装过nginx或者已经卸载了nginx则执行以下2条命令覆盖安装后即可跳过后续步骤</span></span><br><span class="line">sudo make install</span><br><span class="line"><span class="comment"># 配置软链接使得在任意目录下能通过nginx的名称直接运行nginx的命令</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /usr/local/nginx/sbin/nginx /usr/sbin/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换原有nginx的文件</span></span><br><span class="line"><span class="comment"># 备份原有nginx安装目录下的文件(这里以安装文件位于/usr/sbin/目录下为例)</span></span><br><span class="line"><span class="built_in">cp</span> /usr/sbin/nginx /usr/sbin/nginx.bak</span><br><span class="line"><span class="comment"># 将编译好的nginx文件覆盖掉原有的nginx</span></span><br><span class="line"><span class="built_in">cp</span> ./objs/nginx /usr/sbin/</span><br><span class="line"><span class="comment"># 重新查看nginx参数信息</span></span><br><span class="line">nginx -V</span><br><span class="line"><span class="comment"># 看到了--with-http_ssl_module的参数,SSL模块配置完成</span></span><br></pre></td></tr></table></figure></div>
-<h5 id="配置nginx托管文件目录"><a class="markdownIt-Anchor" href="#配置nginx托管文件目录"></a> 配置Nginx托管文件目录</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建/var/www/hexo目录用于存放Hexo生成的静态文件,修改目录所有权</span></span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /var/www/hexo</span><br><span class="line">sudo <span class="built_in">chown</span> -R <span class="variable">$USER</span>:<span class="variable">$USER</span> /var/www/hexo</span><br><span class="line">sudo <span class="built_in">chmod</span> -R 755 /var/www/hexo</span><br><span class="line"><span class="comment"># 修改/etc/nginx/sites-enabled/default,使nginx的root目录指向hexo目录</span></span><br><span class="line"><span class="comment"># 在server里面添加以下配置</span></span><br><span class="line">root /var/www/hexo;</span><br><span class="line"><span class="comment"># 重启nginx服务</span></span><br><span class="line">sudo systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置git钩子,用于实现本地Hexo生成的静态文件推送到指定目录</span></span><br><span class="line">vim /var/repo/hexo_static.git/hooks/post-receive</span><br><span class="line"><span class="comment"># 添加以下配置内容并保存退出</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">git --work-tree=/var/www/hexo --git-dir=/var/repo/hexo_static.git checkout -f</span><br><span class="line"><span class="comment"># 给予可执行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x /var/repo/hexo_static.git/hooks/post-receive</span><br></pre></td></tr></table></figure></div>
-<h3 id="ssh远程连接配置"><a class="markdownIt-Anchor" href="#ssh远程连接配置"></a> SSH远程连接配置</h3>
-<p>在windows上搭建SSH客户端</p>
-<ol>
-<li>
-<p>使用powershell运行以下命令在用户文件夹的.ssh文件夹下生成密钥</p>
-<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>将生成的公钥id_rsa.pub中的内容拷贝到服务器的/home/blog/.ssh/authorized_keys文件上</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> .ssh</span><br><span class="line"><span class="built_in">cd</span> .ssh</span><br><span class="line">sudo <span class="built_in">touch</span> authorized_keys</span><br><span class="line">sudo vim .ssh/authorized_keys</span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<h3 id="hexo部署到服务器"><a class="markdownIt-Anchor" href="#hexo部署到服务器"></a> Hexo部署到服务器</h3>
-<ol>
-<li>
-<p>编辑hexo根目录中的config.yml文件，在deploy处配置参数</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="comment"># server_ip为服务器的公网ip</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">blog@server_ip:/var/repo/hexo_static.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>执行以下命令部署Hexo</p>
-<div class="highlight-container" data-rel="Powershell"><figure class="iseeu highlight powershell"><table><tr><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>查看服务器的/var/www/hexo目录，能够看到上传的静态文件</p>
-</li>
-<li>
-<p>访问服务器IP地址查看页面，如果访问失败则检查服务器内部是否开放了80端口并去浏览器控制台查看服务器厂商提供的安全组规则或外部防火墙是否开放了80端口。确认都开放之后重新访问</p>
-</li>
-</ol>
-<h3 id="域名解析配置"><a class="markdownIt-Anchor" href="#域名解析配置"></a> 域名解析配置</h3>
-<p>域名的购买很简单，到这里笔者已经提前购买好了一年期域名，重点就是配置域名解析。如果租赁域名的地方和租赁服务器的地方不是同一个地方，则域名解析需要在租赁域名的地方进行配置</p>
-<p>参考配置</p>
-<p>主机记录一般就是填<strong>www</strong>，记录类型为A，记录值为公网IP地址，其它的参数默认即可</p>
-<p>之后就可以通过www.域名来访问页面，如果想直接通过一级域名访问，也可以再添加一条主机记录为@，记录类型为A，记录值为公网IP地址的解析</p>
-<h3 id="ssl证书申请"><a class="markdownIt-Anchor" href="#ssl证书申请"></a> SSL证书申请</h3>
-<p>这里笔者找了一个能申请90天免费SSL证书的网站<a class="link"   href="https://ourl.co/zerossl" >https://ourl.co/zerossl <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。具体的操作参考<a class="link"   href="https://www.landiannews.com/archives/93605.html" >SSL证书申请 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="https服务开启"><a class="markdownIt-Anchor" href="#https服务开启"></a> HTTPS服务开启</h3>
-<p><strong>Nginx配置SSL证书</strong></p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将下载到windows上的证书文件上传至服务器</span></span><br><span class="line"><span class="comment"># 指定一个目录用于存放证书文件(目录可自行选择,以下仅供参考)</span></span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /ssh/cert &amp;&amp; <span class="built_in">cd</span> /ssh/cert</span><br><span class="line"><span class="comment"># 使用远程文件传输上传文件至服务器</span></span><br><span class="line"><span class="comment"># 将证书文件信息合并</span></span><br><span class="line"><span class="built_in">cat</span> ca_bundle.crt &gt;&gt; certificate.crt</span><br></pre></td></tr></table></figure></div>
-<p><strong>Nginx配置参考</strong></p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name example.com;</span><br><span class="line">        rewrite ^/(.*) https://$server_name<span class="variable">$request_uri</span>? permanent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen   443   ssl;</span><br><span class="line">        ssl_certificate /ssh/cert/certificate.crt;</span><br><span class="line">        ssl_certificate_key /ssh/cert/private.key;</span><br><span class="line">        server_name example.com; <span class="comment">#填写域名</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># ssl验证相关配置</span></span><br><span class="line">        ssl_session_timeout  5m;    <span class="comment">#缓存有效期</span></span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;    <span class="comment">#加密算法</span></span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;    <span class="comment">#安全链接可选的加密协议</span></span><br><span class="line">        ssl_prefer_server_ciphers on;   <span class="comment">#使用服务器端的首选算法</span></span><br><span class="line">        </span><br><span class="line">        root /var/www/hexo; <span class="comment">#Hexo项目目录</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add index.php to the list if you are using PHP</span></span><br><span class="line">        index index.html index.htm index.nginx-debian.html;</span><br><span class="line">        location / &#123;</span><br><span class="line">                <span class="comment"># First attempt to serve request as file, then</span></span><br><span class="line">                <span class="comment"># as directory, then fall back to displaying a 404.</span></span><br><span class="line">                try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ =404;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>至此HTTPS服务配置完成，在访问笔者的页面时可以看到https开头的URL</p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<p><a class="link"   href="https://hexo.io/zh-cn/" >Hexo官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://cloud.tencent.com/developer/article/1945550" >Hexo部署至服务器 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://www.landiannews.com/archives/93605.html" >SSL证书申请 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://help.zerossl.com/hc/en-us/articles/360058295894" >在NGINX上安装SSL证书 - 零SSL和 (zerossl.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <tags>
-        <tag>生活记录</tag>
+        <tag>前后端</tag>
       </tags>
   </entry>
   <entry>
@@ -3042,99 +3107,34 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
-    <title>前后端知识</title>
-    <url>/2022/12/18/font-back-end/</url>
-    <content><![CDATA[<h3 id="开发模式"><a class="markdownIt-Anchor" href="#开发模式"></a> 开发模式</h3>
-<p><strong>前后端分离</strong>已成为web大型项目的标准开发方式, 主要解决了<strong>传统的前后端不分离</strong>所带来的一系列开发过程中的问题<span id="more"></span></p>
-<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
-<p><strong>前后端不分离</strong>: 前后端代码放在一个工程下或同一个目录下, 前端页面中含有后端的代码(如典型的jsp页面内嵌java代码)。前后端代码以及前后端工作开发<strong>耦合度极高</strong>, 前后端需要同时协作才能完成开发</p>
-<p><strong>前后端分离</strong>: 前后端代码放在不同的工程下, 只需要<strong>提前约定好API数据规范</strong>, 前后端就可以各自独立开发。前端可以通过<strong>Mock技术模拟后端API服务</strong>来独立运行和测试; 后端也可以独立开发、运行、测试, 通过<strong>Swagger技术自动生成API文档</strong>提供给前端, 还能进行自动化接口测试API的可用性</p>
-<h4 id="前后端分离涉及的技术"><a class="markdownIt-Anchor" href="#前后端分离涉及的技术"></a> 前后端分离涉及的技术</h4>
-<p>1.Ajax、axios和json等基础交互技术</p>
-<p>2.Http协议在同源策略下引发的跨域访问</p>
-<p>3.Nodejs搭建中间层服务器以及前端Mock测试</p>
-<h4 id="对比"><a class="markdownIt-Anchor" href="#对比"></a> 对比</h4>
-<p><strong>以一个SpringBoot项目为例</strong></p>
-<p>前后端不分离的情况下, <strong>直接使用SpringBoot启动即可</strong></p>
-<ul>
-<li>需要考虑静态资源所存放的相对路径(例如需要存放在某个指定的静态资源static目录下)</li>
-<li>在测试过程中遇到问题难以快速定位到问题位于前端还是后端</li>
-<li>运行时出现问题会直接导致SpringBoot项目无法启动或者运行时无法正确地进行前后端交互测试</li>
-<li>对于**SEO(Search Engine Optimization, 搜索引擎优化)**的支持较好</li>
-</ul>
-<p>前后端分离的情况下, <strong>后端使用SpringBoot启动, 前端使用Nodejs启动</strong></p>
-<ul>
-<li>不再需要考虑相对路径的限制</li>
-<li>可以使用特定的技术来模拟前后端进行数据交互测试, 从而准确定位问题</li>
-<li>会有跨域访问的限制</li>
-<li>由于前端与后端分离导致服务端无法去渲染前端页面, 即<strong>一般情况下不支持SSR(Server-Side-Rendering，服务器端渲染)</strong></li>
-</ul>
-<h3 id="渲染方式"><a class="markdownIt-Anchor" href="#渲染方式"></a> 渲染方式</h3>
-<p>渲染方式可分为<strong>SSR服务端渲染</strong>和<strong>CSR客户端渲染</strong></p>
-<p><strong>SSR服务端渲染</strong></p>
-<ul>
-<li>
-<p>SSR拥有很好的SEO搜索引擎优化</p>
-</li>
-<li>
-<p>SSR的首屏优化很好, 即首屏时间短</p>
-</li>
-<li>
-<p>SSR加重了服务端的负载, 因为渲染需要在服务端完成</p>
-</li>
-<li>
-<p>SSR的页面交互性较差</p>
-</li>
-<li>
-<p>使用SSR基本说明了前后端不分离</p>
-</li>
-<li>
-<p>SSR非常适合开发静态网站以及业务逻辑复杂的网站</p>
-</li>
-</ul>
-<p><strong>CSR客户端渲染</strong></p>
-<ul>
-<li>
-<p>CSR不支持SEO搜索引擎优化, 因为数据是异步获取的, 很难被SEO收录</p>
-</li>
-<li>
-<p>CSR的首屏时间较长</p>
-</li>
-<li>
-<p>CSR减轻了服务器的负载, 因为渲染是在客户端完成的</p>
-</li>
-<li>
-<p>CSR的页面交互性非常好</p>
-</li>
-<li>
-<p>使用CSR基本说明了前后端分离</p>
-</li>
-<li>
-<p>CSR非常适合开发对即时交互性要求较高的Web应用程序以及app小程序</p>
-</li>
-</ul>
-<p>基于不同的渲染方式又可以引出<strong>SPA</strong>和<strong>MPA</strong></p>
-<h3 id="spa和mpa"><a class="markdownIt-Anchor" href="#spa和mpa"></a> SPA和MPA</h3>
-<p><strong>SPA单页面应用模式</strong></p>
-<ul>
-<li>SPA模式只拥有一个主页面, 所有的静态资源都包含在主页面中, 只需要加载一次</li>
-<li>所有的功能模块组件化, 通过刷新局部资源来实现功能</li>
-<li>几乎不存在<strong>转发</strong>和<strong>重定向</strong>的概念</li>
-<li>传统SPA通常都是CSR渲染, 也可以借助SSR渲染来优化SEO</li>
-<li>SPA的实现核心是<strong>前端路由</strong>, 前端路由的核心: 改变视图的同时不会向后端发出请求</li>
-<li>单个vue+vite的工程就是典型的SPA模式</li>
-</ul>
-<p><strong>MPA多页面应用模式</strong></p>
-<ul>
-<li>MPA模式拥有多个页面, 所有的静态资源都是公共资源, 每个页面都需要重新加载</li>
-<li>所有的功能会划分到多个页面中, 通过转发和重定向页面来实现功能</li>
-<li>MPA通常都是SSR渲染, 基本不会使用CSR渲染, 因为逻辑较为复杂</li>
-<li>MPA中基本没有前端路由</li>
-</ul>
-<p>目前大型Web项目开发可能更多的是使用MPA+SPA的混合模式</p>
+    <title>一封数字签名邮件</title>
+    <url>/2022/11/10/digital-signature/</url>
+    <content><![CDATA[<h3 id="使用outlook邮箱发送一封带有数字签名的邮件"><a class="markdownIt-Anchor" href="#使用outlook邮箱发送一封带有数字签名的邮件"></a> 使用outlook邮箱发送一封带有数字签名的邮件</h3>
+<p>Digital Signature(数字签名)<strong>是</strong>Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。<span id="more"></span></p>
+<p>数字签名是使用数字证书来验证签名者的身份, 并通过密码算法将签名者身份绑定到文档中来证明签名行为的不可否认, 已签名文档无需包含签名过程审计报告, 签名者的身份验证则由证书颁发机构(CA)或信任服务提供商(TSP)完成。</p>
+<h4 id="1下载数字证书"><a class="markdownIt-Anchor" href="#1下载数字证书"></a> 1.下载数字证书</h4>
+<p>数字证书需要先到网站上申请下载, 这里提供了一个申请90天免费证书的网站 <a class="link"   href="https://www.cersign.com/smime-email-certificates.html" >证签安全电子邮件证书 - CerSign <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>按照网站上提示完成申请以及邮箱验证即可。免费邮件证书大约几分钟后就会签发, 点击下载证书设置保护口令即可</p>
+<h4 id="2在邮箱客户端中设置"><a class="markdownIt-Anchor" href="#2在邮箱客户端中设置"></a> 2.在邮箱客户端中设置</h4>
+<p>outlook邮箱中导入数字证书: <strong>文件→选项→信任中心→电子邮件安全性</strong>, 然后设置加密以及数字签名。在默认设置中选择<strong>签名证书和加密证书</strong>(需要先找到之前下载好的证书文件双击运行并导入证书)</p>
+<h4 id="3发送邮件进行测试"><a class="markdownIt-Anchor" href="#3发送邮件进行测试"></a> 3.发送邮件进行测试</h4>
+<p>选择收件人(可以选择本地的另外一个邮箱)后输入邮件内容发送, 通过outlook客户端查看邮件内容会有一个额外的数字签名的图标, 点击该图标能够查看到发件人的数字证书信息。另外经过加密的邮件还会有一个🔒的图标, 在收件人拥有发件人的<strong>公钥</strong>时, 就能够进行解密获取正文内容。其他情况下, 则只有一个加密的smime.p7m文件(无法直接获取正文内容)</p>
+<h4 id="4关于公钥和私钥的一些简单理解"><a class="markdownIt-Anchor" href="#4关于公钥和私钥的一些简单理解"></a> 4.关于公钥和私钥的一些简单理解</h4>
+<p>公钥是一种<strong>非对称加密算法</strong>, 一般都是公布给对方用于加密解密</p>
+<p>私钥是一种<strong>对称加密算法</strong>, 一般不对任何人公开, 同样可用于加密解密</p>
+<p>公钥和私钥是<strong>成对出现</strong>的, 且<strong>唯一对应</strong></p>
+<h5 id="思路1确保邮件只能由特定的收件人读取"><a class="markdownIt-Anchor" href="#思路1确保邮件只能由特定的收件人读取"></a> 思路1：确保邮件只能由特定的收件人读取</h5>
+<p><strong>收件人的公钥</strong>提前就公布给所有发件人用于进行加密但不能进行解密, <strong>收件人的私钥</strong>则用于解密来自对应的公钥加密的邮件但不能进行加密(这也是一种非对称加密)</p>
+<h5 id="思路2确认发件人的邮件未被篡改"><a class="markdownIt-Anchor" href="#思路2确认发件人的邮件未被篡改"></a> 思路2：确认发件人的邮件未被篡改</h5>
+<p><strong>发件人的公钥</strong>提前就公布给所有收件人用于进行<strong>解密</strong>, <strong>发件人的私钥</strong>则用于<strong>加密</strong>邮件</p>
+<p>具体流程：</p>
+<p>发件人使用自己的私钥先对邮件加密<strong>一个hash值</strong>, 再用来自收件人的公钥对<strong>内容及hash值</strong>二次加密, 然后发送给收件人</p>
+<p>收件人获取到了二次加密的邮件后, 先使用自己的私钥解密对应的公钥获取内容及<strong>加密的hash值</strong>, 再用来自收件人的公钥二次解密对应的私钥获取<strong>原始的hash值</strong>, 对内容进行hash计算, 如果计算的结果与之前hash值解密后的内容相同, 则说明内容未被篡改</p>
+<p>需要注意的是：公钥和私钥的用法不是固定的, 在收件人和发件人两种情景下, 它们的用法恰恰是相反的</p>
 ]]></content>
       <tags>
-        <tag>前后端</tag>
+        <tag>数字签名</tag>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
   <entry>
@@ -4641,6 +4641,230 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
+    <title>Redis</title>
+    <url>/2023/02/22/golang-day17/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7202945024749092923" >Redis | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对 Redis 的学习<span id="more"></span></p>
+<h2 id="redis"><a class="markdownIt-Anchor" href="#redis"></a> Redis</h2>
+<h3 id="1redis-是什么"><a class="markdownIt-Anchor" href="#1redis-是什么"></a> 1.Redis 是什么</h3>
+<h4 id="为什么需要-redis"><a class="markdownIt-Anchor" href="#为什么需要-redis"></a> 为什么需要 Redis</h4>
+<ul>
+<li>数据从单表，演进出了分库分表</li>
+<li>MySQL 从单机演进出了集群
+<ul>
+<li>数据量增长</li>
+<li>读写数据压力的不断增加</li>
+</ul>
+</li>
+<li>数据分冷热
+<ul>
+<li>热数据：经常被访问到的数据</li>
+</ul>
+</li>
+<li>将热数据存储到内存中</li>
+</ul>
+<h4 id="redis-基本工作原理"><a class="markdownIt-Anchor" href="#redis-基本工作原理"></a> Redis 基本工作原理</h4>
+<ul>
+<li>数据从内存中读写</li>
+<li>数据保存到硬盘上防止重启数据丢失
+<ul>
+<li>增量数据保存到 AOF 文件中</li>
+<li>全量数据保存到 RDB 文件中</li>
+</ul>
+</li>
+<li>单线程处理所有操作命令</li>
+</ul>
+<h3 id="2redis-应用案例"><a class="markdownIt-Anchor" href="#2redis-应用案例"></a> 2.Redis 应用案例</h3>
+<h4 id="案例"><a class="markdownIt-Anchor" href="#案例"></a> 案例</h4>
+<p><strong>1.连续签到</strong></p>
+<p>app 每日签到，如果断签，连续签到计数将归 0。</p>
+<p>连续签到的要求：每天必须在 23:59 前签到</p>
+<ul>
+<li>Key：uuid…</li>
+<li>value：252</li>
+<li>expireAt：24:00</li>
+</ul>
+<p><strong>String 数据结构</strong></p>
+<ul>
+<li>可以存储字符串、数字、二进制数据</li>
+<li>通常和 expire 配合使用</li>
+<li>场景：存储计数、Session</li>
+</ul>
+<p><strong>2.消息通知</strong></p>
+<p>用 list 作为消息队列</p>
+<ul>
+<li>
+<p>使用场景：消息通知</p>
+<blockquote>
+<p>例如当文章更新时，将更新后的文章推送到 ES，用户就能搜索到最新的文章数据。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>List 数据结构 Quicklist</strong></p>
+<p>Quicklist 由一个双向链表和 listpack 实现</p>
+<p><strong>3.计数</strong></p>
+<p>一个用户有多项计数需求，可通过 hash 结构存储</p>
+<p><strong>Hash 数据结构 dict</strong></p>
+<ul>
+<li>rehash：rehash 操作是将 ht[0] 中的数据，全部迁移到 ht[1] 中。数据量小的场景下，直接将数据从 ht[0] 拷贝到 ht[1] 速度是较快的。数据量大的场景，例如存有上百万的 KV 时，迁移过程将会明显阻塞用户请求。</li>
+<li>渐进式 rehash：为避免出现这种情况，使用了 rehash 方案。基本原理就是，每次用户访问时都会迁移少量数据。将整个迁移过程，平摊到所有的访问请求过程中。</li>
+</ul>
+<p><strong>4.排行榜</strong></p>
+<p>积分变化时，排名要实时变更</p>
+<p><strong>zset 数据结构 zskiplist</strong></p>
+<ul>
+<li>结合 dict 后，可实现通过 key 操作跳表的功能</li>
+</ul>
+<p><strong>5.限流</strong></p>
+<ul>
+<li>
+<p>要求1秒内放行的请求为 N，超过 N 则禁止访问</p>
+</li>
+<li>
+<p>Key：comment_freq_limit_1671356046</p>
+<p>对这个 Key 调用 incr，超过限制 N 则禁止访问</p>
+<p>1671356046 是当前时间戳</p>
+</li>
+</ul>
+<p><strong>6.分布式锁</strong></p>
+<p>并发场景：要求一次只能有一个协程执行。执行完成后，其它等待中的协程才能执行。</p>
+<p>可以使用 Redis 的 setnx 实现，利用了两个特性</p>
+<ul>
+<li>Redis 是单线程执行命令</li>
+<li>setnx 只有未设置过才能执行成功</li>
+</ul>
+<h3 id="3redis-使用注意事项"><a class="markdownIt-Anchor" href="#3redis-使用注意事项"></a> 3.Redis 使用注意事项</h3>
+<h4 id="31-大-key-热-key"><a class="markdownIt-Anchor" href="#31-大-key-热-key"></a> 3.1 大 Key、热 Key</h4>
+<p><strong>大 Key 的定义</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th style="text-align:center">大 Key 标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">String 类型</td>
+<td style="text-align:center">value 的字节数大于 10KB 即为大Key</td>
+</tr>
+<tr>
+<td style="text-align:center">Hash/Set/Zset/list 等复杂数据结构类型</td>
+<td style="text-align:center">元素个数大于5000个或总 value 字节数大于 10MB 即为大Key</td>
+</tr>
+</tbody>
+</table>
+<p><strong>大 Key 的危害</strong></p>
+<ul>
+<li>读取成本高</li>
+<li>容易导致慢查询（过期、删除）</li>
+<li>主从复制异常，服务阻塞，无法正常响应请求</li>
+</ul>
+<p><strong>业务侧使用大 Key 的表现</strong></p>
+<ul>
+<li>请求 Redis 超时报错</li>
+</ul>
+<p><strong>消除大 Key 的方法</strong></p>
+<ol>
+<li>
+<p>拆分</p>
+<p>将大 Key 拆分成为小 Key。例如一个 String 拆分成多个 String</p>
+</li>
+<li>
+<p>压缩</p>
+<p>将 value 压缩后写入 redis，读取时解压后再使用。压缩算法可以是 gzip、snappy、lz4 等。通常情况下，一个压缩算法压缩率高，则解压耗时就长。需要对实际数据进行测试后，选择一个合适的算法。如果存储的是 JSON 字符串，可以考虑使用 MessagePack 进行序列化。</p>
+</li>
+<li>
+<p>集合类结构 hash、list、set、zset</p>
+<ol>
+<li>拆分：可以用 hash 取余，位掩码的方式决定放在哪个 key 中。</li>
+<li>区分冷热：如榜单列表场景使用zset，只缓存前10页数据，后续数据走db。</li>
+</ol>
+</li>
+</ol>
+<p><strong>热 Key 的定义</strong></p>
+<p>用户访问一个 Key 的 QPS 特别高，导致 Server 实例出现 CPU 负载突增或者不均的情况。</p>
+<p>热 Key 没有明确的标准，QPS 超过500就有可能被识别为热 Key。</p>
+<p><strong>解决热 Key 的方法</strong></p>
+<ol>
+<li>
+<p>设置 Localcache</p>
+<p>在访问 Redis 之前，在业务服务侧设置 Localcache，降低访问 Redis 的QPS。LocalCache 中缓存过期或未命中，则从 Redis 中将数据更新到 LocalCache。Java 的 Guava、Golang 的 Bigcache 就是这类 LocalCache。</p>
+</li>
+<li>
+<p>拆分</p>
+<p>将 key: value 这一个热 Key 复制写入多份，例如 key1: value；key2: value，访问的时候访问多个 key，但 value 是同一个，以此将qps 分散到不同实例上，降低负载。代价是更新时需要更新多个 key，存在数据短暂不一致的风险。</p>
+</li>
+<li>
+<p>使用 Redis 代理的热 Key 承载能力</p>
+<p>字节跳动团队的 Redis 访问代理就具备热 Key 承载能力。本质上是结合了“热 Key 发现”、“LocalCache”两个功能</p>
+</li>
+</ol>
+<h4 id="32-慢查询场景"><a class="markdownIt-Anchor" href="#32-慢查询场景"></a> 3.2 慢查询场景</h4>
+<p><strong>容易导致 redis 慢查询的操作</strong></p>
+<ol>
+<li>
+<p>批量操作一次性传入过多的 key/value，如 mset/hmset/sadd/zadd 等 O(n) 操作</p>
+<blockquote>
+<p>建议单批次不要超过100，超过100之后性能下降明显。</p>
+</blockquote>
+</li>
+<li>
+<p>zset 大部分命令都是  O(log(n)) ，当大小超过5k以上时，简单的 zadd/zrem 也可能导致慢查询</p>
+</li>
+<li>
+<p>操作的单个 value 过大，超过 10KB，也就是说，要避免使用大 Key</p>
+</li>
+<li>
+<p>对大 Key 的 delete/expire 操作也可能导致慢查询，Redis4.0之前不支持异步删除unlink，大 Key 删除会阻塞 Redis</p>
+</li>
+</ol>
+<h4 id="33-缓存穿透-缓存雪崩"><a class="markdownIt-Anchor" href="#33-缓存穿透-缓存雪崩"></a> 3.3 缓存穿透、缓存雪崩</h4>
+<p>缓存穿透：热点数据查询绕过缓存，直接查询数据库</p>
+<p>缓存雪崩：大量缓存同时过期</p>
+<p><strong>缓存穿透、雪崩的危害</strong></p>
+<ol>
+<li>
+<p>查询一个一定不存在的数据</p>
+<p>通常不会缓存不存在的数据，这类查询请求都会直接打到db，如果有系统bug或人为攻击，那么容易导致db响应慢甚至宕机。</p>
+</li>
+<li>
+<p>缓存过期时</p>
+<p>在高并发场景下，一个热 key 如果过期，会有大量请求同时击穿至db，容易影响db性能和稳定。</p>
+<p>同一时间有大量key集中过期时，也会导致大量请求落到db上，导致查询变慢，甚至出现db无法响应新的查询。</p>
+</li>
+</ol>
+<p><strong>如何减少缓存穿透</strong></p>
+<ol>
+<li>
+<p>缓存空值</p>
+<p>如一个不存在的userID，这个id在缓存和数据库中都不存在，则可以缓存一个空值，下次再查询缓存直接返回空值。</p>
+</li>
+<li>
+<p>布隆过滤器</p>
+<p>通过 bloom filter 算法来存储合法 Key，得益于该算法超高的压缩率，只需占有极小的空间就能存储大量 key 值。</p>
+</li>
+</ol>
+<p><strong>如何避免缓存雪崩</strong></p>
+<ol>
+<li>
+<p>缓存空值</p>
+<p>将缓存失效时间分散开，比如在原有的失效时间基础上增加一个随机值，例如不同Key过期时间，可以设置为10分1秒过期，10分23秒过期，10分8秒过期。单位秒部分就是随机时间，这样过期时间就分散了。</p>
+<p>对于热点数据，过期时间尽量设置得长一些，冷门的数据可以相对设置过期时间短一些。</p>
+</li>
+<li>
+<p>使用缓存集群，避免单机宕机造成的缓存雪崩。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>深入浅出 RPC 框架</title>
     <url>/2023/02/10/golang-day14/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7198526201221660729" >深入浅出 RPC 框架 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对 RPC 框架的学习<span id="more"></span></p>
@@ -5245,563 +5469,6 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
-    <title>存储的本质 - 状态</title>
-    <url>/2023/02/22/golang-day15/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7199279293755146297" >存储的本质 - 状态 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对存储的学习<span id="more"></span></p>
-<h2 id="存储的本质-状态"><a class="markdownIt-Anchor" href="#存储的本质-状态"></a> 存储的本质 - 状态</h2>
-<h3 id="1经典案例"><a class="markdownIt-Anchor" href="#1经典案例"></a> 1.经典案例</h3>
-<ul>
-<li>数据的产生：注册账号等</li>
-<li>数据的流动：从客户端到后端服务器，后端服务器到数据库，再到其他系统</li>
-<li>数据的持久化：校验数据的合法性，修改内存，写入存储介质</li>
-<li>潜在的问题
-<ul>
-<li>数据库如何保证数据不丢失</li>
-<li>数据库如何支持多人同时修改</li>
-<li>其他的存储系统</li>
-<li>如何处理除结构化数据以外的数据</li>
-<li>操作数据库的方式，使用什么编程语言</li>
-</ul>
-</li>
-</ul>
-<h3 id="2存储和数据库简介"><a class="markdownIt-Anchor" href="#2存储和数据库简介"></a> 2.存储和数据库简介</h3>
-<h4 id="21-存储系统"><a class="markdownIt-Anchor" href="#21-存储系统"></a> 2.1 存储系统</h4>
-<h5 id="系统概览"><a class="markdownIt-Anchor" href="#系统概览"></a> 系统概览</h5>
-<p>什么是存储系统？</p>
-<p>一个提供了读写、控制类接口，能够安全有效地把数据持久化的软件，就可以称为存储系统。</p>
-<p>存储系统的特征</p>
-<ul>
-<li>作为后端软件的底座，性能敏感</li>
-<li>存储系统软件架构，容易受硬件影响</li>
-<li>存储系统代码，既“简单”又“复杂”</li>
-</ul>
-<h5 id="存储器层级结构"><a class="markdownIt-Anchor" href="#存储器层级结构"></a> 存储器层级结构</h5>
-<p>参考https://www.cnblogs.com/RadiumGalaxy/p/17122372.html</p>
-<h5 id="数据从应用到存储介质"><a class="markdownIt-Anchor" href="#数据从应用到存储介质"></a> 数据从应用到存储介质</h5>
-<ul>
-<li>缓存：很重要，贯穿整个存储体系</li>
-<li>拷贝：很昂贵，应该尽量减少</li>
-<li>硬件设备多种多样，需要有抽象统一的接入层</li>
-</ul>
-<h5 id="raid-技术"><a class="markdownIt-Anchor" href="#raid-技术"></a> RAID 技术</h5>
-<p>单机存储系统如何做到高性能、高性价比、高可靠性？</p>
-<p><strong>R</strong>edundant <strong>A</strong>rray of <strong>I</strong>nexpensive <strong>D</strong>isks</p>
-<p>RAID 出现的背景</p>
-<ul>
-<li>单块大容量磁盘的价格 &gt; 多块小容量磁盘</li>
-<li>单块磁盘的写入性能 &lt; 多块磁盘的并发写入性能</li>
-<li>单块磁盘的容错能力有限，不够安全</li>
-</ul>
-<p>RAID 0</p>
-<ul>
-<li>多块磁盘简单组合</li>
-<li>数据条带化存储，提高磁盘带宽</li>
-<li>没有额外的容错设计</li>
-</ul>
-<p>RAID 1</p>
-<ul>
-<li>一块磁盘对应一块额外镜像盘</li>
-<li>真实空间利用率仅 50%</li>
-<li>容错能力强</li>
-</ul>
-<p>RAID 0 + 1</p>
-<ul>
-<li>结合了 RAID 0 和 RAID 1</li>
-<li>真实空间利用率仅 50%</li>
-<li>容错能力强，写入带宽好</li>
-</ul>
-<h4 id="22-数据库"><a class="markdownIt-Anchor" href="#22-数据库"></a> 2.2 数据库</h4>
-<p>关系型数据库和非关系型数据库</p>
-<h5 id="概览"><a class="markdownIt-Anchor" href="#概览"></a> 概览</h5>
-<p>关系（Relation）</p>
-<ul>
-<li>Edgar.F.Codd 于1970 年提出“关系模型”</li>
-<li>关系 = 集合 = 任意元素组成的若干有序偶对，反映了事物之间的关系</li>
-<li>关系代数 = 对关系作运算的抽象查询语言，如交、并、笛卡儿积等</li>
-<li>SQL = 一种 DSL = 方便人类阅读的关系代数表达形式</li>
-</ul>
-<h5 id="关系型数据库特点"><a class="markdownIt-Anchor" href="#关系型数据库特点"></a> 关系型数据库特点</h5>
-<p>关系型数据库是存储系统，但是在存储系统之外，又发展出其他功能</p>
-<ul>
-<li>结构化数据友好</li>
-<li>支持事务（ACID）</li>
-<li>支持复杂查询语句</li>
-</ul>
-<h5 id="非关系型数据库特点"><a class="markdownIt-Anchor" href="#非关系型数据库特点"></a> 非关系型数据库特点</h5>
-<p>非关系型数据库也是存储系统，但是一般不要求严格的结构化</p>
-<ul>
-<li>半结构化数据友好</li>
-<li>可能支持事务（ACID）</li>
-<li>可能支持复杂查询语句</li>
-</ul>
-<h4 id="23-数据库-vs-经典存储"><a class="markdownIt-Anchor" href="#23-数据库-vs-经典存储"></a> 2.3 数据库 vs 经典存储</h4>
-<h5 id="结构化数据管理"><a class="markdownIt-Anchor" href="#结构化数据管理"></a> 结构化数据管理</h5>
-<ul>
-<li>写入关系型数据库，以表形式管理</li>
-<li>写入文件，自行定义管理结构</li>
-</ul>
-<h5 id="事务能力"><a class="markdownIt-Anchor" href="#事务能力"></a> 事务能力</h5>
-<p>数据库具有支持事务的优越性，事务具有</p>
-<ul>
-<li>Atomicity： 事务内的操作要么全部执行，要么全部不执行</li>
-<li>Consistency：事务执行前后，数据状态是一致的</li>
-<li>Isolation：可以隔离多个并发事务，避免影响</li>
-<li>Durability：事务一旦提交成功，数据保证持久性</li>
-</ul>
-<h5 id="复杂查询能力"><a class="markdownIt-Anchor" href="#复杂查询能力"></a> 复杂查询能力</h5>
-<p>写入数据后进行很复杂的查询</p>
-<ul>
-<li>数据库查询灵活、简洁</li>
-<li>文件查询僵化、复杂</li>
-</ul>
-<h4 id="24-数据库使用方式"><a class="markdownIt-Anchor" href="#24-数据库使用方式"></a> 2.4 数据库使用方式</h4>
-<p>Everything is Domain Specific Language，maybe SQL</p>
-<p>SQL 操作数据：Insert、Update、Select、Delete、Where子句、Group by、Order by</p>
-<p>SQL 定义数据：Create、Alter …</p>
-<h3 id="主流产品剖析"><a class="markdownIt-Anchor" href="#主流产品剖析"></a> 主流产品剖析</h3>
-<h4 id="31-单机存储"><a class="markdownIt-Anchor" href="#31-单机存储"></a> 3.1 单机存储</h4>
-<h5 id="概览-2"><a class="markdownIt-Anchor" href="#概览-2"></a> 概览</h5>
-<p>单机存储 = 单个计算机节点上的存储软件系统，一般不涉及网络交互</p>
-<p>有本地文件系统和 key-value 存储</p>
-<h5 id="本地文件系统"><a class="markdownIt-Anchor" href="#本地文件系统"></a> 本地文件系统</h5>
-<p>Linux 经典哲学：一切皆文件</p>
-<p>文件系统的管理单元：文件</p>
-<p>文件系统接口：文件系统繁多，如 ext2/3/4，sysfs，rootfs 等，但都遵循 VFS 的统一抽象接口</p>
-<p>Linux 文件系统的两大数据结构：Index Node 和 Directory Entry</p>
-<ul>
-<li>
-<p>Index Node</p>
-<p>记录文件元数据，如 id、大小、权限、硬盘位置等。</p>
-<p>inode 是文件的唯一标识，会被存储到磁盘上。</p>
-<p>inode 的总数在格式化文件系统时就固定了。</p>
-</li>
-<li>
-<p>Directory Entry</p>
-<p>记录文件名、inode 指针、层级关系（parent）等。</p>
-<p>dentry 是内存结构，与 inode 的关系是 N：1（hardlink 的实现）</p>
-</li>
-</ul>
-<h5 id="key-value-存储"><a class="markdownIt-Anchor" href="#key-value-存储"></a> key-value 存储</h5>
-<p>常见使用方式：put(k, v) 和 get(k)</p>
-<p>常见数据结构：LSM-Tree，某种程度上牺牲读写性能，追求写入性能</p>
-<p>典型产品：RocksDB ，更多信息参考<a class="link"   href="http://rocksdb.org.cn/" >RocksDB 中文官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h4 id="32-分布式存储"><a class="markdownIt-Anchor" href="#32-分布式存储"></a> 3.2 分布式存储</h4>
-<h5 id="概览-3"><a class="markdownIt-Anchor" href="#概览-3"></a> 概览</h5>
-<p>分布式存储 = 在单机存储基础上实现了分布式协议，涉及大量网络交互</p>
-<p>有分布式文件系统和分布式对象存储</p>
-<h5 id="hdfs"><a class="markdownIt-Anchor" href="#hdfs"></a> HDFS</h5>
-<p>HDFS：大数据时代的基石</p>
-<p>时代背景：专用的高级硬件很贵，同时数据存储量很大，要求超高吞吐</p>
-<p>HDFS 核心特点</p>
-<ul>
-<li>支持海量数据存储</li>
-<li>高容错性</li>
-<li>弱 POSIX 语义</li>
-<li>使用普通 x86 服务器，性价比高</li>
-</ul>
-<h5 id="ceph"><a class="markdownIt-Anchor" href="#ceph"></a> Ceph</h5>
-<p>Ceph 核心特点</p>
-<ul>
-<li>一套系统支持对象接口、块接口、文件接口，但是一切皆对象</li>
-<li>数据写入采用主备复制模型</li>
-<li>数据分布模型采用 CRUSH 算法（HASH + 权重 + 随机抽签）</li>
-</ul>
-<h4 id="33-单机数据库"><a class="markdownIt-Anchor" href="#33-单机数据库"></a> 3.3 单机数据库</h4>
-<h5 id="概览-4"><a class="markdownIt-Anchor" href="#概览-4"></a> 概览</h5>
-<p>单机数据库 = 单个计算机节点上的数据库系统</p>
-<p>事务在单机内执行，也可能通过网络交互实现分布式事务</p>
-<p>有关系型数据库和非关系型数据库</p>
-<h5 id="关系型数据库"><a class="markdownIt-Anchor" href="#关系型数据库"></a> 关系型数据库</h5>
-<p>商业产品 Oracle 最为广泛使用，开源产品 MySQL 和 PostgreSQL 最受欢迎。</p>
-<p>关系型数据库的通用组件</p>
-<ul>
-<li>Query Engine：负责解析 query，生成查询计划</li>
-<li>Txn Manager：负责事务并发管理</li>
-<li>Lock Manager：负责锁相关的策略</li>
-<li>Storage Engine：负责组织内存/磁盘数据结构</li>
-<li>Replication：负责主备同步</li>
-</ul>
-<p>关键内存数据结构：B-Tree、B±Tree、LRUList 等</p>
-<p>关键磁盘数据结构：WriteAheadLog（RedoLog）、Page</p>
-<h5 id="非关系型数据库"><a class="markdownIt-Anchor" href="#非关系型数据库"></a> 非关系型数据库</h5>
-<p>最主流的是 MongoDB、Redis、Elasticsearch 这三个。</p>
-<ul>
-<li>关系型数据库一般直接使用 SQL 交互，而非关系型数据库交互方式各不相同。</li>
-<li>非关系型数据库的数据结构多种多样，没有关系约束，schema 相对灵活。</li>
-<li>无论是关系型数据库还是非关系型数据库，目前都在尝试支持 SQL(子集)和“事务”。</li>
-</ul>
-<h5 id="elasticsearch"><a class="markdownIt-Anchor" href="#elasticsearch"></a> Elasticsearch</h5>
-<ul>
-<li>面向文档存储</li>
-<li>文档可序列化成 JSON，支持嵌套</li>
-<li>存在 index，index = 文档的集合</li>
-<li>存储和构建索引能力依赖 Lucene 引擎</li>
-<li>实现了大量搜索数据结构和算法</li>
-<li>支持 RESTFUL API，也支持弱 SQL 交互</li>
-</ul>
-<p>更多信息参考<a class="link"   href="https://elasticsearch.bookhub.tech/getting_started/" >Elasticsearch 中文文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="mongodb"><a class="markdownIt-Anchor" href="#mongodb"></a> MongoDB</h5>
-<ul>
-<li>面向文档存储</li>
-<li>文档可序列化成 JSON/BSON，支持嵌套</li>
-<li>存在 collection，collection = 文档的集合</li>
-<li>存储和构建索引能力依赖 wiredTiger 引擎</li>
-<li>4.0 后开始支持事务（多文档、跨分片多文档等）</li>
-<li>常用 client/SDK 交互，可通过插件转译支持弱 SQL</li>
-</ul>
-<p>更多信息参考<a class="link"   href="https://docs.mongoing.com/" >MongoDB 中文文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="redis"><a class="markdownIt-Anchor" href="#redis"></a> Redis</h5>
-<ul>
-<li>数据结构丰富（hash 表、set、zset、list）</li>
-<li>C 语言实现，超高性能</li>
-<li>主要基于内存，但支持 AOF/RDB 持久化</li>
-<li>常用 redies-cli/多语言 SDK 交互</li>
-</ul>
-<p>特别的，Elasticsearch 相比 RDBMS，ES 天然支持模糊搜索，还能自动算出关联程度。</p>
-<h4 id="34-分布式数据库"><a class="markdownIt-Anchor" href="#34-分布式数据库"></a> 3.4 分布式数据库</h4>
-<p>从单机数据库到分布式数据库，单机数据库所面对的问题和挑战，以及分布式架构的解决方案。</p>
-<h5 id="解决容量问题"><a class="markdownIt-Anchor" href="#解决容量问题"></a> 解决容量问题</h5>
-<ul>
-<li>单点容量有限，受硬件条件限制</li>
-<li>存储节点池化，动态扩缩容</li>
-</ul>
-<h5 id="解决弹性问题"><a class="markdownIt-Anchor" href="#解决弹性问题"></a> 解决弹性问题</h5>
-<ul>
-<li>
-<p>单机扩容搬迁全量数据，耗时大，缩容 Disk 问题难以解决</p>
-</li>
-<li>
-<p>通过分布式灵活扩缩容解决 CPU 资源紧张问题</p>
-</li>
-</ul>
-<h5 id="解决性价比问题"><a class="markdownIt-Anchor" href="#解决性价比问题"></a> 解决性价比问题</h5>
-<ul>
-<li>单机写数据，容量不够，但 CPU 利用率低下</li>
-<li>扩容到高规格单机，满足了容量需求，但 CPU 浪费更严重</li>
-<li>通过分布式使用共享存储池，不需要扩容 CPU</li>
-</ul>
-<h5 id="more-to-do"><a class="markdownIt-Anchor" href="#more-to-do"></a> More to Do</h5>
-<ul>
-<li>单写 vs 多写</li>
-<li>从磁盘弹性到内存弹性</li>
-<li>分布式事务化</li>
-</ul>
-<h3 id="4新技术演进"><a class="markdownIt-Anchor" href="#4新技术演进"></a> 4.新技术演进</h3>
-<h4 id="41-概览"><a class="markdownIt-Anchor" href="#41-概览"></a> 4.1 概览</h4>
-<ul>
-<li>
-<p>软件架构变更</p>
-<p>Bypass OS kernel</p>
-</li>
-<li>
-<p>AI 增强</p>
-<p>智能存储格式转换</p>
-</li>
-<li>
-<p>新硬件革命</p>
-<ul>
-<li>存储介质变更</li>
-<li>计算单元变更</li>
-<li>网络硬件变更</li>
-</ul>
-</li>
-</ul>
-<h4 id="42-spdk"><a class="markdownIt-Anchor" href="#42-spdk"></a> 4.2 SPDK</h4>
-<p>Bypass OS kernel 已经成为一种趋势</p>
-<p>SPDK：Storage Performance Development Kit</p>
-<p>Kernel Space —&gt; User Space</p>
-<ul>
-<li>避免 syscall 带来的性能损耗，直接从用户态访问磁盘</li>
-</ul>
-<p>中断 —&gt; 轮询</p>
-<ul>
-<li>磁盘性能提高后，中断次数随之上升，不利于 IO 性能</li>
-<li>SPDK poller 可以绑定特定的 CPU 核不断轮询，减少 CS，提高性能</li>
-</ul>
-<p>无锁数据结构</p>
-<ul>
-<li>使用 Lock-free queue，降低并发时的同步开销</li>
-</ul>
-<h4 id="43-ai-和-storage"><a class="markdownIt-Anchor" href="#43-ai-和-storage"></a> 4.3 AI 和 Storage</h4>
-<p>AI 领域相关技术，如 Machine Learning 在很多领域，如推荐、风控、视觉领域证明了有效性。</p>
-<h4 id="44-高性能硬件"><a class="markdownIt-Anchor" href="#44-高性能硬件"></a> 4.4 高性能硬件</h4>
-<h5 id="rdma-网络"><a class="markdownIt-Anchor" href="#rdma-网络"></a> RDMA 网络</h5>
-<ul>
-<li>传统的网络协议栈，需要基于多层网络协议处理数据包，存在用户态和内核态的切换，足够通用但性能不是最佳</li>
-<li>RDMA 是 kernel bypass 的流派，不经过传统的网络协议栈，可以把用户态虚拟内存映射给网卡，减少拷贝开销，减少 CPU 开销</li>
-</ul>
-<h5 id="persistent-memory"><a class="markdownIt-Anchor" href="#persistent-memory"></a> Persistent Memory</h5>
-<p>在 NVMe SSD 和 Main Memory 间有一种全新的存储产品：Persistent Memory</p>
-<ul>
-<li>IO 时延介于 SSD 和 Memory 之间，约百纳秒量级</li>
-<li>可以用作易失性内存（memory mode），也可以用作持久化介质（app-direct）</li>
-</ul>
-<h5 id="可编程交换机"><a class="markdownIt-Anchor" href="#可编程交换机"></a> 可编程交换机</h5>
-<p>P4 Switch，配有编译器、计算单元、DRAM，可以在交换机层对网络包做计算逻辑。在数据库场景下，可以实现缓存一致性协议等</p>
-<h5 id="cpugpudpu"><a class="markdownIt-Anchor" href="#cpugpudpu"></a> CPU/GPU/DPU</h5>
-<ul>
-<li>CPU：从 multi-core 走向 many-core</li>
-<li>GPU：强大的算力和越来越大的显存空间</li>
-<li>DPU：异构计算，减轻 CPU 的workload</li>
-</ul>
-<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
-<h4 id="存储系统"><a class="markdownIt-Anchor" href="#存储系统"></a> 存储系统</h4>
-<ul>
-<li>块存储：存储软件栈里的底层系统，接口过于朴素</li>
-<li>文件存储：日常使用最广泛的存储系统，接口十分友好，实现形式多种多样</li>
-<li>对象存储：公有云上的主流产品，immutable 语义加持</li>
-<li>key-value 存储：形式最灵活，存在大量的开源/黑盒产品</li>
-</ul>
-<h4 id="数据库系统"><a class="markdownIt-Anchor" href="#数据库系统"></a> 数据库系统</h4>
-<ul>
-<li>关系型数据库：基于关系和关系代数构建的，一般支持事务和 SQL 访问，使用体验友好的存储产品</li>
-<li>非关系型数据库：结构灵活，访问方式灵活，针对不同场景有不同的针对性产品</li>
-</ul>
-<h4 id="分布式架构"><a class="markdownIt-Anchor" href="#分布式架构"></a> 分布式架构</h4>
-<ul>
-<li>数据分布策略：决定了数据如何分布到集群里的多个物理节点，是否均匀，是否能实现高性能</li>
-<li>数据复制协议：影响 IO 路径的性能、机器故障场景的处理方式</li>
-<li>分布式事务算法：多个数据库节点协同保障一个事务的 ACID 特性的算法，通常基于 2pc 的思想设计</li>
-</ul>
-<p>在存储和数据库领域，硬件反推软件变革十分常见</p>
-<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
-<p><a class="link"   href="https://blog.51cto.com/quantfabric/2594168" >Kernel Bypass <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="http://rocksdb.org.cn/" >RocksDB 中文官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://elasticsearch.bookhub.tech/getting_started/" >Elasticsearch 中文文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://docs.mongoing.com/" >MongoDB 中文文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Redis</title>
-    <url>/2023/02/22/golang-day17/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7202945024749092923" >Redis | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对 Redis 的学习<span id="more"></span></p>
-<h2 id="redis"><a class="markdownIt-Anchor" href="#redis"></a> Redis</h2>
-<h3 id="1redis-是什么"><a class="markdownIt-Anchor" href="#1redis-是什么"></a> 1.Redis 是什么</h3>
-<h4 id="为什么需要-redis"><a class="markdownIt-Anchor" href="#为什么需要-redis"></a> 为什么需要 Redis</h4>
-<ul>
-<li>数据从单表，演进出了分库分表</li>
-<li>MySQL 从单机演进出了集群
-<ul>
-<li>数据量增长</li>
-<li>读写数据压力的不断增加</li>
-</ul>
-</li>
-<li>数据分冷热
-<ul>
-<li>热数据：经常被访问到的数据</li>
-</ul>
-</li>
-<li>将热数据存储到内存中</li>
-</ul>
-<h4 id="redis-基本工作原理"><a class="markdownIt-Anchor" href="#redis-基本工作原理"></a> Redis 基本工作原理</h4>
-<ul>
-<li>数据从内存中读写</li>
-<li>数据保存到硬盘上防止重启数据丢失
-<ul>
-<li>增量数据保存到 AOF 文件中</li>
-<li>全量数据保存到 RDB 文件中</li>
-</ul>
-</li>
-<li>单线程处理所有操作命令</li>
-</ul>
-<h3 id="2redis-应用案例"><a class="markdownIt-Anchor" href="#2redis-应用案例"></a> 2.Redis 应用案例</h3>
-<h4 id="案例"><a class="markdownIt-Anchor" href="#案例"></a> 案例</h4>
-<p><strong>1.连续签到</strong></p>
-<p>app 每日签到，如果断签，连续签到计数将归 0。</p>
-<p>连续签到的要求：每天必须在 23:59 前签到</p>
-<ul>
-<li>Key：uuid…</li>
-<li>value：252</li>
-<li>expireAt：24:00</li>
-</ul>
-<p><strong>String 数据结构</strong></p>
-<ul>
-<li>可以存储字符串、数字、二进制数据</li>
-<li>通常和 expire 配合使用</li>
-<li>场景：存储计数、Session</li>
-</ul>
-<p><strong>2.消息通知</strong></p>
-<p>用 list 作为消息队列</p>
-<ul>
-<li>
-<p>使用场景：消息通知</p>
-<blockquote>
-<p>例如当文章更新时，将更新后的文章推送到 ES，用户就能搜索到最新的文章数据。</p>
-</blockquote>
-</li>
-</ul>
-<p><strong>List 数据结构 Quicklist</strong></p>
-<p>Quicklist 由一个双向链表和 listpack 实现</p>
-<p><strong>3.计数</strong></p>
-<p>一个用户有多项计数需求，可通过 hash 结构存储</p>
-<p><strong>Hash 数据结构 dict</strong></p>
-<ul>
-<li>rehash：rehash 操作是将 ht[0] 中的数据，全部迁移到 ht[1] 中。数据量小的场景下，直接将数据从 ht[0] 拷贝到 ht[1] 速度是较快的。数据量大的场景，例如存有上百万的 KV 时，迁移过程将会明显阻塞用户请求。</li>
-<li>渐进式 rehash：为避免出现这种情况，使用了 rehash 方案。基本原理就是，每次用户访问时都会迁移少量数据。将整个迁移过程，平摊到所有的访问请求过程中。</li>
-</ul>
-<p><strong>4.排行榜</strong></p>
-<p>积分变化时，排名要实时变更</p>
-<p><strong>zset 数据结构 zskiplist</strong></p>
-<ul>
-<li>结合 dict 后，可实现通过 key 操作跳表的功能</li>
-</ul>
-<p><strong>5.限流</strong></p>
-<ul>
-<li>
-<p>要求1秒内放行的请求为 N，超过 N 则禁止访问</p>
-</li>
-<li>
-<p>Key：comment_freq_limit_1671356046</p>
-<p>对这个 Key 调用 incr，超过限制 N 则禁止访问</p>
-<p>1671356046 是当前时间戳</p>
-</li>
-</ul>
-<p><strong>6.分布式锁</strong></p>
-<p>并发场景：要求一次只能有一个协程执行。执行完成后，其它等待中的协程才能执行。</p>
-<p>可以使用 Redis 的 setnx 实现，利用了两个特性</p>
-<ul>
-<li>Redis 是单线程执行命令</li>
-<li>setnx 只有未设置过才能执行成功</li>
-</ul>
-<h3 id="3redis-使用注意事项"><a class="markdownIt-Anchor" href="#3redis-使用注意事项"></a> 3.Redis 使用注意事项</h3>
-<h4 id="31-大-key-热-key"><a class="markdownIt-Anchor" href="#31-大-key-热-key"></a> 3.1 大 Key、热 Key</h4>
-<p><strong>大 Key 的定义</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">数据类型</th>
-<th style="text-align:center">大 Key 标准</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">String 类型</td>
-<td style="text-align:center">value 的字节数大于 10KB 即为大Key</td>
-</tr>
-<tr>
-<td style="text-align:center">Hash/Set/Zset/list 等复杂数据结构类型</td>
-<td style="text-align:center">元素个数大于5000个或总 value 字节数大于 10MB 即为大Key</td>
-</tr>
-</tbody>
-</table>
-<p><strong>大 Key 的危害</strong></p>
-<ul>
-<li>读取成本高</li>
-<li>容易导致慢查询（过期、删除）</li>
-<li>主从复制异常，服务阻塞，无法正常响应请求</li>
-</ul>
-<p><strong>业务侧使用大 Key 的表现</strong></p>
-<ul>
-<li>请求 Redis 超时报错</li>
-</ul>
-<p><strong>消除大 Key 的方法</strong></p>
-<ol>
-<li>
-<p>拆分</p>
-<p>将大 Key 拆分成为小 Key。例如一个 String 拆分成多个 String</p>
-</li>
-<li>
-<p>压缩</p>
-<p>将 value 压缩后写入 redis，读取时解压后再使用。压缩算法可以是 gzip、snappy、lz4 等。通常情况下，一个压缩算法压缩率高，则解压耗时就长。需要对实际数据进行测试后，选择一个合适的算法。如果存储的是 JSON 字符串，可以考虑使用 MessagePack 进行序列化。</p>
-</li>
-<li>
-<p>集合类结构 hash、list、set、zset</p>
-<ol>
-<li>拆分：可以用 hash 取余，位掩码的方式决定放在哪个 key 中。</li>
-<li>区分冷热：如榜单列表场景使用zset，只缓存前10页数据，后续数据走db。</li>
-</ol>
-</li>
-</ol>
-<p><strong>热 Key 的定义</strong></p>
-<p>用户访问一个 Key 的 QPS 特别高，导致 Server 实例出现 CPU 负载突增或者不均的情况。</p>
-<p>热 Key 没有明确的标准，QPS 超过500就有可能被识别为热 Key。</p>
-<p><strong>解决热 Key 的方法</strong></p>
-<ol>
-<li>
-<p>设置 Localcache</p>
-<p>在访问 Redis 之前，在业务服务侧设置 Localcache，降低访问 Redis 的QPS。LocalCache 中缓存过期或未命中，则从 Redis 中将数据更新到 LocalCache。Java 的 Guava、Golang 的 Bigcache 就是这类 LocalCache。</p>
-</li>
-<li>
-<p>拆分</p>
-<p>将 key: value 这一个热 Key 复制写入多份，例如 key1: value；key2: value，访问的时候访问多个 key，但 value 是同一个，以此将qps 分散到不同实例上，降低负载。代价是更新时需要更新多个 key，存在数据短暂不一致的风险。</p>
-</li>
-<li>
-<p>使用 Redis 代理的热 Key 承载能力</p>
-<p>字节跳动团队的 Redis 访问代理就具备热 Key 承载能力。本质上是结合了“热 Key 发现”、“LocalCache”两个功能</p>
-</li>
-</ol>
-<h4 id="32-慢查询场景"><a class="markdownIt-Anchor" href="#32-慢查询场景"></a> 3.2 慢查询场景</h4>
-<p><strong>容易导致 redis 慢查询的操作</strong></p>
-<ol>
-<li>
-<p>批量操作一次性传入过多的 key/value，如 mset/hmset/sadd/zadd 等 O(n) 操作</p>
-<blockquote>
-<p>建议单批次不要超过100，超过100之后性能下降明显。</p>
-</blockquote>
-</li>
-<li>
-<p>zset 大部分命令都是  O(log(n)) ，当大小超过5k以上时，简单的 zadd/zrem 也可能导致慢查询</p>
-</li>
-<li>
-<p>操作的单个 value 过大，超过 10KB，也就是说，要避免使用大 Key</p>
-</li>
-<li>
-<p>对大 Key 的 delete/expire 操作也可能导致慢查询，Redis4.0之前不支持异步删除unlink，大 Key 删除会阻塞 Redis</p>
-</li>
-</ol>
-<h4 id="33-缓存穿透-缓存雪崩"><a class="markdownIt-Anchor" href="#33-缓存穿透-缓存雪崩"></a> 3.3 缓存穿透、缓存雪崩</h4>
-<p>缓存穿透：热点数据查询绕过缓存，直接查询数据库</p>
-<p>缓存雪崩：大量缓存同时过期</p>
-<p><strong>缓存穿透、雪崩的危害</strong></p>
-<ol>
-<li>
-<p>查询一个一定不存在的数据</p>
-<p>通常不会缓存不存在的数据，这类查询请求都会直接打到db，如果有系统bug或人为攻击，那么容易导致db响应慢甚至宕机。</p>
-</li>
-<li>
-<p>缓存过期时</p>
-<p>在高并发场景下，一个热 key 如果过期，会有大量请求同时击穿至db，容易影响db性能和稳定。</p>
-<p>同一时间有大量key集中过期时，也会导致大量请求落到db上，导致查询变慢，甚至出现db无法响应新的查询。</p>
-</li>
-</ol>
-<p><strong>如何减少缓存穿透</strong></p>
-<ol>
-<li>
-<p>缓存空值</p>
-<p>如一个不存在的userID，这个id在缓存和数据库中都不存在，则可以缓存一个空值，下次再查询缓存直接返回空值。</p>
-</li>
-<li>
-<p>布隆过滤器</p>
-<p>通过 bloom filter 算法来存储合法 Key，得益于该算法超高的压缩率，只需占有极小的空间就能存储大量 key 值。</p>
-</li>
-</ol>
-<p><strong>如何避免缓存雪崩</strong></p>
-<ol>
-<li>
-<p>缓存空值</p>
-<p>将缓存失效时间分散开，比如在原有的失效时间基础上增加一个随机值，例如不同Key过期时间，可以设置为10分1秒过期，10分23秒过期，10分8秒过期。单位秒部分就是随机时间，这样过期时间就分散了。</p>
-<p>对于热点数据，过期时间尽量设置得长一些，冷门的数据可以相对设置过期时间短一些。</p>
-</li>
-<li>
-<p>使用缓存集群，避免单机宕机造成的缓存雪崩。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>深入理解 RDBMS</title>
     <url>/2023/02/22/golang-day16/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7202607329400291385" >深入理解 RDBMS | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对 RDBMS 的学习<span id="more"></span></p>
@@ -6342,6 +6009,339 @@ y=2^{E_y}\cdot M_y
       <tags>
         <tag>学习笔记</tag>
         <tag>RDBMS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>存储的本质 - 状态</title>
+    <url>/2023/02/22/golang-day15/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7199279293755146297" >存储的本质 - 状态 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对存储的学习<span id="more"></span></p>
+<h2 id="存储的本质-状态"><a class="markdownIt-Anchor" href="#存储的本质-状态"></a> 存储的本质 - 状态</h2>
+<h3 id="1经典案例"><a class="markdownIt-Anchor" href="#1经典案例"></a> 1.经典案例</h3>
+<ul>
+<li>数据的产生：注册账号等</li>
+<li>数据的流动：从客户端到后端服务器，后端服务器到数据库，再到其他系统</li>
+<li>数据的持久化：校验数据的合法性，修改内存，写入存储介质</li>
+<li>潜在的问题
+<ul>
+<li>数据库如何保证数据不丢失</li>
+<li>数据库如何支持多人同时修改</li>
+<li>其他的存储系统</li>
+<li>如何处理除结构化数据以外的数据</li>
+<li>操作数据库的方式，使用什么编程语言</li>
+</ul>
+</li>
+</ul>
+<h3 id="2存储和数据库简介"><a class="markdownIt-Anchor" href="#2存储和数据库简介"></a> 2.存储和数据库简介</h3>
+<h4 id="21-存储系统"><a class="markdownIt-Anchor" href="#21-存储系统"></a> 2.1 存储系统</h4>
+<h5 id="系统概览"><a class="markdownIt-Anchor" href="#系统概览"></a> 系统概览</h5>
+<p>什么是存储系统？</p>
+<p>一个提供了读写、控制类接口，能够安全有效地把数据持久化的软件，就可以称为存储系统。</p>
+<p>存储系统的特征</p>
+<ul>
+<li>作为后端软件的底座，性能敏感</li>
+<li>存储系统软件架构，容易受硬件影响</li>
+<li>存储系统代码，既“简单”又“复杂”</li>
+</ul>
+<h5 id="存储器层级结构"><a class="markdownIt-Anchor" href="#存储器层级结构"></a> 存储器层级结构</h5>
+<p>参考https://www.cnblogs.com/RadiumGalaxy/p/17122372.html</p>
+<h5 id="数据从应用到存储介质"><a class="markdownIt-Anchor" href="#数据从应用到存储介质"></a> 数据从应用到存储介质</h5>
+<ul>
+<li>缓存：很重要，贯穿整个存储体系</li>
+<li>拷贝：很昂贵，应该尽量减少</li>
+<li>硬件设备多种多样，需要有抽象统一的接入层</li>
+</ul>
+<h5 id="raid-技术"><a class="markdownIt-Anchor" href="#raid-技术"></a> RAID 技术</h5>
+<p>单机存储系统如何做到高性能、高性价比、高可靠性？</p>
+<p><strong>R</strong>edundant <strong>A</strong>rray of <strong>I</strong>nexpensive <strong>D</strong>isks</p>
+<p>RAID 出现的背景</p>
+<ul>
+<li>单块大容量磁盘的价格 &gt; 多块小容量磁盘</li>
+<li>单块磁盘的写入性能 &lt; 多块磁盘的并发写入性能</li>
+<li>单块磁盘的容错能力有限，不够安全</li>
+</ul>
+<p>RAID 0</p>
+<ul>
+<li>多块磁盘简单组合</li>
+<li>数据条带化存储，提高磁盘带宽</li>
+<li>没有额外的容错设计</li>
+</ul>
+<p>RAID 1</p>
+<ul>
+<li>一块磁盘对应一块额外镜像盘</li>
+<li>真实空间利用率仅 50%</li>
+<li>容错能力强</li>
+</ul>
+<p>RAID 0 + 1</p>
+<ul>
+<li>结合了 RAID 0 和 RAID 1</li>
+<li>真实空间利用率仅 50%</li>
+<li>容错能力强，写入带宽好</li>
+</ul>
+<h4 id="22-数据库"><a class="markdownIt-Anchor" href="#22-数据库"></a> 2.2 数据库</h4>
+<p>关系型数据库和非关系型数据库</p>
+<h5 id="概览"><a class="markdownIt-Anchor" href="#概览"></a> 概览</h5>
+<p>关系（Relation）</p>
+<ul>
+<li>Edgar.F.Codd 于1970 年提出“关系模型”</li>
+<li>关系 = 集合 = 任意元素组成的若干有序偶对，反映了事物之间的关系</li>
+<li>关系代数 = 对关系作运算的抽象查询语言，如交、并、笛卡儿积等</li>
+<li>SQL = 一种 DSL = 方便人类阅读的关系代数表达形式</li>
+</ul>
+<h5 id="关系型数据库特点"><a class="markdownIt-Anchor" href="#关系型数据库特点"></a> 关系型数据库特点</h5>
+<p>关系型数据库是存储系统，但是在存储系统之外，又发展出其他功能</p>
+<ul>
+<li>结构化数据友好</li>
+<li>支持事务（ACID）</li>
+<li>支持复杂查询语句</li>
+</ul>
+<h5 id="非关系型数据库特点"><a class="markdownIt-Anchor" href="#非关系型数据库特点"></a> 非关系型数据库特点</h5>
+<p>非关系型数据库也是存储系统，但是一般不要求严格的结构化</p>
+<ul>
+<li>半结构化数据友好</li>
+<li>可能支持事务（ACID）</li>
+<li>可能支持复杂查询语句</li>
+</ul>
+<h4 id="23-数据库-vs-经典存储"><a class="markdownIt-Anchor" href="#23-数据库-vs-经典存储"></a> 2.3 数据库 vs 经典存储</h4>
+<h5 id="结构化数据管理"><a class="markdownIt-Anchor" href="#结构化数据管理"></a> 结构化数据管理</h5>
+<ul>
+<li>写入关系型数据库，以表形式管理</li>
+<li>写入文件，自行定义管理结构</li>
+</ul>
+<h5 id="事务能力"><a class="markdownIt-Anchor" href="#事务能力"></a> 事务能力</h5>
+<p>数据库具有支持事务的优越性，事务具有</p>
+<ul>
+<li>Atomicity： 事务内的操作要么全部执行，要么全部不执行</li>
+<li>Consistency：事务执行前后，数据状态是一致的</li>
+<li>Isolation：可以隔离多个并发事务，避免影响</li>
+<li>Durability：事务一旦提交成功，数据保证持久性</li>
+</ul>
+<h5 id="复杂查询能力"><a class="markdownIt-Anchor" href="#复杂查询能力"></a> 复杂查询能力</h5>
+<p>写入数据后进行很复杂的查询</p>
+<ul>
+<li>数据库查询灵活、简洁</li>
+<li>文件查询僵化、复杂</li>
+</ul>
+<h4 id="24-数据库使用方式"><a class="markdownIt-Anchor" href="#24-数据库使用方式"></a> 2.4 数据库使用方式</h4>
+<p>Everything is Domain Specific Language，maybe SQL</p>
+<p>SQL 操作数据：Insert、Update、Select、Delete、Where子句、Group by、Order by</p>
+<p>SQL 定义数据：Create、Alter …</p>
+<h3 id="主流产品剖析"><a class="markdownIt-Anchor" href="#主流产品剖析"></a> 主流产品剖析</h3>
+<h4 id="31-单机存储"><a class="markdownIt-Anchor" href="#31-单机存储"></a> 3.1 单机存储</h4>
+<h5 id="概览-2"><a class="markdownIt-Anchor" href="#概览-2"></a> 概览</h5>
+<p>单机存储 = 单个计算机节点上的存储软件系统，一般不涉及网络交互</p>
+<p>有本地文件系统和 key-value 存储</p>
+<h5 id="本地文件系统"><a class="markdownIt-Anchor" href="#本地文件系统"></a> 本地文件系统</h5>
+<p>Linux 经典哲学：一切皆文件</p>
+<p>文件系统的管理单元：文件</p>
+<p>文件系统接口：文件系统繁多，如 ext2/3/4，sysfs，rootfs 等，但都遵循 VFS 的统一抽象接口</p>
+<p>Linux 文件系统的两大数据结构：Index Node 和 Directory Entry</p>
+<ul>
+<li>
+<p>Index Node</p>
+<p>记录文件元数据，如 id、大小、权限、硬盘位置等。</p>
+<p>inode 是文件的唯一标识，会被存储到磁盘上。</p>
+<p>inode 的总数在格式化文件系统时就固定了。</p>
+</li>
+<li>
+<p>Directory Entry</p>
+<p>记录文件名、inode 指针、层级关系（parent）等。</p>
+<p>dentry 是内存结构，与 inode 的关系是 N：1（hardlink 的实现）</p>
+</li>
+</ul>
+<h5 id="key-value-存储"><a class="markdownIt-Anchor" href="#key-value-存储"></a> key-value 存储</h5>
+<p>常见使用方式：put(k, v) 和 get(k)</p>
+<p>常见数据结构：LSM-Tree，某种程度上牺牲读写性能，追求写入性能</p>
+<p>典型产品：RocksDB ，更多信息参考<a class="link"   href="http://rocksdb.org.cn/" >RocksDB 中文官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h4 id="32-分布式存储"><a class="markdownIt-Anchor" href="#32-分布式存储"></a> 3.2 分布式存储</h4>
+<h5 id="概览-3"><a class="markdownIt-Anchor" href="#概览-3"></a> 概览</h5>
+<p>分布式存储 = 在单机存储基础上实现了分布式协议，涉及大量网络交互</p>
+<p>有分布式文件系统和分布式对象存储</p>
+<h5 id="hdfs"><a class="markdownIt-Anchor" href="#hdfs"></a> HDFS</h5>
+<p>HDFS：大数据时代的基石</p>
+<p>时代背景：专用的高级硬件很贵，同时数据存储量很大，要求超高吞吐</p>
+<p>HDFS 核心特点</p>
+<ul>
+<li>支持海量数据存储</li>
+<li>高容错性</li>
+<li>弱 POSIX 语义</li>
+<li>使用普通 x86 服务器，性价比高</li>
+</ul>
+<h5 id="ceph"><a class="markdownIt-Anchor" href="#ceph"></a> Ceph</h5>
+<p>Ceph 核心特点</p>
+<ul>
+<li>一套系统支持对象接口、块接口、文件接口，但是一切皆对象</li>
+<li>数据写入采用主备复制模型</li>
+<li>数据分布模型采用 CRUSH 算法（HASH + 权重 + 随机抽签）</li>
+</ul>
+<h4 id="33-单机数据库"><a class="markdownIt-Anchor" href="#33-单机数据库"></a> 3.3 单机数据库</h4>
+<h5 id="概览-4"><a class="markdownIt-Anchor" href="#概览-4"></a> 概览</h5>
+<p>单机数据库 = 单个计算机节点上的数据库系统</p>
+<p>事务在单机内执行，也可能通过网络交互实现分布式事务</p>
+<p>有关系型数据库和非关系型数据库</p>
+<h5 id="关系型数据库"><a class="markdownIt-Anchor" href="#关系型数据库"></a> 关系型数据库</h5>
+<p>商业产品 Oracle 最为广泛使用，开源产品 MySQL 和 PostgreSQL 最受欢迎。</p>
+<p>关系型数据库的通用组件</p>
+<ul>
+<li>Query Engine：负责解析 query，生成查询计划</li>
+<li>Txn Manager：负责事务并发管理</li>
+<li>Lock Manager：负责锁相关的策略</li>
+<li>Storage Engine：负责组织内存/磁盘数据结构</li>
+<li>Replication：负责主备同步</li>
+</ul>
+<p>关键内存数据结构：B-Tree、B±Tree、LRUList 等</p>
+<p>关键磁盘数据结构：WriteAheadLog（RedoLog）、Page</p>
+<h5 id="非关系型数据库"><a class="markdownIt-Anchor" href="#非关系型数据库"></a> 非关系型数据库</h5>
+<p>最主流的是 MongoDB、Redis、Elasticsearch 这三个。</p>
+<ul>
+<li>关系型数据库一般直接使用 SQL 交互，而非关系型数据库交互方式各不相同。</li>
+<li>非关系型数据库的数据结构多种多样，没有关系约束，schema 相对灵活。</li>
+<li>无论是关系型数据库还是非关系型数据库，目前都在尝试支持 SQL(子集)和“事务”。</li>
+</ul>
+<h5 id="elasticsearch"><a class="markdownIt-Anchor" href="#elasticsearch"></a> Elasticsearch</h5>
+<ul>
+<li>面向文档存储</li>
+<li>文档可序列化成 JSON，支持嵌套</li>
+<li>存在 index，index = 文档的集合</li>
+<li>存储和构建索引能力依赖 Lucene 引擎</li>
+<li>实现了大量搜索数据结构和算法</li>
+<li>支持 RESTFUL API，也支持弱 SQL 交互</li>
+</ul>
+<p>更多信息参考<a class="link"   href="https://elasticsearch.bookhub.tech/getting_started/" >Elasticsearch 中文文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="mongodb"><a class="markdownIt-Anchor" href="#mongodb"></a> MongoDB</h5>
+<ul>
+<li>面向文档存储</li>
+<li>文档可序列化成 JSON/BSON，支持嵌套</li>
+<li>存在 collection，collection = 文档的集合</li>
+<li>存储和构建索引能力依赖 wiredTiger 引擎</li>
+<li>4.0 后开始支持事务（多文档、跨分片多文档等）</li>
+<li>常用 client/SDK 交互，可通过插件转译支持弱 SQL</li>
+</ul>
+<p>更多信息参考<a class="link"   href="https://docs.mongoing.com/" >MongoDB 中文文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="redis"><a class="markdownIt-Anchor" href="#redis"></a> Redis</h5>
+<ul>
+<li>数据结构丰富（hash 表、set、zset、list）</li>
+<li>C 语言实现，超高性能</li>
+<li>主要基于内存，但支持 AOF/RDB 持久化</li>
+<li>常用 redies-cli/多语言 SDK 交互</li>
+</ul>
+<p>特别的，Elasticsearch 相比 RDBMS，ES 天然支持模糊搜索，还能自动算出关联程度。</p>
+<h4 id="34-分布式数据库"><a class="markdownIt-Anchor" href="#34-分布式数据库"></a> 3.4 分布式数据库</h4>
+<p>从单机数据库到分布式数据库，单机数据库所面对的问题和挑战，以及分布式架构的解决方案。</p>
+<h5 id="解决容量问题"><a class="markdownIt-Anchor" href="#解决容量问题"></a> 解决容量问题</h5>
+<ul>
+<li>单点容量有限，受硬件条件限制</li>
+<li>存储节点池化，动态扩缩容</li>
+</ul>
+<h5 id="解决弹性问题"><a class="markdownIt-Anchor" href="#解决弹性问题"></a> 解决弹性问题</h5>
+<ul>
+<li>
+<p>单机扩容搬迁全量数据，耗时大，缩容 Disk 问题难以解决</p>
+</li>
+<li>
+<p>通过分布式灵活扩缩容解决 CPU 资源紧张问题</p>
+</li>
+</ul>
+<h5 id="解决性价比问题"><a class="markdownIt-Anchor" href="#解决性价比问题"></a> 解决性价比问题</h5>
+<ul>
+<li>单机写数据，容量不够，但 CPU 利用率低下</li>
+<li>扩容到高规格单机，满足了容量需求，但 CPU 浪费更严重</li>
+<li>通过分布式使用共享存储池，不需要扩容 CPU</li>
+</ul>
+<h5 id="more-to-do"><a class="markdownIt-Anchor" href="#more-to-do"></a> More to Do</h5>
+<ul>
+<li>单写 vs 多写</li>
+<li>从磁盘弹性到内存弹性</li>
+<li>分布式事务化</li>
+</ul>
+<h3 id="4新技术演进"><a class="markdownIt-Anchor" href="#4新技术演进"></a> 4.新技术演进</h3>
+<h4 id="41-概览"><a class="markdownIt-Anchor" href="#41-概览"></a> 4.1 概览</h4>
+<ul>
+<li>
+<p>软件架构变更</p>
+<p>Bypass OS kernel</p>
+</li>
+<li>
+<p>AI 增强</p>
+<p>智能存储格式转换</p>
+</li>
+<li>
+<p>新硬件革命</p>
+<ul>
+<li>存储介质变更</li>
+<li>计算单元变更</li>
+<li>网络硬件变更</li>
+</ul>
+</li>
+</ul>
+<h4 id="42-spdk"><a class="markdownIt-Anchor" href="#42-spdk"></a> 4.2 SPDK</h4>
+<p>Bypass OS kernel 已经成为一种趋势</p>
+<p>SPDK：Storage Performance Development Kit</p>
+<p>Kernel Space —&gt; User Space</p>
+<ul>
+<li>避免 syscall 带来的性能损耗，直接从用户态访问磁盘</li>
+</ul>
+<p>中断 —&gt; 轮询</p>
+<ul>
+<li>磁盘性能提高后，中断次数随之上升，不利于 IO 性能</li>
+<li>SPDK poller 可以绑定特定的 CPU 核不断轮询，减少 CS，提高性能</li>
+</ul>
+<p>无锁数据结构</p>
+<ul>
+<li>使用 Lock-free queue，降低并发时的同步开销</li>
+</ul>
+<h4 id="43-ai-和-storage"><a class="markdownIt-Anchor" href="#43-ai-和-storage"></a> 4.3 AI 和 Storage</h4>
+<p>AI 领域相关技术，如 Machine Learning 在很多领域，如推荐、风控、视觉领域证明了有效性。</p>
+<h4 id="44-高性能硬件"><a class="markdownIt-Anchor" href="#44-高性能硬件"></a> 4.4 高性能硬件</h4>
+<h5 id="rdma-网络"><a class="markdownIt-Anchor" href="#rdma-网络"></a> RDMA 网络</h5>
+<ul>
+<li>传统的网络协议栈，需要基于多层网络协议处理数据包，存在用户态和内核态的切换，足够通用但性能不是最佳</li>
+<li>RDMA 是 kernel bypass 的流派，不经过传统的网络协议栈，可以把用户态虚拟内存映射给网卡，减少拷贝开销，减少 CPU 开销</li>
+</ul>
+<h5 id="persistent-memory"><a class="markdownIt-Anchor" href="#persistent-memory"></a> Persistent Memory</h5>
+<p>在 NVMe SSD 和 Main Memory 间有一种全新的存储产品：Persistent Memory</p>
+<ul>
+<li>IO 时延介于 SSD 和 Memory 之间，约百纳秒量级</li>
+<li>可以用作易失性内存（memory mode），也可以用作持久化介质（app-direct）</li>
+</ul>
+<h5 id="可编程交换机"><a class="markdownIt-Anchor" href="#可编程交换机"></a> 可编程交换机</h5>
+<p>P4 Switch，配有编译器、计算单元、DRAM，可以在交换机层对网络包做计算逻辑。在数据库场景下，可以实现缓存一致性协议等</p>
+<h5 id="cpugpudpu"><a class="markdownIt-Anchor" href="#cpugpudpu"></a> CPU/GPU/DPU</h5>
+<ul>
+<li>CPU：从 multi-core 走向 many-core</li>
+<li>GPU：强大的算力和越来越大的显存空间</li>
+<li>DPU：异构计算，减轻 CPU 的workload</li>
+</ul>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
+<h4 id="存储系统"><a class="markdownIt-Anchor" href="#存储系统"></a> 存储系统</h4>
+<ul>
+<li>块存储：存储软件栈里的底层系统，接口过于朴素</li>
+<li>文件存储：日常使用最广泛的存储系统，接口十分友好，实现形式多种多样</li>
+<li>对象存储：公有云上的主流产品，immutable 语义加持</li>
+<li>key-value 存储：形式最灵活，存在大量的开源/黑盒产品</li>
+</ul>
+<h4 id="数据库系统"><a class="markdownIt-Anchor" href="#数据库系统"></a> 数据库系统</h4>
+<ul>
+<li>关系型数据库：基于关系和关系代数构建的，一般支持事务和 SQL 访问，使用体验友好的存储产品</li>
+<li>非关系型数据库：结构灵活，访问方式灵活，针对不同场景有不同的针对性产品</li>
+</ul>
+<h4 id="分布式架构"><a class="markdownIt-Anchor" href="#分布式架构"></a> 分布式架构</h4>
+<ul>
+<li>数据分布策略：决定了数据如何分布到集群里的多个物理节点，是否均匀，是否能实现高性能</li>
+<li>数据复制协议：影响 IO 路径的性能、机器故障场景的处理方式</li>
+<li>分布式事务算法：多个数据库节点协同保障一个事务的 ACID 特性的算法，通常基于 2pc 的思想设计</li>
+</ul>
+<p>在存储和数据库领域，硬件反推软件变革十分常见</p>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a class="link"   href="https://blog.51cto.com/quantfabric/2594168" >Kernel Bypass <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="http://rocksdb.org.cn/" >RocksDB 中文官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://elasticsearch.bookhub.tech/getting_started/" >Elasticsearch 中文文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://docs.mongoing.com/" >MongoDB 中文文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -7943,6 +7943,155 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
+    <title>规则引擎与设计实现</title>
+    <url>/2023/02/03/golang-day6/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7195554661318967351" >规则引擎与设计实现 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对规则引擎的学习<span id="more"></span></p>
+<h2 id="规则引擎与设计实现"><a class="markdownIt-Anchor" href="#规则引擎与设计实现"></a> 规则引擎与设计实现</h2>
+<blockquote>
+<p>规则引擎的组成部分及应用场景</p>
+<p>规则引擎的核心原理——编译原理的相关概念</p>
+<p>设计并实现一个规则引擎——YoungEngine</p>
+<p>实现一个Web版规则引擎</p>
+</blockquote>
+<h3 id="1-认识规则引擎"><a class="markdownIt-Anchor" href="#1-认识规则引擎"></a> 1. 认识规则引擎</h3>
+<h4 id="规则引擎的定义"><a class="markdownIt-Anchor" href="#规则引擎的定义"></a> 规则引擎的定义</h4>
+<ul>
+<li>
+<p>规则引擎是一种嵌入在应用程序中的组件，实现了将业务决策从应用程序代码中分离出来，并使用预定义的语义模块编写业务决策。接收数据输入，解释业务规则，并根据业务逻辑做出业务决策。</p>
+</li>
+<li>
+<p>解决开发人员重复编码的问题</p>
+<p>业务决策与服务本身解耦，提高服务的可维护性，缩短开发路径，提高效率</p>
+</li>
+</ul>
+<h4 id="组成部分"><a class="markdownIt-Anchor" href="#组成部分"></a> 组成部分</h4>
+<ul>
+<li>数据输入
+<ul>
+<li>支持接受使用预定义的语义编写的规则作为策略集。比如“price &gt; 500”</li>
+<li>接受业务的数据作为执行过程中的参数。比如价格、标签等</li>
+</ul>
+</li>
+<li>规则理解
+<ul>
+<li>能够按照预先定义的词法、语法、优先级、运算符等正确理解业务规则所表达的语义。</li>
+</ul>
+</li>
+<li>规则执行
+<ul>
+<li>根据执行时输入的参数对策略集中的规则进行正确的解释和执行。</li>
+<li>同时对规则执行过程中的数据类型进行检查，确保执行结果的正确。</li>
+</ul>
+</li>
+</ul>
+<h4 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h4>
+<ul>
+<li>风控对抗。快速识别和对抗，以实现最好的风控识别效果。</li>
+<li>活动策略运营。提高运营策略的迭代效率，方便新玩法的探索和效果验证。</li>
+<li>数据分析和清洗。方便快捷地产出所需要的数据。</li>
+</ul>
+<h3 id="2编译原理基本概念"><a class="markdownIt-Anchor" href="#2编译原理基本概念"></a> 2.编译原理基本概念</h3>
+<p>规则引擎和编译原理具有一定的关联性。它们都有理解、执行、输入输出的流程。</p>
+<ul>
+<li>理解：词法分析、语法分析</li>
+<li>执行：抽象语法树</li>
+<li>输入输出：参数注入、类型检查</li>
+</ul>
+<h4 id="词法分析-lexicel-analysis"><a class="markdownIt-Anchor" href="#词法分析-lexicel-analysis"></a> 词法分析 Lexicel Analysis</h4>
+<p>词法分析就是把源代码字符串转换为词法单元（Token）的过程。</p>
+<ul>
+<li>
+<p>识别Token：有限自动机（Finite-State Automaton）</p>
+<p>有限自动机就是一个状态机，它的状态数量是有限的。该状态在任何一个状态，基于输入的字符，都能做一个确定的状态转换。</p>
+</li>
+</ul>
+<h4 id="语法分析-syntax-analysis"><a class="markdownIt-Anchor" href="#语法分析-syntax-analysis"></a> 语法分析 Syntax Analysis</h4>
+<p>语法分析就是在词法分析的基础上，识别表达式的语法结构的过程。</p>
+<ul>
+<li>抽象语法树：表达式的语法结构可以用树来表示，其每个节点（子树）是一个语法单元，这个单元的构成规则就叫语法。每个节点还可以有下级节点。</li>
+</ul>
+<h4 id="抽象语法树-abstract-syntax-tree"><a class="markdownIt-Anchor" href="#抽象语法树-abstract-syntax-tree"></a> 抽象语法树 Abstract Syntax Tree</h4>
+<ul>
+<li>
+<p>上下文无关语法 Context-Free Grammar</p>
+<p>语言句子无需考虑上下文，就可以判断正确性。可以使用巴克斯范式（BNF）来表达。</p>
+<p>产生式：一个表达式可以由另外已知类型的表达式或者符号推导产生。</p>
+<p>内置符号：字面量（string、bool、number）标识符、运算符。</p>
+<p>一个基础表达式可以由常量（string、bool、number）或标识符（identifier），一个乘法表达式可以由基础表达式或者乘法表达式+基础表达式组成。</p>
+</li>
+<li>
+<p>递归下降算法 Recursive Descent Parsing</p>
+<p>递归下降算法就是自顶向下构造语法树，不断地对Token进行语法展开（下降），展开过程中可能会遇到递归的情况。</p>
+</li>
+</ul>
+<h4 id="类型检查"><a class="markdownIt-Anchor" href="#类型检查"></a> 类型检查</h4>
+<ul>
+<li>
+<p>类型综合</p>
+<p>根据表达式的类型构造出父表达式的类型。例如，表达式A+B的类型是根据A和B的类型定义的。</p>
+</li>
+<li>
+<p>编译时检查和运行时检查</p>
+<p>类型检查可以发生在表达式的编译阶段，即在构造语法树的阶段，也可以发生在执行时的阶段。</p>
+<ul>
+<li>编译时：需要提前声明参数的类型，在构建语法树过程中进行类型检查</li>
+<li>执行时：可以根据执行时的参数输入的值类型，在执行过程中进行类型检查</li>
+</ul>
+</li>
+</ul>
+<h3 id="3设计一个规则引擎"><a class="markdownIt-Anchor" href="#3设计一个规则引擎"></a> 3.设计一个规则引擎</h3>
+<h4 id="设计目标"><a class="markdownIt-Anchor" href="#设计目标"></a> 设计目标</h4>
+<p>设计一个规则引擎，支持特定的词法、运算符、数据类型和优先级，并且支持基于以上预定义语法的规则表达式的编译和执行。</p>
+<ul>
+<li>词法（合法Token）：参数、布尔值、字符串、十进制int、十进制float、预定义运算符的规定写法</li>
+<li>数据类型：字符串、布尔值、十进制int、十进制float</li>
+<li>运算符：一元运算符、二元运算符、逻辑操作符、括号</li>
+<li>优先级：各种运算符的优先级定义</li>
+</ul>
+<h4 id="词法分析"><a class="markdownIt-Anchor" href="#词法分析"></a> 词法分析</h4>
+<ul>
+<li>设计词法分析的状态机</li>
+</ul>
+<h4 id="语法分析"><a class="markdownIt-Anchor" href="#语法分析"></a> 语法分析</h4>
+<ul>
+<li>优先级的表达</li>
+<li>语法树结构</li>
+</ul>
+<h4 id="语法树的执行与类型检查"><a class="markdownIt-Anchor" href="#语法树的执行与类型检查"></a> 语法树的执行与类型检查</h4>
+<ul>
+<li>
+<p>语法树执行</p>
+<p>预先定义好每种操作符的执行逻辑</p>
+<p>对抽象语法树进行后缀遍历执行，即</p>
+<ul>
+<li>先执行左子树，得到左节点的值</li>
+<li>再执行右子树，得到右节点的值</li>
+<li>最后根据根节点的操作符执行得到根节点的值</li>
+</ul>
+</li>
+<li>
+<p>类型检查</p>
+<p>检查时机：执行时检查</p>
+<p>检查方法：在一个节点的左右子节点执行完成后，分别校验左右子节点的类型是否符合对应操作符的类型检查预设规则。</p>
+<ul>
+<li>‘&gt;’ 符号要求左右子节点的值都存在且为int或float</li>
+<li>‘!’ 符号要求左节点为空且右节点的值为bool</li>
+</ul>
+</li>
+</ul>
+<h3 id="4规则引擎的实现"><a class="markdownIt-Anchor" href="#4规则引擎的实现"></a> 4.规则引擎的实现</h3>
+<p>可参考<a class="link"   href="https://github.com/qimengxingyuan/young_engine" >qimengxingyuan/young_engine: 简单的规则引擎  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>实现。</p>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a class="link"   href="https://juejin.cn/post/7193363381804335161/#heading-11" >【后端专场 学习资料三】第五届字节跳动青训营 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Go 框架三件套详解</title>
     <url>/2023/02/01/golang-day5/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7195211923154010168" >Go 框架三件套详解(Web/RPC/ORM) | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang web开发框架三件套的学习<span id="more"></span></p>
@@ -8348,155 +8497,6 @@ y=2^{E_y}\cdot M_y
       <tags>
         <tag>学习笔记</tag>
         <tag>golang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>规则引擎与设计实现</title>
-    <url>/2023/02/03/golang-day6/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7195554661318967351" >规则引擎与设计实现 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对规则引擎的学习<span id="more"></span></p>
-<h2 id="规则引擎与设计实现"><a class="markdownIt-Anchor" href="#规则引擎与设计实现"></a> 规则引擎与设计实现</h2>
-<blockquote>
-<p>规则引擎的组成部分及应用场景</p>
-<p>规则引擎的核心原理——编译原理的相关概念</p>
-<p>设计并实现一个规则引擎——YoungEngine</p>
-<p>实现一个Web版规则引擎</p>
-</blockquote>
-<h3 id="1-认识规则引擎"><a class="markdownIt-Anchor" href="#1-认识规则引擎"></a> 1. 认识规则引擎</h3>
-<h4 id="规则引擎的定义"><a class="markdownIt-Anchor" href="#规则引擎的定义"></a> 规则引擎的定义</h4>
-<ul>
-<li>
-<p>规则引擎是一种嵌入在应用程序中的组件，实现了将业务决策从应用程序代码中分离出来，并使用预定义的语义模块编写业务决策。接收数据输入，解释业务规则，并根据业务逻辑做出业务决策。</p>
-</li>
-<li>
-<p>解决开发人员重复编码的问题</p>
-<p>业务决策与服务本身解耦，提高服务的可维护性，缩短开发路径，提高效率</p>
-</li>
-</ul>
-<h4 id="组成部分"><a class="markdownIt-Anchor" href="#组成部分"></a> 组成部分</h4>
-<ul>
-<li>数据输入
-<ul>
-<li>支持接受使用预定义的语义编写的规则作为策略集。比如“price &gt; 500”</li>
-<li>接受业务的数据作为执行过程中的参数。比如价格、标签等</li>
-</ul>
-</li>
-<li>规则理解
-<ul>
-<li>能够按照预先定义的词法、语法、优先级、运算符等正确理解业务规则所表达的语义。</li>
-</ul>
-</li>
-<li>规则执行
-<ul>
-<li>根据执行时输入的参数对策略集中的规则进行正确的解释和执行。</li>
-<li>同时对规则执行过程中的数据类型进行检查，确保执行结果的正确。</li>
-</ul>
-</li>
-</ul>
-<h4 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h4>
-<ul>
-<li>风控对抗。快速识别和对抗，以实现最好的风控识别效果。</li>
-<li>活动策略运营。提高运营策略的迭代效率，方便新玩法的探索和效果验证。</li>
-<li>数据分析和清洗。方便快捷地产出所需要的数据。</li>
-</ul>
-<h3 id="2编译原理基本概念"><a class="markdownIt-Anchor" href="#2编译原理基本概念"></a> 2.编译原理基本概念</h3>
-<p>规则引擎和编译原理具有一定的关联性。它们都有理解、执行、输入输出的流程。</p>
-<ul>
-<li>理解：词法分析、语法分析</li>
-<li>执行：抽象语法树</li>
-<li>输入输出：参数注入、类型检查</li>
-</ul>
-<h4 id="词法分析-lexicel-analysis"><a class="markdownIt-Anchor" href="#词法分析-lexicel-analysis"></a> 词法分析 Lexicel Analysis</h4>
-<p>词法分析就是把源代码字符串转换为词法单元（Token）的过程。</p>
-<ul>
-<li>
-<p>识别Token：有限自动机（Finite-State Automaton）</p>
-<p>有限自动机就是一个状态机，它的状态数量是有限的。该状态在任何一个状态，基于输入的字符，都能做一个确定的状态转换。</p>
-</li>
-</ul>
-<h4 id="语法分析-syntax-analysis"><a class="markdownIt-Anchor" href="#语法分析-syntax-analysis"></a> 语法分析 Syntax Analysis</h4>
-<p>语法分析就是在词法分析的基础上，识别表达式的语法结构的过程。</p>
-<ul>
-<li>抽象语法树：表达式的语法结构可以用树来表示，其每个节点（子树）是一个语法单元，这个单元的构成规则就叫语法。每个节点还可以有下级节点。</li>
-</ul>
-<h4 id="抽象语法树-abstract-syntax-tree"><a class="markdownIt-Anchor" href="#抽象语法树-abstract-syntax-tree"></a> 抽象语法树 Abstract Syntax Tree</h4>
-<ul>
-<li>
-<p>上下文无关语法 Context-Free Grammar</p>
-<p>语言句子无需考虑上下文，就可以判断正确性。可以使用巴克斯范式（BNF）来表达。</p>
-<p>产生式：一个表达式可以由另外已知类型的表达式或者符号推导产生。</p>
-<p>内置符号：字面量（string、bool、number）标识符、运算符。</p>
-<p>一个基础表达式可以由常量（string、bool、number）或标识符（identifier），一个乘法表达式可以由基础表达式或者乘法表达式+基础表达式组成。</p>
-</li>
-<li>
-<p>递归下降算法 Recursive Descent Parsing</p>
-<p>递归下降算法就是自顶向下构造语法树，不断地对Token进行语法展开（下降），展开过程中可能会遇到递归的情况。</p>
-</li>
-</ul>
-<h4 id="类型检查"><a class="markdownIt-Anchor" href="#类型检查"></a> 类型检查</h4>
-<ul>
-<li>
-<p>类型综合</p>
-<p>根据表达式的类型构造出父表达式的类型。例如，表达式A+B的类型是根据A和B的类型定义的。</p>
-</li>
-<li>
-<p>编译时检查和运行时检查</p>
-<p>类型检查可以发生在表达式的编译阶段，即在构造语法树的阶段，也可以发生在执行时的阶段。</p>
-<ul>
-<li>编译时：需要提前声明参数的类型，在构建语法树过程中进行类型检查</li>
-<li>执行时：可以根据执行时的参数输入的值类型，在执行过程中进行类型检查</li>
-</ul>
-</li>
-</ul>
-<h3 id="3设计一个规则引擎"><a class="markdownIt-Anchor" href="#3设计一个规则引擎"></a> 3.设计一个规则引擎</h3>
-<h4 id="设计目标"><a class="markdownIt-Anchor" href="#设计目标"></a> 设计目标</h4>
-<p>设计一个规则引擎，支持特定的词法、运算符、数据类型和优先级，并且支持基于以上预定义语法的规则表达式的编译和执行。</p>
-<ul>
-<li>词法（合法Token）：参数、布尔值、字符串、十进制int、十进制float、预定义运算符的规定写法</li>
-<li>数据类型：字符串、布尔值、十进制int、十进制float</li>
-<li>运算符：一元运算符、二元运算符、逻辑操作符、括号</li>
-<li>优先级：各种运算符的优先级定义</li>
-</ul>
-<h4 id="词法分析"><a class="markdownIt-Anchor" href="#词法分析"></a> 词法分析</h4>
-<ul>
-<li>设计词法分析的状态机</li>
-</ul>
-<h4 id="语法分析"><a class="markdownIt-Anchor" href="#语法分析"></a> 语法分析</h4>
-<ul>
-<li>优先级的表达</li>
-<li>语法树结构</li>
-</ul>
-<h4 id="语法树的执行与类型检查"><a class="markdownIt-Anchor" href="#语法树的执行与类型检查"></a> 语法树的执行与类型检查</h4>
-<ul>
-<li>
-<p>语法树执行</p>
-<p>预先定义好每种操作符的执行逻辑</p>
-<p>对抽象语法树进行后缀遍历执行，即</p>
-<ul>
-<li>先执行左子树，得到左节点的值</li>
-<li>再执行右子树，得到右节点的值</li>
-<li>最后根据根节点的操作符执行得到根节点的值</li>
-</ul>
-</li>
-<li>
-<p>类型检查</p>
-<p>检查时机：执行时检查</p>
-<p>检查方法：在一个节点的左右子节点执行完成后，分别校验左右子节点的类型是否符合对应操作符的类型检查预设规则。</p>
-<ul>
-<li>‘&gt;’ 符号要求左右子节点的值都存在且为int或float</li>
-<li>‘!’ 符号要求左节点为空且右节点的值为bool</li>
-</ul>
-</li>
-</ul>
-<h3 id="4规则引擎的实现"><a class="markdownIt-Anchor" href="#4规则引擎的实现"></a> 4.规则引擎的实现</h3>
-<p>可参考<a class="link"   href="https://github.com/qimengxingyuan/young_engine" >qimengxingyuan/young_engine: 简单的规则引擎  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>实现。</p>
-<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
-<p><a class="link"   href="https://juejin.cn/post/7193363381804335161/#heading-11" >【后端专场 学习资料三】第五届字节跳动青训营 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -9182,6 +9182,75 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
+    <title>在Linux上配置Java环境</title>
+    <url>/2022/11/26/java-in-linux/</url>
+    <content><![CDATA[<h3 id="基于ubuntu2004lts配置java环境"><a class="markdownIt-Anchor" href="#基于ubuntu2004lts配置java环境"></a> 基于Ubuntu20.04LTS配置Java环境</h3>
+<p>在Linux上配置Java环境的方式有3种, 系统级配置、用户级配置、临时配置</p>
+<p>配置好Java环境就能够在Linux上运行基于Java环境运行的相关程序, 你可以在Linux系统上搭建基于Java实现的网站。这里以<strong>系统级配置</strong>为例, 适合个人开发者使用<span id="more"></span></p>
+<h4 id="1下载targz压缩包-java官网"><a class="markdownIt-Anchor" href="#1下载targz压缩包-java官网"></a> 1.下载tar.gz压缩包 <a class="link"   href="https://www.oracle.com/java/technologies/downloads/" >Java官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h4>
+<p>tar.gz包先下载到windows中, 再通过远程文件传输工具, 将压缩包传送到Linux的目录下, 这里是/root目录</p>
+<p>本文以<strong>jdk-8u151-linux-i586.tar.gz</strong>为例配置Java环境, 高版本可能有所区别, 32位与64位版本在不同linux发行版上可能有所区别</p>
+<h4 id="2在linux中配置环境"><a class="markdownIt-Anchor" href="#2在linux中配置环境"></a> 2.在Linux中配置环境</h4>
+<h5 id="1前提准备"><a class="markdownIt-Anchor" href="#1前提准备"></a> 1.前提准备</h5>
+<p>默认当前目录是<strong>初始目录/root</strong>, 默认当前用户权限为<strong>root权限</strong>, 默认<strong>tar.gz包已经传送到/root目录下</strong></p>
+<h5 id="2创建用于存放java文件夹的目录"><a class="markdownIt-Anchor" href="#2创建用于存放java文件夹的目录"></a> 2.创建用于存放Java文件夹的目录</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /usr/java</span><br></pre></td></tr></table></figure></div>
+<h5 id="3解压targz压缩包到该目录"><a class="markdownIt-Anchor" href="#3解压targz压缩包到该目录"></a> 3.解压tar.gz压缩包到该目录</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf jdk-8u151-linux-i586.tar.gz -C /usr/java</span><br></pre></td></tr></table></figure></div>
+<h5 id="4编辑环境变量文件"><a class="markdownIt-Anchor" href="#4编辑环境变量文件"></a> 4.编辑环境变量文件</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure></div>
+<p>在文件末尾追加下面内容, 具体目录根据实际情况编写</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></div>
+<dl>
+<dt><strong>一些特殊符号说明</strong></dt>
+<dd>表示并列符号, 说明某个变量的值有多个, 用 : 来区分。相当于Windows下的 ;</dd>
+</dl>
+<p>$ 表示引用变量, {} 则用于限定变量边界, 如上面的 ${JAVA_HOME} 就表示 /usr/java/jdk1.8.0_151</p>
+<h5 id="5使环境变量马上生效"><a class="markdownIt-Anchor" href="#5使环境变量马上生效"></a> 5.使环境变量马上生效</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></div>
+<h4 id="3测试java环境"><a class="markdownIt-Anchor" href="#3测试java环境"></a> 3.测试Java环境</h4>
+<p>运行以下命令, 如果都成功运行, 则说明Java环境配置完成</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">java -version</span><br><span class="line">java</span><br><span class="line">javac</span><br></pre></td></tr></table></figure></div>
+<h5 id="可能遇到的问题"><a class="markdownIt-Anchor" href="#可能遇到的问题"></a> 可能遇到的问题</h5>
+<p>安装i586后缀jdk, 即<strong>安装32位的jdk</strong>后测试Java环境时提示<strong>bash: /usr/lib/java/jdk1.8.0_151/bin/java: 没有那个文件或目录</strong>, 可能是由于当前Linux发行版<strong>默认没有用于amd64系统的32位libc开发包</strong></p>
+<p>可通过以下5个常用命令查看Linux发行版的架构信息</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line">dpkg --print-architecture <span class="comment"># 这条命令只适用于基于Debian和Ubuntu的Linux发行版</span></span><br><span class="line">getconf LONG_BIT</span><br><span class="line"><span class="built_in">arch</span></span><br><span class="line">file /sbin/init </span><br><span class="line"><span class="comment"># file命令需要配合它链接的另一个文件使用</span></span><br><span class="line"><span class="comment"># 在Ubuntu中是链接的是/lib/systemd/systemd</span></span><br><span class="line"><span class="comment"># 通过file /lib/systemd/systemd查看到架构信息</span></span><br></pre></td></tr></table></figure></div>
+<h5 id="安装缺失的32位开发包"><a class="markdownIt-Anchor" href="#安装缺失的32位开发包"></a> 安装缺失的32位开发包</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libc6-i386</span><br></pre></td></tr></table></figure></div>
+<p>如果安装libc6-i386失败, 请先更新软件列表, 再尝试重新安装, 并重新测试Java环境</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></div>
+<p>如果还是失败请选择64位的jdk版本重新进行配置</p>
+<h5 id="重新测试java环境"><a class="markdownIt-Anchor" href="#重新测试java环境"></a> 重新测试Java环境</h5>
+<h4 id="4update-alternatives软件版本管理"><a class="markdownIt-Anchor" href="#4update-alternatives软件版本管理"></a> 4.update-alternatives软件版本管理</h4>
+<h5 id="1系统注册jdk需要使用多个jdk版本时"><a class="markdownIt-Anchor" href="#1系统注册jdk需要使用多个jdk版本时"></a> 1.系统注册jdk(需要使用多个jdk版本时)</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_151/bin/java 300</span><br></pre></td></tr></table></figure></div>
+<p><strong>参数说明</strong></p>
+<p>第一个参数: --install表示向update-alternatives注册服务名</p>
+<p>第二个参数: 注册<strong>最终地址</strong>, 成功后将会把命令在这个固定的目的地址做真实命令的<strong>软链接</strong>, 通过管理这个软链就能实现不同版本jdk的切换</p>
+<p>第三个参数: <strong>服务名</strong>, 管理时以它为关联依据</p>
+<p>第四个参数: 被管理命令的<strong>绝对路径</strong></p>
+<p>第五个参数: <strong>优先级</strong>, 数字越大优先级越高</p>
+<h5 id="2交互式修改"><a class="markdownIt-Anchor" href="#2交互式修改"></a> 2.交互式修改</h5>
+<p>如果有多个版本的jdk, 可执行下面的命令通过交互界面进行切换</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure></div>
+<p>查看多个版本的jdk以及当前状态</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --display java</span><br></pre></td></tr></table></figure></div>
+<p>调整为<strong>auto</strong>模式, 如果上面查看的状态是<strong>manual</strong>, 则还不能自动选择优先级高的jdk版本, 需要调整为auto模式</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --auto java</span><br></pre></td></tr></table></figure></div>
+<h4 id="5补充"><a class="markdownIt-Anchor" href="#5补充"></a> 5.补充</h4>
+<p><strong>将上述的/etc/profile替换成~/.bashrc就是用户级配置</strong></p>
+<p><strong>/etc/profile</strong>: 此文件为系统的每个用户设置环境信息, 当用户第一次登录时, 该文件被执行, 是<strong>系统全局</strong>对终端环境的设置, 它是login时最先被系统加载的, 是它调用了/etc/bashrc, 以及/etc/profile.d目录下的*.sh文件, 如果有一个软件包, 系统上只安装一份, 供所有开发者使用, 建议在/etc/profile.d下创建一个新的xxx.sh, 配置环境变量</p>
+<p><strong>~/.bashrc</strong>: 是<strong>用户</strong>相关的终端（shell）的环境设置, 通常打开一个新终端时, 默认会加载里面的设置, 在这里的设置不会影响其它用户。如果一个服务器多个开发者使用, 需要配置多个sdk, 则推荐使用该设置</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>分布式理论</title>
     <url>/2023/02/03/golang-day8/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7196300179998228535" >分布式理论 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对分布式理论的学习<span id="more"></span></p>
@@ -9714,75 +9783,6 @@ y=2^{E_y}\cdot M_y
       </categories>
       <tags>
         <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在Linux上配置Java环境</title>
-    <url>/2022/11/26/java-in-linux/</url>
-    <content><![CDATA[<h3 id="基于ubuntu2004lts配置java环境"><a class="markdownIt-Anchor" href="#基于ubuntu2004lts配置java环境"></a> 基于Ubuntu20.04LTS配置Java环境</h3>
-<p>在Linux上配置Java环境的方式有3种, 系统级配置、用户级配置、临时配置</p>
-<p>配置好Java环境就能够在Linux上运行基于Java环境运行的相关程序, 你可以在Linux系统上搭建基于Java实现的网站。这里以<strong>系统级配置</strong>为例, 适合个人开发者使用<span id="more"></span></p>
-<h4 id="1下载targz压缩包-java官网"><a class="markdownIt-Anchor" href="#1下载targz压缩包-java官网"></a> 1.下载tar.gz压缩包 <a class="link"   href="https://www.oracle.com/java/technologies/downloads/" >Java官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h4>
-<p>tar.gz包先下载到windows中, 再通过远程文件传输工具, 将压缩包传送到Linux的目录下, 这里是/root目录</p>
-<p>本文以<strong>jdk-8u151-linux-i586.tar.gz</strong>为例配置Java环境, 高版本可能有所区别, 32位与64位版本在不同linux发行版上可能有所区别</p>
-<h4 id="2在linux中配置环境"><a class="markdownIt-Anchor" href="#2在linux中配置环境"></a> 2.在Linux中配置环境</h4>
-<h5 id="1前提准备"><a class="markdownIt-Anchor" href="#1前提准备"></a> 1.前提准备</h5>
-<p>默认当前目录是<strong>初始目录/root</strong>, 默认当前用户权限为<strong>root权限</strong>, 默认<strong>tar.gz包已经传送到/root目录下</strong></p>
-<h5 id="2创建用于存放java文件夹的目录"><a class="markdownIt-Anchor" href="#2创建用于存放java文件夹的目录"></a> 2.创建用于存放Java文件夹的目录</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /usr/java</span><br></pre></td></tr></table></figure></div>
-<h5 id="3解压targz压缩包到该目录"><a class="markdownIt-Anchor" href="#3解压targz压缩包到该目录"></a> 3.解压tar.gz压缩包到该目录</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf jdk-8u151-linux-i586.tar.gz -C /usr/java</span><br></pre></td></tr></table></figure></div>
-<h5 id="4编辑环境变量文件"><a class="markdownIt-Anchor" href="#4编辑环境变量文件"></a> 4.编辑环境变量文件</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure></div>
-<p>在文件末尾追加下面内容, 具体目录根据实际情况编写</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></div>
-<dl>
-<dt><strong>一些特殊符号说明</strong></dt>
-<dd>表示并列符号, 说明某个变量的值有多个, 用 : 来区分。相当于Windows下的 ;</dd>
-</dl>
-<p>$ 表示引用变量, {} 则用于限定变量边界, 如上面的 ${JAVA_HOME} 就表示 /usr/java/jdk1.8.0_151</p>
-<h5 id="5使环境变量马上生效"><a class="markdownIt-Anchor" href="#5使环境变量马上生效"></a> 5.使环境变量马上生效</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></div>
-<h4 id="3测试java环境"><a class="markdownIt-Anchor" href="#3测试java环境"></a> 3.测试Java环境</h4>
-<p>运行以下命令, 如果都成功运行, 则说明Java环境配置完成</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">java -version</span><br><span class="line">java</span><br><span class="line">javac</span><br></pre></td></tr></table></figure></div>
-<h5 id="可能遇到的问题"><a class="markdownIt-Anchor" href="#可能遇到的问题"></a> 可能遇到的问题</h5>
-<p>安装i586后缀jdk, 即<strong>安装32位的jdk</strong>后测试Java环境时提示<strong>bash: /usr/lib/java/jdk1.8.0_151/bin/java: 没有那个文件或目录</strong>, 可能是由于当前Linux发行版<strong>默认没有用于amd64系统的32位libc开发包</strong></p>
-<p>可通过以下5个常用命令查看Linux发行版的架构信息</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line">dpkg --print-architecture <span class="comment"># 这条命令只适用于基于Debian和Ubuntu的Linux发行版</span></span><br><span class="line">getconf LONG_BIT</span><br><span class="line"><span class="built_in">arch</span></span><br><span class="line">file /sbin/init </span><br><span class="line"><span class="comment"># file命令需要配合它链接的另一个文件使用</span></span><br><span class="line"><span class="comment"># 在Ubuntu中是链接的是/lib/systemd/systemd</span></span><br><span class="line"><span class="comment"># 通过file /lib/systemd/systemd查看到架构信息</span></span><br></pre></td></tr></table></figure></div>
-<h5 id="安装缺失的32位开发包"><a class="markdownIt-Anchor" href="#安装缺失的32位开发包"></a> 安装缺失的32位开发包</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libc6-i386</span><br></pre></td></tr></table></figure></div>
-<p>如果安装libc6-i386失败, 请先更新软件列表, 再尝试重新安装, 并重新测试Java环境</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></div>
-<p>如果还是失败请选择64位的jdk版本重新进行配置</p>
-<h5 id="重新测试java环境"><a class="markdownIt-Anchor" href="#重新测试java环境"></a> 重新测试Java环境</h5>
-<h4 id="4update-alternatives软件版本管理"><a class="markdownIt-Anchor" href="#4update-alternatives软件版本管理"></a> 4.update-alternatives软件版本管理</h4>
-<h5 id="1系统注册jdk需要使用多个jdk版本时"><a class="markdownIt-Anchor" href="#1系统注册jdk需要使用多个jdk版本时"></a> 1.系统注册jdk(需要使用多个jdk版本时)</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_151/bin/java 300</span><br></pre></td></tr></table></figure></div>
-<p><strong>参数说明</strong></p>
-<p>第一个参数: --install表示向update-alternatives注册服务名</p>
-<p>第二个参数: 注册<strong>最终地址</strong>, 成功后将会把命令在这个固定的目的地址做真实命令的<strong>软链接</strong>, 通过管理这个软链就能实现不同版本jdk的切换</p>
-<p>第三个参数: <strong>服务名</strong>, 管理时以它为关联依据</p>
-<p>第四个参数: 被管理命令的<strong>绝对路径</strong></p>
-<p>第五个参数: <strong>优先级</strong>, 数字越大优先级越高</p>
-<h5 id="2交互式修改"><a class="markdownIt-Anchor" href="#2交互式修改"></a> 2.交互式修改</h5>
-<p>如果有多个版本的jdk, 可执行下面的命令通过交互界面进行切换</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure></div>
-<p>查看多个版本的jdk以及当前状态</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --display java</span><br></pre></td></tr></table></figure></div>
-<p>调整为<strong>auto</strong>模式, 如果上面查看的状态是<strong>manual</strong>, 则还不能自动选择优先级高的jdk版本, 需要调整为auto模式</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --auto java</span><br></pre></td></tr></table></figure></div>
-<h4 id="5补充"><a class="markdownIt-Anchor" href="#5补充"></a> 5.补充</h4>
-<p><strong>将上述的/etc/profile替换成~/.bashrc就是用户级配置</strong></p>
-<p><strong>/etc/profile</strong>: 此文件为系统的每个用户设置环境信息, 当用户第一次登录时, 该文件被执行, 是<strong>系统全局</strong>对终端环境的设置, 它是login时最先被系统加载的, 是它调用了/etc/bashrc, 以及/etc/profile.d目录下的*.sh文件, 如果有一个软件包, 系统上只安装一份, 供所有开发者使用, 建议在/etc/profile.d下创建一个新的xxx.sh, 配置环境变量</p>
-<p><strong>~/.bashrc</strong>: 是<strong>用户</strong>相关的终端（shell）的环境设置, 通常打开一个新终端时, 默认会加载里面的设置, 在这里的设置不会影响其它用户。如果一个服务器多个开发者使用, 需要配置多个sdk, 则推荐使用该设置</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
