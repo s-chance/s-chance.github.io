@@ -139,491 +139,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MySQL基础</title>
-    <url>/2022/08/21/MySQL-Base/</url>
-    <content><![CDATA[<h3 id="mysql基础"><a class="markdownIt-Anchor" href="#mysql基础"></a> MySQL基础</h3>
-<hr />
-<h4 id="span-idhead快速导航span"><a class="markdownIt-Anchor" href="#span-idhead快速导航span"></a> <span id="head">快速导航</span></h4>
-<p>提示：本文中各个示例之间有一定数据关联性，建议先把预先准备的测试数据代码执行好。 <span id="more"></span></p>
-<p><a href="#ddl">DDL</a></p>
-<p><a href="#dml">DML</a></p>
-<p><a href="#dql">DQL</a></p>
-<p><a href="#ysf">条件查询</a></p>
-<p><a href="#px">排序</a></p>
-<p><a href="#juhe">聚合函数</a></p>
-<p><a href="#fz"> 分组查询</a></p>
-<h4 id="一-数据库管理系统"><a class="markdownIt-Anchor" href="#一-数据库管理系统"></a> 一、数据库管理系统</h4>
-<ol>
-<li>数据库管理系统：DataBaseManagement，简称DBMS。</li>
-<li>数据库管理系统是专门用来管理数据库中的数据，数据库管理系统可以对数据库中的数据进行增删改查的操作。</li>
-<li>常见的数据库管理系统：MySQL，Oracle，SqlServer，MS，DB2等。</li>
-</ol>
-<h4 id="二-sql"><a class="markdownIt-Anchor" href="#二-sql"></a> 二、SQL</h4>
-<ol>
-<li>SQL是一种结构化查询语言。</li>
-<li>通过SQL可以实现对数据库中数据的操作。</li>
-<li>SQL是一套标准，基本能在大部分数据库管理系统中使用。</li>
-</ol>
-<h4 id="三-工作流程"><a class="markdownIt-Anchor" href="#三-工作流程"></a> 三、工作流程</h4>
-<p>​	数据库管理系统SQL→执行SQL→操作数据库</p>
-<p>​	先安装数据库管理系统MySQL，然后编写SQL语句，之后DBMS对SQL语句	进行执行来完成对数据库的数据管理。</p>
-<h4 id="四-准备工作"><a class="markdownIt-Anchor" href="#四-准备工作"></a> 四、准备工作</h4>
-<ol>
-<li>
-<p>MySQL官网[下载]( <a class="link"   href="https://downloads.mysql.com/archives/installer/" >MySQL :: Download MySQL Installer (Archived Versions) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> )，Windows推荐下载<a class="link"   href="https://downloads.mysql.com/archives/get/p/25/file/mysql-installer-community-5.7.30.0.msi" >Mysql5.7社区版本 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，使用较多的版本。简易配置推荐Server only，也可以选择Custom自定义安装路径，后面填写好root用户的密码即可。其余默认下一步。MySQL环境变量配置可配可不配，需要命令行运行MySQL的相关命令可参考jdk的环境变量配置过程配置好。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 基本命令</span></span><br><span class="line">mysql -uroot -p  //登录MySQL,-p后面需要输入之前设置的密码</span><br><span class="line"><span class="comment"># 登录MySQL之后所有命令结尾必须要加英文分号;</span></span><br><span class="line">mysql&gt; <span class="built_in">exit</span>;   //退出MySQL</span><br><span class="line">mysql&gt; mysqladmin -uroot newpassword;  //root密码为空时,设置新密码</span><br><span class="line">mysql&gt; mysqladmin -uroot -pxxx password yyy; //xxx为旧密码,yyy为新密码</span><br><span class="line">mysql&gt; <span class="built_in">set</span> password <span class="keyword">for</span> 用户名@localhost = password(<span class="string">&#x27;新密码&#x27;</span>);  //修改密码的另一种方式,用户名一般是root</span><br><span class="line"></span><br><span class="line">mysql&gt; show databases; //查看全部的数据库</span><br><span class="line">mysql&gt; create database 数据库名; //创建数据库</span><br><span class="line">mysql&gt; use 数据库名; //指定需要操作的数据库</span><br><span class="line">mysql&gt; show tables; //展示指定数据库里面所有的数据表</span><br><span class="line"></span><br><span class="line"><span class="comment"># 后面的数据操作相关命令可以直接套用navicat中编写的SQL语句,记得结尾加分号;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>数据库管理工具Navicat[下载]( <a class="link"   href="https://www.navicat.com/en/download/navicat-for-mysql" >Navicat | Download Navicat for MySQL 14-day trial versions for Windows, macOS and Linux <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> )，原生的MySQL数据库管理系统缺乏管理工具比较难以使用，通过第三方数据库管理工具可以更方便地管理数据库。</p>
-</li>
-<li>
-<p>Navicat连接MySQL时需要确保MySQL服务开启，一般安装时默认开机自启动。<strong>以管理员身份运行</strong>命令提示符，输入命令。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">net start mysql57  //运行MySQL服务</span><br></pre></td></tr></table></figure></div>
-<p>MySQL服务的端口号为3306，输入用户名和密码后，完成连接。</p>
-</li>
-</ol>
-<h4 id="五-正式开始"><a class="markdownIt-Anchor" href="#五-正式开始"></a> 五、正式开始</h4>
-<h5 id="1sql语句分类"><a class="markdownIt-Anchor" href="#1sql语句分类"></a> 1.SQL语句分类</h5>
-<ul>
-<li>DQL:数据查询语言，一般以<strong>select</strong>关键字开头，查询数据</li>
-<li>DML:数据操作语言，<strong>insert</strong>、<strong>delete</strong>、<strong>update</strong>关键字，<strong>增删改数据表中的数据</strong></li>
-<li>DDL:数据定义语言，<strong>create</strong>、<strong>drop</strong>、<strong>alter</strong>关键字，<strong>增删改数据表的结构</strong></li>
-<li>TCL:事务控制语言，<strong>commit</strong>、<strong>rollback</strong>关键字，事务回滚和事务提交</li>
-<li>DCL:数据控制语言，<strong>grant</strong>、<strong>revoke</strong>关键字，定义访问权限和安全级别及创建用户</li>
-</ul>
-<h5 id="2ddl数据定义语言的使用"><a class="markdownIt-Anchor" href="#2ddl数据定义语言的使用"></a> 2.DDL数据定义语言的使用</h5>
-<ul>
-<li>
-<p>首先明确MySQL中的数据类型大致分为：**数值、日期/时间、字符串(字符)**三类。</p>
-</li>
-<li>
-<p>数值类型</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">大小</th>
-<th style="text-align:center">范围（有符号）</th>
-<th style="text-align:center">范围（无符号）</th>
-<th style="text-align:center">用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">TINYINT</td>
-<td style="text-align:center">1 Bytes</td>
-<td style="text-align:center">(-128,127)</td>
-<td style="text-align:center">(0,255)</td>
-<td style="text-align:center">小整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">SMALLINT</td>
-<td style="text-align:center">2 Bytes</td>
-<td style="text-align:center">(-32768,32767)</td>
-<td style="text-align:center">(0,65535)</td>
-<td style="text-align:center">大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">MEDIUMINT</td>
-<td style="text-align:center">3 Bytes</td>
-<td style="text-align:center">(-8388608,8388607)</td>
-<td style="text-align:center">(0,16777215)</td>
-<td style="text-align:center">大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">INT或INTEGER</td>
-<td style="text-align:center">4 Bytes</td>
-<td style="text-align:center">(-2147483648,2147483647)</td>
-<td style="text-align:center">(0,4294967295)</td>
-<td style="text-align:center">大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">BIGINT</td>
-<td style="text-align:center">8 Bytes</td>
-<td style="text-align:center">(-2<sup>63,2</sup>63-1)</td>
-<td style="text-align:center">(0,2^64-1)</td>
-<td style="text-align:center">极大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">FLOAT</td>
-<td style="text-align:center">4 Bytes</td>
-<td style="text-align:center">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0， (1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
-<td style="text-align:center">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
-<td style="text-align:center">单精度 浮点数值</td>
-</tr>
-<tr>
-<td style="text-align:center">DOUBLE</td>
-<td style="text-align:center">8 Bytes</td>
-<td style="text-align:center">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
-<td style="text-align:center">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
-<td style="text-align:center">双精度 浮点数值</td>
-</tr>
-<tr>
-<td style="text-align:center">DECIMAL</td>
-<td style="text-align:center">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
-<td style="text-align:center">依赖于M和D的值</td>
-<td style="text-align:center">依赖于M和D的值</td>
-<td style="text-align:center">小数值</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>日期和时间类型</p>
-<p>TIMESTAMP类型有专有的自动更新特性，将在后面描述。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">大小 (Bytes)</th>
-<th style="text-align:center">范围</th>
-<th style="text-align:center">格式</th>
-<th style="text-align:center">用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">DATE</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">1000-01-01/9999-12-31</td>
-<td style="text-align:center">YYYY-MM-DD</td>
-<td style="text-align:center">日期值</td>
-</tr>
-<tr>
-<td style="text-align:center">TIME</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">‘-838:59:59’/‘838:59:59’</td>
-<td style="text-align:center">HH:MM:SS</td>
-<td style="text-align:center">时间值或持续时间</td>
-</tr>
-<tr>
-<td style="text-align:center">YEAR</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1901/2155</td>
-<td style="text-align:center">YYYY</td>
-<td style="text-align:center">年份值</td>
-</tr>
-<tr>
-<td style="text-align:center">DATETIME</td>
-<td style="text-align:center">8</td>
-<td style="text-align:center">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
-<td style="text-align:center">YYYY-MM-DD HH:MM:SS</td>
-<td style="text-align:center">混合日期和时间值</td>
-</tr>
-<tr>
-<td style="text-align:center">TIMESTAMP</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">1970-01-01 00:00:00/2038结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
-<td style="text-align:center">YYYYMMDD HHMMSS</td>
-<td style="text-align:center">混合日期和时间值，时间戳</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>字符串类型</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">类型</th>
-<th style="text-align:left">大小</th>
-<th style="text-align:left">用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">CHAR</td>
-<td style="text-align:left">0-255 bytes</td>
-<td style="text-align:left">定长字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">VARCHAR</td>
-<td style="text-align:left">0-65535 bytes</td>
-<td style="text-align:left">变长字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">TINYBLOB</td>
-<td style="text-align:left">0-255 bytes</td>
-<td style="text-align:left">不超过 255 个字符的二进制字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">TINYTEXT</td>
-<td style="text-align:left">0-255 bytes</td>
-<td style="text-align:left">短文本字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">BLOB</td>
-<td style="text-align:left">0-65 535 bytes</td>
-<td style="text-align:left">二进制形式的长文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">TEXT</td>
-<td style="text-align:left">0-65 535 bytes</td>
-<td style="text-align:left">长文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">MEDIUMBLOB</td>
-<td style="text-align:left">0-16 777 215 bytes</td>
-<td style="text-align:left">二进制形式的中等长度文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">MEDIUMTEXT</td>
-<td style="text-align:left">0-16 777 215 bytes</td>
-<td style="text-align:left">中等长度文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">LONGBLOB</td>
-<td style="text-align:left">0-4 294 967 295 bytes</td>
-<td style="text-align:left">二进制形式的极大文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">LONGTEXT</td>
-<td style="text-align:left">0-4 294 967 295 bytes</td>
-<td style="text-align:left">极大文本数据</td>
-</tr>
-</tbody>
-</table>
-<p><span id="ddl"><a href="#head">返回快速导航</a></span></p>
-</li>
-<li>
-<p>DDL语句示例一：对数据表的管理操作以及对字段的增删改操作（在Navicat中新建查询输入SQL语句或在命令行中输入SQL语句）</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create database test;</span><br><span class="line">use test;</span><br><span class="line"># 创建一张拥有一个int类型的t1字段的test_int数据表</span><br><span class="line"># 默认为有符号</span><br><span class="line"># 多个字段用英文逗号,隔开</span><br><span class="line">create table test_int(</span><br><span class="line">	t1 int</span><br><span class="line">);</span><br><span class="line"># 这里的desc作用是查看数据表的结构信息</span><br><span class="line">desc test_int;</span><br><span class="line"># 增加一条t1字段值为-11111的记录</span><br><span class="line">insert into test_int values (-11111); # 默认有符号</span><br><span class="line"></span><br><span class="line"># 增加一个t2无符号字段</span><br><span class="line">alter table test_int add column t2 int unsigned;</span><br><span class="line"># 这时候增加一条t2字段值为负数的记录,就会出现out of range的错误</span><br><span class="line">insert into test_int (t2) value (-1111); # 报错</span><br><span class="line"># 修改t2字段类型</span><br><span class="line">alter table test_int modify column t2 int;</span><br><span class="line"># 删除t2字段</span><br><span class="line">alter table test_int drop column t2;</span><br><span class="line"></span><br><span class="line"># 删除test_int数据表</span><br><span class="line">drop table if exists test_int;</span><br><span class="line"></span><br><span class="line">create table test_int(</span><br><span class="line">	t1 int,</span><br><span class="line">    t2 int unsigned</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">select * from test_int;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>示例二：对数据库的管理操作</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">语法 create database [if not exists] 数据库名; #[]中的内容选填</span><br><span class="line">    drop database [if exists] 数据库名;</span><br><span class="line"># 创建数据库book</span><br><span class="line">create database book;</span><br><span class="line"># 更改数据库的字符集</span><br><span class="line">alter database book character set utf8;</span><br><span class="line"># 查看字符集</span><br><span class="line">show create database book;</span><br><span class="line"># 删除数据库(判断该数据库是否存在,存在则进行删除)</span><br><span class="line">drop database if exists book;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>示例三：对数据表结构的操作</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table books(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    price double,</span><br><span class="line">    author varchar(20),</span><br><span class="line">    publish_date datetime</span><br><span class="line">);</span><br><span class="line">desc books;</span><br><span class="line"># 表的修改</span><br><span class="line"># alter table 数据表名 add/drop/modify/change column ...</span><br><span class="line"># 修改字段名publish_date为date</span><br><span class="line">alter table books change column publish_date date datetime;</span><br><span class="line"># 修改字段的类型或约束</span><br><span class="line">alter table books modify column date timestamp;</span><br><span class="line"></span><br><span class="line"># 关于alter中change和modify的使用区别</span><br><span class="line"># change的修改范围大于modify,change一般用于修改字段名</span><br><span class="line"># modify一般用于修改数据类型或约束,但modify不能修改字段名</span><br><span class="line"></span><br><span class="line"># 添加新的字段inventory,添加字段需要指明数据类型</span><br><span class="line">alter table books add column inventory int;</span><br><span class="line"># 删除字段inventory,删除字段只需要提供字段名</span><br><span class="line">alter table books drop column inventory;</span><br><span class="line"># 修改数据表名</span><br><span class="line">alter table books rename to works;</span><br><span class="line">desc works;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>示例四：复制数据表</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 增加记录</span><br><span class="line">insert into works values</span><br><span class="line">(1,&#x27;《java》&#x27;,132.9,&#x27;詹姆斯·高斯林&#x27;,&#x27;2001-12-01&#x27;),</span><br><span class="line">(2,&#x27;《linux》&#x27;,156.9,&#x27;linus&#x27;,&#x27;1999-01-01&#x27;);</span><br><span class="line"></span><br><span class="line"># 仅复制数据表的结构</span><br><span class="line">create table copy like works;</span><br><span class="line"># 复制结构和数据</span><br><span class="line">create table clone select * from works;</span><br><span class="line"># 复制部分结构</span><br><span class="line">create table remake select id,name from works;</span><br><span class="line"># 仅复制部分字段,利用where进行条件判断,恒为0则只保留字段</span><br><span class="line">create table redo select id,name from works where 0;</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<h5 id="3dml数据操作语言的使用"><a class="markdownIt-Anchor" href="#3dml数据操作语言的使用"></a> 3.DML数据操作语言的使用</h5>
-<p><span id="dml"><a href="#head">返回快速导航</a></span></p>
-<ul>
-<li>
-<p><strong>insert语句</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># insert into 数据表名(字段名1,字段名2,...) values (字段值1,字段值2,...);</span><br><span class="line">create table product(</span><br><span class="line">	id int,</span><br><span class="line">	name varchar(20),</span><br><span class="line">	price double</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 在product表中增加一条记录</span><br><span class="line">insert into product(id,name,price) values (1,&#x27;phone&#x27;,500.0);</span><br><span class="line"># 在product表中指定的字段增加记录</span><br><span class="line">insert into product(id,price) values (2,399.9);</span><br><span class="line"></span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 默认给全部字段增加记录</span><br><span class="line"># insert into 数据表名 values (字段值1,字段值2,...);</span><br><span class="line"></span><br><span class="line">insert into product values (3,&#x27;mac&#x27;,21499.9);</span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 批量增加记录</span><br><span class="line"># insert into 数据表名 values (字段值1,字段值2,...),(字段值1,字段值2,...);</span><br><span class="line"></span><br><span class="line">insert into product values (4,&#x27;a&#x27;,1.1),(5,&#x27;b&#x27;,2.2),(6,&#x27;c&#x27;,3.3);</span><br><span class="line">select * from product;</span><br></pre></td></tr></table></figure></div>
-<p>注意字段名和字段值的类型对应，以及日期时间、字符字符串类型数据需要加上引号（单双引号均可）</p>
-</li>
-<li>
-<p><strong>update语句</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line">#update 数据表名 set 字段1 = 值1,字段2 = 值2,...[where 条件];</span><br><span class="line"></span><br><span class="line"># 修改phone的price为9999</span><br><span class="line">update product set price = 9999 where name=&#x27;phone&#x27;;</span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 修改mac的price为39999.9,id为0</span><br><span class="line">update product set price = 39999.9,id=0 where name=&#x27;mac&#x27;;</span><br><span class="line"></span><br><span class="line"># 修改id为2记录的name为switch</span><br><span class="line">update product set name = &#x27;switch&#x27; where id=2;</span><br></pre></td></tr></table></figure></div>
-<p>注意一般情况下update语句中不能缺少条件，否则会修改所有数据。</p>
-</li>
-<li>
-<p><strong>delete语句</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># delete from 数据表名 [where 条件];</span><br><span class="line"></span><br><span class="line"># 删除product表中的switch数据</span><br><span class="line">delete from product where name=&#x27;switch&#x27;;</span><br><span class="line"></span><br><span class="line"># 删除product表中price为39999.9的数据</span><br><span class="line">delete from product where price=39999.9;</span><br><span class="line"></span><br><span class="line">select * from product;</span><br></pre></td></tr></table></figure></div>
-<p>注意delete语句中必须加上条件限制，否则所有的数据将会被删除。</p>
-<p>基本update和delete都要配合where来使用，否则和Linux系统中<code>rm -rf /</code>命令是差不多的后果。</p>
-</li>
-</ul>
-<h5 id="4dql数据查询语言的使用"><a class="markdownIt-Anchor" href="#4dql数据查询语言的使用"></a> 4.DQL数据查询语言的使用</h5>
-<p>​	<span id="dql"><a href="#head">返回快速导航</a></span></p>
-<ul>
-<li>
-<p>示例</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># select 字段名 from 数据表名;</span><br><span class="line"></span><br><span class="line"># 单独查询name字段</span><br><span class="line">select name from product;</span><br><span class="line"># 查询多个字段</span><br><span class="line">select id,name from product;</span><br><span class="line"># 查询所有字段</span><br><span class="line">select * from product;</span><br><span class="line"># 或者把*替换成数据表中所有的字段名</span><br><span class="line"></span><br><span class="line"># as关键字取别名,不改变原有数据,改变的是显示的内容,as关键字可省略</span><br><span class="line">select name as product_name from product;</span><br><span class="line"></span><br><span class="line"># 别名中有空格,使用单引号括住别名</span><br><span class="line">select name &#x27;product name&#x27; from product;</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<h5 id="5sql运算符及条件查询"><a class="markdownIt-Anchor" href="#5sql运算符及条件查询"></a> 5.SQL运算符及条件查询</h5>
-<ol>
-<li>
-<p>算术运算符</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">运算符</th>
-<th style="text-align:center"><strong>说  明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><strong>+</strong></td>
-<td style="text-align:center"><strong>加运算，求两个数或表达式相加的和，如6+8</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>-</strong></td>
-<td style="text-align:center"><strong>减运算，求两个数或表达式相减的差</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">*****</td>
-<td style="text-align:center"><strong>乘运算，求两个数或表达式相乘的积</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>/</strong></td>
-<td style="text-align:center"><strong>除运算，求两个数或表达式相除的商，如5/3的值为1</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>%</strong></td>
-<td style="text-align:center"><strong>取模运算，求两个数或表达式相除的余数，如：5%3的值为2</strong></td>
-</tr>
-</tbody>
-</table>
-<p>SQL语句也可以使用数学表达式，注意SQL没有java的自增自减等运算符。</p>
-</li>
-<li>
-<p>where条件查询运算符</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">运算符</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">=</td>
-<td style="text-align:center">等于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;&gt;或!=</td>
-<td style="text-align:center">不等于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;</td>
-<td style="text-align:center">小于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;=</td>
-<td style="text-align:center">小于等于</td>
-</tr>
-<tr>
-<td style="text-align:center">&gt;</td>
-<td style="text-align:center">大于</td>
-</tr>
-<tr>
-<td style="text-align:center">&gt;=</td>
-<td style="text-align:center">大于等于</td>
-</tr>
-<tr>
-<td style="text-align:center">between…  and…</td>
-<td style="text-align:center">两个值之间，等同于  &gt;=   and   &lt;=</td>
-</tr>
-<tr>
-<td style="text-align:center">is  null</td>
-<td style="text-align:center">为null  （is  not  null不为空）</td>
-</tr>
-<tr>
-<td style="text-align:center">and</td>
-<td style="text-align:center">并且</td>
-</tr>
-<tr>
-<td style="text-align:center">or</td>
-<td style="text-align:center">或者</td>
-</tr>
-<tr>
-<td style="text-align:center">in</td>
-<td style="text-align:center">包含，相当于多个or（not in不在这个范围中）</td>
-</tr>
-<tr>
-<td style="text-align:center">not</td>
-<td style="text-align:center">not可以取非，主要用在is  或  in中</td>
-</tr>
-<tr>
-<td style="text-align:center">like</td>
-<td style="text-align:center">like称为模糊查询，支持%或下划线匹配，%匹配任意多个字符，一个下划线值匹配一个字符</td>
-</tr>
-</tbody>
-</table>
-<p><span id="ysf"><a href="#head">返回快速导航</a></span></p>
-</li>
-<li>
-<p>示例</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create database if not exists task;</span><br><span class="line">use task;</span><br><span class="line">create table if not exists coder(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    score int,</span><br><span class="line">    grade varchar(10),</span><br><span class="line">    project int</span><br><span class="line">);</span><br><span class="line">insert into coder values</span><br><span class="line">(1,&#x27;Mike&#x27;,100,&#x27;A&#x27;,1),</span><br><span class="line">(2,&#x27;Jhon&#x27;,96,&#x27;A&#x27;,2),</span><br><span class="line">(3,&#x27;Dram&#x27;,60,&#x27;D&#x27;,null),</span><br><span class="line">(4,&#x27;Lambda&#x27;,100,&#x27;A&#x27;,null),</span><br><span class="line">(5,&#x27;LuBen&#x27;,89,&#x27;B&#x27;,3),</span><br><span class="line">(6,&#x27;K&#x27;,75,&#x27;C&#x27;,null),</span><br><span class="line">(7,&#x27;Z&#x27;,88,&#x27;C&#x27;,null),</span><br><span class="line">(8,&#x27;L&#x27;,75,&#x27;B&#x27;,null);</span><br><span class="line">select * from coder;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score等于100的name和id记录</span><br><span class="line">select name,id from coder where score=100;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中grade不等于A的name和id记录</span><br><span class="line">select name,id from coder where grade != &#x27;A&#x27;;</span><br><span class="line">select name,id from coder where grade &lt;&gt; &#x27;A&#x27;;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score小于89的name和id记录</span><br><span class="line">select name,id from coder where score &lt; 89;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score小于等于89的name和id记录</span><br><span class="line">select name,id from coder where score &lt;= 89;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score大于75的name和id记录</span><br><span class="line">select name,id from coder where score &gt; 75;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score大于等于75的name和id记录</span><br><span class="line">select name,id from coder where score &gt;= 75;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score在75和90之间的name和id记录</span><br><span class="line">select name,id from coder where score&gt;=75 and score&lt;=90;</span><br><span class="line">select name,id from coder where score between 75 and 90;</span><br><span class="line"># between 较小值 and 较大值  闭区间</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中project为null的记录</span><br><span class="line">select * from coder where project is null;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中project不为null的记录</span><br><span class="line">select * from coder where project is not null;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中grade为A且score为100的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and score=100;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中score为100或project为3的记录</span><br><span class="line">select * from coder where score=100 or project=3;</span><br><span class="line"> </span><br><span class="line"># and和or同时使用时,and优先级高于or,要使or先执行,则需用()括住or关联的条件</span><br><span class="line"># 查询coder数据表中grade为A且project为1 和 score大于74的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and project=1 or score &gt; 74;</span><br><span class="line"># 查询coder数据表中project为1或score大于74 且grade为A的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and (project=1 or score &gt; 74);</span><br><span class="line"></span><br><span class="line"># in关键字相当于多个or,但in无法关联数值范围的条件,只能关联一个具体的数值条件</span><br><span class="line"># 查询coder数据表中score为100或96的记录</span><br><span class="line">select * from coder where score=100 or score=96;</span><br><span class="line">select * from coder where score in(100,96); # 这里表示两个数值</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中project不为1且不为3的记录</span><br><span class="line">select * from coder where project&lt;&gt;1 and project&lt;&gt;3;</span><br><span class="line">select * from coder where project not in(3,1);</span><br><span class="line"></span><br><span class="line"># 模糊查询</span><br><span class="line"># like关键字,匹配符%和_</span><br><span class="line"># %匹配任意多个字符,_匹配任意一个字符</span><br><span class="line"># 转义字符\,用于处理包含%和_这两个特殊符号的记录</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中以e结尾的name记录</span><br><span class="line">select name from coder where name like &#x27;%e&#x27;;</span><br><span class="line"># 查询coder数据表中以L开头的name记录</span><br><span class="line">select name from coder where name like &#x27;L%&#x27;;</span><br><span class="line"># 查询coder数据表中包含u的name记录</span><br><span class="line">select name from coder where name like &#x27;%u%&#x27;;</span><br><span class="line"># 查询coder数据表中第二个字母为h的name记录</span><br><span class="line">select name from coder where name like &#x27;_h%&#x27;;</span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<h5 id="6排序"><a class="markdownIt-Anchor" href="#6排序"></a> 6.排序</h5>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">关键字</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">order by</td>
-<td style="text-align:center">排序</td>
-</tr>
-<tr>
-<td style="text-align:center">desc</td>
-<td style="text-align:center">降序</td>
-</tr>
-<tr>
-<td style="text-align:center">asc</td>
-<td style="text-align:center">升序</td>
-</tr>
-</tbody>
-</table>
-<p><span id="px"><a href="#head">返回快速导航</a></span></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 对coder数据表中的score进行排序,默认升序</span><br><span class="line">select name,score from coder order by score;</span><br><span class="line"># 指定降序,这里的desc作用是指定降序排序</span><br><span class="line">select name,score from coder order by score desc;</span><br><span class="line"># 指定升序</span><br><span class="line">select name,score from coder order by score asc;</span><br><span class="line"></span><br><span class="line"># 多字段排序,第一字段相同时,根据第二字段排序</span><br><span class="line"># 根据score升序排序,score相同则根据name升序排序</span><br><span class="line">select name,score from coder order by score asc,name asc;</span><br><span class="line"></span><br><span class="line"># 不推荐写法</span><br><span class="line">select * from coder order by 1; # 这里的1表示第一个字段id</span><br><span class="line"># 这种写法很容易因为字段顺序的改变而出错</span><br></pre></td></tr></table></figure></div>
-<h5 id="7聚合函数"><a class="markdownIt-Anchor" href="#7聚合函数"></a> 7.聚合函数</h5>
-<p><span id="juhe"><a href="#head">返回快速导航</a></span></p>
-<p><strong>多行数据经聚合函数处理之后的结果只有一行</strong></p>
-<p><strong>聚合函数分类</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">函数名</th>
-<th style="text-align:center">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">count(字段名)</td>
-<td style="text-align:center">统计数量(一般选用不为null的列)</td>
-</tr>
-<tr>
-<td style="text-align:center">max(字段名)</td>
-<td style="text-align:center">最大值</td>
-</tr>
-<tr>
-<td style="text-align:center">min(字段名)</td>
-<td style="text-align:center">最小值</td>
-</tr>
-<tr>
-<td style="text-align:center">sum(字段名)</td>
-<td style="text-align:center">求和</td>
-</tr>
-<tr>
-<td style="text-align:center">avg(字段名)</td>
-<td style="text-align:center">平均值</td>
-</tr>
-</tbody>
-</table>
-<p>注意：聚合函数需要配合分组来使用，先分组再用聚合函数处理。</p>
-<p>如果不进行分组，则默认整张数据表为一组。</p>
-<p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 找出coder数据表中score字段的最大值记录</span><br><span class="line">select max(score) from coder;</span><br><span class="line"># 找出coder数据表中score字段的最小值记录</span><br><span class="line">select min(score) from coder;</span><br><span class="line"># 计算score字段所有记录的总和</span><br><span class="line">select sum(score) from coder;</span><br><span class="line"># 计算score字段所有记录的平均值</span><br><span class="line">select avg(score) from coder;</span><br><span class="line"># 计算记录总条数,可以用任意非空字段做参数</span><br><span class="line">select count(name) from coder;</span><br></pre></td></tr></table></figure></div>
-<p>注意：</p>
-<ol>
-<li>聚合函数会自动忽略指定字段值为null的记录</li>
-<li>在count(*)情况下，每一行数据中只要有一个字段值不为null，则该数据就会被count函数统计进去</li>
-<li>聚合函数也称分组函数，不能直接在<strong>where子句</strong>中使用</li>
-<li>聚合函数之间可以相互组合使用</li>
-</ol>
-<h5 id="8分组查询"><a class="markdownIt-Anchor" href="#8分组查询"></a> 8.分组查询</h5>
-<p><span id="fz"><a href="#head">返回快速导航</a></span></p>
-<p><strong>group by关键字</strong></p>
-<p>格式：select 字段 from 数据表 where 条件 group by 分组依据字段 order by 排序依据字段 排序方式</p>
-<p>执行优先级：from→where→group by→select→order by</p>
-<p>由于where的优先级高于group by，因此聚合函数无法在where子句中使用。</p>
-<p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 计算coder数据表中grade各组的score总和</span><br><span class="line">select grade,sum(score) from coder group by grade;</span><br><span class="line"></span><br><span class="line"># 规范:使用了group by的语句,select后面的字段只能用作为分组依据的字段及聚合函数,不允许使用其他字段,否则即使不报错,数据结果也会存在问题</span><br><span class="line"></span><br><span class="line"># having关键字对group by之后的数据进行处理</span><br><span class="line"># 不同于where,having专门与group by一起使用,而不能单独使用</span><br><span class="line"></span><br><span class="line"># 找出coder数据表各grade组中score平均值大于80的记录</span><br><span class="line">select grade,avg(score) from coder group by grade having avg(score)&gt;80;</span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>MySQL5</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MarkDown进阶:表情、图标</title>
     <url>/2022/09/04/MarkDownPro-face%E3%80%81icon/</url>
     <content><![CDATA[<h1 id="markdown-emoji"><a class="markdownIt-Anchor" href="#markdown-emoji"></a> markdown-emoji</h1>
@@ -2137,6 +1652,511 @@
       </tags>
   </entry>
   <entry>
+    <title>RSS订阅的使用以及优势</title>
+    <url>/2022/09/04/RSS/</url>
+    <content><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3>
+<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
+<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
+<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
+<ul>
+<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
+<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
+<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
+<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
+</ul>
+<h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4>
+<p>windows平台这里推荐微软商店的Fluent Reader<a class="link"   href="https://apps.microsoft.com/store/detail/9P71FC94LRH8" >官网链接 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <tags>
+        <tag>RSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL基础</title>
+    <url>/2022/08/21/MySQL-Base/</url>
+    <content><![CDATA[<h3 id="mysql基础"><a class="markdownIt-Anchor" href="#mysql基础"></a> MySQL基础</h3>
+<hr />
+<h4 id="span-idhead快速导航span"><a class="markdownIt-Anchor" href="#span-idhead快速导航span"></a> <span id="head">快速导航</span></h4>
+<p>提示：本文中各个示例之间有一定数据关联性，建议先把预先准备的测试数据代码执行好。 <span id="more"></span></p>
+<p><a href="#ddl">DDL</a></p>
+<p><a href="#dml">DML</a></p>
+<p><a href="#dql">DQL</a></p>
+<p><a href="#ysf">条件查询</a></p>
+<p><a href="#px">排序</a></p>
+<p><a href="#juhe">聚合函数</a></p>
+<p><a href="#fz"> 分组查询</a></p>
+<h4 id="一-数据库管理系统"><a class="markdownIt-Anchor" href="#一-数据库管理系统"></a> 一、数据库管理系统</h4>
+<ol>
+<li>数据库管理系统：DataBaseManagement，简称DBMS。</li>
+<li>数据库管理系统是专门用来管理数据库中的数据，数据库管理系统可以对数据库中的数据进行增删改查的操作。</li>
+<li>常见的数据库管理系统：MySQL，Oracle，SqlServer，MS，DB2等。</li>
+</ol>
+<h4 id="二-sql"><a class="markdownIt-Anchor" href="#二-sql"></a> 二、SQL</h4>
+<ol>
+<li>SQL是一种结构化查询语言。</li>
+<li>通过SQL可以实现对数据库中数据的操作。</li>
+<li>SQL是一套标准，基本能在大部分数据库管理系统中使用。</li>
+</ol>
+<h4 id="三-工作流程"><a class="markdownIt-Anchor" href="#三-工作流程"></a> 三、工作流程</h4>
+<p>​	数据库管理系统SQL→执行SQL→操作数据库</p>
+<p>​	先安装数据库管理系统MySQL，然后编写SQL语句，之后DBMS对SQL语句	进行执行来完成对数据库的数据管理。</p>
+<h4 id="四-准备工作"><a class="markdownIt-Anchor" href="#四-准备工作"></a> 四、准备工作</h4>
+<ol>
+<li>
+<p>MySQL官网[下载]( <a class="link"   href="https://downloads.mysql.com/archives/installer/" >MySQL :: Download MySQL Installer (Archived Versions) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> )，Windows推荐下载<a class="link"   href="https://downloads.mysql.com/archives/get/p/25/file/mysql-installer-community-5.7.30.0.msi" >Mysql5.7社区版本 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，使用较多的版本。简易配置推荐Server only，也可以选择Custom自定义安装路径，后面填写好root用户的密码即可。其余默认下一步。MySQL环境变量配置可配可不配，需要命令行运行MySQL的相关命令可参考jdk的环境变量配置过程配置好。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 基本命令</span></span><br><span class="line">mysql -uroot -p  //登录MySQL,-p后面需要输入之前设置的密码</span><br><span class="line"><span class="comment"># 登录MySQL之后所有命令结尾必须要加英文分号;</span></span><br><span class="line">mysql&gt; <span class="built_in">exit</span>;   //退出MySQL</span><br><span class="line">mysql&gt; mysqladmin -uroot newpassword;  //root密码为空时,设置新密码</span><br><span class="line">mysql&gt; mysqladmin -uroot -pxxx password yyy; //xxx为旧密码,yyy为新密码</span><br><span class="line">mysql&gt; <span class="built_in">set</span> password <span class="keyword">for</span> 用户名@localhost = password(<span class="string">&#x27;新密码&#x27;</span>);  //修改密码的另一种方式,用户名一般是root</span><br><span class="line"></span><br><span class="line">mysql&gt; show databases; //查看全部的数据库</span><br><span class="line">mysql&gt; create database 数据库名; //创建数据库</span><br><span class="line">mysql&gt; use 数据库名; //指定需要操作的数据库</span><br><span class="line">mysql&gt; show tables; //展示指定数据库里面所有的数据表</span><br><span class="line"></span><br><span class="line"><span class="comment"># 后面的数据操作相关命令可以直接套用navicat中编写的SQL语句,记得结尾加分号;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>数据库管理工具Navicat[下载]( <a class="link"   href="https://www.navicat.com/en/download/navicat-for-mysql" >Navicat | Download Navicat for MySQL 14-day trial versions for Windows, macOS and Linux <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> )，原生的MySQL数据库管理系统缺乏管理工具比较难以使用，通过第三方数据库管理工具可以更方便地管理数据库。</p>
+</li>
+<li>
+<p>Navicat连接MySQL时需要确保MySQL服务开启，一般安装时默认开机自启动。<strong>以管理员身份运行</strong>命令提示符，输入命令。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">net start mysql57  //运行MySQL服务</span><br></pre></td></tr></table></figure></div>
+<p>MySQL服务的端口号为3306，输入用户名和密码后，完成连接。</p>
+</li>
+</ol>
+<h4 id="五-正式开始"><a class="markdownIt-Anchor" href="#五-正式开始"></a> 五、正式开始</h4>
+<h5 id="1sql语句分类"><a class="markdownIt-Anchor" href="#1sql语句分类"></a> 1.SQL语句分类</h5>
+<ul>
+<li>DQL:数据查询语言，一般以<strong>select</strong>关键字开头，查询数据</li>
+<li>DML:数据操作语言，<strong>insert</strong>、<strong>delete</strong>、<strong>update</strong>关键字，<strong>增删改数据表中的数据</strong></li>
+<li>DDL:数据定义语言，<strong>create</strong>、<strong>drop</strong>、<strong>alter</strong>关键字，<strong>增删改数据表的结构</strong></li>
+<li>TCL:事务控制语言，<strong>commit</strong>、<strong>rollback</strong>关键字，事务回滚和事务提交</li>
+<li>DCL:数据控制语言，<strong>grant</strong>、<strong>revoke</strong>关键字，定义访问权限和安全级别及创建用户</li>
+</ul>
+<h5 id="2ddl数据定义语言的使用"><a class="markdownIt-Anchor" href="#2ddl数据定义语言的使用"></a> 2.DDL数据定义语言的使用</h5>
+<ul>
+<li>
+<p>首先明确MySQL中的数据类型大致分为：**数值、日期/时间、字符串(字符)**三类。</p>
+</li>
+<li>
+<p>数值类型</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">大小</th>
+<th style="text-align:center">范围（有符号）</th>
+<th style="text-align:center">范围（无符号）</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">TINYINT</td>
+<td style="text-align:center">1 Bytes</td>
+<td style="text-align:center">(-128,127)</td>
+<td style="text-align:center">(0,255)</td>
+<td style="text-align:center">小整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">SMALLINT</td>
+<td style="text-align:center">2 Bytes</td>
+<td style="text-align:center">(-32768,32767)</td>
+<td style="text-align:center">(0,65535)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">MEDIUMINT</td>
+<td style="text-align:center">3 Bytes</td>
+<td style="text-align:center">(-8388608,8388607)</td>
+<td style="text-align:center">(0,16777215)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">INT或INTEGER</td>
+<td style="text-align:center">4 Bytes</td>
+<td style="text-align:center">(-2147483648,2147483647)</td>
+<td style="text-align:center">(0,4294967295)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">BIGINT</td>
+<td style="text-align:center">8 Bytes</td>
+<td style="text-align:center">(-2<sup>63,2</sup>63-1)</td>
+<td style="text-align:center">(0,2^64-1)</td>
+<td style="text-align:center">极大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">FLOAT</td>
+<td style="text-align:center">4 Bytes</td>
+<td style="text-align:center">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0， (1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td style="text-align:center">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td style="text-align:center">单精度 浮点数值</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">8 Bytes</td>
+<td style="text-align:center">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">双精度 浮点数值</td>
+</tr>
+<tr>
+<td style="text-align:center">DECIMAL</td>
+<td style="text-align:center">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
+<td style="text-align:center">依赖于M和D的值</td>
+<td style="text-align:center">依赖于M和D的值</td>
+<td style="text-align:center">小数值</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>日期和时间类型</p>
+<p>TIMESTAMP类型有专有的自动更新特性，将在后面描述。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">大小 (Bytes)</th>
+<th style="text-align:center">范围</th>
+<th style="text-align:center">格式</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">DATE</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1000-01-01/9999-12-31</td>
+<td style="text-align:center">YYYY-MM-DD</td>
+<td style="text-align:center">日期值</td>
+</tr>
+<tr>
+<td style="text-align:center">TIME</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">‘-838:59:59’/‘838:59:59’</td>
+<td style="text-align:center">HH:MM:SS</td>
+<td style="text-align:center">时间值或持续时间</td>
+</tr>
+<tr>
+<td style="text-align:center">YEAR</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1901/2155</td>
+<td style="text-align:center">YYYY</td>
+<td style="text-align:center">年份值</td>
+</tr>
+<tr>
+<td style="text-align:center">DATETIME</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
+<td style="text-align:center">YYYY-MM-DD HH:MM:SS</td>
+<td style="text-align:center">混合日期和时间值</td>
+</tr>
+<tr>
+<td style="text-align:center">TIMESTAMP</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">1970-01-01 00:00:00/2038结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
+<td style="text-align:center">YYYYMMDD HHMMSS</td>
+<td style="text-align:center">混合日期和时间值，时间戳</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>字符串类型</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CHAR</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">定长字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">VARCHAR</td>
+<td style="text-align:left">0-65535 bytes</td>
+<td style="text-align:left">变长字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TINYBLOB</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TINYTEXT</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">短文本字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">BLOB</td>
+<td style="text-align:left">0-65 535 bytes</td>
+<td style="text-align:left">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">TEXT</td>
+<td style="text-align:left">0-65 535 bytes</td>
+<td style="text-align:left">长文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMBLOB</td>
+<td style="text-align:left">0-16 777 215 bytes</td>
+<td style="text-align:left">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMTEXT</td>
+<td style="text-align:left">0-16 777 215 bytes</td>
+<td style="text-align:left">中等长度文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">LONGBLOB</td>
+<td style="text-align:left">0-4 294 967 295 bytes</td>
+<td style="text-align:left">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">LONGTEXT</td>
+<td style="text-align:left">0-4 294 967 295 bytes</td>
+<td style="text-align:left">极大文本数据</td>
+</tr>
+</tbody>
+</table>
+<p><span id="ddl"><a href="#head">返回快速导航</a></span></p>
+</li>
+<li>
+<p>DDL语句示例一：对数据表的管理操作以及对字段的增删改操作（在Navicat中新建查询输入SQL语句或在命令行中输入SQL语句）</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create database test;</span><br><span class="line">use test;</span><br><span class="line"># 创建一张拥有一个int类型的t1字段的test_int数据表</span><br><span class="line"># 默认为有符号</span><br><span class="line"># 多个字段用英文逗号,隔开</span><br><span class="line">create table test_int(</span><br><span class="line">	t1 int</span><br><span class="line">);</span><br><span class="line"># 这里的desc作用是查看数据表的结构信息</span><br><span class="line">desc test_int;</span><br><span class="line"># 增加一条t1字段值为-11111的记录</span><br><span class="line">insert into test_int values (-11111); # 默认有符号</span><br><span class="line"></span><br><span class="line"># 增加一个t2无符号字段</span><br><span class="line">alter table test_int add column t2 int unsigned;</span><br><span class="line"># 这时候增加一条t2字段值为负数的记录,就会出现out of range的错误</span><br><span class="line">insert into test_int (t2) value (-1111); # 报错</span><br><span class="line"># 修改t2字段类型</span><br><span class="line">alter table test_int modify column t2 int;</span><br><span class="line"># 删除t2字段</span><br><span class="line">alter table test_int drop column t2;</span><br><span class="line"></span><br><span class="line"># 删除test_int数据表</span><br><span class="line">drop table if exists test_int;</span><br><span class="line"></span><br><span class="line">create table test_int(</span><br><span class="line">	t1 int,</span><br><span class="line">    t2 int unsigned</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">select * from test_int;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>示例二：对数据库的管理操作</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">语法 create database [if not exists] 数据库名; #[]中的内容选填</span><br><span class="line">    drop database [if exists] 数据库名;</span><br><span class="line"># 创建数据库book</span><br><span class="line">create database book;</span><br><span class="line"># 更改数据库的字符集</span><br><span class="line">alter database book character set utf8;</span><br><span class="line"># 查看字符集</span><br><span class="line">show create database book;</span><br><span class="line"># 删除数据库(判断该数据库是否存在,存在则进行删除)</span><br><span class="line">drop database if exists book;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>示例三：对数据表结构的操作</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table books(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    price double,</span><br><span class="line">    author varchar(20),</span><br><span class="line">    publish_date datetime</span><br><span class="line">);</span><br><span class="line">desc books;</span><br><span class="line"># 表的修改</span><br><span class="line"># alter table 数据表名 add/drop/modify/change column ...</span><br><span class="line"># 修改字段名publish_date为date</span><br><span class="line">alter table books change column publish_date date datetime;</span><br><span class="line"># 修改字段的类型或约束</span><br><span class="line">alter table books modify column date timestamp;</span><br><span class="line"></span><br><span class="line"># 关于alter中change和modify的使用区别</span><br><span class="line"># change的修改范围大于modify,change一般用于修改字段名</span><br><span class="line"># modify一般用于修改数据类型或约束,但modify不能修改字段名</span><br><span class="line"></span><br><span class="line"># 添加新的字段inventory,添加字段需要指明数据类型</span><br><span class="line">alter table books add column inventory int;</span><br><span class="line"># 删除字段inventory,删除字段只需要提供字段名</span><br><span class="line">alter table books drop column inventory;</span><br><span class="line"># 修改数据表名</span><br><span class="line">alter table books rename to works;</span><br><span class="line">desc works;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>示例四：复制数据表</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 增加记录</span><br><span class="line">insert into works values</span><br><span class="line">(1,&#x27;《java》&#x27;,132.9,&#x27;詹姆斯·高斯林&#x27;,&#x27;2001-12-01&#x27;),</span><br><span class="line">(2,&#x27;《linux》&#x27;,156.9,&#x27;linus&#x27;,&#x27;1999-01-01&#x27;);</span><br><span class="line"></span><br><span class="line"># 仅复制数据表的结构</span><br><span class="line">create table copy like works;</span><br><span class="line"># 复制结构和数据</span><br><span class="line">create table clone select * from works;</span><br><span class="line"># 复制部分结构</span><br><span class="line">create table remake select id,name from works;</span><br><span class="line"># 仅复制部分字段,利用where进行条件判断,恒为0则只保留字段</span><br><span class="line">create table redo select id,name from works where 0;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h5 id="3dml数据操作语言的使用"><a class="markdownIt-Anchor" href="#3dml数据操作语言的使用"></a> 3.DML数据操作语言的使用</h5>
+<p><span id="dml"><a href="#head">返回快速导航</a></span></p>
+<ul>
+<li>
+<p><strong>insert语句</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># insert into 数据表名(字段名1,字段名2,...) values (字段值1,字段值2,...);</span><br><span class="line">create table product(</span><br><span class="line">	id int,</span><br><span class="line">	name varchar(20),</span><br><span class="line">	price double</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 在product表中增加一条记录</span><br><span class="line">insert into product(id,name,price) values (1,&#x27;phone&#x27;,500.0);</span><br><span class="line"># 在product表中指定的字段增加记录</span><br><span class="line">insert into product(id,price) values (2,399.9);</span><br><span class="line"></span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 默认给全部字段增加记录</span><br><span class="line"># insert into 数据表名 values (字段值1,字段值2,...);</span><br><span class="line"></span><br><span class="line">insert into product values (3,&#x27;mac&#x27;,21499.9);</span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 批量增加记录</span><br><span class="line"># insert into 数据表名 values (字段值1,字段值2,...),(字段值1,字段值2,...);</span><br><span class="line"></span><br><span class="line">insert into product values (4,&#x27;a&#x27;,1.1),(5,&#x27;b&#x27;,2.2),(6,&#x27;c&#x27;,3.3);</span><br><span class="line">select * from product;</span><br></pre></td></tr></table></figure></div>
+<p>注意字段名和字段值的类型对应，以及日期时间、字符字符串类型数据需要加上引号（单双引号均可）</p>
+</li>
+<li>
+<p><strong>update语句</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line">#update 数据表名 set 字段1 = 值1,字段2 = 值2,...[where 条件];</span><br><span class="line"></span><br><span class="line"># 修改phone的price为9999</span><br><span class="line">update product set price = 9999 where name=&#x27;phone&#x27;;</span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 修改mac的price为39999.9,id为0</span><br><span class="line">update product set price = 39999.9,id=0 where name=&#x27;mac&#x27;;</span><br><span class="line"></span><br><span class="line"># 修改id为2记录的name为switch</span><br><span class="line">update product set name = &#x27;switch&#x27; where id=2;</span><br></pre></td></tr></table></figure></div>
+<p>注意一般情况下update语句中不能缺少条件，否则会修改所有数据。</p>
+</li>
+<li>
+<p><strong>delete语句</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># delete from 数据表名 [where 条件];</span><br><span class="line"></span><br><span class="line"># 删除product表中的switch数据</span><br><span class="line">delete from product where name=&#x27;switch&#x27;;</span><br><span class="line"></span><br><span class="line"># 删除product表中price为39999.9的数据</span><br><span class="line">delete from product where price=39999.9;</span><br><span class="line"></span><br><span class="line">select * from product;</span><br></pre></td></tr></table></figure></div>
+<p>注意delete语句中必须加上条件限制，否则所有的数据将会被删除。</p>
+<p>基本update和delete都要配合where来使用，否则和Linux系统中<code>rm -rf /</code>命令是差不多的后果。</p>
+</li>
+</ul>
+<h5 id="4dql数据查询语言的使用"><a class="markdownIt-Anchor" href="#4dql数据查询语言的使用"></a> 4.DQL数据查询语言的使用</h5>
+<p>​	<span id="dql"><a href="#head">返回快速导航</a></span></p>
+<ul>
+<li>
+<p>示例</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># select 字段名 from 数据表名;</span><br><span class="line"></span><br><span class="line"># 单独查询name字段</span><br><span class="line">select name from product;</span><br><span class="line"># 查询多个字段</span><br><span class="line">select id,name from product;</span><br><span class="line"># 查询所有字段</span><br><span class="line">select * from product;</span><br><span class="line"># 或者把*替换成数据表中所有的字段名</span><br><span class="line"></span><br><span class="line"># as关键字取别名,不改变原有数据,改变的是显示的内容,as关键字可省略</span><br><span class="line">select name as product_name from product;</span><br><span class="line"></span><br><span class="line"># 别名中有空格,使用单引号括住别名</span><br><span class="line">select name &#x27;product name&#x27; from product;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h5 id="5sql运算符及条件查询"><a class="markdownIt-Anchor" href="#5sql运算符及条件查询"></a> 5.SQL运算符及条件查询</h5>
+<ol>
+<li>
+<p>算术运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center"><strong>说  明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>+</strong></td>
+<td style="text-align:center"><strong>加运算，求两个数或表达式相加的和，如6+8</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>-</strong></td>
+<td style="text-align:center"><strong>减运算，求两个数或表达式相减的差</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">*****</td>
+<td style="text-align:center"><strong>乘运算，求两个数或表达式相乘的积</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>/</strong></td>
+<td style="text-align:center"><strong>除运算，求两个数或表达式相除的商，如5/3的值为1</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>%</strong></td>
+<td style="text-align:center"><strong>取模运算，求两个数或表达式相除的余数，如：5%3的值为2</strong></td>
+</tr>
+</tbody>
+</table>
+<p>SQL语句也可以使用数学表达式，注意SQL没有java的自增自减等运算符。</p>
+</li>
+<li>
+<p>where条件查询运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">=</td>
+<td style="text-align:center">等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;&gt;或!=</td>
+<td style="text-align:center">不等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;</td>
+<td style="text-align:center">小于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;=</td>
+<td style="text-align:center">小于等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;</td>
+<td style="text-align:center">大于</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;=</td>
+<td style="text-align:center">大于等于</td>
+</tr>
+<tr>
+<td style="text-align:center">between…  and…</td>
+<td style="text-align:center">两个值之间，等同于  &gt;=   and   &lt;=</td>
+</tr>
+<tr>
+<td style="text-align:center">is  null</td>
+<td style="text-align:center">为null  （is  not  null不为空）</td>
+</tr>
+<tr>
+<td style="text-align:center">and</td>
+<td style="text-align:center">并且</td>
+</tr>
+<tr>
+<td style="text-align:center">or</td>
+<td style="text-align:center">或者</td>
+</tr>
+<tr>
+<td style="text-align:center">in</td>
+<td style="text-align:center">包含，相当于多个or（not in不在这个范围中）</td>
+</tr>
+<tr>
+<td style="text-align:center">not</td>
+<td style="text-align:center">not可以取非，主要用在is  或  in中</td>
+</tr>
+<tr>
+<td style="text-align:center">like</td>
+<td style="text-align:center">like称为模糊查询，支持%或下划线匹配，%匹配任意多个字符，一个下划线值匹配一个字符</td>
+</tr>
+</tbody>
+</table>
+<p><span id="ysf"><a href="#head">返回快速导航</a></span></p>
+</li>
+<li>
+<p>示例</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create database if not exists task;</span><br><span class="line">use task;</span><br><span class="line">create table if not exists coder(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    score int,</span><br><span class="line">    grade varchar(10),</span><br><span class="line">    project int</span><br><span class="line">);</span><br><span class="line">insert into coder values</span><br><span class="line">(1,&#x27;Mike&#x27;,100,&#x27;A&#x27;,1),</span><br><span class="line">(2,&#x27;Jhon&#x27;,96,&#x27;A&#x27;,2),</span><br><span class="line">(3,&#x27;Dram&#x27;,60,&#x27;D&#x27;,null),</span><br><span class="line">(4,&#x27;Lambda&#x27;,100,&#x27;A&#x27;,null),</span><br><span class="line">(5,&#x27;LuBen&#x27;,89,&#x27;B&#x27;,3),</span><br><span class="line">(6,&#x27;K&#x27;,75,&#x27;C&#x27;,null),</span><br><span class="line">(7,&#x27;Z&#x27;,88,&#x27;C&#x27;,null),</span><br><span class="line">(8,&#x27;L&#x27;,75,&#x27;B&#x27;,null);</span><br><span class="line">select * from coder;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score等于100的name和id记录</span><br><span class="line">select name,id from coder where score=100;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中grade不等于A的name和id记录</span><br><span class="line">select name,id from coder where grade != &#x27;A&#x27;;</span><br><span class="line">select name,id from coder where grade &lt;&gt; &#x27;A&#x27;;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score小于89的name和id记录</span><br><span class="line">select name,id from coder where score &lt; 89;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score小于等于89的name和id记录</span><br><span class="line">select name,id from coder where score &lt;= 89;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score大于75的name和id记录</span><br><span class="line">select name,id from coder where score &gt; 75;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score大于等于75的name和id记录</span><br><span class="line">select name,id from coder where score &gt;= 75;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score在75和90之间的name和id记录</span><br><span class="line">select name,id from coder where score&gt;=75 and score&lt;=90;</span><br><span class="line">select name,id from coder where score between 75 and 90;</span><br><span class="line"># between 较小值 and 较大值  闭区间</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中project为null的记录</span><br><span class="line">select * from coder where project is null;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中project不为null的记录</span><br><span class="line">select * from coder where project is not null;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中grade为A且score为100的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and score=100;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中score为100或project为3的记录</span><br><span class="line">select * from coder where score=100 or project=3;</span><br><span class="line"> </span><br><span class="line"># and和or同时使用时,and优先级高于or,要使or先执行,则需用()括住or关联的条件</span><br><span class="line"># 查询coder数据表中grade为A且project为1 和 score大于74的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and project=1 or score &gt; 74;</span><br><span class="line"># 查询coder数据表中project为1或score大于74 且grade为A的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and (project=1 or score &gt; 74);</span><br><span class="line"></span><br><span class="line"># in关键字相当于多个or,但in无法关联数值范围的条件,只能关联一个具体的数值条件</span><br><span class="line"># 查询coder数据表中score为100或96的记录</span><br><span class="line">select * from coder where score=100 or score=96;</span><br><span class="line">select * from coder where score in(100,96); # 这里表示两个数值</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中project不为1且不为3的记录</span><br><span class="line">select * from coder where project&lt;&gt;1 and project&lt;&gt;3;</span><br><span class="line">select * from coder where project not in(3,1);</span><br><span class="line"></span><br><span class="line"># 模糊查询</span><br><span class="line"># like关键字,匹配符%和_</span><br><span class="line"># %匹配任意多个字符,_匹配任意一个字符</span><br><span class="line"># 转义字符\,用于处理包含%和_这两个特殊符号的记录</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中以e结尾的name记录</span><br><span class="line">select name from coder where name like &#x27;%e&#x27;;</span><br><span class="line"># 查询coder数据表中以L开头的name记录</span><br><span class="line">select name from coder where name like &#x27;L%&#x27;;</span><br><span class="line"># 查询coder数据表中包含u的name记录</span><br><span class="line">select name from coder where name like &#x27;%u%&#x27;;</span><br><span class="line"># 查询coder数据表中第二个字母为h的name记录</span><br><span class="line">select name from coder where name like &#x27;_h%&#x27;;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<h5 id="6排序"><a class="markdownIt-Anchor" href="#6排序"></a> 6.排序</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">关键字</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">order by</td>
+<td style="text-align:center">排序</td>
+</tr>
+<tr>
+<td style="text-align:center">desc</td>
+<td style="text-align:center">降序</td>
+</tr>
+<tr>
+<td style="text-align:center">asc</td>
+<td style="text-align:center">升序</td>
+</tr>
+</tbody>
+</table>
+<p><span id="px"><a href="#head">返回快速导航</a></span></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 对coder数据表中的score进行排序,默认升序</span><br><span class="line">select name,score from coder order by score;</span><br><span class="line"># 指定降序,这里的desc作用是指定降序排序</span><br><span class="line">select name,score from coder order by score desc;</span><br><span class="line"># 指定升序</span><br><span class="line">select name,score from coder order by score asc;</span><br><span class="line"></span><br><span class="line"># 多字段排序,第一字段相同时,根据第二字段排序</span><br><span class="line"># 根据score升序排序,score相同则根据name升序排序</span><br><span class="line">select name,score from coder order by score asc,name asc;</span><br><span class="line"></span><br><span class="line"># 不推荐写法</span><br><span class="line">select * from coder order by 1; # 这里的1表示第一个字段id</span><br><span class="line"># 这种写法很容易因为字段顺序的改变而出错</span><br></pre></td></tr></table></figure></div>
+<h5 id="7聚合函数"><a class="markdownIt-Anchor" href="#7聚合函数"></a> 7.聚合函数</h5>
+<p><span id="juhe"><a href="#head">返回快速导航</a></span></p>
+<p><strong>多行数据经聚合函数处理之后的结果只有一行</strong></p>
+<p><strong>聚合函数分类</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数名</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">count(字段名)</td>
+<td style="text-align:center">统计数量(一般选用不为null的列)</td>
+</tr>
+<tr>
+<td style="text-align:center">max(字段名)</td>
+<td style="text-align:center">最大值</td>
+</tr>
+<tr>
+<td style="text-align:center">min(字段名)</td>
+<td style="text-align:center">最小值</td>
+</tr>
+<tr>
+<td style="text-align:center">sum(字段名)</td>
+<td style="text-align:center">求和</td>
+</tr>
+<tr>
+<td style="text-align:center">avg(字段名)</td>
+<td style="text-align:center">平均值</td>
+</tr>
+</tbody>
+</table>
+<p>注意：聚合函数需要配合分组来使用，先分组再用聚合函数处理。</p>
+<p>如果不进行分组，则默认整张数据表为一组。</p>
+<p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 找出coder数据表中score字段的最大值记录</span><br><span class="line">select max(score) from coder;</span><br><span class="line"># 找出coder数据表中score字段的最小值记录</span><br><span class="line">select min(score) from coder;</span><br><span class="line"># 计算score字段所有记录的总和</span><br><span class="line">select sum(score) from coder;</span><br><span class="line"># 计算score字段所有记录的平均值</span><br><span class="line">select avg(score) from coder;</span><br><span class="line"># 计算记录总条数,可以用任意非空字段做参数</span><br><span class="line">select count(name) from coder;</span><br></pre></td></tr></table></figure></div>
+<p>注意：</p>
+<ol>
+<li>聚合函数会自动忽略指定字段值为null的记录</li>
+<li>在count(*)情况下，每一行数据中只要有一个字段值不为null，则该数据就会被count函数统计进去</li>
+<li>聚合函数也称分组函数，不能直接在<strong>where子句</strong>中使用</li>
+<li>聚合函数之间可以相互组合使用</li>
+</ol>
+<h5 id="8分组查询"><a class="markdownIt-Anchor" href="#8分组查询"></a> 8.分组查询</h5>
+<p><span id="fz"><a href="#head">返回快速导航</a></span></p>
+<p><strong>group by关键字</strong></p>
+<p>格式：select 字段 from 数据表 where 条件 group by 分组依据字段 order by 排序依据字段 排序方式</p>
+<p>执行优先级：from→where→group by→select→order by</p>
+<p>由于where的优先级高于group by，因此聚合函数无法在where子句中使用。</p>
+<p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 计算coder数据表中grade各组的score总和</span><br><span class="line">select grade,sum(score) from coder group by grade;</span><br><span class="line"></span><br><span class="line"># 规范:使用了group by的语句,select后面的字段只能用作为分组依据的字段及聚合函数,不允许使用其他字段,否则即使不报错,数据结果也会存在问题</span><br><span class="line"></span><br><span class="line"># having关键字对group by之后的数据进行处理</span><br><span class="line"># 不同于where,having专门与group by一起使用,而不能单独使用</span><br><span class="line"></span><br><span class="line"># 找出coder数据表各grade组中score平均值大于80的记录</span><br><span class="line">select grade,avg(score) from coder group by grade having avg(score)&gt;80;</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>MySQL5</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MySQL高级</title>
     <url>/2022/08/21/MySQL-Pro/</url>
     <content><![CDATA[<h3 id="mysql高级"><a class="markdownIt-Anchor" href="#mysql高级"></a> MySQL高级</h3>
@@ -2322,26 +2342,6 @@
       </tags>
   </entry>
   <entry>
-    <title>RSS订阅的使用以及优势</title>
-    <url>/2022/09/04/RSS/</url>
-    <content><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3>
-<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
-<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
-<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
-<ul>
-<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
-<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
-<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
-<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
-</ul>
-<h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4>
-<p>windows平台这里推荐微软商店的Fluent Reader<a class="link"   href="https://apps.microsoft.com/store/detail/9P71FC94LRH8" >官网链接 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <tags>
-        <tag>RSS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Redis基础</title>
     <url>/2022/09/14/Redis-Base/</url>
     <content><![CDATA[<h3 id="redis基础"><a class="markdownIt-Anchor" href="#redis基础"></a> Redis基础</h3>
@@ -2458,6 +2458,136 @@
 ]]></content>
       <tags>
         <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>算法概念性知识</title>
+    <url>/2023/05/04/algorithm-concept/</url>
+    <content><![CDATA[<p>本文主要介绍一些经典算法的概念性知识，以及对算法思想的一些理解，不涉及任何具体的代码实现。<span id="more"></span></p>
+<h3 id="算法的相关概念"><a class="markdownIt-Anchor" href="#算法的相关概念"></a> 算法的相关概念</h3>
+<p>算法的定义：它是若干指令的有穷序列。有以下性质</p>
+<ul>
+<li>输入：有外部提供的量作为算法的输入。</li>
+<li>输出：算法至少产生一个量作为输出。</li>
+<li>确定性：组成算法的每条指令是清晰的、无歧义的。</li>
+<li>有限性：算法中的每条指令的执行次数是有限的，执行每条指令的时间也是有限的。</li>
+</ul>
+<p>程序的定义：它是算法用某种程序设计语言的具体实现，可以不用满足<strong>有限性</strong>的性质。</p>
+<h3 id="算法复杂性"><a class="markdownIt-Anchor" href="#算法复杂性"></a> 算法复杂性</h3>
+<p>5个渐进性分析记号<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi></mrow><annotation encoding="application/x-tex">O</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">\Omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">Ω</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi></mrow><annotation encoding="application/x-tex">o</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">o</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi></mrow><annotation encoding="application/x-tex">\omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span>，假设对所有的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo stretchy="false">(</mo><mi>n</mi><mo>&gt;</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">n(n&gt;0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span>，都有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f(n)\geq0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>≥</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">g(n)\geq0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>。</p>
+<p>渐进上界记号<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi></mrow><annotation encoding="application/x-tex">O</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span></span></span></span></p>
+<p>定义：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">{</mo><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">O(g(n))=\{f(n)|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mord">∣</span></span></span></span>存在正常数<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">c</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">n_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>使得对所有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><msub><mi>n</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">n\geq n_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>有：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>≤</mo><mi>c</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">0 \leq f(n) \leq cg(n)\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mclose">}</span></span></span></span>，则称函数<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>充分大时有上界，且<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">g(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>是它的一个上界，记为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(n)=O(g(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>，又称为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>的阶不高于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">g(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>的阶。</p>
+<p>渐进下界记号<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">\Omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">Ω</span></span></span></span></p>
+<p>定义：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">{</mo><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">\Omega (g(n))=\{f(n)|</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Ω</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mord">∣</span></span></span></span>存在正常数<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi></mrow><annotation encoding="application/x-tex">c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">c</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">n_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>使得对所有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≥</mo><msub><mi>n</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">n\geq n_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>有：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>c</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>≤</mo><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">0 \leq cg(n) \leq f(n)\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mclose">}</span></span></span></span>，则称函数<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>充分大时有下界，且<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">g(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>是它的一个下界，记为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(n)=\Omega (g(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Ω</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span>，又称为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>的阶不低于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">g(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>的阶。</p>
+<h3 id="递归"><a class="markdownIt-Anchor" href="#递归"></a> 递归</h3>
+<p>递归算法是直接或间接调用自身的算法。</p>
+<p>递归函数不一定能用非递归的方式实现。</p>
+<p>斐波那契数列既可以用递归实现，也可以用非递归实现。</p>
+<p>递归算法容易定义，结构清晰，但运行效率较低，一般情况下，耗费的计算时间和存储空间都要比非递归算法多。</p>
+<h3 id="分治"><a class="markdownIt-Anchor" href="#分治"></a> 分治</h3>
+<p>分治法的基本思想是将规模较大的问题划分为规模较小的子问题来求解。</p>
+<p>二分搜索算法的前提是<strong>数据有序</strong>。</p>
+<p>用分治法求解大整数乘法和Strassen矩阵乘法的基本思想是通过合理的变换运算来减少乘法的次数。</p>
+<p>合并排序和快速排序的平均时间复杂性均为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</p>
+<h3 id="动态规划"><a class="markdownIt-Anchor" href="#动态规划"></a> 动态规划</h3>
+<p>动态规划也是将规模较大的问题划分为规模较小的子问题来求解，但与分治法不同的是，动态规划所划分出来的子问题相互不独立。</p>
+<p>动态规划算法适用于求解最优化问题，一般采用自底向上的方式来计算。</p>
+<blockquote>
+<p>自底向上和自顶向下的根本区别是：自底向上的分析，是从具体到抽象；自顶向下的分析，是从抽象到具体。</p>
+<p>参考<a class="link"   href="https://www.cnblogs.com/Qsir/p/5838802.html" >https://www.cnblogs.com/Qsir/p/5838802.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<p>动态规划求解的问题也可以用递归算法求解，但是可能会造成重复计算和不必要的资源耗费。</p>
+<p>动态规划求解的问题具有最优子结构和重叠子问题性质。</p>
+<p>利用动态规划求解矩阵连乘问题时，其渐进时间复杂度为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>3</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>表示矩阵个数)。</p>
+<p>使用动态规划求解最优二叉搜索树的时间复杂度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>3</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>是序列元素数量。</p>
+<p>动态规划求解0-1背包问题时，其时间复杂度是伪多项式。</p>
+<blockquote>
+<p>关于伪多项式时间算法可参考<a class="link"   href="https://stackoverflow.com/questions/19647658/what-is-pseudopolynomial-time-how-does-it-differ-from-polynomial-time" >algorithm - What is pseudopolynomial time? How does it differ from polynomial time? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<p>使用动态规划算法求解2个长度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>的序列的最长公共子序列的时间复杂度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。</p>
+<h3 id="贪心"><a class="markdownIt-Anchor" href="#贪心"></a> 贪心</h3>
+<p>贪心算法可能存在多个贪心策略，具有最优子结构的性质，常常使用堆结构存储数据。</p>
+<p>求解<a class="link"   href="https://blog.csdn.net/qq_40452317/article/details/88875384" >活动安排问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>的贪心算法GreedySelector的时间复杂性为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，对活动进行结束时间的非减排序后，再使用GreedySelector求解的时间复杂度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</p>
+<p>哈夫曼编码是一种最优前缀码，其时间复杂度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，其各字符的编码不一定唯一。</p>
+<blockquote>
+<p>当有多个权重相等的字符时，其在哈夫曼树中的位置不唯一，它可以是左子树也可以是右子树，即字符可能存在多种编码情况。</p>
+<p>哈夫曼编码只是保证平均查找码长最小，但平均查找码长最小的编码组合不一定唯一。</p>
+</blockquote>
+<p>对于给定的一个带权有向图<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">G=(V,E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>，无法使用<code>Dijkstra</code>算法求解出其最短路径，因为<code>Dijkstra</code>无法处理带负权图。可以使用<code>Bellman-Ford</code>算法求解，不过<code>Bellman-Ford</code>是基于动态规划设计的。</p>
+<blockquote>
+<p><code>Dijkstra</code>算法无法处理有<strong>负边</strong>的问题，只适用于无负权图，参考<a class="link"   href="https://www.cnblogs.com/FengZeng666/p/11245243.html" >dijkstra算法为什么不能有负边？ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>这种“负边问题”也是贪心算法本身的缺陷。</p>
+<p><code>Dijkstra</code>是以点为单位进行操作，<code>Bellman-Ford</code>是以边为单位进行操作。</p>
+<p>关于<code>Bellman-Ford</code>算法可以参考<a class="link"   href="https://www.cnblogs.com/lfri/p/9521271.htmls" >Bellman-Ford与SPFA <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<p>0-1背包问题不一定能用贪心算法得到最优解 ，背包问题(可散装)的贪心算法也就不适用于0-1背包问题，可能导致背包无法装满。</p>
+<h3 id="时间复杂性表达式分析"><a class="markdownIt-Anchor" href="#时间复杂性表达式分析"></a> 时间复杂性表达式分析</h3>
+<p>对于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mn>2</mn><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">T(n)=2T(n/2)+n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo><mo>=</mo><mi>T</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T(0)=T(1)=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord">0</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，(这种表达式正好就是快速排序的时间复杂性表达式)</p>
+<p>以下说法是正确的，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T(n)=O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>θ</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T(n)=\theta (nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T(n)=O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></p>
+<p>以下说法是错误的，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T(n)=\Omega (n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">Ω</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，应为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi mathvariant="normal">Ω</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">T(n)=\Omega(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Ω</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></p>
+<blockquote>
+<p>关于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi></mrow><annotation encoding="application/x-tex">O</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>θ</mi></mrow><annotation encoding="application/x-tex">\theta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">θ</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Ω</mi></mrow><annotation encoding="application/x-tex">\Omega</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">Ω</span></span></span></span>可以类比为高阶、同阶、低阶。</p>
+</blockquote>
+<h3 id="np完全理论"><a class="markdownIt-Anchor" href="#np完全理论"></a> NP完全理论</h3>
+<p>P类问题：所有可以在多项式时间内求解的判定问题。例如，冒泡排序、快速排序、最短路径等。</p>
+<p>NP问题：无法确定具体的多项式时间，但是对于它的解可以在多项式时间内验证。例如，超大规模的数字计算，可能无法在短时间内求解，但是可以假设一个解并在短时间得到验证。</p>
+<p>NPC问题：也称NP完备问题，这类NP完备问题如果能在多项式时间内解决，那么NP中的每一个问题都可以在多项式时间内解决，即所有NP类问题都可以在多项式时间内规约到某个NPC问题。</p>
+<p>但是目前尚未得到一个NP完备问题的多项式时间算法。</p>
+<blockquote>
+<p>P类问题和NP问题，都可在多项式时间内求解，不同的是NP问题是非确定性的。</p>
+<p>第一个NPC问题是SAT布尔可满足性问题，又由Cook提出。</p>
+</blockquote>
+<h3 id="排序相关"><a class="markdownIt-Anchor" href="#排序相关"></a> 排序相关</h3>
+<p>对于有序数组再排序，比较次数最少的是插入排序。</p>
+<h3 id="图相关"><a class="markdownIt-Anchor" href="#图相关"></a> 图相关</h3>
+<p>对于任意无向连通图<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">G=(V,E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>，当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">G</span></span></span></span>采用邻接矩阵存储时，关于其最小生成树</p>
+<ul>
+<li>图<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">G</span></span></span></span>的最小生成树是<strong>不唯一</strong>的</li>
+<li>对于图<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">G</span></span></span></span>可以采用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mi>i</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Prim</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">m</span></span></span></span>算法或<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mi>r</mi><mi>u</mi><mi>s</mi><mi>k</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">Kruskal</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">u</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span>算法来求解其最小生成树</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mi>i</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Prim</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">m</span></span></span></span>算法的复杂度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span>为图中顶点的数量</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mi>r</mi><mi>u</mi><mi>s</mi><mi>k</mi><mi>a</mi><mi>l</mi></mrow><annotation encoding="application/x-tex">Kruskal</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">K</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">u</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span>算法的复杂度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>e</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>e</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(eloge)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mclose">)</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi></mrow><annotation encoding="application/x-tex">e</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">e</span></span></span></span>为图中边的数量</li>
+</ul>
+<h3 id="线性时间选择"><a class="markdownIt-Anchor" href="#线性时间选择"></a> 线性时间选择</h3>
+<p>线性时间查找最小的元素或者第<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>小的元素最少也要<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>的时间复杂度，即遍历整个元素集合的时间复杂度。</p>
+<p>使用线性时间选择Select算法求解，只有在元素已经有序的前提下，其时间复杂度才为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(logn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</p>
+<p>当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≤</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">k\leq nlogn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span></span></span></span>或<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mi>n</mi><mo>−</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">k\geq n-nlogn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span></span></span></span>时，使用堆排序可能在<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>的时间复杂度内求解。</p>
+<h3 id="最优装载问题"><a class="markdownIt-Anchor" href="#最优装载问题"></a> 最优装载问题</h3>
+<p>最优装载问题就是0-1背包问题的一个变形。</p>
+<p>对于最优装载问题，一定存在一组可行解。</p>
+<p>最优装载问题，使用贪心算法来求解，自然有最优子结构的性质。</p>
+<p>最优装载问题的贪心策略是选择重量最轻的集装箱先装。</p>
+<h3 id="散装背包问题"><a class="markdownIt-Anchor" href="#散装背包问题"></a> 散装背包问题</h3>
+<p>散装背包问题使用贪心算法求解，其时间复杂度为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(nlogn)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>。</p>
+<h3 id="硬币称重问题"><a class="markdownIt-Anchor" href="#硬币称重问题"></a> 硬币称重问题</h3>
+<p>8个硬币中，已知其中一个硬币很重，使用最少的次数找出这枚硬币。</p>
+<p>常见的错误思路：4,4 —&gt; 2,2—&gt;1,1</p>
+<p>每次对半称，找重的一边，以此类推，共需要3次。</p>
+<p>一种更好的思路：3,3…2 —&gt; 1,1…1 或 1,1</p>
+<p>先取6枚硬币对半称，余下2枚硬币。分情况讨论</p>
+<ul>
+<li>
+<p>3,3对称不平衡，硬币在重的一边的3枚硬币中。</p>
+<p>在3枚硬币中，再取2枚硬币对称就可以直接求解。</p>
+<ul>
+<li>若不平衡，则硬币就是重的一边的硬币</li>
+<li>若平衡，则硬币就是未称量的那一枚硬币</li>
+</ul>
+</li>
+<li>
+<p>3,3对称平衡，硬币在余下的2枚硬币中。</p>
+<p>直接称量余下的2枚硬币，即可求解。</p>
+</li>
+</ul>
+<p>以上两种情况所需的次数均为2次。</p>
+<h3 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h3>
+<p><a class="link"   href="https://www.bilibili.com/video/BV1Ga4y1G7Q8" >https://www.bilibili.com/video/BV1Ga4y1G7Q8 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>杂乱的记录</category>
+      </categories>
+      <tags>
+        <tag>算法概念</tag>
+        <tag>草稿笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -5577,230 +5707,6 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
-    <title>Redis</title>
-    <url>/2023/02/22/golang-day17/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7202945024749092923" >Redis | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对 Redis 的学习<span id="more"></span></p>
-<h2 id="redis"><a class="markdownIt-Anchor" href="#redis"></a> Redis</h2>
-<h3 id="1redis-是什么"><a class="markdownIt-Anchor" href="#1redis-是什么"></a> 1.Redis 是什么</h3>
-<h4 id="为什么需要-redis"><a class="markdownIt-Anchor" href="#为什么需要-redis"></a> 为什么需要 Redis</h4>
-<ul>
-<li>数据从单表，演进出了分库分表</li>
-<li>MySQL 从单机演进出了集群
-<ul>
-<li>数据量增长</li>
-<li>读写数据压力的不断增加</li>
-</ul>
-</li>
-<li>数据分冷热
-<ul>
-<li>热数据：经常被访问到的数据</li>
-</ul>
-</li>
-<li>将热数据存储到内存中</li>
-</ul>
-<h4 id="redis-基本工作原理"><a class="markdownIt-Anchor" href="#redis-基本工作原理"></a> Redis 基本工作原理</h4>
-<ul>
-<li>数据从内存中读写</li>
-<li>数据保存到硬盘上防止重启数据丢失
-<ul>
-<li>增量数据保存到 AOF 文件中</li>
-<li>全量数据保存到 RDB 文件中</li>
-</ul>
-</li>
-<li>单线程处理所有操作命令</li>
-</ul>
-<h3 id="2redis-应用案例"><a class="markdownIt-Anchor" href="#2redis-应用案例"></a> 2.Redis 应用案例</h3>
-<h4 id="案例"><a class="markdownIt-Anchor" href="#案例"></a> 案例</h4>
-<p><strong>1.连续签到</strong></p>
-<p>app 每日签到，如果断签，连续签到计数将归 0。</p>
-<p>连续签到的要求：每天必须在 23:59 前签到</p>
-<ul>
-<li>Key：uuid…</li>
-<li>value：252</li>
-<li>expireAt：24:00</li>
-</ul>
-<p><strong>String 数据结构</strong></p>
-<ul>
-<li>可以存储字符串、数字、二进制数据</li>
-<li>通常和 expire 配合使用</li>
-<li>场景：存储计数、Session</li>
-</ul>
-<p><strong>2.消息通知</strong></p>
-<p>用 list 作为消息队列</p>
-<ul>
-<li>
-<p>使用场景：消息通知</p>
-<blockquote>
-<p>例如当文章更新时，将更新后的文章推送到 ES，用户就能搜索到最新的文章数据。</p>
-</blockquote>
-</li>
-</ul>
-<p><strong>List 数据结构 Quicklist</strong></p>
-<p>Quicklist 由一个双向链表和 listpack 实现</p>
-<p><strong>3.计数</strong></p>
-<p>一个用户有多项计数需求，可通过 hash 结构存储</p>
-<p><strong>Hash 数据结构 dict</strong></p>
-<ul>
-<li>rehash：rehash 操作是将 ht[0] 中的数据，全部迁移到 ht[1] 中。数据量小的场景下，直接将数据从 ht[0] 拷贝到 ht[1] 速度是较快的。数据量大的场景，例如存有上百万的 KV 时，迁移过程将会明显阻塞用户请求。</li>
-<li>渐进式 rehash：为避免出现这种情况，使用了 rehash 方案。基本原理就是，每次用户访问时都会迁移少量数据。将整个迁移过程，平摊到所有的访问请求过程中。</li>
-</ul>
-<p><strong>4.排行榜</strong></p>
-<p>积分变化时，排名要实时变更</p>
-<p><strong>zset 数据结构 zskiplist</strong></p>
-<ul>
-<li>结合 dict 后，可实现通过 key 操作跳表的功能</li>
-</ul>
-<p><strong>5.限流</strong></p>
-<ul>
-<li>
-<p>要求1秒内放行的请求为 N，超过 N 则禁止访问</p>
-</li>
-<li>
-<p>Key：comment_freq_limit_1671356046</p>
-<p>对这个 Key 调用 incr，超过限制 N 则禁止访问</p>
-<p>1671356046 是当前时间戳</p>
-</li>
-</ul>
-<p><strong>6.分布式锁</strong></p>
-<p>并发场景：要求一次只能有一个协程执行。执行完成后，其它等待中的协程才能执行。</p>
-<p>可以使用 Redis 的 setnx 实现，利用了两个特性</p>
-<ul>
-<li>Redis 是单线程执行命令</li>
-<li>setnx 只有未设置过才能执行成功</li>
-</ul>
-<h3 id="3redis-使用注意事项"><a class="markdownIt-Anchor" href="#3redis-使用注意事项"></a> 3.Redis 使用注意事项</h3>
-<h4 id="31-大-key-热-key"><a class="markdownIt-Anchor" href="#31-大-key-热-key"></a> 3.1 大 Key、热 Key</h4>
-<p><strong>大 Key 的定义</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">数据类型</th>
-<th style="text-align:center">大 Key 标准</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">String 类型</td>
-<td style="text-align:center">value 的字节数大于 10KB 即为大Key</td>
-</tr>
-<tr>
-<td style="text-align:center">Hash/Set/Zset/list 等复杂数据结构类型</td>
-<td style="text-align:center">元素个数大于5000个或总 value 字节数大于 10MB 即为大Key</td>
-</tr>
-</tbody>
-</table>
-<p><strong>大 Key 的危害</strong></p>
-<ul>
-<li>读取成本高</li>
-<li>容易导致慢查询（过期、删除）</li>
-<li>主从复制异常，服务阻塞，无法正常响应请求</li>
-</ul>
-<p><strong>业务侧使用大 Key 的表现</strong></p>
-<ul>
-<li>请求 Redis 超时报错</li>
-</ul>
-<p><strong>消除大 Key 的方法</strong></p>
-<ol>
-<li>
-<p>拆分</p>
-<p>将大 Key 拆分成为小 Key。例如一个 String 拆分成多个 String</p>
-</li>
-<li>
-<p>压缩</p>
-<p>将 value 压缩后写入 redis，读取时解压后再使用。压缩算法可以是 gzip、snappy、lz4 等。通常情况下，一个压缩算法压缩率高，则解压耗时就长。需要对实际数据进行测试后，选择一个合适的算法。如果存储的是 JSON 字符串，可以考虑使用 MessagePack 进行序列化。</p>
-</li>
-<li>
-<p>集合类结构 hash、list、set、zset</p>
-<ol>
-<li>拆分：可以用 hash 取余，位掩码的方式决定放在哪个 key 中。</li>
-<li>区分冷热：如榜单列表场景使用zset，只缓存前10页数据，后续数据走db。</li>
-</ol>
-</li>
-</ol>
-<p><strong>热 Key 的定义</strong></p>
-<p>用户访问一个 Key 的 QPS 特别高，导致 Server 实例出现 CPU 负载突增或者不均的情况。</p>
-<p>热 Key 没有明确的标准，QPS 超过500就有可能被识别为热 Key。</p>
-<p><strong>解决热 Key 的方法</strong></p>
-<ol>
-<li>
-<p>设置 Localcache</p>
-<p>在访问 Redis 之前，在业务服务侧设置 Localcache，降低访问 Redis 的QPS。LocalCache 中缓存过期或未命中，则从 Redis 中将数据更新到 LocalCache。Java 的 Guava、Golang 的 Bigcache 就是这类 LocalCache。</p>
-</li>
-<li>
-<p>拆分</p>
-<p>将 key: value 这一个热 Key 复制写入多份，例如 key1: value；key2: value，访问的时候访问多个 key，但 value 是同一个，以此将qps 分散到不同实例上，降低负载。代价是更新时需要更新多个 key，存在数据短暂不一致的风险。</p>
-</li>
-<li>
-<p>使用 Redis 代理的热 Key 承载能力</p>
-<p>字节跳动团队的 Redis 访问代理就具备热 Key 承载能力。本质上是结合了“热 Key 发现”、“LocalCache”两个功能</p>
-</li>
-</ol>
-<h4 id="32-慢查询场景"><a class="markdownIt-Anchor" href="#32-慢查询场景"></a> 3.2 慢查询场景</h4>
-<p><strong>容易导致 redis 慢查询的操作</strong></p>
-<ol>
-<li>
-<p>批量操作一次性传入过多的 key/value，如 mset/hmset/sadd/zadd 等 O(n) 操作</p>
-<blockquote>
-<p>建议单批次不要超过100，超过100之后性能下降明显。</p>
-</blockquote>
-</li>
-<li>
-<p>zset 大部分命令都是  O(log(n)) ，当大小超过5k以上时，简单的 zadd/zrem 也可能导致慢查询</p>
-</li>
-<li>
-<p>操作的单个 value 过大，超过 10KB，也就是说，要避免使用大 Key</p>
-</li>
-<li>
-<p>对大 Key 的 delete/expire 操作也可能导致慢查询，Redis4.0之前不支持异步删除unlink，大 Key 删除会阻塞 Redis</p>
-</li>
-</ol>
-<h4 id="33-缓存穿透-缓存雪崩"><a class="markdownIt-Anchor" href="#33-缓存穿透-缓存雪崩"></a> 3.3 缓存穿透、缓存雪崩</h4>
-<p>缓存穿透：热点数据查询绕过缓存，直接查询数据库</p>
-<p>缓存雪崩：大量缓存同时过期</p>
-<p><strong>缓存穿透、雪崩的危害</strong></p>
-<ol>
-<li>
-<p>查询一个一定不存在的数据</p>
-<p>通常不会缓存不存在的数据，这类查询请求都会直接打到db，如果有系统bug或人为攻击，那么容易导致db响应慢甚至宕机。</p>
-</li>
-<li>
-<p>缓存过期时</p>
-<p>在高并发场景下，一个热 key 如果过期，会有大量请求同时击穿至db，容易影响db性能和稳定。</p>
-<p>同一时间有大量key集中过期时，也会导致大量请求落到db上，导致查询变慢，甚至出现db无法响应新的查询。</p>
-</li>
-</ol>
-<p><strong>如何减少缓存穿透</strong></p>
-<ol>
-<li>
-<p>缓存空值</p>
-<p>如一个不存在的userID，这个id在缓存和数据库中都不存在，则可以缓存一个空值，下次再查询缓存直接返回空值。</p>
-</li>
-<li>
-<p>布隆过滤器</p>
-<p>通过 bloom filter 算法来存储合法 Key，得益于该算法超高的压缩率，只需占有极小的空间就能存储大量 key 值。</p>
-</li>
-</ol>
-<p><strong>如何避免缓存雪崩</strong></p>
-<ol>
-<li>
-<p>缓存空值</p>
-<p>将缓存失效时间分散开，比如在原有的失效时间基础上增加一个随机值，例如不同Key过期时间，可以设置为10分1秒过期，10分23秒过期，10分8秒过期。单位秒部分就是随机时间，这样过期时间就分散了。</p>
-<p>对于热点数据，过期时间尽量设置得长一些，冷门的数据可以相对设置过期时间短一些。</p>
-</li>
-<li>
-<p>使用缓存集群，避免单机宕机造成的缓存雪崩。</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>深入理解 RDBMS</title>
     <url>/2023/02/22/golang-day16/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7202607329400291385" >深入理解 RDBMS | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对 RDBMS 的学习<span id="more"></span></p>
@@ -6343,6 +6249,230 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
+    <title>Redis</title>
+    <url>/2023/02/22/golang-day17/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7202945024749092923" >Redis | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对 Redis 的学习<span id="more"></span></p>
+<h2 id="redis"><a class="markdownIt-Anchor" href="#redis"></a> Redis</h2>
+<h3 id="1redis-是什么"><a class="markdownIt-Anchor" href="#1redis-是什么"></a> 1.Redis 是什么</h3>
+<h4 id="为什么需要-redis"><a class="markdownIt-Anchor" href="#为什么需要-redis"></a> 为什么需要 Redis</h4>
+<ul>
+<li>数据从单表，演进出了分库分表</li>
+<li>MySQL 从单机演进出了集群
+<ul>
+<li>数据量增长</li>
+<li>读写数据压力的不断增加</li>
+</ul>
+</li>
+<li>数据分冷热
+<ul>
+<li>热数据：经常被访问到的数据</li>
+</ul>
+</li>
+<li>将热数据存储到内存中</li>
+</ul>
+<h4 id="redis-基本工作原理"><a class="markdownIt-Anchor" href="#redis-基本工作原理"></a> Redis 基本工作原理</h4>
+<ul>
+<li>数据从内存中读写</li>
+<li>数据保存到硬盘上防止重启数据丢失
+<ul>
+<li>增量数据保存到 AOF 文件中</li>
+<li>全量数据保存到 RDB 文件中</li>
+</ul>
+</li>
+<li>单线程处理所有操作命令</li>
+</ul>
+<h3 id="2redis-应用案例"><a class="markdownIt-Anchor" href="#2redis-应用案例"></a> 2.Redis 应用案例</h3>
+<h4 id="案例"><a class="markdownIt-Anchor" href="#案例"></a> 案例</h4>
+<p><strong>1.连续签到</strong></p>
+<p>app 每日签到，如果断签，连续签到计数将归 0。</p>
+<p>连续签到的要求：每天必须在 23:59 前签到</p>
+<ul>
+<li>Key：uuid…</li>
+<li>value：252</li>
+<li>expireAt：24:00</li>
+</ul>
+<p><strong>String 数据结构</strong></p>
+<ul>
+<li>可以存储字符串、数字、二进制数据</li>
+<li>通常和 expire 配合使用</li>
+<li>场景：存储计数、Session</li>
+</ul>
+<p><strong>2.消息通知</strong></p>
+<p>用 list 作为消息队列</p>
+<ul>
+<li>
+<p>使用场景：消息通知</p>
+<blockquote>
+<p>例如当文章更新时，将更新后的文章推送到 ES，用户就能搜索到最新的文章数据。</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>List 数据结构 Quicklist</strong></p>
+<p>Quicklist 由一个双向链表和 listpack 实现</p>
+<p><strong>3.计数</strong></p>
+<p>一个用户有多项计数需求，可通过 hash 结构存储</p>
+<p><strong>Hash 数据结构 dict</strong></p>
+<ul>
+<li>rehash：rehash 操作是将 ht[0] 中的数据，全部迁移到 ht[1] 中。数据量小的场景下，直接将数据从 ht[0] 拷贝到 ht[1] 速度是较快的。数据量大的场景，例如存有上百万的 KV 时，迁移过程将会明显阻塞用户请求。</li>
+<li>渐进式 rehash：为避免出现这种情况，使用了 rehash 方案。基本原理就是，每次用户访问时都会迁移少量数据。将整个迁移过程，平摊到所有的访问请求过程中。</li>
+</ul>
+<p><strong>4.排行榜</strong></p>
+<p>积分变化时，排名要实时变更</p>
+<p><strong>zset 数据结构 zskiplist</strong></p>
+<ul>
+<li>结合 dict 后，可实现通过 key 操作跳表的功能</li>
+</ul>
+<p><strong>5.限流</strong></p>
+<ul>
+<li>
+<p>要求1秒内放行的请求为 N，超过 N 则禁止访问</p>
+</li>
+<li>
+<p>Key：comment_freq_limit_1671356046</p>
+<p>对这个 Key 调用 incr，超过限制 N 则禁止访问</p>
+<p>1671356046 是当前时间戳</p>
+</li>
+</ul>
+<p><strong>6.分布式锁</strong></p>
+<p>并发场景：要求一次只能有一个协程执行。执行完成后，其它等待中的协程才能执行。</p>
+<p>可以使用 Redis 的 setnx 实现，利用了两个特性</p>
+<ul>
+<li>Redis 是单线程执行命令</li>
+<li>setnx 只有未设置过才能执行成功</li>
+</ul>
+<h3 id="3redis-使用注意事项"><a class="markdownIt-Anchor" href="#3redis-使用注意事项"></a> 3.Redis 使用注意事项</h3>
+<h4 id="31-大-key-热-key"><a class="markdownIt-Anchor" href="#31-大-key-热-key"></a> 3.1 大 Key、热 Key</h4>
+<p><strong>大 Key 的定义</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th style="text-align:center">大 Key 标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">String 类型</td>
+<td style="text-align:center">value 的字节数大于 10KB 即为大Key</td>
+</tr>
+<tr>
+<td style="text-align:center">Hash/Set/Zset/list 等复杂数据结构类型</td>
+<td style="text-align:center">元素个数大于5000个或总 value 字节数大于 10MB 即为大Key</td>
+</tr>
+</tbody>
+</table>
+<p><strong>大 Key 的危害</strong></p>
+<ul>
+<li>读取成本高</li>
+<li>容易导致慢查询（过期、删除）</li>
+<li>主从复制异常，服务阻塞，无法正常响应请求</li>
+</ul>
+<p><strong>业务侧使用大 Key 的表现</strong></p>
+<ul>
+<li>请求 Redis 超时报错</li>
+</ul>
+<p><strong>消除大 Key 的方法</strong></p>
+<ol>
+<li>
+<p>拆分</p>
+<p>将大 Key 拆分成为小 Key。例如一个 String 拆分成多个 String</p>
+</li>
+<li>
+<p>压缩</p>
+<p>将 value 压缩后写入 redis，读取时解压后再使用。压缩算法可以是 gzip、snappy、lz4 等。通常情况下，一个压缩算法压缩率高，则解压耗时就长。需要对实际数据进行测试后，选择一个合适的算法。如果存储的是 JSON 字符串，可以考虑使用 MessagePack 进行序列化。</p>
+</li>
+<li>
+<p>集合类结构 hash、list、set、zset</p>
+<ol>
+<li>拆分：可以用 hash 取余，位掩码的方式决定放在哪个 key 中。</li>
+<li>区分冷热：如榜单列表场景使用zset，只缓存前10页数据，后续数据走db。</li>
+</ol>
+</li>
+</ol>
+<p><strong>热 Key 的定义</strong></p>
+<p>用户访问一个 Key 的 QPS 特别高，导致 Server 实例出现 CPU 负载突增或者不均的情况。</p>
+<p>热 Key 没有明确的标准，QPS 超过500就有可能被识别为热 Key。</p>
+<p><strong>解决热 Key 的方法</strong></p>
+<ol>
+<li>
+<p>设置 Localcache</p>
+<p>在访问 Redis 之前，在业务服务侧设置 Localcache，降低访问 Redis 的QPS。LocalCache 中缓存过期或未命中，则从 Redis 中将数据更新到 LocalCache。Java 的 Guava、Golang 的 Bigcache 就是这类 LocalCache。</p>
+</li>
+<li>
+<p>拆分</p>
+<p>将 key: value 这一个热 Key 复制写入多份，例如 key1: value；key2: value，访问的时候访问多个 key，但 value 是同一个，以此将qps 分散到不同实例上，降低负载。代价是更新时需要更新多个 key，存在数据短暂不一致的风险。</p>
+</li>
+<li>
+<p>使用 Redis 代理的热 Key 承载能力</p>
+<p>字节跳动团队的 Redis 访问代理就具备热 Key 承载能力。本质上是结合了“热 Key 发现”、“LocalCache”两个功能</p>
+</li>
+</ol>
+<h4 id="32-慢查询场景"><a class="markdownIt-Anchor" href="#32-慢查询场景"></a> 3.2 慢查询场景</h4>
+<p><strong>容易导致 redis 慢查询的操作</strong></p>
+<ol>
+<li>
+<p>批量操作一次性传入过多的 key/value，如 mset/hmset/sadd/zadd 等 O(n) 操作</p>
+<blockquote>
+<p>建议单批次不要超过100，超过100之后性能下降明显。</p>
+</blockquote>
+</li>
+<li>
+<p>zset 大部分命令都是  O(log(n)) ，当大小超过5k以上时，简单的 zadd/zrem 也可能导致慢查询</p>
+</li>
+<li>
+<p>操作的单个 value 过大，超过 10KB，也就是说，要避免使用大 Key</p>
+</li>
+<li>
+<p>对大 Key 的 delete/expire 操作也可能导致慢查询，Redis4.0之前不支持异步删除unlink，大 Key 删除会阻塞 Redis</p>
+</li>
+</ol>
+<h4 id="33-缓存穿透-缓存雪崩"><a class="markdownIt-Anchor" href="#33-缓存穿透-缓存雪崩"></a> 3.3 缓存穿透、缓存雪崩</h4>
+<p>缓存穿透：热点数据查询绕过缓存，直接查询数据库</p>
+<p>缓存雪崩：大量缓存同时过期</p>
+<p><strong>缓存穿透、雪崩的危害</strong></p>
+<ol>
+<li>
+<p>查询一个一定不存在的数据</p>
+<p>通常不会缓存不存在的数据，这类查询请求都会直接打到db，如果有系统bug或人为攻击，那么容易导致db响应慢甚至宕机。</p>
+</li>
+<li>
+<p>缓存过期时</p>
+<p>在高并发场景下，一个热 key 如果过期，会有大量请求同时击穿至db，容易影响db性能和稳定。</p>
+<p>同一时间有大量key集中过期时，也会导致大量请求落到db上，导致查询变慢，甚至出现db无法响应新的查询。</p>
+</li>
+</ol>
+<p><strong>如何减少缓存穿透</strong></p>
+<ol>
+<li>
+<p>缓存空值</p>
+<p>如一个不存在的userID，这个id在缓存和数据库中都不存在，则可以缓存一个空值，下次再查询缓存直接返回空值。</p>
+</li>
+<li>
+<p>布隆过滤器</p>
+<p>通过 bloom filter 算法来存储合法 Key，得益于该算法超高的压缩率，只需占有极小的空间就能存储大量 key 值。</p>
+</li>
+</ol>
+<p><strong>如何避免缓存雪崩</strong></p>
+<ol>
+<li>
+<p>缓存空值</p>
+<p>将缓存失效时间分散开，比如在原有的失效时间基础上增加一个随机值，例如不同Key过期时间，可以设置为10分1秒过期，10分23秒过期，10分8秒过期。单位秒部分就是随机时间，这样过期时间就分散了。</p>
+<p>对于热点数据，过期时间尽量设置得长一些，冷门的数据可以相对设置过期时间短一些。</p>
+</li>
+<li>
+<p>使用缓存集群，避免单机宕机造成的缓存雪崩。</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Go 工程进阶</title>
     <url>/2023/01/26/golang-day2/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7193685237723824187" >golang工程进阶 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang工程开发的学习<span id="more"></span></p>
@@ -6710,521 +6840,6 @@ y=2^{E_y}\cdot M_y
 <p><a class="link"   href="https://www.runoob.com/go/go-concurrent.html" >Go 并发 | 菜鸟教程 (runoob.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://juejin.cn/post/7181812988461252667" >深入理解 go sync.Waitgroup - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://blog.csdn.net/Sihang_Xie/article/details/124851399" >【Go语言入门】一文搞懂Go语言的最新依赖管理：go mod的使用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>golang</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Go 语言内存管理详解</title>
-    <url>/2023/01/30/golang-day4/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7194838118955450428" >Go 语言内存管理详解 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang内存管理的学习<span id="more"></span></p>
-<h2 id="内存管理详解"><a class="markdownIt-Anchor" href="#内存管理详解"></a> 内存管理详解</h2>
-<h3 id="追求极致性能"><a class="markdownIt-Anchor" href="#追求极致性能"></a> 追求极致性能</h3>
-<p>性能优化：提升软件系统处理能力，减少不必要的消耗，充分发掘计算机算力。</p>
-<p>性能优化的目的</p>
-<ul>
-<li>用户体验：带来用户体验的提升</li>
-<li>资源高效利用：降低成本。提高效率</li>
-</ul>
-<h3 id="性能优化的层面"><a class="markdownIt-Anchor" href="#性能优化的层面"></a> 性能优化的层面</h3>
-<ul>
-<li>业务层优化
-<ul>
-<li>针对特定场景，具体问题具体分析</li>
-<li>容易获得较大性能收益</li>
-</ul>
-</li>
-<li>语言运行时优化
-<ul>
-<li>解决更通用的性能问题</li>
-<li>考虑更多场景</li>
-<li>Tradeoffs权衡</li>
-</ul>
-</li>
-<li>数据驱动
-<ul>
-<li>自动化性能分析工具——pprof</li>
-<li>依靠数据而非猜测</li>
-<li>首先优化最大瓶颈</li>
-</ul>
-</li>
-</ul>
-<h3 id="性能优化与软件质量"><a class="markdownIt-Anchor" href="#性能优化与软件质量"></a> 性能优化与软件质量</h3>
-<ul>
-<li>软件质量至关重要</li>
-<li>在保证接口稳定的前提下改进具体实现</li>
-<li>测试用例：覆盖尽可能多的场景，方便回归</li>
-<li>文档：做了什么，没做什么，能达到怎样的效果</li>
-<li>隔离：通过选项控制是否开启优化</li>
-<li>可观测：必要的日志输出</li>
-</ul>
-<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
-<ul>
-<li>性能优化的基本问题</li>
-<li>性能优化的两个层面</li>
-<li>性能优化的可维护性</li>
-</ul>
-<h3 id="1自动内存管理"><a class="markdownIt-Anchor" href="#1自动内存管理"></a> 1.自动内存管理</h3>
-<h4 id="11-自动内存管理"><a class="markdownIt-Anchor" href="#11-自动内存管理"></a> 1.1 自动内存管理</h4>
-<ul>
-<li>动态内存
-<ul>
-<li>程序在运行时根据需求动态分配的内存：malloc()</li>
-</ul>
-</li>
-<li>自动内存管理（垃圾回收）：由程序语言的运行时系统管理动态内存
-<ul>
-<li>避免手动内存管理，专注于实现业务逻辑</li>
-<li>保证内存使用的正确性和安全性：double-free problem，use-after-free problem</li>
-</ul>
-</li>
-<li>三个任务
-<ul>
-<li>为新对象分配空间</li>
-<li>找到存活对象</li>
-<li>回收死亡对象的内存空间</li>
-</ul>
-</li>
-</ul>
-<p><strong>相关概念</strong></p>
-<ul>
-<li>
-<p>Mutator：业务线程，分配新对象，修改对象的指向关系</p>
-</li>
-<li>
-<p>Collector：GC线程，找到存活对象，回收死亡对象的内存空间</p>
-</li>
-<li>
-<p>Serial GC：只有一个collector</p>
-</li>
-<li>
-<p>Parallel GC：支持多个collector同时回收的GC算法</p>
-</li>
-<li>
-<p>Concurrent GC：mutator(s)和collector(s)可以同时执行</p>
-</li>
-<li>
-<p>Collectors必须感知对象指向关系的改变</p>
-</li>
-<li>
-<p>评价GC算法</p>
-<ul>
-<li>安全性（Safety）：不能回收存活的对象。这是基本要求</li>
-<li>吞吐率（Throughput）：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mfrac><mrow><mi>G</mi><mi>C</mi><mtext>时间</mtext></mrow><mtext>程序执行总时间</mtext></mfrac></mrow><annotation encoding="application/x-tex">1-\frac {GC时间}{程序执行总时间}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">程</span><span class="mord cjk_fallback mtight">序</span><span class="mord cjk_fallback mtight">执</span><span class="mord cjk_fallback mtight">行</span><span class="mord cjk_fallback mtight">总</span><span class="mord cjk_fallback mtight">时</span><span class="mord cjk_fallback mtight">间</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">G</span><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span><span class="mord cjk_fallback mtight">时</span><span class="mord cjk_fallback mtight">间</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。花在GC上的时间</li>
-<li>暂停时间（Pause time）：stop the world（STW）。业务是否感知</li>
-<li>内存开销（Space overhead）：GC元数据开销</li>
-</ul>
-</li>
-<li>
-<p>追踪垃圾回收（Tracing garbage collection）</p>
-</li>
-<li>
-<p>引用计数（Reference counting）</p>
-</li>
-</ul>
-<h4 id="12-追踪垃圾回收"><a class="markdownIt-Anchor" href="#12-追踪垃圾回收"></a> 1.2 追踪垃圾回收</h4>
-<ul>
-<li>
-<p>对象被回收的条件：指针指向关系不可达的对象</p>
-</li>
-<li>
-<p>标记根对象</p>
-<ul>
-<li>静态变量、全局变量、常量、线程栈等</li>
-</ul>
-</li>
-<li>
-<p>标记：找到可达对象</p>
-<ul>
-<li>求指针指向关系的传递闭包：从根对象出发，找到所有可达对象</li>
-</ul>
-</li>
-<li>
-<p>清理：所有不可达对象</p>
-<ul>
-<li>
-<p>将存活对象复制到另外的内存空间（Copying GC）</p>
-<p>Copying GC：将对象复制到另外的内存空间</p>
-</li>
-<li>
-<p>将死亡对象的内存标记为“可分配”（Mark-sweep GC）</p>
-<p>Mark-sweep GC：使用free list管理空闲内存</p>
-</li>
-<li>
-<p>移动并整理存活对象（Mark-compact GC）</p>
-<p>Compact GC：原地整理对象</p>
-</li>
-</ul>
-</li>
-<li>
-<p>根据对象的生命周期，使用不同的标记和清理策略</p>
-</li>
-</ul>
-<h4 id="13-分代-gcgenerational-gc"><a class="markdownIt-Anchor" href="#13-分代-gcgenerational-gc"></a> 1.3 分代 GC（Generational GC）</h4>
-<ul>
-<li>分代假说（Generational hypothesis）：most objects die young</li>
-<li>Intuition：很多对象在分配出来后很快就不在使用了</li>
-<li>每个对象都有年龄：经历过GC的次数</li>
-<li>目的：对年轻和年老的对象，制定不同的GC策略，降低整体内存管理的开销</li>
-<li>不同年龄的对象处于heap的不同区域</li>
-<li>年轻代（Young generation）
-<ul>
-<li>常规的对象分配</li>
-<li>由于存活对象很少，可以采用copying collection</li>
-<li>GC吞吐率很高</li>
-</ul>
-</li>
-<li>老年代（Old generation）
-<ul>
-<li>对象趋向一直活着，反复复制开销较大</li>
-<li>可以采用mark-sweep collection</li>
-</ul>
-</li>
-</ul>
-<h4 id="14-引用计数"><a class="markdownIt-Anchor" href="#14-引用计数"></a> 1.4 引用计数</h4>
-<ul>
-<li>每个对象都有一个与之关联的引用数目</li>
-<li>对象存活的条件：当且仅当引用数大于0</li>
-<li>优点
-<ul>
-<li>内存管理的操作被平摊到程序执行过程中</li>
-<li>内存管理不需要了解runtime的实现细节：C++智能指针（smart pointer）</li>
-</ul>
-</li>
-<li>缺点
-<ul>
-<li>维护引用计数的开销较大：通过原子操作保证对引用计数操作的原子性和可见性</li>
-<li>无法回收环形数据结构——weak reference</li>
-<li>内存开销：每个对象都引入的额外内存空间存储引用数目</li>
-<li>回收内存时依然可能引发暂停</li>
-</ul>
-</li>
-</ul>
-<h4 id="总结-2"><a class="markdownIt-Anchor" href="#总结-2"></a> 总结</h4>
-<ul>
-<li>自动内存管理的背景和意义</li>
-<li>概念和评价方法</li>
-<li>追踪垃圾回收</li>
-<li>引用计数</li>
-<li>分代 GC</li>
-<li>学术界和工业界一直致力于解决自动内存管理技术的不足之处
-<ul>
-<li>相关信息<a class="link"   href="https://pldi22.sigplan.org/details/pldi-2022-pldi/15/Low-Latency-High-Throughput-Garbage-Collection" >Low-Latency, High-Throughput Garbage Collection (PLDI 2022 - PLDI Research Papers)  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>相关介绍<a class="link"   href="https://zhuanlan.zhihu.com/p/525093935" >PLDI’22 | June 13-17，编程语言顶级会议 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-</li>
-</ul>
-<h3 id="2go管理及优化"><a class="markdownIt-Anchor" href="#2go管理及优化"></a> 2.Go管理及优化</h3>
-<h4 id="21-go-内存分配"><a class="markdownIt-Anchor" href="#21-go-内存分配"></a> 2.1 Go 内存分配</h4>
-<p><strong>分块</strong></p>
-<ul>
-<li>目标：为对象在heap上分配内存</li>
-<li>提前将内存分块
-<ul>
-<li>调用系统调用 mmap() 向OS申请一大块内存，例如 4 MB</li>
-<li>先将内存划分成大块，例如 8 KB，称作 mspan</li>
-<li>再将大块继续划分成特定大小的小块，用于对象分配</li>
-<li>noscan mspan：分配不包含指针的对象——GC 不需要扫描</li>
-<li>scan mspan：分配包含指针的对象——GC 需要扫描</li>
-</ul>
-</li>
-<li>对象分配：根据对象的大小，选择最合适的块返回</li>
-</ul>
-<p><strong>缓存</strong></p>
-<ul>
-<li>TCMalloc：thread caching</li>
-<li>每个 p 包含一个 mcache 用于快速分配，用于为绑定于 p 上的 g 分配对象</li>
-<li>mcache 管理一组 mspan</li>
-<li>当 mcache 中的 mspan 分配完毕，向 mcentral 申请带有未分配块的 mspan</li>
-<li>当 mspan 中没有分配的对象，mspan 会被缓存在 mcentral 中，而不是立刻释放并归还给 OS</li>
-</ul>
-<h4 id="22-go-内存管理优化"><a class="markdownIt-Anchor" href="#22-go-内存管理优化"></a> 2.2 Go 内存管理优化</h4>
-<ul>
-<li>对象分配是非常高频的操作：每秒分配 GB 级别的内存</li>
-<li>小对象占比较高</li>
-<li>Go 内存分配比较耗时
-<ul>
-<li>分配路径长：g -&gt; m -&gt; p -&gt; mcache -&gt; mspan -&gt; memory block -&gt; return pointer</li>
-<li>pprof：对象分配的函数是最频繁调用的函数之一</li>
-</ul>
-</li>
-</ul>
-<h4 id="23-优化方案balanced-gc"><a class="markdownIt-Anchor" href="#23-优化方案balanced-gc"></a> 2.3 优化方案：Balanced GC</h4>
-<ul>
-<li>
-<p>每个 g 都绑定一大块内存（1KB），称作 goroutine allocation buffer（GAB）</p>
-</li>
-<li>
-<p>GAB 用于 noscan 类型的小对象分配：&lt; 128 B</p>
-</li>
-<li>
-<p>使用三个指针维护 GAB：base，end，top</p>
-</li>
-<li>
-<p>Bump pointer（指针碰撞）风格对象分配</p>
-<ul>
-<li>无须和其他分配请求互斥</li>
-<li>分配动作简单高效</li>
-</ul>
-</li>
-<li>
-<p>GAB 对于 Go 内存管理来说是一个大对象</p>
-</li>
-<li>
-<p>本质：将多个小对象的分配合并成一次大对象的分配</p>
-</li>
-<li>
-<p>问题：GAB的对象分配方式会导致内存被延迟释放</p>
-</li>
-<li>
-<p>方案：移动 GAB 中存活的对象</p>
-<ul>
-<li>当 GAB 总大小超过一定阈值时，将 GAB 中存活的对象复制到另外分配的 GAB 中</li>
-<li>原先的 GAB 可以释放，避免内存泄漏</li>
-<li>本质：用 copying GC 的算法管理小对象。根据对象的生命周期，使用不同的标记和清理策略。</li>
-</ul>
-</li>
-</ul>
-<p><strong>性能收益</strong>（数据仅供参考）</p>
-<ul>
-<li>高峰期 CPU usage 降低 4.6%，核心接口时延下降 4.5%~7.7%</li>
-</ul>
-<h4 id="总结-3"><a class="markdownIt-Anchor" href="#总结-3"></a> 总结</h4>
-<ul>
-<li>Go 内存管理 — 分块</li>
-<li>Go 内存管理 — 缓存</li>
-<li>Go 对象分配的性能问题
-<ul>
-<li>分配路径过长</li>
-<li>小对象居多</li>
-</ul>
-</li>
-<li>Balanced GC
-<ul>
-<li>指针碰撞风格的对象分配</li>
-<li>实现了 copying GC</li>
-<li>性能收益</li>
-</ul>
-</li>
-</ul>
-<h3 id="3编译器和静态分析"><a class="markdownIt-Anchor" href="#3编译器和静态分析"></a> 3.编译器和静态分析</h3>
-<h4 id="31-编译器的结构"><a class="markdownIt-Anchor" href="#31-编译器的结构"></a> 3.1 编译器的结构</h4>
-<ul>
-<li>重要的软件系统
-<ul>
-<li>识别符号语法和非法的程序</li>
-<li>生成正确且高效的代码</li>
-</ul>
-</li>
-<li>分析部分（前端 front end）
-<ul>
-<li>词法分析，生成词素（lexeme）</li>
-<li>语法分析，生成语法树</li>
-<li>语义分析，收集类型信息，进行语义检查</li>
-<li>中间代码生成，生成intermediate representation（IR）</li>
-</ul>
-</li>
-<li>综合部分（后端 back end）
-<ul>
-<li>代码优化，机器无关优化，生成优化后的 IR</li>
-<li>代码生成，生成目标代码</li>
-</ul>
-</li>
-</ul>
-<p>后端是优化重点，同时控制流和数据流分析是优化的基础。</p>
-<h4 id="32-静态分析"><a class="markdownIt-Anchor" href="#32-静态分析"></a> 3.2 静态分析</h4>
-<ul>
-<li>静态分析：不执行程序代码，推导程序的行为，分析程序的性质。</li>
-<li>控制流（Control flow）：程序执行的流程</li>
-<li>数据流（Data flow）：数据在控制流上的传递</li>
-<li>通过分析控制流和数据流，可以知道更多关于程序的性质（properties）</li>
-<li>根据这些性质优化代码</li>
-</ul>
-<h4 id="33-过程内分析和过程间分析"><a class="markdownIt-Anchor" href="#33-过程内分析和过程间分析"></a> 3.3 过程内分析和过程间分析</h4>
-<ul>
-<li>过程内分析（Intra-procedural analysis）
-<ul>
-<li>仅在函数内部进行分析</li>
-</ul>
-</li>
-<li>过程间分析
-<ul>
-<li>考虑函数调用时参数传递和返回值的数据流和控制流</li>
-</ul>
-</li>
-<li>过程间分析是个问题
-<ul>
-<li>需要通过数据流分析得知接口 i 的具体类型，才能知道有多个同名方法（比如<code>func (a *A) foo()</code>和<code>func (b *B) foo()</code>）存在时，接口 i 调用的是哪个<code>foo()</code></li>
-<li>根据接口的具体类型，产生了新的控制流，<code>i.foo()</code>，分析继续</li>
-<li>过程间分析需要同时分析控制流和数据流——联合求解，比较复杂</li>
-</ul>
-</li>
-</ul>
-<h4 id="总结-4"><a class="markdownIt-Anchor" href="#总结-4"></a> 总结</h4>
-<ul>
-<li>编译器的结构与编译的流程</li>
-<li>编译器后端优化</li>
-<li>数据流分析和控制流分析</li>
-<li>过程内分析和过程间分析</li>
-</ul>
-<h3 id="4go编译器优化"><a class="markdownIt-Anchor" href="#4go编译器优化"></a> 4.Go编译器优化</h3>
-<ul>
-<li>为什么做编译器优化
-<ul>
-<li>用户无感知，重新编译即可获得性能收益</li>
-<li>通用性优化</li>
-</ul>
-</li>
-<li>现状
-<ul>
-<li>采用的优化少</li>
-<li>编译时间较短，没有进行复杂的代码分析和优化</li>
-</ul>
-</li>
-<li>编译优化的思路
-<ul>
-<li>场景：面向后端长期执行任务</li>
-<li>Tradeoff：用编译时间换取更高效的机器码</li>
-</ul>
-</li>
-<li>Beast mode
-<ul>
-<li>函数内联分析</li>
-<li>逃逸分析</li>
-<li>默认栈大小调整</li>
-<li>边界检查消除</li>
-<li>循环展开</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<h4 id="41-函数内联inlining"><a class="markdownIt-Anchor" href="#41-函数内联inlining"></a> 4.1 函数内联（Inlining）</h4>
-<ul>
-<li>
-<p>内联：将被调用函数的函数体（callee）的副本替换到调用位置（caller）上，同时重写代码以反映参数的绑定</p>
-</li>
-<li>
-<p>优点</p>
-<ul>
-<li>消除函数调用开销，例如传递函数、保存寄存器等</li>
-<li>将过程间分析转化为过程内分析，帮助其他优化，例如逃逸分析</li>
-</ul>
-</li>
-<li>
-<p>函数内联对性能的影响程度——使用 micro-benchmark验证</p>
-<p>示例</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkInline</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	x := genInteger()</span><br><span class="line">	y := genInteger()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		addInline(x, y)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addInline</span><span class="params">(a, b <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkInlineDisabled</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	x := genInteger()</span><br><span class="line">	y := genInteger()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		addNoInline(x, y)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//go:noinline</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addNoInline</span><span class="params">(a, b <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">genInteger</span><span class="params">()</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	rand.Seed(time.Now().UnixNano())</span><br><span class="line">	<span class="keyword">return</span> rand.Intn(<span class="number">100</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>注意这里的<code>//go:noinline</code>是一种编译指示，<code>noinline</code>表示不要内联，固定写法。这种编译指示类似于C语言中的<code>#include</code>。</p>
-</li>
-<li>
-<p>使用 micro-benchmark快速验证和对比性能优化结果</p>
-<p>使用以下命令进行性能测试</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">test</span> -bench .</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>缺点</p>
-<ul>
-<li>函数体变大，instruction cache（icache）不友好</li>
-<li>编译生成的 Go 镜像变大</li>
-</ul>
-</li>
-<li>
-<p>函数内联在大多数情况下是正向优化</p>
-</li>
-<li>
-<p>内联策略</p>
-<ul>
-<li>调用和被函数的规模</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<h4 id="42-beast-mode"><a class="markdownIt-Anchor" href="#42-beast-mode"></a> 4.2 Beast Mode</h4>
-<ul>
-<li>Go 函数内联受到的限制较多
-<ul>
-<li>语言特性，例如 interface，defer等，限制了函数内联</li>
-<li>内联策略非常保守</li>
-</ul>
-</li>
-<li>Beast Mode：调整函数内联的策略，使更多函数被内联
-<ul>
-<li>降低函数调用的开销</li>
-<li>增加了其他优化的机会：逃逸分析</li>
-</ul>
-</li>
-<li>开销
-<ul>
-<li>Go 镜像增加约 10%</li>
-<li>编译时间增加</li>
-</ul>
-</li>
-</ul>
-<p><strong>性能收益</strong>（数据仅供参考）</p>
-<ul>
-<li>高峰期 CPU usage 降低 9%，时延降低 10%</li>
-<li>内存使用降低 3%</li>
-</ul>
-<h4 id="43-逃逸分析"><a class="markdownIt-Anchor" href="#43-逃逸分析"></a> 4.3 逃逸分析</h4>
-<p>逃逸分析：分析代码中指针的动态作用域，即指针在何处可以被访问</p>
-<ul>
-<li>大致思路
-<ul>
-<li>从对象分配处出发，沿着控制流，观察对象的数据流</li>
-<li>若发现指针 p 在当前作用域 s
-<ul>
-<li>作为参数传递给其他函数</li>
-<li>传递给全局变量</li>
-<li>传递给其他的 goroutine</li>
-<li>传递给已逃逸的指针指向的对象</li>
-</ul>
-</li>
-<li>则指针 p 指向的对象逃逸出 s，反之则没有逃逸出 s</li>
-</ul>
-</li>
-<li>Beast Mode：函数内联拓展了函数边界，更多对象不逃逸</li>
-<li>优化：未逃逸的对象可以在栈上分配
-<ul>
-<li>对象在栈上分配和回收很快：移动 sp</li>
-<li>减少在 heap 上的分配，降低 GC 负担</li>
-</ul>
-</li>
-</ul>
-<h4 id="总结-5"><a class="markdownIt-Anchor" href="#总结-5"></a> 总结</h4>
-<ul>
-<li>Go 编译器优化问题</li>
-<li>Beast Mode</li>
-<li>函数内联</li>
-<li>逃逸分析</li>
-<li>通过 micro-benchmark 快速验证性能优化</li>
-<li>性能收益</li>
-</ul>
-<h3 id="归纳"><a class="markdownIt-Anchor" href="#归纳"></a> 归纳</h3>
-<ul>
-<li>性能优化
-<ul>
-<li>自动内存管理</li>
-<li>Go 内存管理</li>
-<li>编译器与静态分析</li>
-<li>编译器优化</li>
-</ul>
-</li>
-<li>实践
-<ul>
-<li>Balanced GC 优化对象分配</li>
-<li>Beast Mode 提升代码性能</li>
-</ul>
-</li>
-<li>分析问题的方法与解决问题的思路，不仅适用于Go 语言，也适用于其他语言的优化</li>
-</ul>
-<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
-<p><a class="link"   href="https://juejin.cn/post/7189525739836801085/" >【后端专场 学习资料二】第五届字节跳动青训营 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://segmentfault.com/a/1190000016743220" >Go 语言编译器的 “//go:” 详解 - Golang 攻略 - SegmentFault 思否 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>青训营记录</category>
@@ -8339,6 +7954,521 @@ y=2^{E_y}\cdot M_y
 <p><a class="link"   href="https://blog.mazhuang.vip/database/mysql/upsert-f2f8bfbaba7a/" >Mysql 的 upsert 操作 | Seeker (mazhuang.vip) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://www.cloudwego.io/zh/docs/kitex/getting-started/" >Kitex 快速开始 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://juejin.cn/post/7174311695592980510" >一文带你快速入门GolangHTTP框架Hertz - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Go 语言内存管理详解</title>
+    <url>/2023/01/30/golang-day4/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7194838118955450428" >Go 语言内存管理详解 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang内存管理的学习<span id="more"></span></p>
+<h2 id="内存管理详解"><a class="markdownIt-Anchor" href="#内存管理详解"></a> 内存管理详解</h2>
+<h3 id="追求极致性能"><a class="markdownIt-Anchor" href="#追求极致性能"></a> 追求极致性能</h3>
+<p>性能优化：提升软件系统处理能力，减少不必要的消耗，充分发掘计算机算力。</p>
+<p>性能优化的目的</p>
+<ul>
+<li>用户体验：带来用户体验的提升</li>
+<li>资源高效利用：降低成本。提高效率</li>
+</ul>
+<h3 id="性能优化的层面"><a class="markdownIt-Anchor" href="#性能优化的层面"></a> 性能优化的层面</h3>
+<ul>
+<li>业务层优化
+<ul>
+<li>针对特定场景，具体问题具体分析</li>
+<li>容易获得较大性能收益</li>
+</ul>
+</li>
+<li>语言运行时优化
+<ul>
+<li>解决更通用的性能问题</li>
+<li>考虑更多场景</li>
+<li>Tradeoffs权衡</li>
+</ul>
+</li>
+<li>数据驱动
+<ul>
+<li>自动化性能分析工具——pprof</li>
+<li>依靠数据而非猜测</li>
+<li>首先优化最大瓶颈</li>
+</ul>
+</li>
+</ul>
+<h3 id="性能优化与软件质量"><a class="markdownIt-Anchor" href="#性能优化与软件质量"></a> 性能优化与软件质量</h3>
+<ul>
+<li>软件质量至关重要</li>
+<li>在保证接口稳定的前提下改进具体实现</li>
+<li>测试用例：覆盖尽可能多的场景，方便回归</li>
+<li>文档：做了什么，没做什么，能达到怎样的效果</li>
+<li>隔离：通过选项控制是否开启优化</li>
+<li>可观测：必要的日志输出</li>
+</ul>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
+<ul>
+<li>性能优化的基本问题</li>
+<li>性能优化的两个层面</li>
+<li>性能优化的可维护性</li>
+</ul>
+<h3 id="1自动内存管理"><a class="markdownIt-Anchor" href="#1自动内存管理"></a> 1.自动内存管理</h3>
+<h4 id="11-自动内存管理"><a class="markdownIt-Anchor" href="#11-自动内存管理"></a> 1.1 自动内存管理</h4>
+<ul>
+<li>动态内存
+<ul>
+<li>程序在运行时根据需求动态分配的内存：malloc()</li>
+</ul>
+</li>
+<li>自动内存管理（垃圾回收）：由程序语言的运行时系统管理动态内存
+<ul>
+<li>避免手动内存管理，专注于实现业务逻辑</li>
+<li>保证内存使用的正确性和安全性：double-free problem，use-after-free problem</li>
+</ul>
+</li>
+<li>三个任务
+<ul>
+<li>为新对象分配空间</li>
+<li>找到存活对象</li>
+<li>回收死亡对象的内存空间</li>
+</ul>
+</li>
+</ul>
+<p><strong>相关概念</strong></p>
+<ul>
+<li>
+<p>Mutator：业务线程，分配新对象，修改对象的指向关系</p>
+</li>
+<li>
+<p>Collector：GC线程，找到存活对象，回收死亡对象的内存空间</p>
+</li>
+<li>
+<p>Serial GC：只有一个collector</p>
+</li>
+<li>
+<p>Parallel GC：支持多个collector同时回收的GC算法</p>
+</li>
+<li>
+<p>Concurrent GC：mutator(s)和collector(s)可以同时执行</p>
+</li>
+<li>
+<p>Collectors必须感知对象指向关系的改变</p>
+</li>
+<li>
+<p>评价GC算法</p>
+<ul>
+<li>安全性（Safety）：不能回收存活的对象。这是基本要求</li>
+<li>吞吐率（Throughput）：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mfrac><mrow><mi>G</mi><mi>C</mi><mtext>时间</mtext></mrow><mtext>程序执行总时间</mtext></mfrac></mrow><annotation encoding="application/x-tex">1-\frac {GC时间}{程序执行总时间}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord cjk_fallback mtight">程</span><span class="mord cjk_fallback mtight">序</span><span class="mord cjk_fallback mtight">执</span><span class="mord cjk_fallback mtight">行</span><span class="mord cjk_fallback mtight">总</span><span class="mord cjk_fallback mtight">时</span><span class="mord cjk_fallback mtight">间</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">G</span><span class="mord mathnormal mtight" style="margin-right:0.07153em;">C</span><span class="mord cjk_fallback mtight">时</span><span class="mord cjk_fallback mtight">间</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。花在GC上的时间</li>
+<li>暂停时间（Pause time）：stop the world（STW）。业务是否感知</li>
+<li>内存开销（Space overhead）：GC元数据开销</li>
+</ul>
+</li>
+<li>
+<p>追踪垃圾回收（Tracing garbage collection）</p>
+</li>
+<li>
+<p>引用计数（Reference counting）</p>
+</li>
+</ul>
+<h4 id="12-追踪垃圾回收"><a class="markdownIt-Anchor" href="#12-追踪垃圾回收"></a> 1.2 追踪垃圾回收</h4>
+<ul>
+<li>
+<p>对象被回收的条件：指针指向关系不可达的对象</p>
+</li>
+<li>
+<p>标记根对象</p>
+<ul>
+<li>静态变量、全局变量、常量、线程栈等</li>
+</ul>
+</li>
+<li>
+<p>标记：找到可达对象</p>
+<ul>
+<li>求指针指向关系的传递闭包：从根对象出发，找到所有可达对象</li>
+</ul>
+</li>
+<li>
+<p>清理：所有不可达对象</p>
+<ul>
+<li>
+<p>将存活对象复制到另外的内存空间（Copying GC）</p>
+<p>Copying GC：将对象复制到另外的内存空间</p>
+</li>
+<li>
+<p>将死亡对象的内存标记为“可分配”（Mark-sweep GC）</p>
+<p>Mark-sweep GC：使用free list管理空闲内存</p>
+</li>
+<li>
+<p>移动并整理存活对象（Mark-compact GC）</p>
+<p>Compact GC：原地整理对象</p>
+</li>
+</ul>
+</li>
+<li>
+<p>根据对象的生命周期，使用不同的标记和清理策略</p>
+</li>
+</ul>
+<h4 id="13-分代-gcgenerational-gc"><a class="markdownIt-Anchor" href="#13-分代-gcgenerational-gc"></a> 1.3 分代 GC（Generational GC）</h4>
+<ul>
+<li>分代假说（Generational hypothesis）：most objects die young</li>
+<li>Intuition：很多对象在分配出来后很快就不在使用了</li>
+<li>每个对象都有年龄：经历过GC的次数</li>
+<li>目的：对年轻和年老的对象，制定不同的GC策略，降低整体内存管理的开销</li>
+<li>不同年龄的对象处于heap的不同区域</li>
+<li>年轻代（Young generation）
+<ul>
+<li>常规的对象分配</li>
+<li>由于存活对象很少，可以采用copying collection</li>
+<li>GC吞吐率很高</li>
+</ul>
+</li>
+<li>老年代（Old generation）
+<ul>
+<li>对象趋向一直活着，反复复制开销较大</li>
+<li>可以采用mark-sweep collection</li>
+</ul>
+</li>
+</ul>
+<h4 id="14-引用计数"><a class="markdownIt-Anchor" href="#14-引用计数"></a> 1.4 引用计数</h4>
+<ul>
+<li>每个对象都有一个与之关联的引用数目</li>
+<li>对象存活的条件：当且仅当引用数大于0</li>
+<li>优点
+<ul>
+<li>内存管理的操作被平摊到程序执行过程中</li>
+<li>内存管理不需要了解runtime的实现细节：C++智能指针（smart pointer）</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>维护引用计数的开销较大：通过原子操作保证对引用计数操作的原子性和可见性</li>
+<li>无法回收环形数据结构——weak reference</li>
+<li>内存开销：每个对象都引入的额外内存空间存储引用数目</li>
+<li>回收内存时依然可能引发暂停</li>
+</ul>
+</li>
+</ul>
+<h4 id="总结-2"><a class="markdownIt-Anchor" href="#总结-2"></a> 总结</h4>
+<ul>
+<li>自动内存管理的背景和意义</li>
+<li>概念和评价方法</li>
+<li>追踪垃圾回收</li>
+<li>引用计数</li>
+<li>分代 GC</li>
+<li>学术界和工业界一直致力于解决自动内存管理技术的不足之处
+<ul>
+<li>相关信息<a class="link"   href="https://pldi22.sigplan.org/details/pldi-2022-pldi/15/Low-Latency-High-Throughput-Garbage-Collection" >Low-Latency, High-Throughput Garbage Collection (PLDI 2022 - PLDI Research Papers)  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>相关介绍<a class="link"   href="https://zhuanlan.zhihu.com/p/525093935" >PLDI’22 | June 13-17，编程语言顶级会议 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+</li>
+</ul>
+<h3 id="2go管理及优化"><a class="markdownIt-Anchor" href="#2go管理及优化"></a> 2.Go管理及优化</h3>
+<h4 id="21-go-内存分配"><a class="markdownIt-Anchor" href="#21-go-内存分配"></a> 2.1 Go 内存分配</h4>
+<p><strong>分块</strong></p>
+<ul>
+<li>目标：为对象在heap上分配内存</li>
+<li>提前将内存分块
+<ul>
+<li>调用系统调用 mmap() 向OS申请一大块内存，例如 4 MB</li>
+<li>先将内存划分成大块，例如 8 KB，称作 mspan</li>
+<li>再将大块继续划分成特定大小的小块，用于对象分配</li>
+<li>noscan mspan：分配不包含指针的对象——GC 不需要扫描</li>
+<li>scan mspan：分配包含指针的对象——GC 需要扫描</li>
+</ul>
+</li>
+<li>对象分配：根据对象的大小，选择最合适的块返回</li>
+</ul>
+<p><strong>缓存</strong></p>
+<ul>
+<li>TCMalloc：thread caching</li>
+<li>每个 p 包含一个 mcache 用于快速分配，用于为绑定于 p 上的 g 分配对象</li>
+<li>mcache 管理一组 mspan</li>
+<li>当 mcache 中的 mspan 分配完毕，向 mcentral 申请带有未分配块的 mspan</li>
+<li>当 mspan 中没有分配的对象，mspan 会被缓存在 mcentral 中，而不是立刻释放并归还给 OS</li>
+</ul>
+<h4 id="22-go-内存管理优化"><a class="markdownIt-Anchor" href="#22-go-内存管理优化"></a> 2.2 Go 内存管理优化</h4>
+<ul>
+<li>对象分配是非常高频的操作：每秒分配 GB 级别的内存</li>
+<li>小对象占比较高</li>
+<li>Go 内存分配比较耗时
+<ul>
+<li>分配路径长：g -&gt; m -&gt; p -&gt; mcache -&gt; mspan -&gt; memory block -&gt; return pointer</li>
+<li>pprof：对象分配的函数是最频繁调用的函数之一</li>
+</ul>
+</li>
+</ul>
+<h4 id="23-优化方案balanced-gc"><a class="markdownIt-Anchor" href="#23-优化方案balanced-gc"></a> 2.3 优化方案：Balanced GC</h4>
+<ul>
+<li>
+<p>每个 g 都绑定一大块内存（1KB），称作 goroutine allocation buffer（GAB）</p>
+</li>
+<li>
+<p>GAB 用于 noscan 类型的小对象分配：&lt; 128 B</p>
+</li>
+<li>
+<p>使用三个指针维护 GAB：base，end，top</p>
+</li>
+<li>
+<p>Bump pointer（指针碰撞）风格对象分配</p>
+<ul>
+<li>无须和其他分配请求互斥</li>
+<li>分配动作简单高效</li>
+</ul>
+</li>
+<li>
+<p>GAB 对于 Go 内存管理来说是一个大对象</p>
+</li>
+<li>
+<p>本质：将多个小对象的分配合并成一次大对象的分配</p>
+</li>
+<li>
+<p>问题：GAB的对象分配方式会导致内存被延迟释放</p>
+</li>
+<li>
+<p>方案：移动 GAB 中存活的对象</p>
+<ul>
+<li>当 GAB 总大小超过一定阈值时，将 GAB 中存活的对象复制到另外分配的 GAB 中</li>
+<li>原先的 GAB 可以释放，避免内存泄漏</li>
+<li>本质：用 copying GC 的算法管理小对象。根据对象的生命周期，使用不同的标记和清理策略。</li>
+</ul>
+</li>
+</ul>
+<p><strong>性能收益</strong>（数据仅供参考）</p>
+<ul>
+<li>高峰期 CPU usage 降低 4.6%，核心接口时延下降 4.5%~7.7%</li>
+</ul>
+<h4 id="总结-3"><a class="markdownIt-Anchor" href="#总结-3"></a> 总结</h4>
+<ul>
+<li>Go 内存管理 — 分块</li>
+<li>Go 内存管理 — 缓存</li>
+<li>Go 对象分配的性能问题
+<ul>
+<li>分配路径过长</li>
+<li>小对象居多</li>
+</ul>
+</li>
+<li>Balanced GC
+<ul>
+<li>指针碰撞风格的对象分配</li>
+<li>实现了 copying GC</li>
+<li>性能收益</li>
+</ul>
+</li>
+</ul>
+<h3 id="3编译器和静态分析"><a class="markdownIt-Anchor" href="#3编译器和静态分析"></a> 3.编译器和静态分析</h3>
+<h4 id="31-编译器的结构"><a class="markdownIt-Anchor" href="#31-编译器的结构"></a> 3.1 编译器的结构</h4>
+<ul>
+<li>重要的软件系统
+<ul>
+<li>识别符号语法和非法的程序</li>
+<li>生成正确且高效的代码</li>
+</ul>
+</li>
+<li>分析部分（前端 front end）
+<ul>
+<li>词法分析，生成词素（lexeme）</li>
+<li>语法分析，生成语法树</li>
+<li>语义分析，收集类型信息，进行语义检查</li>
+<li>中间代码生成，生成intermediate representation（IR）</li>
+</ul>
+</li>
+<li>综合部分（后端 back end）
+<ul>
+<li>代码优化，机器无关优化，生成优化后的 IR</li>
+<li>代码生成，生成目标代码</li>
+</ul>
+</li>
+</ul>
+<p>后端是优化重点，同时控制流和数据流分析是优化的基础。</p>
+<h4 id="32-静态分析"><a class="markdownIt-Anchor" href="#32-静态分析"></a> 3.2 静态分析</h4>
+<ul>
+<li>静态分析：不执行程序代码，推导程序的行为，分析程序的性质。</li>
+<li>控制流（Control flow）：程序执行的流程</li>
+<li>数据流（Data flow）：数据在控制流上的传递</li>
+<li>通过分析控制流和数据流，可以知道更多关于程序的性质（properties）</li>
+<li>根据这些性质优化代码</li>
+</ul>
+<h4 id="33-过程内分析和过程间分析"><a class="markdownIt-Anchor" href="#33-过程内分析和过程间分析"></a> 3.3 过程内分析和过程间分析</h4>
+<ul>
+<li>过程内分析（Intra-procedural analysis）
+<ul>
+<li>仅在函数内部进行分析</li>
+</ul>
+</li>
+<li>过程间分析
+<ul>
+<li>考虑函数调用时参数传递和返回值的数据流和控制流</li>
+</ul>
+</li>
+<li>过程间分析是个问题
+<ul>
+<li>需要通过数据流分析得知接口 i 的具体类型，才能知道有多个同名方法（比如<code>func (a *A) foo()</code>和<code>func (b *B) foo()</code>）存在时，接口 i 调用的是哪个<code>foo()</code></li>
+<li>根据接口的具体类型，产生了新的控制流，<code>i.foo()</code>，分析继续</li>
+<li>过程间分析需要同时分析控制流和数据流——联合求解，比较复杂</li>
+</ul>
+</li>
+</ul>
+<h4 id="总结-4"><a class="markdownIt-Anchor" href="#总结-4"></a> 总结</h4>
+<ul>
+<li>编译器的结构与编译的流程</li>
+<li>编译器后端优化</li>
+<li>数据流分析和控制流分析</li>
+<li>过程内分析和过程间分析</li>
+</ul>
+<h3 id="4go编译器优化"><a class="markdownIt-Anchor" href="#4go编译器优化"></a> 4.Go编译器优化</h3>
+<ul>
+<li>为什么做编译器优化
+<ul>
+<li>用户无感知，重新编译即可获得性能收益</li>
+<li>通用性优化</li>
+</ul>
+</li>
+<li>现状
+<ul>
+<li>采用的优化少</li>
+<li>编译时间较短，没有进行复杂的代码分析和优化</li>
+</ul>
+</li>
+<li>编译优化的思路
+<ul>
+<li>场景：面向后端长期执行任务</li>
+<li>Tradeoff：用编译时间换取更高效的机器码</li>
+</ul>
+</li>
+<li>Beast mode
+<ul>
+<li>函数内联分析</li>
+<li>逃逸分析</li>
+<li>默认栈大小调整</li>
+<li>边界检查消除</li>
+<li>循环展开</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h4 id="41-函数内联inlining"><a class="markdownIt-Anchor" href="#41-函数内联inlining"></a> 4.1 函数内联（Inlining）</h4>
+<ul>
+<li>
+<p>内联：将被调用函数的函数体（callee）的副本替换到调用位置（caller）上，同时重写代码以反映参数的绑定</p>
+</li>
+<li>
+<p>优点</p>
+<ul>
+<li>消除函数调用开销，例如传递函数、保存寄存器等</li>
+<li>将过程间分析转化为过程内分析，帮助其他优化，例如逃逸分析</li>
+</ul>
+</li>
+<li>
+<p>函数内联对性能的影响程度——使用 micro-benchmark验证</p>
+<p>示例</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkInline</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	x := genInteger()</span><br><span class="line">	y := genInteger()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		addInline(x, y)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addInline</span><span class="params">(a, b <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkInlineDisabled</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	x := genInteger()</span><br><span class="line">	y := genInteger()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		addNoInline(x, y)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//go:noinline</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addNoInline</span><span class="params">(a, b <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">genInteger</span><span class="params">()</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	rand.Seed(time.Now().UnixNano())</span><br><span class="line">	<span class="keyword">return</span> rand.Intn(<span class="number">100</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>注意这里的<code>//go:noinline</code>是一种编译指示，<code>noinline</code>表示不要内联，固定写法。这种编译指示类似于C语言中的<code>#include</code>。</p>
+</li>
+<li>
+<p>使用 micro-benchmark快速验证和对比性能优化结果</p>
+<p>使用以下命令进行性能测试</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">test</span> -bench .</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>缺点</p>
+<ul>
+<li>函数体变大，instruction cache（icache）不友好</li>
+<li>编译生成的 Go 镜像变大</li>
+</ul>
+</li>
+<li>
+<p>函数内联在大多数情况下是正向优化</p>
+</li>
+<li>
+<p>内联策略</p>
+<ul>
+<li>调用和被函数的规模</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h4 id="42-beast-mode"><a class="markdownIt-Anchor" href="#42-beast-mode"></a> 4.2 Beast Mode</h4>
+<ul>
+<li>Go 函数内联受到的限制较多
+<ul>
+<li>语言特性，例如 interface，defer等，限制了函数内联</li>
+<li>内联策略非常保守</li>
+</ul>
+</li>
+<li>Beast Mode：调整函数内联的策略，使更多函数被内联
+<ul>
+<li>降低函数调用的开销</li>
+<li>增加了其他优化的机会：逃逸分析</li>
+</ul>
+</li>
+<li>开销
+<ul>
+<li>Go 镜像增加约 10%</li>
+<li>编译时间增加</li>
+</ul>
+</li>
+</ul>
+<p><strong>性能收益</strong>（数据仅供参考）</p>
+<ul>
+<li>高峰期 CPU usage 降低 9%，时延降低 10%</li>
+<li>内存使用降低 3%</li>
+</ul>
+<h4 id="43-逃逸分析"><a class="markdownIt-Anchor" href="#43-逃逸分析"></a> 4.3 逃逸分析</h4>
+<p>逃逸分析：分析代码中指针的动态作用域，即指针在何处可以被访问</p>
+<ul>
+<li>大致思路
+<ul>
+<li>从对象分配处出发，沿着控制流，观察对象的数据流</li>
+<li>若发现指针 p 在当前作用域 s
+<ul>
+<li>作为参数传递给其他函数</li>
+<li>传递给全局变量</li>
+<li>传递给其他的 goroutine</li>
+<li>传递给已逃逸的指针指向的对象</li>
+</ul>
+</li>
+<li>则指针 p 指向的对象逃逸出 s，反之则没有逃逸出 s</li>
+</ul>
+</li>
+<li>Beast Mode：函数内联拓展了函数边界，更多对象不逃逸</li>
+<li>优化：未逃逸的对象可以在栈上分配
+<ul>
+<li>对象在栈上分配和回收很快：移动 sp</li>
+<li>减少在 heap 上的分配，降低 GC 负担</li>
+</ul>
+</li>
+</ul>
+<h4 id="总结-5"><a class="markdownIt-Anchor" href="#总结-5"></a> 总结</h4>
+<ul>
+<li>Go 编译器优化问题</li>
+<li>Beast Mode</li>
+<li>函数内联</li>
+<li>逃逸分析</li>
+<li>通过 micro-benchmark 快速验证性能优化</li>
+<li>性能收益</li>
+</ul>
+<h3 id="归纳"><a class="markdownIt-Anchor" href="#归纳"></a> 归纳</h3>
+<ul>
+<li>性能优化
+<ul>
+<li>自动内存管理</li>
+<li>Go 内存管理</li>
+<li>编译器与静态分析</li>
+<li>编译器优化</li>
+</ul>
+</li>
+<li>实践
+<ul>
+<li>Balanced GC 优化对象分配</li>
+<li>Beast Mode 提升代码性能</li>
+</ul>
+</li>
+<li>分析问题的方法与解决问题的思路，不仅适用于Go 语言，也适用于其他语言的优化</li>
+</ul>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a class="link"   href="https://juejin.cn/post/7189525739836801085/" >【后端专场 学习资料二】第五届字节跳动青训营 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://segmentfault.com/a/1190000016743220" >Go 语言编译器的 “//go:” 详解 - Golang 攻略 - SegmentFault 思否 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>青训营记录</category>
