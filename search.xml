@@ -42,103 +42,6 @@
       </tags>
   </entry>
   <entry>
-    <title>IDEA插件配置</title>
-    <url>/2023/01/14/IDEA-plugins/</url>
-    <content><![CDATA[<p>作为IntelliJ IDEA的用户之一，原始的IDE已经能够满足大部分需求，但IDE插件提供了更多拓展性的功能，使得开发者能够工作在适宜的“开发环境”中，提高开发效率，提升开发者体验。那么以下是笔者在使用过程中所搜寻到的一些插件，请注意其中部分插件并不能直接提升开发效率，另外过多的插件反而会造成开发效率的低下，请悉知。读者可自行选择感兴趣的插件进行配置<span id="more"></span></p>
-<h3 id="视觉体验"><a class="markdownIt-Anchor" href="#视觉体验"></a> 视觉体验</h3>
-<h4 id="background-image-plus"><a class="markdownIt-Anchor" href="#background-image-plus"></a> Background Image Plus +</h4>
-<p>Background Image Plus +是一款<strong>编辑器背景</strong>图插件，是Background Image Plus的功能增强版。支持<strong>每隔指定时间随机切换背景图片</strong>（需要有包含多个图片文件的背景图片文件夹，部分图片文件格式无法显示）</p>
-<h4 id="material-theme-ui"><a class="markdownIt-Anchor" href="#material-theme-ui"></a> Material Theme UI</h4>
-<p>Material Theme UI是一款主题美化插件</p>
-<h4 id="rainbow-brackets"><a class="markdownIt-Anchor" href="#rainbow-brackets"></a> Rainbow Brackets</h4>
-<p>Rainbow Brackets彩虹括号插件，对代码排错有一定帮助</p>
-<h4 id="nyan-progress-bar"><a class="markdownIt-Anchor" href="#nyan-progress-bar"></a> Nyan Progress Bar</h4>
-<p>Nyan Progress Bar彩虹猫进度条样式插件</p>
-<hr />
-<h3 id="代码跳转与快速浏览"><a class="markdownIt-Anchor" href="#代码跳转与快速浏览"></a> 代码跳转与快速浏览</h3>
-<h4 id="codeglance-pro"><a class="markdownIt-Anchor" href="#codeglance-pro"></a> CodeGlance Pro</h4>
-<p>CodeGlance Pro是一款<strong>快速浏览代码</strong>的插件，是CodeGlance的最新版。提供了<strong>代码缩略图</strong>，并能对缩略图中的部分代码进行<strong>放大浏览</strong>以及<strong>快速跳转</strong>到指定的代码</p>
-<hr />
-<h3 id="代码编辑"><a class="markdownIt-Anchor" href="#代码编辑"></a> 代码编辑</h3>
-<h4 id="string-manipulation"><a class="markdownIt-Anchor" href="#string-manipulation"></a> String Manipulation</h4>
-<p>String Manipulation用于代码大小写转换、驼峰命名转换、去除空格等</p>
-<h4 id="ideavim"><a class="markdownIt-Anchor" href="#ideavim"></a> IdeaVim</h4>
-<p>Ideavim是一个Vim仿真插件，用于在IDAE上实现Vim操作。（适用于习惯Vim操作的开发者，部分快捷键与IDEA自带快捷键存在冲突，需要手动配置）</p>
-<h3 id="代码生成"><a class="markdownIt-Anchor" href="#代码生成"></a> 代码生成</h3>
-<h4 id="easy-code"><a class="markdownIt-Anchor" href="#easy-code"></a> Easy Code</h4>
-<p>Easy Code是一款能够根据数据表直接生成entity、controller、service、dao、mapper的代码，非常方便</p>
-<h4 id="easy-code-mybatiscodehelperpro"><a class="markdownIt-Anchor" href="#easy-code-mybatiscodehelperpro"></a> Easy Code-MybatisCodeHelperPro</h4>
-<p>为了与MybatisCodeHelperPro兼容而的推出的Easy Code版本</p>
-<hr />
-<h3 id="代码简化"><a class="markdownIt-Anchor" href="#代码简化"></a> 代码简化</h3>
-<h4 id="lombok"><a class="markdownIt-Anchor" href="#lombok"></a> Lombok</h4>
-<p>Lombok能够通过注解实现实体类的方法，简化、减少代码的编写</p>
-<hr />
-<h3 id="代码规范"><a class="markdownIt-Anchor" href="#代码规范"></a> 代码规范</h3>
-<h4 id="checkstyle"><a class="markdownIt-Anchor" href="#checkstyle"></a> CheckStyle</h4>
-<p>Java代码格式规范插件，能够自定义不同的规范</p>
-<h4 id="alibaba-java-coding-guidelines"><a class="markdownIt-Anchor" href="#alibaba-java-coding-guidelines"></a> Alibaba Java Coding Guidelines</h4>
-<p>Alibaba Java Coding Guidelines阿里巴巴的代码规范插件，用于开发者规范自己的代码编写，改善代码质量</p>
-<h4 id="sonarlint"><a class="markdownIt-Anchor" href="#sonarlint"></a> SonarLint</h4>
-<p>SonarLint是一个代码质量检测器插件，用于培养开发者良好的开发习惯以及提高代码质量</p>
-<hr />
-<h3 id="git提交规范"><a class="markdownIt-Anchor" href="#git提交规范"></a> Git提交规范</h3>
-<h4 id="git-commit-template"><a class="markdownIt-Anchor" href="#git-commit-template"></a> Git Commit Template</h4>
-<p>Git Commit Template用于规范git提交信息</p>
-<hr />
-<h3 id="代码测试"><a class="markdownIt-Anchor" href="#代码测试"></a> 代码测试</h3>
-<h4 id="junitgenerator-v20"><a class="markdownIt-Anchor" href="#junitgenerator-v20"></a> JUnitGenerator V2.0</h4>
-<p>JUnitGenerator V2.0用于快速生成代码测试模块</p>
-<hr />
-<h3 id="项目架构分析"><a class="markdownIt-Anchor" href="#项目架构分析"></a> 项目架构分析</h3>
-<h4 id="plantuml-integration"><a class="markdownIt-Anchor" href="#plantuml-integration"></a> PlantUML Integration</h4>
-<p>PlantUML Integration是一款用于快速创建UML（统一建模语言）图形的插件，能够通过绘制图形来系统性地分析和设计项目</p>
-<h4 id="sequencediagram"><a class="markdownIt-Anchor" href="#sequencediagram"></a> SequenceDiagram</h4>
-<p>SequenceDiagram用于生成项目类调用关系与执行流程的时序图</p>
-<hr />
-<h3 id="云部署"><a class="markdownIt-Anchor" href="#云部署"></a> 云部署</h3>
-<h4 id="alibaba-cloud-toolkit"><a class="markdownIt-Anchor" href="#alibaba-cloud-toolkit"></a> Alibaba Cloud Toolkit</h4>
-<p>Alibaba Cloud Toolkit用于高效开发并部署适合在云端运行的应用</p>
-<hr />
-<h3 id="json辅助工具"><a class="markdownIt-Anchor" href="#json辅助工具"></a> Json辅助工具</h3>
-<h4 id="json-parser"><a class="markdownIt-Anchor" href="#json-parser"></a> Json Parser</h4>
-<p>Json Parser是一款json解析器插件，是一个用于<strong>验证和格式化JSON字符串</strong>的轻量级插件</p>
-<h4 id="gsonformatplus"><a class="markdownIt-Anchor" href="#gsonformatplus"></a> GsonFormatPlus</h4>
-<p>GsonFormat能够将json数据直接转换为Java的类，提高效率</p>
-<hr />
-<h3 id="翻译工具"><a class="markdownIt-Anchor" href="#翻译工具"></a> 翻译工具</h3>
-<h4 id="translation"><a class="markdownIt-Anchor" href="#translation"></a> Translation</h4>
-<p>Translation是一款中英文翻译插件，用于在IDEA内部快速实现中英文翻译</p>
-<hr />
-<h3 id="maven辅助工具"><a class="markdownIt-Anchor" href="#maven辅助工具"></a> Maven辅助工具</h3>
-<h4 id="maven-helper"><a class="markdownIt-Anchor" href="#maven-helper"></a> Maven Helper</h4>
-<p>Maven Helper是一款maven依赖冲突分析的插件，主要提供图形化操作来替代命令行操作</p>
-<hr />
-<h3 id="mybatis辅助工具"><a class="markdownIt-Anchor" href="#mybatis辅助工具"></a> Mybatis辅助工具</h3>
-<p>注意部分MyBatis插件和MybatisPlus插件可能会产生冲突</p>
-<h4 id="mybatis-log"><a class="markdownIt-Anchor" href="#mybatis-log"></a> Mybatis Log</h4>
-<p>Mybatis Log是一款Mybatis的<strong>日志处理</strong>工具，将Mybatis框架日志中的SQL信息转换可直接执行的SQL语句，节省时间。其历史版本不需要付费，最新版本需要付费使用</p>
-<h4 id="mybatiscodehelperpro"><a class="markdownIt-Anchor" href="#mybatiscodehelperpro"></a> MybatisCodeHelperPro</h4>
-<p>MybatisCodeHelperPro是一款MyBatis的强大辅助插件（不少开发者对此给出很高的评价），提供免费版和付费版，免费版提供的功能基本能够满足日常需求。（可能会与其它插件产生冲突）</p>
-<hr />
-<h3 id="mybatisplus辅助工具"><a class="markdownIt-Anchor" href="#mybatisplus辅助工具"></a> MybatisPlus辅助工具</h3>
-<h4 id="mybatisx"><a class="markdownIt-Anchor" href="#mybatisx"></a> MybatisX</h4>
-<p>MybatisX是MybatisPlus的强大辅助插件。（可能会与Mybatis的部分插件产生冲突）</p>
-<hr />
-<h3 id="restful辅助工具"><a class="markdownIt-Anchor" href="#restful辅助工具"></a> Restful辅助工具</h3>
-<h4 id="restfultoolkit"><a class="markdownIt-Anchor" href="#restfultoolkit"></a> Restfultoolkit</h4>
-<p>Restfultoolkit是一款针对Restful服务开发的辅助工具，能够根据URL快速跳转到对应的方法接口，提供了一个接口列表窗口，内置一个简单的Http请求工具（相当于一个简化的测试工具，类似于postman和apifox等）</p>
-<hr />
-<h3 id="k8s辅助工具"><a class="markdownIt-Anchor" href="#k8s辅助工具"></a> K8s辅助工具</h3>
-<h4 id="kubernetes"><a class="markdownIt-Anchor" href="#kubernetes"></a> Kubernetes</h4>
-<p>Kubernetes插件用于检测管理Kubernetes系统</p>
-<hr />
-]]></content>
-      <tags>
-        <tag>配置优化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MarkDown进阶:表情、图标</title>
     <url>/2022/09/04/MarkDownPro-face%E3%80%81icon/</url>
     <content><![CDATA[<h1 id="markdown-emoji"><a class="markdownIt-Anchor" href="#markdown-emoji"></a> markdown-emoji</h1>
@@ -1652,23 +1555,100 @@
       </tags>
   </entry>
   <entry>
-    <title>RSS订阅的使用以及优势</title>
-    <url>/2022/09/04/RSS/</url>
-    <content><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3>
-<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
-<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
-<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
-<ul>
-<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
-<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
-<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
-<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
-</ul>
-<h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4>
-<p>windows平台这里推荐微软商店的Fluent Reader<a class="link"   href="https://apps.microsoft.com/store/detail/9P71FC94LRH8" >官网链接 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+    <title>IDEA插件配置</title>
+    <url>/2023/01/14/IDEA-plugins/</url>
+    <content><![CDATA[<p>作为IntelliJ IDEA的用户之一，原始的IDE已经能够满足大部分需求，但IDE插件提供了更多拓展性的功能，使得开发者能够工作在适宜的“开发环境”中，提高开发效率，提升开发者体验。那么以下是笔者在使用过程中所搜寻到的一些插件，请注意其中部分插件并不能直接提升开发效率，另外过多的插件反而会造成开发效率的低下，请悉知。读者可自行选择感兴趣的插件进行配置<span id="more"></span></p>
+<h3 id="视觉体验"><a class="markdownIt-Anchor" href="#视觉体验"></a> 视觉体验</h3>
+<h4 id="background-image-plus"><a class="markdownIt-Anchor" href="#background-image-plus"></a> Background Image Plus +</h4>
+<p>Background Image Plus +是一款<strong>编辑器背景</strong>图插件，是Background Image Plus的功能增强版。支持<strong>每隔指定时间随机切换背景图片</strong>（需要有包含多个图片文件的背景图片文件夹，部分图片文件格式无法显示）</p>
+<h4 id="material-theme-ui"><a class="markdownIt-Anchor" href="#material-theme-ui"></a> Material Theme UI</h4>
+<p>Material Theme UI是一款主题美化插件</p>
+<h4 id="rainbow-brackets"><a class="markdownIt-Anchor" href="#rainbow-brackets"></a> Rainbow Brackets</h4>
+<p>Rainbow Brackets彩虹括号插件，对代码排错有一定帮助</p>
+<h4 id="nyan-progress-bar"><a class="markdownIt-Anchor" href="#nyan-progress-bar"></a> Nyan Progress Bar</h4>
+<p>Nyan Progress Bar彩虹猫进度条样式插件</p>
+<hr />
+<h3 id="代码跳转与快速浏览"><a class="markdownIt-Anchor" href="#代码跳转与快速浏览"></a> 代码跳转与快速浏览</h3>
+<h4 id="codeglance-pro"><a class="markdownIt-Anchor" href="#codeglance-pro"></a> CodeGlance Pro</h4>
+<p>CodeGlance Pro是一款<strong>快速浏览代码</strong>的插件，是CodeGlance的最新版。提供了<strong>代码缩略图</strong>，并能对缩略图中的部分代码进行<strong>放大浏览</strong>以及<strong>快速跳转</strong>到指定的代码</p>
+<hr />
+<h3 id="代码编辑"><a class="markdownIt-Anchor" href="#代码编辑"></a> 代码编辑</h3>
+<h4 id="string-manipulation"><a class="markdownIt-Anchor" href="#string-manipulation"></a> String Manipulation</h4>
+<p>String Manipulation用于代码大小写转换、驼峰命名转换、去除空格等</p>
+<h4 id="ideavim"><a class="markdownIt-Anchor" href="#ideavim"></a> IdeaVim</h4>
+<p>Ideavim是一个Vim仿真插件，用于在IDAE上实现Vim操作。（适用于习惯Vim操作的开发者，部分快捷键与IDEA自带快捷键存在冲突，需要手动配置）</p>
+<h3 id="代码生成"><a class="markdownIt-Anchor" href="#代码生成"></a> 代码生成</h3>
+<h4 id="easy-code"><a class="markdownIt-Anchor" href="#easy-code"></a> Easy Code</h4>
+<p>Easy Code是一款能够根据数据表直接生成entity、controller、service、dao、mapper的代码，非常方便</p>
+<h4 id="easy-code-mybatiscodehelperpro"><a class="markdownIt-Anchor" href="#easy-code-mybatiscodehelperpro"></a> Easy Code-MybatisCodeHelperPro</h4>
+<p>为了与MybatisCodeHelperPro兼容而的推出的Easy Code版本</p>
+<hr />
+<h3 id="代码简化"><a class="markdownIt-Anchor" href="#代码简化"></a> 代码简化</h3>
+<h4 id="lombok"><a class="markdownIt-Anchor" href="#lombok"></a> Lombok</h4>
+<p>Lombok能够通过注解实现实体类的方法，简化、减少代码的编写</p>
+<hr />
+<h3 id="代码规范"><a class="markdownIt-Anchor" href="#代码规范"></a> 代码规范</h3>
+<h4 id="checkstyle"><a class="markdownIt-Anchor" href="#checkstyle"></a> CheckStyle</h4>
+<p>Java代码格式规范插件，能够自定义不同的规范</p>
+<h4 id="alibaba-java-coding-guidelines"><a class="markdownIt-Anchor" href="#alibaba-java-coding-guidelines"></a> Alibaba Java Coding Guidelines</h4>
+<p>Alibaba Java Coding Guidelines阿里巴巴的代码规范插件，用于开发者规范自己的代码编写，改善代码质量</p>
+<h4 id="sonarlint"><a class="markdownIt-Anchor" href="#sonarlint"></a> SonarLint</h4>
+<p>SonarLint是一个代码质量检测器插件，用于培养开发者良好的开发习惯以及提高代码质量</p>
+<hr />
+<h3 id="git提交规范"><a class="markdownIt-Anchor" href="#git提交规范"></a> Git提交规范</h3>
+<h4 id="git-commit-template"><a class="markdownIt-Anchor" href="#git-commit-template"></a> Git Commit Template</h4>
+<p>Git Commit Template用于规范git提交信息</p>
+<hr />
+<h3 id="代码测试"><a class="markdownIt-Anchor" href="#代码测试"></a> 代码测试</h3>
+<h4 id="junitgenerator-v20"><a class="markdownIt-Anchor" href="#junitgenerator-v20"></a> JUnitGenerator V2.0</h4>
+<p>JUnitGenerator V2.0用于快速生成代码测试模块</p>
+<hr />
+<h3 id="项目架构分析"><a class="markdownIt-Anchor" href="#项目架构分析"></a> 项目架构分析</h3>
+<h4 id="plantuml-integration"><a class="markdownIt-Anchor" href="#plantuml-integration"></a> PlantUML Integration</h4>
+<p>PlantUML Integration是一款用于快速创建UML（统一建模语言）图形的插件，能够通过绘制图形来系统性地分析和设计项目</p>
+<h4 id="sequencediagram"><a class="markdownIt-Anchor" href="#sequencediagram"></a> SequenceDiagram</h4>
+<p>SequenceDiagram用于生成项目类调用关系与执行流程的时序图</p>
+<hr />
+<h3 id="云部署"><a class="markdownIt-Anchor" href="#云部署"></a> 云部署</h3>
+<h4 id="alibaba-cloud-toolkit"><a class="markdownIt-Anchor" href="#alibaba-cloud-toolkit"></a> Alibaba Cloud Toolkit</h4>
+<p>Alibaba Cloud Toolkit用于高效开发并部署适合在云端运行的应用</p>
+<hr />
+<h3 id="json辅助工具"><a class="markdownIt-Anchor" href="#json辅助工具"></a> Json辅助工具</h3>
+<h4 id="json-parser"><a class="markdownIt-Anchor" href="#json-parser"></a> Json Parser</h4>
+<p>Json Parser是一款json解析器插件，是一个用于<strong>验证和格式化JSON字符串</strong>的轻量级插件</p>
+<h4 id="gsonformatplus"><a class="markdownIt-Anchor" href="#gsonformatplus"></a> GsonFormatPlus</h4>
+<p>GsonFormat能够将json数据直接转换为Java的类，提高效率</p>
+<hr />
+<h3 id="翻译工具"><a class="markdownIt-Anchor" href="#翻译工具"></a> 翻译工具</h3>
+<h4 id="translation"><a class="markdownIt-Anchor" href="#translation"></a> Translation</h4>
+<p>Translation是一款中英文翻译插件，用于在IDEA内部快速实现中英文翻译</p>
+<hr />
+<h3 id="maven辅助工具"><a class="markdownIt-Anchor" href="#maven辅助工具"></a> Maven辅助工具</h3>
+<h4 id="maven-helper"><a class="markdownIt-Anchor" href="#maven-helper"></a> Maven Helper</h4>
+<p>Maven Helper是一款maven依赖冲突分析的插件，主要提供图形化操作来替代命令行操作</p>
+<hr />
+<h3 id="mybatis辅助工具"><a class="markdownIt-Anchor" href="#mybatis辅助工具"></a> Mybatis辅助工具</h3>
+<p>注意部分MyBatis插件和MybatisPlus插件可能会产生冲突</p>
+<h4 id="mybatis-log"><a class="markdownIt-Anchor" href="#mybatis-log"></a> Mybatis Log</h4>
+<p>Mybatis Log是一款Mybatis的<strong>日志处理</strong>工具，将Mybatis框架日志中的SQL信息转换可直接执行的SQL语句，节省时间。其历史版本不需要付费，最新版本需要付费使用</p>
+<h4 id="mybatiscodehelperpro"><a class="markdownIt-Anchor" href="#mybatiscodehelperpro"></a> MybatisCodeHelperPro</h4>
+<p>MybatisCodeHelperPro是一款MyBatis的强大辅助插件（不少开发者对此给出很高的评价），提供免费版和付费版，免费版提供的功能基本能够满足日常需求。（可能会与其它插件产生冲突）</p>
+<hr />
+<h3 id="mybatisplus辅助工具"><a class="markdownIt-Anchor" href="#mybatisplus辅助工具"></a> MybatisPlus辅助工具</h3>
+<h4 id="mybatisx"><a class="markdownIt-Anchor" href="#mybatisx"></a> MybatisX</h4>
+<p>MybatisX是MybatisPlus的强大辅助插件。（可能会与Mybatis的部分插件产生冲突）</p>
+<hr />
+<h3 id="restful辅助工具"><a class="markdownIt-Anchor" href="#restful辅助工具"></a> Restful辅助工具</h3>
+<h4 id="restfultoolkit"><a class="markdownIt-Anchor" href="#restfultoolkit"></a> Restfultoolkit</h4>
+<p>Restfultoolkit是一款针对Restful服务开发的辅助工具，能够根据URL快速跳转到对应的方法接口，提供了一个接口列表窗口，内置一个简单的Http请求工具（相当于一个简化的测试工具，类似于postman和apifox等）</p>
+<hr />
+<h3 id="k8s辅助工具"><a class="markdownIt-Anchor" href="#k8s辅助工具"></a> K8s辅助工具</h3>
+<h4 id="kubernetes"><a class="markdownIt-Anchor" href="#kubernetes"></a> Kubernetes</h4>
+<p>Kubernetes插件用于检测管理Kubernetes系统</p>
+<hr />
 ]]></content>
       <tags>
-        <tag>RSS</tag>
+        <tag>配置优化</tag>
       </tags>
   </entry>
   <entry>
@@ -2342,6 +2322,26 @@
       </tags>
   </entry>
   <entry>
+    <title>RSS订阅的使用以及优势</title>
+    <url>/2022/09/04/RSS/</url>
+    <content><![CDATA[<h3 id="rssreally-simple-syndication简易信息聚合"><a class="markdownIt-Anchor" href="#rssreally-simple-syndication简易信息聚合"></a> RSS(Really Simple Syndication)简易信息聚合</h3>
+<h4 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h4>
+<p>RSS本身是一种消息来源格式规范，主要用于聚合数据时效性很强的网站，例如个人博客文章、新闻，以及很多社交网站。RSS文件包含全文或者部分内容。<span id="more"></span></p>
+<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
+<ul>
+<li>能够自主选择您感兴趣的内容和信息进行浏览</li>
+<li>通过RSS，您可以把需要的信息从网站中筛选出来，排除掉那些不需要的信息，例如广告</li>
+<li>通过RSS，您可以创建自己的新闻频道，并发布到互联网上供其他人以RSS订阅您的新闻频道</li>
+<li>使用RSS的客户端，能够在不打开网站内容页面的情况下阅读支持RSS输出的网站内容</li>
+</ul>
+<h4 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h4>
+<p>windows平台这里推荐微软商店的Fluent Reader<a class="link"   href="https://apps.microsoft.com/store/detail/9P71FC94LRH8" >官网链接 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <tags>
+        <tag>RSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Redis基础</title>
     <url>/2022/09/14/Redis-Base/</url>
     <content><![CDATA[<h3 id="redis基础"><a class="markdownIt-Anchor" href="#redis基础"></a> Redis基础</h3>
@@ -2812,6 +2812,37 @@
       </tags>
   </entry>
   <entry>
+    <title>一封数字签名邮件</title>
+    <url>/2022/11/10/digital-signature/</url>
+    <content><![CDATA[<h3 id="使用outlook邮箱发送一封带有数字签名的邮件"><a class="markdownIt-Anchor" href="#使用outlook邮箱发送一封带有数字签名的邮件"></a> 使用outlook邮箱发送一封带有数字签名的邮件</h3>
+<p>Digital Signature(数字签名)<strong>是</strong>Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。<span id="more"></span></p>
+<p>数字签名是使用数字证书来验证签名者的身份, 并通过密码算法将签名者身份绑定到文档中来证明签名行为的不可否认, 已签名文档无需包含签名过程审计报告, 签名者的身份验证则由证书颁发机构(CA)或信任服务提供商(TSP)完成。</p>
+<h4 id="1下载数字证书"><a class="markdownIt-Anchor" href="#1下载数字证书"></a> 1.下载数字证书</h4>
+<p>数字证书需要先到网站上申请下载, 这里提供了一个申请90天免费证书的网站 <a class="link"   href="https://www.cersign.com/smime-email-certificates.html" >证签安全电子邮件证书 - CerSign <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>按照网站上提示完成申请以及邮箱验证即可。免费邮件证书大约几分钟后就会签发, 点击下载证书设置保护口令即可</p>
+<h4 id="2在邮箱客户端中设置"><a class="markdownIt-Anchor" href="#2在邮箱客户端中设置"></a> 2.在邮箱客户端中设置</h4>
+<p>outlook邮箱中导入数字证书: <strong>文件→选项→信任中心→电子邮件安全性</strong>, 然后设置加密以及数字签名。在默认设置中选择<strong>签名证书和加密证书</strong>(需要先找到之前下载好的证书文件双击运行并导入证书)</p>
+<h4 id="3发送邮件进行测试"><a class="markdownIt-Anchor" href="#3发送邮件进行测试"></a> 3.发送邮件进行测试</h4>
+<p>选择收件人(可以选择本地的另外一个邮箱)后输入邮件内容发送, 通过outlook客户端查看邮件内容会有一个额外的数字签名的图标, 点击该图标能够查看到发件人的数字证书信息。另外经过加密的邮件还会有一个🔒的图标, 在收件人拥有发件人的<strong>公钥</strong>时, 就能够进行解密获取正文内容。其他情况下, 则只有一个加密的smime.p7m文件(无法直接获取正文内容)</p>
+<h4 id="4关于公钥和私钥的一些简单理解"><a class="markdownIt-Anchor" href="#4关于公钥和私钥的一些简单理解"></a> 4.关于公钥和私钥的一些简单理解</h4>
+<p>公钥是一种<strong>非对称加密算法</strong>, 一般都是公布给对方用于加密解密</p>
+<p>私钥是一种<strong>对称加密算法</strong>, 一般不对任何人公开, 同样可用于加密解密</p>
+<p>公钥和私钥是<strong>成对出现</strong>的, 且<strong>唯一对应</strong></p>
+<h5 id="思路1确保邮件只能由特定的收件人读取"><a class="markdownIt-Anchor" href="#思路1确保邮件只能由特定的收件人读取"></a> 思路1：确保邮件只能由特定的收件人读取</h5>
+<p><strong>收件人的公钥</strong>提前就公布给所有发件人用于进行加密但不能进行解密, <strong>收件人的私钥</strong>则用于解密来自对应的公钥加密的邮件但不能进行加密(这也是一种非对称加密)</p>
+<h5 id="思路2确认发件人的邮件未被篡改"><a class="markdownIt-Anchor" href="#思路2确认发件人的邮件未被篡改"></a> 思路2：确认发件人的邮件未被篡改</h5>
+<p><strong>发件人的公钥</strong>提前就公布给所有收件人用于进行<strong>解密</strong>, <strong>发件人的私钥</strong>则用于<strong>加密</strong>邮件</p>
+<p>具体流程：</p>
+<p>发件人使用自己的私钥先对邮件加密<strong>一个hash值</strong>, 再用来自收件人的公钥对<strong>内容及hash值</strong>二次加密, 然后发送给收件人</p>
+<p>收件人获取到了二次加密的邮件后, 先使用自己的私钥解密对应的公钥获取内容及<strong>加密的hash值</strong>, 再用来自收件人的公钥二次解密对应的私钥获取<strong>原始的hash值</strong>, 对内容进行hash计算, 如果计算的结果与之前hash值解密后的内容相同, 则说明内容未被篡改</p>
+<p>需要注意的是：公钥和私钥的用法不是固定的, 在收件人和发件人两种情景下, 它们的用法恰恰是相反的</p>
+]]></content>
+      <tags>
+        <tag>数字签名</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>运算方法和运算器</title>
     <url>/2023/04/25/computer-organization-1/</url>
     <content><![CDATA[<p>计算机组成原理——运算方法和运算器知识梳理<span id="more"></span></p>
@@ -3137,37 +3168,6 @@ y=2^{E_y}\cdot M_y
       <tags>
         <tag>计算机组成原理</tag>
         <tag>运算方法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一封数字签名邮件</title>
-    <url>/2022/11/10/digital-signature/</url>
-    <content><![CDATA[<h3 id="使用outlook邮箱发送一封带有数字签名的邮件"><a class="markdownIt-Anchor" href="#使用outlook邮箱发送一封带有数字签名的邮件"></a> 使用outlook邮箱发送一封带有数字签名的邮件</h3>
-<p>Digital Signature(数字签名)<strong>是</strong>Electronic Signature(电子签名)的一种特定类型, 是一种改进型的更加可信的电子方式签名。<span id="more"></span></p>
-<p>数字签名是使用数字证书来验证签名者的身份, 并通过密码算法将签名者身份绑定到文档中来证明签名行为的不可否认, 已签名文档无需包含签名过程审计报告, 签名者的身份验证则由证书颁发机构(CA)或信任服务提供商(TSP)完成。</p>
-<h4 id="1下载数字证书"><a class="markdownIt-Anchor" href="#1下载数字证书"></a> 1.下载数字证书</h4>
-<p>数字证书需要先到网站上申请下载, 这里提供了一个申请90天免费证书的网站 <a class="link"   href="https://www.cersign.com/smime-email-certificates.html" >证签安全电子邮件证书 - CerSign <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>按照网站上提示完成申请以及邮箱验证即可。免费邮件证书大约几分钟后就会签发, 点击下载证书设置保护口令即可</p>
-<h4 id="2在邮箱客户端中设置"><a class="markdownIt-Anchor" href="#2在邮箱客户端中设置"></a> 2.在邮箱客户端中设置</h4>
-<p>outlook邮箱中导入数字证书: <strong>文件→选项→信任中心→电子邮件安全性</strong>, 然后设置加密以及数字签名。在默认设置中选择<strong>签名证书和加密证书</strong>(需要先找到之前下载好的证书文件双击运行并导入证书)</p>
-<h4 id="3发送邮件进行测试"><a class="markdownIt-Anchor" href="#3发送邮件进行测试"></a> 3.发送邮件进行测试</h4>
-<p>选择收件人(可以选择本地的另外一个邮箱)后输入邮件内容发送, 通过outlook客户端查看邮件内容会有一个额外的数字签名的图标, 点击该图标能够查看到发件人的数字证书信息。另外经过加密的邮件还会有一个🔒的图标, 在收件人拥有发件人的<strong>公钥</strong>时, 就能够进行解密获取正文内容。其他情况下, 则只有一个加密的smime.p7m文件(无法直接获取正文内容)</p>
-<h4 id="4关于公钥和私钥的一些简单理解"><a class="markdownIt-Anchor" href="#4关于公钥和私钥的一些简单理解"></a> 4.关于公钥和私钥的一些简单理解</h4>
-<p>公钥是一种<strong>非对称加密算法</strong>, 一般都是公布给对方用于加密解密</p>
-<p>私钥是一种<strong>对称加密算法</strong>, 一般不对任何人公开, 同样可用于加密解密</p>
-<p>公钥和私钥是<strong>成对出现</strong>的, 且<strong>唯一对应</strong></p>
-<h5 id="思路1确保邮件只能由特定的收件人读取"><a class="markdownIt-Anchor" href="#思路1确保邮件只能由特定的收件人读取"></a> 思路1：确保邮件只能由特定的收件人读取</h5>
-<p><strong>收件人的公钥</strong>提前就公布给所有发件人用于进行加密但不能进行解密, <strong>收件人的私钥</strong>则用于解密来自对应的公钥加密的邮件但不能进行加密(这也是一种非对称加密)</p>
-<h5 id="思路2确认发件人的邮件未被篡改"><a class="markdownIt-Anchor" href="#思路2确认发件人的邮件未被篡改"></a> 思路2：确认发件人的邮件未被篡改</h5>
-<p><strong>发件人的公钥</strong>提前就公布给所有收件人用于进行<strong>解密</strong>, <strong>发件人的私钥</strong>则用于<strong>加密</strong>邮件</p>
-<p>具体流程：</p>
-<p>发件人使用自己的私钥先对邮件加密<strong>一个hash值</strong>, 再用来自收件人的公钥对<strong>内容及hash值</strong>二次加密, 然后发送给收件人</p>
-<p>收件人获取到了二次加密的邮件后, 先使用自己的私钥解密对应的公钥获取内容及<strong>加密的hash值</strong>, 再用来自收件人的公钥二次解密对应的私钥获取<strong>原始的hash值</strong>, 对内容进行hash计算, 如果计算的结果与之前hash值解密后的内容相同, 则说明内容未被篡改</p>
-<p>需要注意的是：公钥和私钥的用法不是固定的, 在收件人和发件人两种情景下, 它们的用法恰恰是相反的</p>
-]]></content>
-      <tags>
-        <tag>数字签名</tag>
-        <tag>计算机网络</tag>
       </tags>
   </entry>
   <entry>
@@ -3719,114 +3719,6 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
-    <title>黑灰产监控与防御</title>
-    <url>/2023/02/07/golang-day11/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7197404867802038330" >黑灰产监控与防御 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对黑灰产监控与防御的学习<span id="more"></span></p>
-<h2 id="黑灰产监控与防御"><a class="markdownIt-Anchor" href="#黑灰产监控与防御"></a> 黑灰产监控与防御</h2>
-<h3 id="1黑产介绍"><a class="markdownIt-Anchor" href="#1黑产介绍"></a> 1.黑产介绍</h3>
-<h4 id="一些常见的黑产"><a class="markdownIt-Anchor" href="#一些常见的黑产"></a> 一些常见的黑产</h4>
-<p>诈骗、木马、薅羊毛、钓鱼、黄牛、病毒、博彩、拖库、引流、盗号、跑分、勒索软件</p>
-<h4 id="黑色产业规模"><a class="markdownIt-Anchor" href="#黑色产业规模"></a> 黑色产业规模</h4>
-<ul>
-<li>
-<p>中国“网络黑产”从业人员已超过 150 万，市场规模已经达到千亿级别 - 中国法院网 2017 年</p>
-</li>
-<li>
-<p>截止 2022 年 12 曰，haveibeenpwned 已收录了约 120 亿条账号密码数据</p>
-<p>可访问 <a class="link"   href="https://haveibeenpwned.com/" >https://haveibeenpwned.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 查看一下自己的账号密码是否在其中</p>
-</li>
-<li>
-<p>某互联网风控公司统计，2018 年各类黑产攻击（业务层）总数超过 300 亿次</p>
-</li>
-<li>
-<p>据不完全统计，2019 年全网约有 5000 万左右的非实名手机卡被频繁用于各种欺诈活动</p>
-</li>
-<li>
-<p>据不完全统计，仅中国境内每天约有 350-400 万个代理 IP 被用于各类欺诈活动</p>
-</li>
-<li>
-<p>…</p>
-</li>
-</ul>
-<h4 id="黑产发展趋势"><a class="markdownIt-Anchor" href="#黑产发展趋势"></a> 黑产发展趋势</h4>
-<ul>
-<li>规模化：借助脚本软件实现自动化、批量化攻击</li>
-<li>组织化：以工作室甚至公司的形式运作，分工明确、合作紧密</li>
-<li>平台化：
-<ul>
-<li>出现很多平台级的爬虫、群控、钓鱼木马等，难以追查</li>
-<li>通过各类平台将黑产手中零散的资源进行整合</li>
-</ul>
-</li>
-</ul>
-<h3 id="2常见的黑产技术分析"><a class="markdownIt-Anchor" href="#2常见的黑产技术分析"></a> 2.常见的黑产技术分析</h3>
-<h4 id="开户流程"><a class="markdownIt-Anchor" href="#开户流程"></a> 开户流程</h4>
-<p>实名认证 —&gt; 绑定银行卡 —&gt; 审核开户</p>
-<h4 id="对抗攻击手段"><a class="markdownIt-Anchor" href="#对抗攻击手段"></a> 对抗攻击手段</h4>
-<ul>
-<li>人脸识别对抗
-<ul>
-<li>伪造人脸数据</li>
-</ul>
-</li>
-<li>地理位置对抗
-<ul>
-<li>定位打卡</li>
-<li>摇一摇、附近的人</li>
-<li>出租车抢单</li>
-<li>某些线下优惠</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
-<h3 id="3安全防护体系的建设"><a class="markdownIt-Anchor" href="#3安全防护体系的建设"></a> 3.安全防护体系的建设</h3>
-<h4 id="事前"><a class="markdownIt-Anchor" href="#事前"></a> 事前</h4>
-<ul>
-<li>情报监控
-<ul>
-<li>暗网</li>
-<li>贴吧</li>
-<li>TG</li>
-<li>破解论坛</li>
-</ul>
-</li>
-<li>SDLC：软件开发生命周期的阶段和模型</li>
-<li>漏洞扫描</li>
-</ul>
-<h4 id="事中"><a class="markdownIt-Anchor" href="#事中"></a> 事中</h4>
-<ul>
-<li>渗透测试</li>
-<li>威胁感知
-<ul>
-<li>用户行为异常</li>
-<li>接口数据异常</li>
-<li>恶意流量检测</li>
-</ul>
-</li>
-<li>风控/安全策略</li>
-</ul>
-<h4 id="事后"><a class="markdownIt-Anchor" href="#事后"></a> 事后</h4>
-<ul>
-<li>威胁建模</li>
-<li>攻击溯源</li>
-</ul>
-<h4 id="关键要素"><a class="markdownIt-Anchor" href="#关键要素"></a> 关键要素</h4>
-<p>验证码、安全 SDK、代理检测、人脸识别、黑产名单、…</p>
-<p>WAF（WEB应用程序防火墙）、IDS（入侵检测系统）、DLP、终端安全防护、行为审计、…</p>
-<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/450678659" >对抗攻击-人脸识别 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/575438524" >解密地理位置模拟攻防之道 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://www.jianshu.com/p/8e570d9049e0" >SDLC：软件开发生命周期的阶段和模型 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://juejin.cn/post/7196959046603227195" >黑灰产监控与防御 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>分布式定时任务</title>
     <url>/2023/02/08/golang-day12/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7197711583131697189" >分布式定时任务 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对分布式定时任务的学习<span id="more"></span></p>
@@ -4323,6 +4215,114 @@ y=2^{E_y}\cdot M_y
 <p><a class="link"   href="https://zhuanlan.zhihu.com/p/306591082" >Quartz 是什么？一文带你入坑 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://zhuanlan.zhihu.com/p/36627346" >美团点评许雪里：分布式任务调度平台 XXL-JOB <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://xie.infoq.cn/article/5dfcab3b430d549f006882635" >时间轮原理及其在框架中的应用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>黑灰产监控与防御</title>
+    <url>/2023/02/07/golang-day11/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7197404867802038330" >黑灰产监控与防御 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对黑灰产监控与防御的学习<span id="more"></span></p>
+<h2 id="黑灰产监控与防御"><a class="markdownIt-Anchor" href="#黑灰产监控与防御"></a> 黑灰产监控与防御</h2>
+<h3 id="1黑产介绍"><a class="markdownIt-Anchor" href="#1黑产介绍"></a> 1.黑产介绍</h3>
+<h4 id="一些常见的黑产"><a class="markdownIt-Anchor" href="#一些常见的黑产"></a> 一些常见的黑产</h4>
+<p>诈骗、木马、薅羊毛、钓鱼、黄牛、病毒、博彩、拖库、引流、盗号、跑分、勒索软件</p>
+<h4 id="黑色产业规模"><a class="markdownIt-Anchor" href="#黑色产业规模"></a> 黑色产业规模</h4>
+<ul>
+<li>
+<p>中国“网络黑产”从业人员已超过 150 万，市场规模已经达到千亿级别 - 中国法院网 2017 年</p>
+</li>
+<li>
+<p>截止 2022 年 12 曰，haveibeenpwned 已收录了约 120 亿条账号密码数据</p>
+<p>可访问 <a class="link"   href="https://haveibeenpwned.com/" >https://haveibeenpwned.com/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 查看一下自己的账号密码是否在其中</p>
+</li>
+<li>
+<p>某互联网风控公司统计，2018 年各类黑产攻击（业务层）总数超过 300 亿次</p>
+</li>
+<li>
+<p>据不完全统计，2019 年全网约有 5000 万左右的非实名手机卡被频繁用于各种欺诈活动</p>
+</li>
+<li>
+<p>据不完全统计，仅中国境内每天约有 350-400 万个代理 IP 被用于各类欺诈活动</p>
+</li>
+<li>
+<p>…</p>
+</li>
+</ul>
+<h4 id="黑产发展趋势"><a class="markdownIt-Anchor" href="#黑产发展趋势"></a> 黑产发展趋势</h4>
+<ul>
+<li>规模化：借助脚本软件实现自动化、批量化攻击</li>
+<li>组织化：以工作室甚至公司的形式运作，分工明确、合作紧密</li>
+<li>平台化：
+<ul>
+<li>出现很多平台级的爬虫、群控、钓鱼木马等，难以追查</li>
+<li>通过各类平台将黑产手中零散的资源进行整合</li>
+</ul>
+</li>
+</ul>
+<h3 id="2常见的黑产技术分析"><a class="markdownIt-Anchor" href="#2常见的黑产技术分析"></a> 2.常见的黑产技术分析</h3>
+<h4 id="开户流程"><a class="markdownIt-Anchor" href="#开户流程"></a> 开户流程</h4>
+<p>实名认证 —&gt; 绑定银行卡 —&gt; 审核开户</p>
+<h4 id="对抗攻击手段"><a class="markdownIt-Anchor" href="#对抗攻击手段"></a> 对抗攻击手段</h4>
+<ul>
+<li>人脸识别对抗
+<ul>
+<li>伪造人脸数据</li>
+</ul>
+</li>
+<li>地理位置对抗
+<ul>
+<li>定位打卡</li>
+<li>摇一摇、附近的人</li>
+<li>出租车抢单</li>
+<li>某些线下优惠</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h3 id="3安全防护体系的建设"><a class="markdownIt-Anchor" href="#3安全防护体系的建设"></a> 3.安全防护体系的建设</h3>
+<h4 id="事前"><a class="markdownIt-Anchor" href="#事前"></a> 事前</h4>
+<ul>
+<li>情报监控
+<ul>
+<li>暗网</li>
+<li>贴吧</li>
+<li>TG</li>
+<li>破解论坛</li>
+</ul>
+</li>
+<li>SDLC：软件开发生命周期的阶段和模型</li>
+<li>漏洞扫描</li>
+</ul>
+<h4 id="事中"><a class="markdownIt-Anchor" href="#事中"></a> 事中</h4>
+<ul>
+<li>渗透测试</li>
+<li>威胁感知
+<ul>
+<li>用户行为异常</li>
+<li>接口数据异常</li>
+<li>恶意流量检测</li>
+</ul>
+</li>
+<li>风控/安全策略</li>
+</ul>
+<h4 id="事后"><a class="markdownIt-Anchor" href="#事后"></a> 事后</h4>
+<ul>
+<li>威胁建模</li>
+<li>攻击溯源</li>
+</ul>
+<h4 id="关键要素"><a class="markdownIt-Anchor" href="#关键要素"></a> 关键要素</h4>
+<p>验证码、安全 SDK、代理检测、人脸识别、黑产名单、…</p>
+<p>WAF（WEB应用程序防火墙）、IDS（入侵检测系统）、DLP、终端安全防护、行为审计、…</p>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/450678659" >对抗攻击-人脸识别 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/575438524" >解密地理位置模拟攻防之道 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://www.jianshu.com/p/8e570d9049e0" >SDLC：软件开发生命周期的阶段和模型 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://juejin.cn/post/7196959046603227195" >黑灰产监控与防御 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>青训营记录</category>
@@ -7556,414 +7556,6 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
-    <title>Go 框架三件套详解</title>
-    <url>/2023/02/01/golang-day5/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7195211923154010168" >Go 框架三件套详解(Web/RPC/ORM) | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang web开发框架三件套的学习<span id="more"></span></p>
-<h2 id="框架三件套详解webrpcorm"><a class="markdownIt-Anchor" href="#框架三件套详解webrpcorm"></a> 框架三件套详解(Web/RPC/ORM)</h2>
-<blockquote>
-<p>什么是 ORM 框架</p>
-<p>对象关系映射（Object Relational Mapping，简称 ORM）模式是一种为了解决面向对象与关系数据库存在的互不匹配的现象的技术。ORM框架是连接数据库的桥梁，只要提供了持久化类与表的映射关系，ORM框架在运行时就能参照映射文件的信息，把对象持久化到数据库中</p>
-<p>什么是 RPC 框架</p>
-<p>RPC 是远程过程调用（Remote Procedure Call）。RPC 的主要功能目标是让构建分布式计算（应用）更容易，在提供强大的远程调用能力时不损失本地调用的语义简洁性。为实现该目标，RPC 框架需提供一种透明调用机制，让使用者不必显式的区分本地调用和远程调用。</p>
-<p>什么是 Web 框架（这里的 Web 框架在后面用 HTTP 框架来称呼）</p>
-<p>Web 框架是用于进行 Web 开发的一套软件架构。主要是为开发者封装好了一系列与业务逻辑无关的代码实现，方便开发者专注于业务逻辑代码的编写。</p>
-</blockquote>
-<h3 id="1三件套介绍"><a class="markdownIt-Anchor" href="#1三件套介绍"></a> 1.三件套介绍</h3>
-<ul>
-<li>
-<p>ORM 框架：<a class="link"   href="https://github.com/go-gorm/gorm" >GORM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>GORM 是一个已经迭代了十多年的功能强大的 ORM 框架，拥有非常丰富的开源扩展。</p>
-</li>
-<li>
-<p>RPC 框架：<a class="link"   href="https://github.com/cloudwego/kitex" >Kitex <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>Kitex 由字节跳动开发，是 Golang 微服务 RPC 框架，具有高性能、强可扩展的主要特点，支持多协议并且拥有丰富的开源扩展。</p>
-</li>
-<li>
-<p>HTTP 框架：<a class="link"   href="https://github.com/cloudwego/hertz" >Hertz <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>Hertz 由字节跳动开发，是 HTTP 框架，参考了其他开源框架的优势，具有高易用性、高性能、高扩展性特点。</p>
-</li>
-</ul>
-<h3 id="2-三件套的使用"><a class="markdownIt-Anchor" href="#2-三件套的使用"></a> 2. 三件套的使用</h3>
-<h4 id="gorm-的基本使用"><a class="markdownIt-Anchor" href="#gorm-的基本使用"></a> GORM 的基本使用</h4>
-<h5 id="gorm-的约定默认"><a class="markdownIt-Anchor" href="#gorm-的约定默认"></a> GORM 的约定（默认）</h5>
-<ul>
-<li>GORM 使用名为 ID 的字段作为主键</li>
-<li>使用结构体的蛇形负数作为表名</li>
-<li>字段名的蛇形作为列名</li>
-<li>使用 CreatedAt、UpdatedAt 字段作为创建、更新时间</li>
-</ul>
-<p>示例</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义 model</span></span><br><span class="line"><span class="keyword">type</span> Product <span class="keyword">struct</span> &#123;</span><br><span class="line">    Code  <span class="type">string</span></span><br><span class="line">    Price <span class="type">uint</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 为 model 定义表名</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Product)</span></span> TableName() <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;product&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 连接数据库</span></span><br><span class="line">    <span class="comment">// 创建数据</span></span><br><span class="line">    <span class="comment">// 查询数据</span></span><br><span class="line">    <span class="comment">// 更新数据</span></span><br><span class="line">    <span class="comment">// 删除数据</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/models.html" >模型定义 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="gorm-支持的数据库"><a class="markdownIt-Anchor" href="#gorm-支持的数据库"></a> GORM 支持的数据库</h5>
-<p>GORM 目前支持 MySQL、SQLServer、PostgreSQL、SQLite。</p>
-<p>GORM连接数据库需要提供 DSN 参数。DSN（DataSource Name）数据源名称，用来描述数据库连接信息。参考<a class="link"   href="https://github.com/go-sql-driver/mysql#dsn-data-source-name" >https://github.com/go-sql-driver/mysql#dsn-data-source-name <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>GORM 通过驱动来连接数据库，如果需要连接其它类型的数据库，可以复用/自行开发驱动。</p>
-<p>示例</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">dsn := <span class="string">&quot;user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&quot;</span></span><br><span class="line">db, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;&#125;)</span><br></pre></td></tr></table></figure></div>
-<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/connecting_to_the_database.html" >连接到数据库 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="gorm-创建数据"><a class="markdownIt-Anchor" href="#gorm-创建数据"></a> GORM 创建数据</h5>
-<p>通过 Create 方法创建数据</p>
-<ul>
-<li>
-<p>创建一条数据</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">p := &amp;Product&#123;Code: <span class="string">&quot;D42&quot;</span>&#125;</span><br><span class="line">res := db.Create(p)</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>创建多条数据</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">products := []*Product&#123;&#123;Code: <span class="string">&quot;D41&quot;</span>&#125;, &#123;Code: <span class="string">&quot;D42&quot;</span>&#125;, &#123;Code: <span class="string">&quot;D43&quot;</span>&#125;&#125;</span><br><span class="line">res, err := db.Create(products)</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>特殊的操作 Upsert ，用于创建一条唯一的数据，若该数据已存在则执行更新操作，若该数据不存在则执行插入操作。（这里的Upsert不是一个方法，而是一种思路逻辑）</p>
-<p>Upsert 数据冲突问题</p>
-<ul>
-<li>
-<p>使用 OnConflict 方法应对</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 发生冲突时, 不对冲突做处理, 数据也不会改变</span></span><br><span class="line">p := &amp;Product&#123;Code: <span class="string">&quot;D42&quot;</span>, ID: <span class="number">1</span>&#125;</span><br><span class="line">db.Clauses(clause.OnConflict&#123;DoNothing: <span class="literal">true</span>&#125;).Create(&amp;p)</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>使用默认值，在结构体中使用 default 标签为字段定义默认值</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID   <span class="type">int64</span></span><br><span class="line">    Code <span class="type">string</span> <span class="string">`gorm:&quot;default:404&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/create.html" >创建 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="gorm-查询数据"><a class="markdownIt-Anchor" href="#gorm-查询数据"></a> GORM 查询数据</h5>
-<p>使用 First 方法查询第一条数据（默认主键升序），查询不到数据则返回 ErrRecordNotFound 错误</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">u := &amp;User&#123;&#125;</span><br><span class="line">db.First(u) <span class="comment">// SELECT * FROM users ORDER BY id LIMIT 1;</span></span><br></pre></td></tr></table></figure></div>
-<p>其它类似的有 Take 方法获取一条数据（没有指定排序字段）和 Last 方法获取最后一条数据（默认主键降序）。</p>
-<p>使用 Where 方法和 Find 方法查询多条数据，需要注意使用 Find 查询多条数据时，查询不到数据也不会报错。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">users := <span class="built_in">make</span>([]*User, <span class="number">0</span>)</span><br><span class="line">result := db.Where(<span class="string">&quot;age &gt; 10&quot;</span>).Find(&amp;users) <span class="comment">// SELECT * FROM users where age &gt; 10;</span></span><br><span class="line">fmt.Println(result.RowsAffected) <span class="comment">// 返回查询到的记录数</span></span><br><span class="line"><span class="comment">// IN: SELECT * FROM users WHERE name IN (&#x27;abcd&#x27;, &#x27;defg&#x27;);</span></span><br><span class="line">db.Where(<span class="string">&quot;name IN ?&quot;</span>, []<span class="type">string</span>&#123;<span class="string">&quot;abcd&quot;</span>, <span class="string">&quot;defg&quot;</span>&#125;).Find(&amp;users)</span><br><span class="line"><span class="comment">// LIKE: SELECT * FROM users WHERE name LIKE &#x27;%d%&#x27;;</span></span><br><span class="line">db.Where(<span class="string">&quot;name LIKE ?&quot;</span>, <span class="string">&quot;%d%&quot;</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">// AND: SELECT * FROM users WHERE name = &#x27;abcd&#x27; AND age &gt;= 22;</span></span><br><span class="line">db.Where(<span class="string">&quot;name = ? AND age &gt;= ?&quot;</span>, <span class="string">&quot;abcd&quot;</span>, <span class="string">&quot;22&quot;</span>).Find(&amp;users)</span><br></pre></td></tr></table></figure></div>
-<p>使用结构体作为查询条件</p>
-<p>当使用结构体作为条件查询时，GORM 只会查询非零值字段。这意味着字段值为 0、‘’、false或其他零值的字段无法用于构建查询条件，可以使用 Map 来构建查询条件。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// SELECT * FROM users WHERE name = &quot;abc&quot;;</span></span><br><span class="line">db.Where(&amp;User&#123;Name: <span class="string">&quot;abc&quot;</span>, Age: <span class="number">0</span>&#125;).Find(&amp;users) <span class="comment">//Age为零值,不会被构建</span></span><br><span class="line"><span class="comment">// SELECT * FROM users WHERE name = &quot;abc&quot; AND age = 0;</span></span><br><span class="line">db.Where(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;Name&quot;</span>: <span class="string">&quot;abc&quot;</span>, <span class="string">&quot;Age&quot;</span>: <span class="number">0</span>&#125;).Find(&amp;users)</span><br></pre></td></tr></table></figure></div>
-<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/query.html" >查询 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="gorm-更新数据"><a class="markdownIt-Anchor" href="#gorm-更新数据"></a> GORM 更新数据</h5>
-<p>使用 Model 方法和 Update 以及 Updates 方法更新数据</p>
-<ul>
-<li>
-<p>条件更新单个列</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UPDATE users SET name=&#x27;hello&#x27; WHERE age &gt; 18;</span></span><br><span class="line">db.Model(&amp;User&#123;&#125;).Where(<span class="string">&quot;age &gt; ?&quot;</span>, <span class="number">18</span>).Update(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;hello&quot;</span>)</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>条件更新多个列</p>
-<ul>
-<li>
-<p>根据 struct 更新属性，使用 Struct 更新时，只会更新非零值字段，如果需要更新零值字段可以使用 Map 更新或使用 Select 选择字段。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UPDATE users SET name=&#x27;hello&#x27;, age=18 WHERE id = 111;</span></span><br><span class="line">db.Model(&amp;User&#123;ID: <span class="number">111</span>&#125;).Updates(User&#123;Name: <span class="string">&quot;hello&quot;</span>, Age: <span class="number">18</span>&#125;)</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>根据 map 更新属性</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UPDATE users SET name=&#x27;hello&#x27;, age=18, actived=false WHERE id = 111;</span></span><br><span class="line">db.Model(&amp;User&#123;ID: <span class="number">111</span>&#125;).Updates(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>, <span class="string">&quot;actived&quot;</span>: <span class="literal">false</span>&#125;)</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>更新选定字段</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UPDATE users SET name=&#x27;hello&#x27; WHERE id = 111;</span></span><br><span class="line">db.Model(&amp;User&#123;ID: <span class="number">111</span>&#125;).Select(<span class="string">&quot;name&quot;</span>).Updates(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>, <span class="string">&quot;actived&quot;</span>: <span class="literal">false</span>&#125;)</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-</li>
-<li>
-<p>SQL 表达式更新</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UPDATE &quot;products&quot; SET &quot;price&quot; = price * 2 + 100 WHERE &quot;id&quot; = 3;</span></span><br><span class="line">db.Model(&amp;Product&#123;ID: <span class="number">3</span>&#125;).Update(<span class="string">&quot;price&quot;</span>, gorm.Expr(<span class="string">&quot;price * ? + ?&quot;</span>, <span class="number">2</span>, <span class="number">100</span>))</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/update.html" >更新 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="gorm-删除数据"><a class="markdownIt-Anchor" href="#gorm-删除数据"></a> GORM 删除数据</h5>
-<p>物理删除，硬删除，数据会被直接删除，执行的是删除操作。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 根据主键删除</span></span><br><span class="line">db.Delete(&amp;User&#123;&#125;, <span class="number">10</span>) <span class="comment">// DELETE FROM users WHERE id = 10;</span></span><br><span class="line">db.Delete(&amp;User&#123;&#125;, <span class="string">&quot;10&quot;</span>) <span class="comment">// DELETE FROM users WHERE id = 10;</span></span><br><span class="line">db.Delete(&amp;User&#123;&#125;, []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;) <span class="comment">// DELETE FROM users WHERE id IN (1,2,3);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 批量删除</span></span><br><span class="line">db.Where(<span class="string">&quot;name LIKE ?&quot;</span>, <span class="string">&quot;%d%&quot;</span>).Delete(User&#123;&#125;) <span class="comment">// DELETE FROM users WHERE name LIKE &quot;%d%&quot;;</span></span><br><span class="line">db.Delete(User&#123;&#125;, <span class="string">&quot;name LIKE ?&quot;</span>, <span class="string">&quot;%d%&quot;</span>) <span class="comment">// DELETE FROM users WHERE name LIKE &quot;%d%&quot;;</span></span><br></pre></td></tr></table></figure></div>
-<p>逻辑删除，软删除，数据实际上没有被删除，执行的实际上是更新操作。</p>
-<p>GORM 提供了 gorm.DeletedAt 字段用于实现软删除，只需在 Model 结构体中添加这个字段即可。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID      <span class="type">int64</span></span><br><span class="line">    Name    <span class="type">string</span> <span class="string">`gorm:&quot;default:404&quot;`</span></span><br><span class="line">    Age     <span class="type">int64</span>  <span class="string">`gorm:&quot;default:18&quot;`</span></span><br><span class="line">    Deleted gorm.DeletedAt</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>拥有该字段的 Model 调用 Delete 方法时能够进行软删除，记录不会从数据库中真正删除。但 GORM 会将 DeletedAt 置为当前时间，并且无法通过正常的查询方法找到该记录。可以使用 Unscoped 方法查询被软删除的数据，也可以通过 Unscoped 方法来实现永久删除。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">db.Unscoped().Where(<span class="string">&quot;age = 20&quot;</span>).Find(&amp;users)</span><br><span class="line"></span><br><span class="line">db.Unscoped().Where(<span class="string">&quot;age = 20&quot;</span>).Delete(&amp;users) <span class="comment">// 数据被永久删除</span></span><br></pre></td></tr></table></figure></div>
-<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/delete.html" >删除 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="gorm-事务"><a class="markdownIt-Anchor" href="#gorm-事务"></a> GORM 事务</h5>
-<p>GORM 提供了 Begin、Commit、Rollback 方法用于使用事务</p>
-<p>开始事务</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">tx := db.Begin()</span><br></pre></td></tr></table></figure></div>
-<p>事务操作，注意这里应使用 tx 而不是 db</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">err := tx.Create(&amp;User&#123;Name: <span class="string">&quot;name&quot;</span>&#125;).Error</span><br></pre></td></tr></table></figure></div>
-<p>事务回滚，遇到错误时放弃本次事务操作</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    tx.Rollback()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>提交事务，应用本次事务操作带来的修改</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">tx.Commit()</span><br></pre></td></tr></table></figure></div>
-<p>GORM 提供了 Transaction 方法用于自动提交事务，可以不用写Commit 和 Rollback 方法就能实现事务的自动管理。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">db.Transaction(<span class="function"><span class="keyword">func</span><span class="params">(tx *gorm.DB)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> err := tx.Create(&amp;User&#123;Name: <span class="string">&quot;404&quot;</span>&#125;).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="comment">// 返回任何错误都会回滚事务</span></span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> err := tx.Create(&amp;User&#123;Name: <span class="string">&quot;504&quot;</span>&#125;).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回 nil 提交事务</span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
-<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/transactions.html" >事务 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="gorm-hook"><a class="markdownIt-Anchor" href="#gorm-hook"></a> GORM Hook</h5>
-<p>GORM 提供了 CURD 的 Hook 能力。</p>
-<p>Hook 是在创建、查询、更新、删除等操作执行之前、之后自动调用的函数。如果 Hook 返回错误，GORM 将停止后续的操作并回滚事务。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *User)</span></span> BeforeCreate(tx *gorm.DB) (err <span class="type">error</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> u.Age &lt; <span class="number">0</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> errors.New(<span class="string">&quot;can&#x27;t save invalid data&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *User)</span></span> AfterCreate(tx *gorm.DB) (err <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> tx.Create(&amp;User&#123;Name: <span class="string">&#x27;admin&#x27;</span>&#125;).Error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/hooks.html" >Hook | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="gorm-性能提高"><a class="markdownIt-Anchor" href="#gorm-性能提高"></a> GORM 性能提高</h5>
-<p>对于写操作（创建、更新、删除），为了确保数据的完整性，GORM 会将它们封装在事务内运行，但这会降低性能。可以使用 SkipDefaultTransaction 关闭默认事务。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">db, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;</span><br><span class="line">  SkipDefaultTransaction: <span class="literal">true</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
-<p>使用 PrepareStmt 缓存预编译语句可以提高后续调用的速度</p>
-<p>PrepareStmt 可以在连接数据库进行全局配置，也可以在事务操作中临时配置，详细可查阅 GORM 的文档</p>
-<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/performance.html" >性能 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="gorm-生态"><a class="markdownIt-Anchor" href="#gorm-生态"></a> GORM 生态</h5>
-<p>GORM 拥有非常丰富的生态，以下是一些常用的扩展</p>
-<ul>
-<li><a class="link"   href="https://github.com/go-gorm/gen" >GORM 代码生成工具 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/go-gorm/sharding" >GORM 分片库方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/go-gorm/hints" >GORM 手动索引 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/go-gorm/optimisticlock" >GORM 乐观锁 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/go-gorm/dbresolver" >GORM 读写分离 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/go-gorm/opentelemetry" >GORM OpenTelemetry 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h4 id="kitex-的基本使用"><a class="markdownIt-Anchor" href="#kitex-的基本使用"></a> Kitex 的基本使用</h4>
-<h5 id="安装-kitex-代码生成工具"><a class="markdownIt-Anchor" href="#安装-kitex-代码生成工具"></a> 安装 Kitex 代码生成工具</h5>
-<p>Kitex 目前对 Windows 的支持不完善，建议使用 linux 系统或者<a class="link"   href="https://learn.microsoft.com/zh-cn/windows/wsl/install" >安装 WSL | Microsoft Learn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>安装代码生成工具</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ go install github.com/cloudwego/kitex/tool/cmd/kitex@latest</span><br><span class="line">$ go install github.com/cloudwego/thriftgo@latest</span><br></pre></td></tr></table></figure></div>
-<p>参考<a class="link"   href="https://www.cloudwego.io/zh/docs/kitex/getting-started/" >快速开始 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="定义-idl"><a class="markdownIt-Anchor" href="#定义-idl"></a> 定义 IDL</h5>
-<p>IDL（Interface  description language），即接口描述语言。是跨平台开发的基础。</p>
-<blockquote>
-<p>对于RPC框架而言，IDL又不仅仅是一个接口描述语言。对于市面上绝大多数的RPC框架而言，IDL还是一个工具和一种使用过程，专指根据 IDL 描述文件，用指定的开发语言，生成对应的服务端接口模块，和客户端程序。这样的好处是，便于开发者快速开发。</p>
-</blockquote>
-<p>使用 IDL 定义服务与接口</p>
-<p>要进行 RPC 远程过程调用，就需要知道对方的接口是什么，需要什么参数，需要知道返回值是什么样的。这就需要通过 IDL 来约定双方的协议，类似于函数签名，然后通过函数名调用函数。</p>
-<p>关于 IDL 的具体编写有多种语法，可以参考以下资料</p>
-<p>使用 Thrift 语法<a class="link"   href="https://thrift.apache.org/docs/idl" >Apache Thrift - Interface Description Language (IDL) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>使用 proto3 语法<a class="link"   href="https://developers.google.com/protocol-buffers/docs/proto3?hl=zh-cn" >语言指南 (proto3)  | Protocol Buffers  | Google Developers <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>或者<a class="link"   href="https://protobuf.dev/programming-guides/proto3/" >Language Guide (proto 3) | Protocol Buffers Documentation (protobuf.dev) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>这里以 thrift 语法为例，创建一个 echo.thrift</p>
-<div class="highlight-container" data-rel="Thrift"><figure class="iseeu highlight thrift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> go api</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Request</span> </span>&#123;</span><br><span class="line">    <span class="number">1</span>: <span class="type">string</span> message</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Response</span> </span>&#123;</span><br><span class="line">	<span class="number">1</span>: <span class="type">string</span> message</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Echo</span> </span>&#123;</span><br><span class="line">	Response echo(<span class="number">1</span>: Request req)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h5 id="kitex-生成代码"><a class="markdownIt-Anchor" href="#kitex-生成代码"></a> Kitex 生成代码</h5>
-<p>在 IDL 的基础上通过运行以下命令生成代码</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kitex -module example -service example echo.thrift</span><br></pre></td></tr></table></figure></div>
-<p>上述命令中，<code>-module</code> 表示生成的该项目的 go module 名，<code>-service</code> 表明我们要生成一个服务端项目，后面紧跟的 <code>example</code> 为该服务的名字。最后一个参数则为该服务的 IDL 文件。</p>
-<p>生成后的项目结构如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">|-- build.sh</span><br><span class="line">|-- echo.thrift</span><br><span class="line">|-- handler.go</span><br><span class="line">|-- kitex_gen</span><br><span class="line">|   `-- api</span><br><span class="line">|       |-- echo</span><br><span class="line">|       |   |-- client.go</span><br><span class="line">|       |   |-- echo.go</span><br><span class="line">|       |   |-- invoker.go</span><br><span class="line">|       |   `-- server.go</span><br><span class="line">|       |-- echo.go</span><br><span class="line">|       `-- k-echo.go</span><br><span class="line">|-- main.go</span><br><span class="line">`-- script</span><br><span class="line">    |-- bootstrap.sh</span><br><span class="line">    `-- settings.py</span><br></pre></td></tr></table></figure></div>
-<p><a class="link"   href="http://build.sh" >build.sh <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>：构建脚本。</p>
-<p>kitex_gen：IDL 内容相关的生成代码，主要是基础的 Server/Client 代码。</p>
-<p>main.go：程序入口。</p>
-<p>handler.go：开发者在该文件里实现 IDL service 定义的方法。</p>
-<h5 id="kitex-基本使用"><a class="markdownIt-Anchor" href="#kitex-基本使用"></a> Kitex 基本使用</h5>
-<p>服务默认监听 8888 端口。</p>
-<p>在 handler.go 中实现方法</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> EchoImpl <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *EchoImpl)</span></span> Echo(ctx context.Context, req *api.Request) (resp *api.Response. err <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> ...</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h5 id="kitex-client-发起请求"><a class="markdownIt-Anchor" href="#kitex-client-发起请求"></a> Kitex Client 发起请求</h5>
-<p>新建一个 client 目录，创建 main.go，在 main.go 中实现方法</p>
-<ul>
-<li>
-<p>创建 Client</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">c, err := echo.NewClient(<span class="string">&quot;example&quot;</span>, client.WithHostPorts(<span class="string">&quot;0.0.0.0:8888&quot;</span>))</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>发起请求</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">req := &amp;api.Request&#123;Message: <span class="string">&quot;my request&quot;</span>&#125;</span><br><span class="line">resp, err := c.Echo(context.Background(), req, callopt.WithRPCTimeout(<span class="number">3</span>*time.Second))</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">&#125;</span><br><span class="line">log.Println(resp)</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<h5 id="kitex-服务注册与发现"><a class="markdownIt-Anchor" href="#kitex-服务注册与发现"></a> Kitex 服务注册与发现</h5>
-<p>目前 Kitex 的服务注册与发现已经对接了主流的服务注册与发现中心，如 ETCD，Nacos 等。详细信息参考<a class="link"   href="https://www.cloudwego.io/zh/docs/kitex/tutorials/service-governance/discovery/" >服务发现 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
-<h5 id="kitex-生态"><a class="markdownIt-Anchor" href="#kitex-生态"></a> Kitex 生态</h5>
-<p>Kitex 拥有非常丰富的扩展生态，以下是一些常用的扩展</p>
-<ul>
-<li><a class="link"   href="https://github.com/kitex-contrib/xds" >XDS 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/kitex-contrib/obs-opentelemetry" >opentelemetry 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/kitex-contrib/registry-etcd" >ETCD 服务注册与发现扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/kitex-contrib/registry-nacos" >Nacos 服务注册与发现扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/kitex-contrib/registry-zookeeper" >Zookeeper 服务注册与发现扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/kitex-contrib/polaris" >polaris 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/cloudwego/kitex-examples/" >丰富的示例代码与业务 Demo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<p>更多信息参考<a class="link"   href="https://www.cloudwego.io/zh/docs/kitex" >https://www.cloudwego.io/zh/docs/kitex <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h4 id="hertz-的基本使用"><a class="markdownIt-Anchor" href="#hertz-的基本使用"></a> Hertz 的基本使用</h4>
-<h5 id="hertz-基本使用"><a class="markdownIt-Anchor" href="#hertz-基本使用"></a> Hertz 基本使用</h5>
-<p>使用 Hertz 实现，服务监听 8080 端口并注册了一个 GET 方法的路由函数。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    h := server.Default(server.WithHostPorts(<span class="string">&quot;127.0.0.1:8080&quot;</span>))</span><br><span class="line">    h.GET(<span class="string">&quot;/ping&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c context.Context, ctx *app.RequestContext)</span></span> &#123;</span><br><span class="line">        ctx.JSON(consts.StatusOK, utils.H&#123;<span class="string">&quot;ping&quot;</span>: <span class="string">&quot;pong&quot;</span>&#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    h.Spin</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>参考<a class="link"   href="https://www.cloudwego.io/zh/docs/hertz/getting-started/" >快速开始 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h4 id="hertz-路由"><a class="markdownIt-Anchor" href="#hertz-路由"></a> Hertz 路由</h4>
-<ul>
-<li>
-<p>Hertz 提供了 GET、POST、PUT、DELETE、ANY 等方法用于注册路由。</p>
-</li>
-<li>
-<p>Hertz 提供了路由组（Group）的能力，用于支持路由分组的功能。</p>
-</li>
-<li>
-<p>Hertz 提供了参数路由和通配路由，路由的优先级为：静态路由 &gt; 命名路由 &gt; 通配路由</p>
-</li>
-</ul>
-<p>更多信息以及使用方法参考<a class="link"   href="https://www.cloudwego.io/zh/docs/hertz/tutorials/basic-feature/route/" >路由 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
-<h5 id="hertz-参数绑定"><a class="markdownIt-Anchor" href="#hertz-参数绑定"></a> Hertz 参数绑定</h5>
-<p>Hertz 提供了 Bind、Validate、BindAndValidate 函数用于进行参数绑定和校验</p>
-<p>更多信息以及使用方法参考<a class="link"   href="https://www.cloudwego.io/zh/docs/hertz/tutorials/basic-feature/binding-and-validate/" >绑定与校验 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="hertz-中间件"><a class="markdownIt-Anchor" href="#hertz-中间件"></a> Hertz 中间件</h5>
-<p>Hertz 的中间件主要分为客户端中间件与服务端中间件，如下是一个服务端中间件示例</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MyMiddleware</span><span class="params">()</span></span> app.HandlerFunc &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx conext.Context, c *app.RequestContext)</span></span> &#123;</span><br><span class="line">        <span class="comment">// pre-handle</span></span><br><span class="line">        fmt.Println(<span class="string">&quot;pre-handle&quot;</span>)</span><br><span class="line">        c.Next(ctx)</span><br><span class="line">        <span class="comment">// post-handle</span></span><br><span class="line">        fmt.Println(<span class="string">&quot;post-handle&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    h := server.Default(server.WithHostPorts(<span class="string">&quot;127.0.0.1:8080&quot;</span>))</span><br><span class="line">    h.Use(MyMiddleware())</span><br><span class="line">    h.GET(<span class="string">&quot;/middleware&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, c *app.RequestContext)</span></span> &#123;</span><br><span class="line">        c.String(consts.StatusOK, <span class="string">&quot;Hello hertz!&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    h.Spin()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>终止中间件调用链的执行，可以使用 c.Abort、c.AbortWithMsg、c.AbortWithStatus 方法。</p>
-<p>参考<a class="link"   href="https://www.cloudwego.io/zh/docs/hertz/tutorials/basic-feature/middleware/" >中间件概览 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="hertz-client"><a class="markdownIt-Anchor" href="#hertz-client"></a> Hertz Client</h5>
-<p>Hertz 提供了 HTTP Client 用于发送 HTTP 请求。</p>
-<p>示例</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">c, err := client.NewClient()</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// get请求</span></span><br><span class="line">status, body, _ := c.Get(context.Background(), <span class="literal">nil</span>, <span class="string">&quot;http://example.com&quot;</span>)</span><br><span class="line">fmt.Printf(<span class="string">&quot;status=%v body=%v\n&quot;</span>, status, <span class="type">string</span>(body))</span><br><span class="line"><span class="comment">// post请求</span></span><br><span class="line"><span class="keyword">var</span> postArgs protocol.Args</span><br><span class="line">postArgs.Set(<span class="string">&quot;arg&quot;</span>, <span class="string">&quot;a&quot;</span>)</span><br><span class="line">status, body, _ = c.Post(context.Background(), <span class="literal">nil</span>, <span class="string">&quot;http://example.com&quot;</span>, &amp;postArgs)</span><br><span class="line">fmt.Printf(<span class="string">&quot;status=%v body=%v\n&quot;</span>, status, <span class="type">string</span>(body))</span><br></pre></td></tr></table></figure></div>
-<p>参考<a class="link"   href="https://github.com/cloudwego/hertz-examples#client" >cloudwego/hertz-examples: Examples for Hertz.  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="hertz-代码生成工具"><a class="markdownIt-Anchor" href="#hertz-代码生成工具"></a> Hertz 代码生成工具</h5>
-<p>Hertz 提供了代码生成工具 Hz ，通过定义 IDL 文件即可生成对应的基础服务代码。</p>
-<p>参考<a class="link"   href="https://www.cloudwego.io/zh/docs/hertz/tutorials/toolkit/toolkit/" >hz 命令行工具使用 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="hertz-性能"><a class="markdownIt-Anchor" href="#hertz-性能"></a> Hertz 性能</h5>
-<ul>
-<li>网络库</li>
-<li>Json 编解码 Sonic</li>
-<li>使用 sync.Pool 复用对象协议层数据解析优化</li>
-</ul>
-<h5 id="hertz-生态"><a class="markdownIt-Anchor" href="#hertz-生态"></a> Hertz 生态</h5>
-<p>Hertz 拥有非常丰富的扩展生态，以下是一些常用的扩展</p>
-<ul>
-<li><a class="link"   href="https://github.com/hertz-contrib/http2" >HTTP2 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/hertz-contrib/obs-opentelemetry" >opentelemetry 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/hertz-contrib/i18n" >国际化扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/hertz-contrib/reverseproxy" >反向代理扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/hertz-contrib/jwt" >JWT 鉴权扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/hertz-contrib/websocket" >Websocket 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://github.com/cloudwego/hertz-examples" >丰富的示例代码与业务 Demo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<p>更多信息参考<a class="link"   href="https://github.com/cloudwego/hertz#extensions" >https://github.com/cloudwego/hertz#extensions <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="3实战案例介绍"><a class="markdownIt-Anchor" href="#3实战案例介绍"></a> 3.实战案例介绍</h3>
-<h4 id="项目介绍"><a class="markdownIt-Anchor" href="#项目介绍"></a> 项目介绍</h4>
-<p>项目地址<a class="link"   href="https://github.com/cloudwego/kitex-examples/tree/main/bizdemo/easy_note" >cloudwego/kitex-examples  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>上面的笔记项目是一个使用 Hertz、Kitex、Gorm 搭建出来的具备一定业务逻辑的后端 API 项目。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">服务名称</th>
-<th style="text-align:center">服务介绍</th>
-<th style="text-align:center">传输协议</th>
-<th style="text-align:center">主要技术栈</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">demoapi</td>
-<td style="text-align:center">API 服务</td>
-<td style="text-align:center">HTTP</td>
-<td style="text-align:center">Gorm/Kitex/Hertz</td>
-</tr>
-<tr>
-<td style="text-align:center">demouser</td>
-<td style="text-align:center">用户数据管理</td>
-<td style="text-align:center">Protobuf</td>
-<td style="text-align:center">Gorm/Kitex</td>
-</tr>
-<tr>
-<td style="text-align:center">demonote</td>
-<td style="text-align:center">笔记数据管理</td>
-<td style="text-align:center">Thrift</td>
-<td style="text-align:center">Gorm/Kitex</td>
-</tr>
-</tbody>
-</table>
-<h4 id="功能介绍"><a class="markdownIt-Anchor" href="#功能介绍"></a> 功能介绍</h4>
-<p>项目模块</p>
-<ul>
-<li>demoapi
-<ul>
-<li>用户登录</li>
-<li>用户注册</li>
-<li>用户创建笔记</li>
-<li>用户更新笔记</li>
-<li>用户删除笔记</li>
-<li>用户查询笔记</li>
-</ul>
-</li>
-<li>demouser
-<ul>
-<li>创建用户</li>
-<li>查询用户</li>
-<li>校验用户</li>
-</ul>
-</li>
-<li>demonote
-<ul>
-<li>创建笔记</li>
-<li>更新笔记</li>
-<li>删除笔记</li>
-<li>查询笔记</li>
-</ul>
-</li>
-</ul>
-<h4 id="项目调用关系"><a class="markdownIt-Anchor" href="#项目调用关系"></a> 项目调用关系</h4>
-<ul>
-<li>demouser 和 demonote 的数据都存储在 MySQL 数据库中，从 MySQL 中获取数据。</li>
-<li>demouser 和 demonote 使用 ETCD 服务注册。</li>
-<li>demoapi 使用 proto 协议调用 demouser 操作用户数据，使用 thrift 协议调用 demonote 操作笔记数据。</li>
-<li>demoapi 使用 ETCD 服务发现。</li>
-<li>调用方通过 HTTP 请求调用demoapi。</li>
-</ul>
-<h4 id="idl-介绍"><a class="markdownIt-Anchor" href="#idl-介绍"></a> IDL 介绍</h4>
-<p>参考项目文件<a class="link"   href="https://github.com/cloudwego/kitex-examples/tree/main/bizdemo/easy_note/idl" >kitex-examples/bizdemo/easy_note/idl <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h4 id="技术栈介绍"><a class="markdownIt-Anchor" href="#技术栈介绍"></a> 技术栈介绍</h4>
-<p>技术框架</p>
-<ul>
-<li>语言：GO</li>
-<li>底层存储：MySQL</li>
-<li>服务注册：ETCD</li>
-<li>RPC 框架
-<ul>
-<li>Kitex：registry-etcd 和 tracer-opentracing</li>
-<li>Kitex 扩展</li>
-</ul>
-</li>
-<li>ORM 框架
-<ul>
-<li>GORM</li>
-<li>GORM 扩展：gorm-mysql 和 gorm-opentracing</li>
-</ul>
-</li>
-<li>HTTP 框架
-<ul>
-<li>Hertz</li>
-<li>Hertz 扩展：Hertz-Jwt</li>
-</ul>
-</li>
-<li>链路追踪
-<ul>
-<li>Jeager</li>
-<li>opentracing</li>
-</ul>
-</li>
-</ul>
-<h4 id="创建笔记功能实现关键代码"><a class="markdownIt-Anchor" href="#创建笔记功能实现关键代码"></a> 创建笔记功能实现关键代码</h4>
-<h5 id="hertz-关键代码"><a class="markdownIt-Anchor" href="#hertz-关键代码"></a> Hertz 关键代码</h5>
-<p><a class="link"   href="https://github.com/cloudwego/kitex-examples/blob/main/bizdemo/easy_note/cmd/api/handlers/create_note.go" >kitex-examples/create_note.go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="kitex-client-关键代码"><a class="markdownIt-Anchor" href="#kitex-client-关键代码"></a> Kitex Client 关键代码</h5>
-<p><a class="link"   href="https://github.com/cloudwego/kitex-examples/blob/main/bizdemo/easy_note/cmd/api/rpc/note.go" >kitex-examples/note.go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="kitex-server-关键代码"><a class="markdownIt-Anchor" href="#kitex-server-关键代码"></a> Kitex Server 关键代码</h5>
-<p><a class="link"   href="https://github.com/cloudwego/kitex-examples/blob/main/bizdemo/easy_note/cmd/note/service/create_note.go" >kitex-examples/create_note.go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h5 id="gorm-关键代码"><a class="markdownIt-Anchor" href="#gorm-关键代码"></a> Gorm 关键代码</h5>
-<p><a class="link"   href="https://github.com/cloudwego/kitex-examples/blob/main/bizdemo/easy_note/cmd/note/dal/db/note.go" >kitex-examples/note.go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h3 id="4总结与展望"><a class="markdownIt-Anchor" href="#4总结与展望"></a> 4.总结与展望</h3>
-<h4 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h4>
-<ul>
-<li>了解 Gorm/Kitex/Hertz 的基本概念</li>
-<li>熟悉 Gorm/Kitex/Hertz 的基础用法</li>
-<li>通过实战案例分析将三件套的使用联系起来</li>
-</ul>
-<h4 id="展望"><a class="markdownIt-Anchor" href="#展望"></a> 展望</h4>
-<ul>
-<li>进一步熟悉 Gorm/Kitex/Hertz 的使用，通过阅读<a class="link"   href="https://www.cloudwego.io/" >官方文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>熟悉框架更多的用法。</li>
-<li>阅读笔记项目源码并在本地环境运行，使用 Gorm/Kitex/Hertz 进行项目开发。</li>
-<li>参与 Gorm/Kitex/Hertz 的开源贡献，例如 Hertz 的 Windows 平台支持。</li>
-<li><a class="link"   href="https://github.com/cloudwego/hertz/issues" >官方 issues | 问题 ·Cloudwego/Hertz <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/374901408" >什么是RPC？原理是什么？如何实现一个 RPC 框架？ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/397060740" >RPC框架的IDL与IDL-less  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://gorm.cn/zh_CN/docs/" >GORM 指南 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://blog.mazhuang.vip/database/mysql/upsert-f2f8bfbaba7a/" >Mysql 的 upsert 操作 | Seeker (mazhuang.vip) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://www.cloudwego.io/zh/docs/kitex/getting-started/" >Kitex 快速开始 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://juejin.cn/post/7174311695592980510" >一文带你快速入门GolangHTTP框架Hertz - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>golang</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Go 语言内存管理详解</title>
     <url>/2023/01/30/golang-day4/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7194838118955450428" >Go 语言内存管理详解 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang内存管理的学习<span id="more"></span></p>
@@ -8479,6 +8071,414 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
+    <title>Go 框架三件套详解</title>
+    <url>/2023/02/01/golang-day5/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7195211923154010168" >Go 框架三件套详解(Web/RPC/ORM) | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang web开发框架三件套的学习<span id="more"></span></p>
+<h2 id="框架三件套详解webrpcorm"><a class="markdownIt-Anchor" href="#框架三件套详解webrpcorm"></a> 框架三件套详解(Web/RPC/ORM)</h2>
+<blockquote>
+<p>什么是 ORM 框架</p>
+<p>对象关系映射（Object Relational Mapping，简称 ORM）模式是一种为了解决面向对象与关系数据库存在的互不匹配的现象的技术。ORM框架是连接数据库的桥梁，只要提供了持久化类与表的映射关系，ORM框架在运行时就能参照映射文件的信息，把对象持久化到数据库中</p>
+<p>什么是 RPC 框架</p>
+<p>RPC 是远程过程调用（Remote Procedure Call）。RPC 的主要功能目标是让构建分布式计算（应用）更容易，在提供强大的远程调用能力时不损失本地调用的语义简洁性。为实现该目标，RPC 框架需提供一种透明调用机制，让使用者不必显式的区分本地调用和远程调用。</p>
+<p>什么是 Web 框架（这里的 Web 框架在后面用 HTTP 框架来称呼）</p>
+<p>Web 框架是用于进行 Web 开发的一套软件架构。主要是为开发者封装好了一系列与业务逻辑无关的代码实现，方便开发者专注于业务逻辑代码的编写。</p>
+</blockquote>
+<h3 id="1三件套介绍"><a class="markdownIt-Anchor" href="#1三件套介绍"></a> 1.三件套介绍</h3>
+<ul>
+<li>
+<p>ORM 框架：<a class="link"   href="https://github.com/go-gorm/gorm" >GORM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>GORM 是一个已经迭代了十多年的功能强大的 ORM 框架，拥有非常丰富的开源扩展。</p>
+</li>
+<li>
+<p>RPC 框架：<a class="link"   href="https://github.com/cloudwego/kitex" >Kitex <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>Kitex 由字节跳动开发，是 Golang 微服务 RPC 框架，具有高性能、强可扩展的主要特点，支持多协议并且拥有丰富的开源扩展。</p>
+</li>
+<li>
+<p>HTTP 框架：<a class="link"   href="https://github.com/cloudwego/hertz" >Hertz <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>Hertz 由字节跳动开发，是 HTTP 框架，参考了其他开源框架的优势，具有高易用性、高性能、高扩展性特点。</p>
+</li>
+</ul>
+<h3 id="2-三件套的使用"><a class="markdownIt-Anchor" href="#2-三件套的使用"></a> 2. 三件套的使用</h3>
+<h4 id="gorm-的基本使用"><a class="markdownIt-Anchor" href="#gorm-的基本使用"></a> GORM 的基本使用</h4>
+<h5 id="gorm-的约定默认"><a class="markdownIt-Anchor" href="#gorm-的约定默认"></a> GORM 的约定（默认）</h5>
+<ul>
+<li>GORM 使用名为 ID 的字段作为主键</li>
+<li>使用结构体的蛇形负数作为表名</li>
+<li>字段名的蛇形作为列名</li>
+<li>使用 CreatedAt、UpdatedAt 字段作为创建、更新时间</li>
+</ul>
+<p>示例</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 定义 model</span></span><br><span class="line"><span class="keyword">type</span> Product <span class="keyword">struct</span> &#123;</span><br><span class="line">    Code  <span class="type">string</span></span><br><span class="line">    Price <span class="type">uint</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 为 model 定义表名</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p Product)</span></span> TableName() <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;product&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 连接数据库</span></span><br><span class="line">    <span class="comment">// 创建数据</span></span><br><span class="line">    <span class="comment">// 查询数据</span></span><br><span class="line">    <span class="comment">// 更新数据</span></span><br><span class="line">    <span class="comment">// 删除数据</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/models.html" >模型定义 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="gorm-支持的数据库"><a class="markdownIt-Anchor" href="#gorm-支持的数据库"></a> GORM 支持的数据库</h5>
+<p>GORM 目前支持 MySQL、SQLServer、PostgreSQL、SQLite。</p>
+<p>GORM连接数据库需要提供 DSN 参数。DSN（DataSource Name）数据源名称，用来描述数据库连接信息。参考<a class="link"   href="https://github.com/go-sql-driver/mysql#dsn-data-source-name" >https://github.com/go-sql-driver/mysql#dsn-data-source-name <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>GORM 通过驱动来连接数据库，如果需要连接其它类型的数据库，可以复用/自行开发驱动。</p>
+<p>示例</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">dsn := <span class="string">&quot;user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&quot;</span></span><br><span class="line">db, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;&#125;)</span><br></pre></td></tr></table></figure></div>
+<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/connecting_to_the_database.html" >连接到数据库 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="gorm-创建数据"><a class="markdownIt-Anchor" href="#gorm-创建数据"></a> GORM 创建数据</h5>
+<p>通过 Create 方法创建数据</p>
+<ul>
+<li>
+<p>创建一条数据</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">p := &amp;Product&#123;Code: <span class="string">&quot;D42&quot;</span>&#125;</span><br><span class="line">res := db.Create(p)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>创建多条数据</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">products := []*Product&#123;&#123;Code: <span class="string">&quot;D41&quot;</span>&#125;, &#123;Code: <span class="string">&quot;D42&quot;</span>&#125;, &#123;Code: <span class="string">&quot;D43&quot;</span>&#125;&#125;</span><br><span class="line">res, err := db.Create(products)</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>特殊的操作 Upsert ，用于创建一条唯一的数据，若该数据已存在则执行更新操作，若该数据不存在则执行插入操作。（这里的Upsert不是一个方法，而是一种思路逻辑）</p>
+<p>Upsert 数据冲突问题</p>
+<ul>
+<li>
+<p>使用 OnConflict 方法应对</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 发生冲突时, 不对冲突做处理, 数据也不会改变</span></span><br><span class="line">p := &amp;Product&#123;Code: <span class="string">&quot;D42&quot;</span>, ID: <span class="number">1</span>&#125;</span><br><span class="line">db.Clauses(clause.OnConflict&#123;DoNothing: <span class="literal">true</span>&#125;).Create(&amp;p)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>使用默认值，在结构体中使用 default 标签为字段定义默认值</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID   <span class="type">int64</span></span><br><span class="line">    Code <span class="type">string</span> <span class="string">`gorm:&quot;default:404&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/create.html" >创建 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="gorm-查询数据"><a class="markdownIt-Anchor" href="#gorm-查询数据"></a> GORM 查询数据</h5>
+<p>使用 First 方法查询第一条数据（默认主键升序），查询不到数据则返回 ErrRecordNotFound 错误</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">u := &amp;User&#123;&#125;</span><br><span class="line">db.First(u) <span class="comment">// SELECT * FROM users ORDER BY id LIMIT 1;</span></span><br></pre></td></tr></table></figure></div>
+<p>其它类似的有 Take 方法获取一条数据（没有指定排序字段）和 Last 方法获取最后一条数据（默认主键降序）。</p>
+<p>使用 Where 方法和 Find 方法查询多条数据，需要注意使用 Find 查询多条数据时，查询不到数据也不会报错。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">users := <span class="built_in">make</span>([]*User, <span class="number">0</span>)</span><br><span class="line">result := db.Where(<span class="string">&quot;age &gt; 10&quot;</span>).Find(&amp;users) <span class="comment">// SELECT * FROM users where age &gt; 10;</span></span><br><span class="line">fmt.Println(result.RowsAffected) <span class="comment">// 返回查询到的记录数</span></span><br><span class="line"><span class="comment">// IN: SELECT * FROM users WHERE name IN (&#x27;abcd&#x27;, &#x27;defg&#x27;);</span></span><br><span class="line">db.Where(<span class="string">&quot;name IN ?&quot;</span>, []<span class="type">string</span>&#123;<span class="string">&quot;abcd&quot;</span>, <span class="string">&quot;defg&quot;</span>&#125;).Find(&amp;users)</span><br><span class="line"><span class="comment">// LIKE: SELECT * FROM users WHERE name LIKE &#x27;%d%&#x27;;</span></span><br><span class="line">db.Where(<span class="string">&quot;name LIKE ?&quot;</span>, <span class="string">&quot;%d%&quot;</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">// AND: SELECT * FROM users WHERE name = &#x27;abcd&#x27; AND age &gt;= 22;</span></span><br><span class="line">db.Where(<span class="string">&quot;name = ? AND age &gt;= ?&quot;</span>, <span class="string">&quot;abcd&quot;</span>, <span class="string">&quot;22&quot;</span>).Find(&amp;users)</span><br></pre></td></tr></table></figure></div>
+<p>使用结构体作为查询条件</p>
+<p>当使用结构体作为条件查询时，GORM 只会查询非零值字段。这意味着字段值为 0、‘’、false或其他零值的字段无法用于构建查询条件，可以使用 Map 来构建查询条件。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// SELECT * FROM users WHERE name = &quot;abc&quot;;</span></span><br><span class="line">db.Where(&amp;User&#123;Name: <span class="string">&quot;abc&quot;</span>, Age: <span class="number">0</span>&#125;).Find(&amp;users) <span class="comment">//Age为零值,不会被构建</span></span><br><span class="line"><span class="comment">// SELECT * FROM users WHERE name = &quot;abc&quot; AND age = 0;</span></span><br><span class="line">db.Where(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;Name&quot;</span>: <span class="string">&quot;abc&quot;</span>, <span class="string">&quot;Age&quot;</span>: <span class="number">0</span>&#125;).Find(&amp;users)</span><br></pre></td></tr></table></figure></div>
+<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/query.html" >查询 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="gorm-更新数据"><a class="markdownIt-Anchor" href="#gorm-更新数据"></a> GORM 更新数据</h5>
+<p>使用 Model 方法和 Update 以及 Updates 方法更新数据</p>
+<ul>
+<li>
+<p>条件更新单个列</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UPDATE users SET name=&#x27;hello&#x27; WHERE age &gt; 18;</span></span><br><span class="line">db.Model(&amp;User&#123;&#125;).Where(<span class="string">&quot;age &gt; ?&quot;</span>, <span class="number">18</span>).Update(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;hello&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>条件更新多个列</p>
+<ul>
+<li>
+<p>根据 struct 更新属性，使用 Struct 更新时，只会更新非零值字段，如果需要更新零值字段可以使用 Map 更新或使用 Select 选择字段。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UPDATE users SET name=&#x27;hello&#x27;, age=18 WHERE id = 111;</span></span><br><span class="line">db.Model(&amp;User&#123;ID: <span class="number">111</span>&#125;).Updates(User&#123;Name: <span class="string">&quot;hello&quot;</span>, Age: <span class="number">18</span>&#125;)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>根据 map 更新属性</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UPDATE users SET name=&#x27;hello&#x27;, age=18, actived=false WHERE id = 111;</span></span><br><span class="line">db.Model(&amp;User&#123;ID: <span class="number">111</span>&#125;).Updates(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>, <span class="string">&quot;actived&quot;</span>: <span class="literal">false</span>&#125;)</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>更新选定字段</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UPDATE users SET name=&#x27;hello&#x27; WHERE id = 111;</span></span><br><span class="line">db.Model(&amp;User&#123;ID: <span class="number">111</span>&#125;).Select(<span class="string">&quot;name&quot;</span>).Updates(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>, <span class="string">&quot;actived&quot;</span>: <span class="literal">false</span>&#125;)</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+</li>
+<li>
+<p>SQL 表达式更新</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// UPDATE &quot;products&quot; SET &quot;price&quot; = price * 2 + 100 WHERE &quot;id&quot; = 3;</span></span><br><span class="line">db.Model(&amp;Product&#123;ID: <span class="number">3</span>&#125;).Update(<span class="string">&quot;price&quot;</span>, gorm.Expr(<span class="string">&quot;price * ? + ?&quot;</span>, <span class="number">2</span>, <span class="number">100</span>))</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/update.html" >更新 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="gorm-删除数据"><a class="markdownIt-Anchor" href="#gorm-删除数据"></a> GORM 删除数据</h5>
+<p>物理删除，硬删除，数据会被直接删除，执行的是删除操作。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 根据主键删除</span></span><br><span class="line">db.Delete(&amp;User&#123;&#125;, <span class="number">10</span>) <span class="comment">// DELETE FROM users WHERE id = 10;</span></span><br><span class="line">db.Delete(&amp;User&#123;&#125;, <span class="string">&quot;10&quot;</span>) <span class="comment">// DELETE FROM users WHERE id = 10;</span></span><br><span class="line">db.Delete(&amp;User&#123;&#125;, []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;) <span class="comment">// DELETE FROM users WHERE id IN (1,2,3);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 批量删除</span></span><br><span class="line">db.Where(<span class="string">&quot;name LIKE ?&quot;</span>, <span class="string">&quot;%d%&quot;</span>).Delete(User&#123;&#125;) <span class="comment">// DELETE FROM users WHERE name LIKE &quot;%d%&quot;;</span></span><br><span class="line">db.Delete(User&#123;&#125;, <span class="string">&quot;name LIKE ?&quot;</span>, <span class="string">&quot;%d%&quot;</span>) <span class="comment">// DELETE FROM users WHERE name LIKE &quot;%d%&quot;;</span></span><br></pre></td></tr></table></figure></div>
+<p>逻辑删除，软删除，数据实际上没有被删除，执行的实际上是更新操作。</p>
+<p>GORM 提供了 gorm.DeletedAt 字段用于实现软删除，只需在 Model 结构体中添加这个字段即可。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID      <span class="type">int64</span></span><br><span class="line">    Name    <span class="type">string</span> <span class="string">`gorm:&quot;default:404&quot;`</span></span><br><span class="line">    Age     <span class="type">int64</span>  <span class="string">`gorm:&quot;default:18&quot;`</span></span><br><span class="line">    Deleted gorm.DeletedAt</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>拥有该字段的 Model 调用 Delete 方法时能够进行软删除，记录不会从数据库中真正删除。但 GORM 会将 DeletedAt 置为当前时间，并且无法通过正常的查询方法找到该记录。可以使用 Unscoped 方法查询被软删除的数据，也可以通过 Unscoped 方法来实现永久删除。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">db.Unscoped().Where(<span class="string">&quot;age = 20&quot;</span>).Find(&amp;users)</span><br><span class="line"></span><br><span class="line">db.Unscoped().Where(<span class="string">&quot;age = 20&quot;</span>).Delete(&amp;users) <span class="comment">// 数据被永久删除</span></span><br></pre></td></tr></table></figure></div>
+<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/delete.html" >删除 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="gorm-事务"><a class="markdownIt-Anchor" href="#gorm-事务"></a> GORM 事务</h5>
+<p>GORM 提供了 Begin、Commit、Rollback 方法用于使用事务</p>
+<p>开始事务</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">tx := db.Begin()</span><br></pre></td></tr></table></figure></div>
+<p>事务操作，注意这里应使用 tx 而不是 db</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">err := tx.Create(&amp;User&#123;Name: <span class="string">&quot;name&quot;</span>&#125;).Error</span><br></pre></td></tr></table></figure></div>
+<p>事务回滚，遇到错误时放弃本次事务操作</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    tx.Rollback()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>提交事务，应用本次事务操作带来的修改</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">tx.Commit()</span><br></pre></td></tr></table></figure></div>
+<p>GORM 提供了 Transaction 方法用于自动提交事务，可以不用写Commit 和 Rollback 方法就能实现事务的自动管理。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">db.Transaction(<span class="function"><span class="keyword">func</span><span class="params">(tx *gorm.DB)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> err := tx.Create(&amp;User&#123;Name: <span class="string">&quot;404&quot;</span>&#125;).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="comment">// 返回任何错误都会回滚事务</span></span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> err := tx.Create(&amp;User&#123;Name: <span class="string">&quot;504&quot;</span>&#125;).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回 nil 提交事务</span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/transactions.html" >事务 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="gorm-hook"><a class="markdownIt-Anchor" href="#gorm-hook"></a> GORM Hook</h5>
+<p>GORM 提供了 CURD 的 Hook 能力。</p>
+<p>Hook 是在创建、查询、更新、删除等操作执行之前、之后自动调用的函数。如果 Hook 返回错误，GORM 将停止后续的操作并回滚事务。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *User)</span></span> BeforeCreate(tx *gorm.DB) (err <span class="type">error</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> u.Age &lt; <span class="number">0</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> errors.New(<span class="string">&quot;can&#x27;t save invalid data&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *User)</span></span> AfterCreate(tx *gorm.DB) (err <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> tx.Create(&amp;User&#123;Name: <span class="string">&#x27;admin&#x27;</span>&#125;).Error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/hooks.html" >Hook | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="gorm-性能提高"><a class="markdownIt-Anchor" href="#gorm-性能提高"></a> GORM 性能提高</h5>
+<p>对于写操作（创建、更新、删除），为了确保数据的完整性，GORM 会将它们封装在事务内运行，但这会降低性能。可以使用 SkipDefaultTransaction 关闭默认事务。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">db, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;</span><br><span class="line">  SkipDefaultTransaction: <span class="literal">true</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+<p>使用 PrepareStmt 缓存预编译语句可以提高后续调用的速度</p>
+<p>PrepareStmt 可以在连接数据库进行全局配置，也可以在事务操作中临时配置，详细可查阅 GORM 的文档</p>
+<p>参考<a class="link"   href="https://gorm.cn/zh_CN/docs/performance.html" >性能 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="gorm-生态"><a class="markdownIt-Anchor" href="#gorm-生态"></a> GORM 生态</h5>
+<p>GORM 拥有非常丰富的生态，以下是一些常用的扩展</p>
+<ul>
+<li><a class="link"   href="https://github.com/go-gorm/gen" >GORM 代码生成工具 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/go-gorm/sharding" >GORM 分片库方案 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/go-gorm/hints" >GORM 手动索引 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/go-gorm/optimisticlock" >GORM 乐观锁 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/go-gorm/dbresolver" >GORM 读写分离 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/go-gorm/opentelemetry" >GORM OpenTelemetry 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h4 id="kitex-的基本使用"><a class="markdownIt-Anchor" href="#kitex-的基本使用"></a> Kitex 的基本使用</h4>
+<h5 id="安装-kitex-代码生成工具"><a class="markdownIt-Anchor" href="#安装-kitex-代码生成工具"></a> 安装 Kitex 代码生成工具</h5>
+<p>Kitex 目前对 Windows 的支持不完善，建议使用 linux 系统或者<a class="link"   href="https://learn.microsoft.com/zh-cn/windows/wsl/install" >安装 WSL | Microsoft Learn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>安装代码生成工具</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ go install github.com/cloudwego/kitex/tool/cmd/kitex@latest</span><br><span class="line">$ go install github.com/cloudwego/thriftgo@latest</span><br></pre></td></tr></table></figure></div>
+<p>参考<a class="link"   href="https://www.cloudwego.io/zh/docs/kitex/getting-started/" >快速开始 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="定义-idl"><a class="markdownIt-Anchor" href="#定义-idl"></a> 定义 IDL</h5>
+<p>IDL（Interface  description language），即接口描述语言。是跨平台开发的基础。</p>
+<blockquote>
+<p>对于RPC框架而言，IDL又不仅仅是一个接口描述语言。对于市面上绝大多数的RPC框架而言，IDL还是一个工具和一种使用过程，专指根据 IDL 描述文件，用指定的开发语言，生成对应的服务端接口模块，和客户端程序。这样的好处是，便于开发者快速开发。</p>
+</blockquote>
+<p>使用 IDL 定义服务与接口</p>
+<p>要进行 RPC 远程过程调用，就需要知道对方的接口是什么，需要什么参数，需要知道返回值是什么样的。这就需要通过 IDL 来约定双方的协议，类似于函数签名，然后通过函数名调用函数。</p>
+<p>关于 IDL 的具体编写有多种语法，可以参考以下资料</p>
+<p>使用 Thrift 语法<a class="link"   href="https://thrift.apache.org/docs/idl" >Apache Thrift - Interface Description Language (IDL) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>使用 proto3 语法<a class="link"   href="https://developers.google.com/protocol-buffers/docs/proto3?hl=zh-cn" >语言指南 (proto3)  | Protocol Buffers  | Google Developers <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>或者<a class="link"   href="https://protobuf.dev/programming-guides/proto3/" >Language Guide (proto 3) | Protocol Buffers Documentation (protobuf.dev) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>这里以 thrift 语法为例，创建一个 echo.thrift</p>
+<div class="highlight-container" data-rel="Thrift"><figure class="iseeu highlight thrift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> go api</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Request</span> </span>&#123;</span><br><span class="line">    <span class="number">1</span>: <span class="type">string</span> message</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Response</span> </span>&#123;</span><br><span class="line">	<span class="number">1</span>: <span class="type">string</span> message</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Echo</span> </span>&#123;</span><br><span class="line">	Response echo(<span class="number">1</span>: Request req)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="kitex-生成代码"><a class="markdownIt-Anchor" href="#kitex-生成代码"></a> Kitex 生成代码</h5>
+<p>在 IDL 的基础上通过运行以下命令生成代码</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">$ kitex -module example -service example echo.thrift</span><br></pre></td></tr></table></figure></div>
+<p>上述命令中，<code>-module</code> 表示生成的该项目的 go module 名，<code>-service</code> 表明我们要生成一个服务端项目，后面紧跟的 <code>example</code> 为该服务的名字。最后一个参数则为该服务的 IDL 文件。</p>
+<p>生成后的项目结构如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">|-- build.sh</span><br><span class="line">|-- echo.thrift</span><br><span class="line">|-- handler.go</span><br><span class="line">|-- kitex_gen</span><br><span class="line">|   `-- api</span><br><span class="line">|       |-- echo</span><br><span class="line">|       |   |-- client.go</span><br><span class="line">|       |   |-- echo.go</span><br><span class="line">|       |   |-- invoker.go</span><br><span class="line">|       |   `-- server.go</span><br><span class="line">|       |-- echo.go</span><br><span class="line">|       `-- k-echo.go</span><br><span class="line">|-- main.go</span><br><span class="line">`-- script</span><br><span class="line">    |-- bootstrap.sh</span><br><span class="line">    `-- settings.py</span><br></pre></td></tr></table></figure></div>
+<p><a class="link"   href="http://build.sh" >build.sh <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>：构建脚本。</p>
+<p>kitex_gen：IDL 内容相关的生成代码，主要是基础的 Server/Client 代码。</p>
+<p>main.go：程序入口。</p>
+<p>handler.go：开发者在该文件里实现 IDL service 定义的方法。</p>
+<h5 id="kitex-基本使用"><a class="markdownIt-Anchor" href="#kitex-基本使用"></a> Kitex 基本使用</h5>
+<p>服务默认监听 8888 端口。</p>
+<p>在 handler.go 中实现方法</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> EchoImpl <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *EchoImpl)</span></span> Echo(ctx context.Context, req *api.Request) (resp *api.Response. err <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> ...</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="kitex-client-发起请求"><a class="markdownIt-Anchor" href="#kitex-client-发起请求"></a> Kitex Client 发起请求</h5>
+<p>新建一个 client 目录，创建 main.go，在 main.go 中实现方法</p>
+<ul>
+<li>
+<p>创建 Client</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">c, err := echo.NewClient(<span class="string">&quot;example&quot;</span>, client.WithHostPorts(<span class="string">&quot;0.0.0.0:8888&quot;</span>))</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>发起请求</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">req := &amp;api.Request&#123;Message: <span class="string">&quot;my request&quot;</span>&#125;</span><br><span class="line">resp, err := c.Echo(context.Background(), req, callopt.WithRPCTimeout(<span class="number">3</span>*time.Second))</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">&#125;</span><br><span class="line">log.Println(resp)</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h5 id="kitex-服务注册与发现"><a class="markdownIt-Anchor" href="#kitex-服务注册与发现"></a> Kitex 服务注册与发现</h5>
+<p>目前 Kitex 的服务注册与发现已经对接了主流的服务注册与发现中心，如 ETCD，Nacos 等。详细信息参考<a class="link"   href="https://www.cloudwego.io/zh/docs/kitex/tutorials/service-governance/discovery/" >服务发现 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<h5 id="kitex-生态"><a class="markdownIt-Anchor" href="#kitex-生态"></a> Kitex 生态</h5>
+<p>Kitex 拥有非常丰富的扩展生态，以下是一些常用的扩展</p>
+<ul>
+<li><a class="link"   href="https://github.com/kitex-contrib/xds" >XDS 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/kitex-contrib/obs-opentelemetry" >opentelemetry 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/kitex-contrib/registry-etcd" >ETCD 服务注册与发现扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/kitex-contrib/registry-nacos" >Nacos 服务注册与发现扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/kitex-contrib/registry-zookeeper" >Zookeeper 服务注册与发现扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/kitex-contrib/polaris" >polaris 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/cloudwego/kitex-examples/" >丰富的示例代码与业务 Demo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<p>更多信息参考<a class="link"   href="https://www.cloudwego.io/zh/docs/kitex" >https://www.cloudwego.io/zh/docs/kitex <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h4 id="hertz-的基本使用"><a class="markdownIt-Anchor" href="#hertz-的基本使用"></a> Hertz 的基本使用</h4>
+<h5 id="hertz-基本使用"><a class="markdownIt-Anchor" href="#hertz-基本使用"></a> Hertz 基本使用</h5>
+<p>使用 Hertz 实现，服务监听 8080 端口并注册了一个 GET 方法的路由函数。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    h := server.Default(server.WithHostPorts(<span class="string">&quot;127.0.0.1:8080&quot;</span>))</span><br><span class="line">    h.GET(<span class="string">&quot;/ping&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c context.Context, ctx *app.RequestContext)</span></span> &#123;</span><br><span class="line">        ctx.JSON(consts.StatusOK, utils.H&#123;<span class="string">&quot;ping&quot;</span>: <span class="string">&quot;pong&quot;</span>&#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    h.Spin</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>参考<a class="link"   href="https://www.cloudwego.io/zh/docs/hertz/getting-started/" >快速开始 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h4 id="hertz-路由"><a class="markdownIt-Anchor" href="#hertz-路由"></a> Hertz 路由</h4>
+<ul>
+<li>
+<p>Hertz 提供了 GET、POST、PUT、DELETE、ANY 等方法用于注册路由。</p>
+</li>
+<li>
+<p>Hertz 提供了路由组（Group）的能力，用于支持路由分组的功能。</p>
+</li>
+<li>
+<p>Hertz 提供了参数路由和通配路由，路由的优先级为：静态路由 &gt; 命名路由 &gt; 通配路由</p>
+</li>
+</ul>
+<p>更多信息以及使用方法参考<a class="link"   href="https://www.cloudwego.io/zh/docs/hertz/tutorials/basic-feature/route/" >路由 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<h5 id="hertz-参数绑定"><a class="markdownIt-Anchor" href="#hertz-参数绑定"></a> Hertz 参数绑定</h5>
+<p>Hertz 提供了 Bind、Validate、BindAndValidate 函数用于进行参数绑定和校验</p>
+<p>更多信息以及使用方法参考<a class="link"   href="https://www.cloudwego.io/zh/docs/hertz/tutorials/basic-feature/binding-and-validate/" >绑定与校验 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="hertz-中间件"><a class="markdownIt-Anchor" href="#hertz-中间件"></a> Hertz 中间件</h5>
+<p>Hertz 的中间件主要分为客户端中间件与服务端中间件，如下是一个服务端中间件示例</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MyMiddleware</span><span class="params">()</span></span> app.HandlerFunc &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx conext.Context, c *app.RequestContext)</span></span> &#123;</span><br><span class="line">        <span class="comment">// pre-handle</span></span><br><span class="line">        fmt.Println(<span class="string">&quot;pre-handle&quot;</span>)</span><br><span class="line">        c.Next(ctx)</span><br><span class="line">        <span class="comment">// post-handle</span></span><br><span class="line">        fmt.Println(<span class="string">&quot;post-handle&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    h := server.Default(server.WithHostPorts(<span class="string">&quot;127.0.0.1:8080&quot;</span>))</span><br><span class="line">    h.Use(MyMiddleware())</span><br><span class="line">    h.GET(<span class="string">&quot;/middleware&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, c *app.RequestContext)</span></span> &#123;</span><br><span class="line">        c.String(consts.StatusOK, <span class="string">&quot;Hello hertz!&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    h.Spin()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>终止中间件调用链的执行，可以使用 c.Abort、c.AbortWithMsg、c.AbortWithStatus 方法。</p>
+<p>参考<a class="link"   href="https://www.cloudwego.io/zh/docs/hertz/tutorials/basic-feature/middleware/" >中间件概览 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="hertz-client"><a class="markdownIt-Anchor" href="#hertz-client"></a> Hertz Client</h5>
+<p>Hertz 提供了 HTTP Client 用于发送 HTTP 请求。</p>
+<p>示例</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">c, err := client.NewClient()</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// get请求</span></span><br><span class="line">status, body, _ := c.Get(context.Background(), <span class="literal">nil</span>, <span class="string">&quot;http://example.com&quot;</span>)</span><br><span class="line">fmt.Printf(<span class="string">&quot;status=%v body=%v\n&quot;</span>, status, <span class="type">string</span>(body))</span><br><span class="line"><span class="comment">// post请求</span></span><br><span class="line"><span class="keyword">var</span> postArgs protocol.Args</span><br><span class="line">postArgs.Set(<span class="string">&quot;arg&quot;</span>, <span class="string">&quot;a&quot;</span>)</span><br><span class="line">status, body, _ = c.Post(context.Background(), <span class="literal">nil</span>, <span class="string">&quot;http://example.com&quot;</span>, &amp;postArgs)</span><br><span class="line">fmt.Printf(<span class="string">&quot;status=%v body=%v\n&quot;</span>, status, <span class="type">string</span>(body))</span><br></pre></td></tr></table></figure></div>
+<p>参考<a class="link"   href="https://github.com/cloudwego/hertz-examples#client" >cloudwego/hertz-examples: Examples for Hertz.  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="hertz-代码生成工具"><a class="markdownIt-Anchor" href="#hertz-代码生成工具"></a> Hertz 代码生成工具</h5>
+<p>Hertz 提供了代码生成工具 Hz ，通过定义 IDL 文件即可生成对应的基础服务代码。</p>
+<p>参考<a class="link"   href="https://www.cloudwego.io/zh/docs/hertz/tutorials/toolkit/toolkit/" >hz 命令行工具使用 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="hertz-性能"><a class="markdownIt-Anchor" href="#hertz-性能"></a> Hertz 性能</h5>
+<ul>
+<li>网络库</li>
+<li>Json 编解码 Sonic</li>
+<li>使用 sync.Pool 复用对象协议层数据解析优化</li>
+</ul>
+<h5 id="hertz-生态"><a class="markdownIt-Anchor" href="#hertz-生态"></a> Hertz 生态</h5>
+<p>Hertz 拥有非常丰富的扩展生态，以下是一些常用的扩展</p>
+<ul>
+<li><a class="link"   href="https://github.com/hertz-contrib/http2" >HTTP2 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/hertz-contrib/obs-opentelemetry" >opentelemetry 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/hertz-contrib/i18n" >国际化扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/hertz-contrib/reverseproxy" >反向代理扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/hertz-contrib/jwt" >JWT 鉴权扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/hertz-contrib/websocket" >Websocket 扩展 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://github.com/cloudwego/hertz-examples" >丰富的示例代码与业务 Demo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<p>更多信息参考<a class="link"   href="https://github.com/cloudwego/hertz#extensions" >https://github.com/cloudwego/hertz#extensions <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="3实战案例介绍"><a class="markdownIt-Anchor" href="#3实战案例介绍"></a> 3.实战案例介绍</h3>
+<h4 id="项目介绍"><a class="markdownIt-Anchor" href="#项目介绍"></a> 项目介绍</h4>
+<p>项目地址<a class="link"   href="https://github.com/cloudwego/kitex-examples/tree/main/bizdemo/easy_note" >cloudwego/kitex-examples  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>上面的笔记项目是一个使用 Hertz、Kitex、Gorm 搭建出来的具备一定业务逻辑的后端 API 项目。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">服务名称</th>
+<th style="text-align:center">服务介绍</th>
+<th style="text-align:center">传输协议</th>
+<th style="text-align:center">主要技术栈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">demoapi</td>
+<td style="text-align:center">API 服务</td>
+<td style="text-align:center">HTTP</td>
+<td style="text-align:center">Gorm/Kitex/Hertz</td>
+</tr>
+<tr>
+<td style="text-align:center">demouser</td>
+<td style="text-align:center">用户数据管理</td>
+<td style="text-align:center">Protobuf</td>
+<td style="text-align:center">Gorm/Kitex</td>
+</tr>
+<tr>
+<td style="text-align:center">demonote</td>
+<td style="text-align:center">笔记数据管理</td>
+<td style="text-align:center">Thrift</td>
+<td style="text-align:center">Gorm/Kitex</td>
+</tr>
+</tbody>
+</table>
+<h4 id="功能介绍"><a class="markdownIt-Anchor" href="#功能介绍"></a> 功能介绍</h4>
+<p>项目模块</p>
+<ul>
+<li>demoapi
+<ul>
+<li>用户登录</li>
+<li>用户注册</li>
+<li>用户创建笔记</li>
+<li>用户更新笔记</li>
+<li>用户删除笔记</li>
+<li>用户查询笔记</li>
+</ul>
+</li>
+<li>demouser
+<ul>
+<li>创建用户</li>
+<li>查询用户</li>
+<li>校验用户</li>
+</ul>
+</li>
+<li>demonote
+<ul>
+<li>创建笔记</li>
+<li>更新笔记</li>
+<li>删除笔记</li>
+<li>查询笔记</li>
+</ul>
+</li>
+</ul>
+<h4 id="项目调用关系"><a class="markdownIt-Anchor" href="#项目调用关系"></a> 项目调用关系</h4>
+<ul>
+<li>demouser 和 demonote 的数据都存储在 MySQL 数据库中，从 MySQL 中获取数据。</li>
+<li>demouser 和 demonote 使用 ETCD 服务注册。</li>
+<li>demoapi 使用 proto 协议调用 demouser 操作用户数据，使用 thrift 协议调用 demonote 操作笔记数据。</li>
+<li>demoapi 使用 ETCD 服务发现。</li>
+<li>调用方通过 HTTP 请求调用demoapi。</li>
+</ul>
+<h4 id="idl-介绍"><a class="markdownIt-Anchor" href="#idl-介绍"></a> IDL 介绍</h4>
+<p>参考项目文件<a class="link"   href="https://github.com/cloudwego/kitex-examples/tree/main/bizdemo/easy_note/idl" >kitex-examples/bizdemo/easy_note/idl <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h4 id="技术栈介绍"><a class="markdownIt-Anchor" href="#技术栈介绍"></a> 技术栈介绍</h4>
+<p>技术框架</p>
+<ul>
+<li>语言：GO</li>
+<li>底层存储：MySQL</li>
+<li>服务注册：ETCD</li>
+<li>RPC 框架
+<ul>
+<li>Kitex：registry-etcd 和 tracer-opentracing</li>
+<li>Kitex 扩展</li>
+</ul>
+</li>
+<li>ORM 框架
+<ul>
+<li>GORM</li>
+<li>GORM 扩展：gorm-mysql 和 gorm-opentracing</li>
+</ul>
+</li>
+<li>HTTP 框架
+<ul>
+<li>Hertz</li>
+<li>Hertz 扩展：Hertz-Jwt</li>
+</ul>
+</li>
+<li>链路追踪
+<ul>
+<li>Jeager</li>
+<li>opentracing</li>
+</ul>
+</li>
+</ul>
+<h4 id="创建笔记功能实现关键代码"><a class="markdownIt-Anchor" href="#创建笔记功能实现关键代码"></a> 创建笔记功能实现关键代码</h4>
+<h5 id="hertz-关键代码"><a class="markdownIt-Anchor" href="#hertz-关键代码"></a> Hertz 关键代码</h5>
+<p><a class="link"   href="https://github.com/cloudwego/kitex-examples/blob/main/bizdemo/easy_note/cmd/api/handlers/create_note.go" >kitex-examples/create_note.go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="kitex-client-关键代码"><a class="markdownIt-Anchor" href="#kitex-client-关键代码"></a> Kitex Client 关键代码</h5>
+<p><a class="link"   href="https://github.com/cloudwego/kitex-examples/blob/main/bizdemo/easy_note/cmd/api/rpc/note.go" >kitex-examples/note.go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="kitex-server-关键代码"><a class="markdownIt-Anchor" href="#kitex-server-关键代码"></a> Kitex Server 关键代码</h5>
+<p><a class="link"   href="https://github.com/cloudwego/kitex-examples/blob/main/bizdemo/easy_note/cmd/note/service/create_note.go" >kitex-examples/create_note.go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h5 id="gorm-关键代码"><a class="markdownIt-Anchor" href="#gorm-关键代码"></a> Gorm 关键代码</h5>
+<p><a class="link"   href="https://github.com/cloudwego/kitex-examples/blob/main/bizdemo/easy_note/cmd/note/dal/db/note.go" >kitex-examples/note.go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="4总结与展望"><a class="markdownIt-Anchor" href="#4总结与展望"></a> 4.总结与展望</h3>
+<h4 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h4>
+<ul>
+<li>了解 Gorm/Kitex/Hertz 的基本概念</li>
+<li>熟悉 Gorm/Kitex/Hertz 的基础用法</li>
+<li>通过实战案例分析将三件套的使用联系起来</li>
+</ul>
+<h4 id="展望"><a class="markdownIt-Anchor" href="#展望"></a> 展望</h4>
+<ul>
+<li>进一步熟悉 Gorm/Kitex/Hertz 的使用，通过阅读<a class="link"   href="https://www.cloudwego.io/" >官方文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>熟悉框架更多的用法。</li>
+<li>阅读笔记项目源码并在本地环境运行，使用 Gorm/Kitex/Hertz 进行项目开发。</li>
+<li>参与 Gorm/Kitex/Hertz 的开源贡献，例如 Hertz 的 Windows 平台支持。</li>
+<li><a class="link"   href="https://github.com/cloudwego/hertz/issues" >官方 issues | 问题 ·Cloudwego/Hertz <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/374901408" >什么是RPC？原理是什么？如何实现一个 RPC 框架？ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/397060740" >RPC框架的IDL与IDL-less  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://gorm.cn/zh_CN/docs/" >GORM 指南 | GORM  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://blog.mazhuang.vip/database/mysql/upsert-f2f8bfbaba7a/" >Mysql 的 upsert 操作 | Seeker (mazhuang.vip) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://www.cloudwego.io/zh/docs/kitex/getting-started/" >Kitex 快速开始 | CloudWeGo <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://juejin.cn/post/7174311695592980510" >一文带你快速入门GolangHTTP框架Hertz - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>规则引擎与设计实现</title>
     <url>/2023/02/03/golang-day6/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7195554661318967351" >规则引擎与设计实现 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对规则引擎的学习<span id="more"></span></p>
@@ -8952,6 +8952,355 @@ y=2^{E_y}\cdot M_y
 <h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
 <p><a class="link"   href="https://zhuanlan.zhihu.com/p/136587858" >软件架构的演变-单体架构，垂直架构，分布式架构，SOA架构和微服务架构的演变历程 - 知乎  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://zhuanlan.zhihu.com/p/26302012" >水平拆分 &amp; 垂直拆分 - 知乎  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微服务架构</title>
+    <url>/2023/02/04/golang-day9/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7196678344573337656" >微服务架构 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对微服务架构原理与治理实践的学习<span id="more"></span></p>
+<h2 id="微服务架构原理与治理实践"><a class="markdownIt-Anchor" href="#微服务架构原理与治理实践"></a> 微服务架构原理与治理实践</h2>
+<h3 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h3>
+<p>微服务架构是当前大多数互联网公司的标准架构。</p>
+<p>主要学习微服务架构的由来及原理、服务治理功能工作机制。</p>
+<h3 id="1微服务架构介绍"><a class="markdownIt-Anchor" href="#1微服务架构介绍"></a> 1.微服务架构介绍</h3>
+<h4 id="11-系统架构演变历史"><a class="markdownIt-Anchor" href="#11-系统架构演变历史"></a> 1.1 系统架构演变历史</h4>
+<p>架构演变的原因</p>
+<ul>
+<li>互联网的爆炸性发展</li>
+<li>硬件设施的快速发展</li>
+<li>需求复杂性的多样化</li>
+<li>开发人员的急剧增加</li>
+<li>计算机理论及技术的发展</li>
+</ul>
+<p>单体架构 —&gt; 垂直应用架构 —&gt; 分布式架构 —&gt; SOA 架构 —&gt; 微服务架构</p>
+<h5 id="单体架构"><a class="markdownIt-Anchor" href="#单体架构"></a> 单体架构</h5>
+<ul>
+<li>
+<p>优势</p>
+<ol>
+<li>
+<p>性能最高</p>
+</li>
+<li>
+<p>冗余小</p>
+</li>
+</ol>
+</li>
+<li>
+<p>劣势</p>
+<ol>
+<li>
+<p>debug 困难</p>
+</li>
+<li>
+<p>模块相互影响（非核心功能可能导致程序崩溃）</p>
+</li>
+<li>
+<p>模块分工、依赖管理困难，开发流程几乎无法分工</p>
+</li>
+</ol>
+</li>
+</ul>
+<h5 id="垂直应用架构"><a class="markdownIt-Anchor" href="#垂直应用架构"></a> 垂直应用架构</h5>
+<p>安装业务线垂直划分</p>
+<ul>
+<li>优势：业务独立开发维护</li>
+<li>劣势
+<ol>
+<li>不同业务存在冗余，无法复用</li>
+<li>每个业务还是单体</li>
+</ol>
+</li>
+</ul>
+<h5 id="分布式架构"><a class="markdownIt-Anchor" href="#分布式架构"></a> 分布式架构</h5>
+<p>抽取出业务无关的公共模块</p>
+<ul>
+<li>优势：业务无关的独立服务</li>
+<li>劣势
+<ol>
+<li>服务模块 bug 可能导致全站瘫痪</li>
+<li>调用关系复杂</li>
+<li>不同服务冗余</li>
+</ol>
+</li>
+</ul>
+<h5 id="soa-架构service-oriented-architecture"><a class="markdownIt-Anchor" href="#soa-架构service-oriented-architecture"></a> SOA 架构（Service Oriented Architecture）</h5>
+<p>面向服务的架构</p>
+<ul>
+<li>优势：服务注册</li>
+<li>劣势
+<ol>
+<li>整个系统设计是中心化的</li>
+<li>需要从上至下设计</li>
+<li>重构困难</li>
+</ol>
+</li>
+</ul>
+<h5 id="微服务架构"><a class="markdownIt-Anchor" href="#微服务架构"></a> 微服务架构</h5>
+<p>彻底服务化的架构</p>
+<ul>
+<li>优势
+<ol>
+<li>高效的开发迭代效率</li>
+<li>业务独立设计</li>
+<li>自下而上设计</li>
+<li>故障隔离可控</li>
+</ol>
+</li>
+<li>劣势
+<ol>
+<li>治理、运维难度急剧增加</li>
+<li>观测挑战</li>
+<li>安全性问题</li>
+<li>分布式系统本身的复杂性</li>
+</ol>
+</li>
+</ul>
+<h4 id="12-微服务架构概览"><a class="markdownIt-Anchor" href="#12-微服务架构概览"></a> 1.2 微服务架构概览</h4>
+<p>从组件的维度去分析微服务架构的整体视角</p>
+<ul>
+<li>服务配置和治理：服务配置、服务治理</li>
+<li>消息队列 MQ
+<ul>
+<li>用户服务：用户数据库</li>
+<li>商品服务：商品数据库</li>
+<li>订单服务：订单数据库</li>
+<li>广告服务：数据仓库、Redis</li>
+</ul>
+</li>
+<li>链路追踪和监控：链路追踪、服务监控</li>
+<li>网关</li>
+</ul>
+<h4 id="13-微服务架构核心要素"><a class="markdownIt-Anchor" href="#13-微服务架构核心要素"></a> 1.3 微服务架构核心要素</h4>
+<ul>
+<li>服务治理：服务注册、服务发现、负载均衡、扩缩容、流量治理、稳定性治理、…</li>
+<li>可观测性：日志采集、日志分析、监控打点、监控大盘、异常报警、链路追踪、…</li>
+<li>安全：身份验证、认证授权、访问令牌、审计、传输加密、黑产攻击、…</li>
+</ul>
+<h4 id="14-总结"><a class="markdownIt-Anchor" href="#14-总结"></a> 1.4 总结</h4>
+<ul>
+<li>系统架构的演变历史</li>
+<li>微服务架构的整体概览</li>
+<li>微服务架构的核心要素</li>
+</ul>
+<h3 id="2微服务架构原理及特征"><a class="markdownIt-Anchor" href="#2微服务架构原理及特征"></a> 2.微服务架构原理及特征</h3>
+<h4 id="21-基本概念"><a class="markdownIt-Anchor" href="#21-基本概念"></a> 2.1 基本概念</h4>
+<ul>
+<li>
+<p>服务（service）</p>
+<p>一组具有相同逻辑的运行实体。</p>
+</li>
+<li>
+<p>实例（instance）</p>
+<p>一个服务中，每个运行实体即为一个实例。</p>
+</li>
+<li>
+<p>实例与进程的关系</p>
+<p>实例与进程之间没有必然对应关系，一个实例可以对应一个或多个进程（反过来不常见）。</p>
+</li>
+<li>
+<p>集群（cluster）</p>
+<p>通常指服务内部的逻辑划分，包含多个实例。</p>
+</li>
+<li>
+<p>常见的实例承载形式</p>
+<p>进程、VM、k8s pod、…</p>
+</li>
+<li>
+<p>有状态/无状态服务</p>
+<p>服务的实例是否存储了可持久化的数据，例如磁盘文件。</p>
+</li>
+<li>
+<p>服务间通信</p>
+<p>对于单体服务，不同模块通信只是简单的函数调用。</p>
+<p>对于微服务，服务间通信意味着网络传输。</p>
+</li>
+</ul>
+<h4 id="22-服务注册与发现"><a class="markdownIt-Anchor" href="#22-服务注册与发现"></a> 2.2 服务注册与发现</h4>
+<p>问题：在代码层面，如何指定调用一个目标服务的地址（ip:port）？</p>
+<h5 id="硬编码-hardcode"><a class="markdownIt-Anchor" href="#硬编码-hardcode"></a> 硬编码 hardcode</h5>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Service A want to call Service B.</span></span><br><span class="line">client := grpc.NewClient(<span class="string">&quot;10.23.45.67:8080&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+<p>硬编码 hardcode 的问题：当服务存在多个实例时，hardcode 无法调用动态变化的服务地址。</p>
+<h5 id="dns"><a class="markdownIt-Anchor" href="#dns"></a> DNS</h5>
+<p>DNS 的思想就是中间层。</p>
+<p>DNS 的问题</p>
+<ul>
+<li>本地 DNS 存在缓存，导致延时。</li>
+<li>负载均衡问题。</li>
+<li>不支持服务实例的探活检查。</li>
+<li>域名无法配置端口。</li>
+</ul>
+<h5 id="服务注册中心-service-registry"><a class="markdownIt-Anchor" href="#服务注册中心-service-registry"></a> 服务注册中心 Service Registry</h5>
+<p>解决思路：新增一个统一的服务注册中心，用于存储服务名到服务实例的映射。与 DNS 类似，也是一个中间层。</p>
+<h5 id="服务实例上线及下线过程"><a class="markdownIt-Anchor" href="#服务实例上线及下线过程"></a> 服务实例上线及下线过程</h5>
+<ul>
+<li>
+<p>当一个实例还有流量时，不能直接下线，当它没有流量时，可以下线。</p>
+</li>
+<li>
+<p>当一个服务下线几个实例后访问压力过大，可以添加新的实例到服务中。</p>
+</li>
+<li>
+<p>新启用的实例会先进行健康检查，检查无误后再注册到服务中心。</p>
+</li>
+<li>
+<p>健康检查是在服务运作期间一直持续进行的。</p>
+</li>
+</ul>
+<h4 id="23-流量特征"><a class="markdownIt-Anchor" href="#23-流量特征"></a> 2.3 流量特征</h4>
+<ul>
+<li>统一网关路口</li>
+<li>内网通信多数采用 RPC</li>
+<li>网状调用链路</li>
+</ul>
+<p>弱化连接的概念，强调“请求”，即同一个客户端长连接发出的请求，理论上可以到达服务中所有实例。网关 gateway 可以用于身份认证，进而将 token 附在请求上。</p>
+<h4 id="24-总结"><a class="markdownIt-Anchor" href="#24-总结"></a> 2.4 总结</h4>
+<ul>
+<li>微服务架构中的基本组件及术语</li>
+<li>服务注册及发现中间层</li>
+<li>平滑无损的服务实例上下线流程</li>
+<li>微服务架构中的基本流量特征</li>
+</ul>
+<h3 id="3核心服务治理功能"><a class="markdownIt-Anchor" href="#3核心服务治理功能"></a> 3.核心服务治理功能</h3>
+<h4 id="31-服务发布"><a class="markdownIt-Anchor" href="#31-服务发布"></a> 3.1 服务发布</h4>
+<p>服务发布（deployment），即让一个服务升级运行新的代码的过程。</p>
+<p>服务发布的难点</p>
+<ul>
+<li>
+<p>服务不可用</p>
+</li>
+<li>
+<p>服务抖动</p>
+</li>
+<li>
+<p>服务回滚</p>
+</li>
+<li>
+<p>蓝绿部署问题</p>
+</li>
+<li>
+<p>灰度发布（金丝雀发布）问题</p>
+</li>
+</ul>
+<h4 id="32-流量治理"><a class="markdownIt-Anchor" href="#32-流量治理"></a> 3.2 流量治理</h4>
+<p>在微服务架构下，可以基于地区、集群、实例、请求等维度，对端到端流量的路由路径进行精确控制（这里就是狭义的对流量进行控制）。</p>
+<h4 id="33-负载均衡"><a class="markdownIt-Anchor" href="#33-负载均衡"></a> 3.3 负载均衡</h4>
+<p>负载均衡（Load Balance）负责分配请求在每个下游实例上以控制分布情况。</p>
+<p>常见的 LB 策略</p>
+<ul>
+<li>Round Robin</li>
+<li>Random</li>
+<li>Ring Hash</li>
+<li>Least Request</li>
+<li>…</li>
+</ul>
+<h4 id="34-稳定性治理"><a class="markdownIt-Anchor" href="#34-稳定性治理"></a> 3.4 稳定性治理</h4>
+<p>线上服务难免会出现问题，这和程序本身正确性无关。</p>
+<ul>
+<li>网络攻击</li>
+<li>流量突增</li>
+<li>机房断电</li>
+<li>光纤断开</li>
+<li>机器故障</li>
+<li>网络故障</li>
+<li>机房空调故障</li>
+<li>…</li>
+</ul>
+<p>微服务架构中典型的稳定性治理功能</p>
+<ul>
+<li>限流</li>
+<li>熔断</li>
+<li>过载保护</li>
+<li>降级</li>
+</ul>
+<h4 id="35-总结"><a class="markdownIt-Anchor" href="#35-总结"></a> 3.5 总结</h4>
+<ul>
+<li>服务发布：蓝绿部署、灰度发布</li>
+<li>基于地区、集群、实例、请求等维度的流量治理功能</li>
+<li>几种常见的负载均衡策略</li>
+<li>微服务架构中的稳定性治理功能</li>
+</ul>
+<h3 id="4服务治理实践"><a class="markdownIt-Anchor" href="#4服务治理实践"></a> 4.服务治理实践</h3>
+<h4 id="41-重试的意义"><a class="markdownIt-Anchor" href="#41-重试的意义"></a> 4.1 重试的意义</h4>
+<h5 id="本地函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#本地函数调用可能引发的异常"></a> 本地函数调用可能引发的异常</h5>
+<ul>
+<li>参数非法</li>
+<li>OOM（Out Of Memory）</li>
+<li>NPE（Null Pointer Exception）</li>
+<li>边界 case</li>
+<li>系统崩溃</li>
+<li>死循环</li>
+<li>程序异常退出</li>
+</ul>
+<p>本地函数没有重试的意义</p>
+<h5 id="远程函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#远程函数调用可能引发的异常"></a> 远程函数调用可能引发的异常</h5>
+<ul>
+<li>网络抖动</li>
+<li>下游负载高导致超时</li>
+<li>下游机器宕机</li>
+<li>本地机器负载高，调度超时</li>
+<li>下游熔断、限流</li>
+<li>…</li>
+</ul>
+<p>远程函数需要进行重试</p>
+<p><strong>重试可以避免掉偶然发生的错误，提高 SLA（Service-Level Agreement）</strong></p>
+<ul>
+<li>
+<p>降低错误率</p>
+<p>假设单次请求的错误率为 0.01，那么连续两次的错误的概率为 0.0001。</p>
+</li>
+<li>
+<p>降低长尾延时</p>
+<p>对于偶尔耗时较长的请求，重试请求有机会提前返回。</p>
+</li>
+<li>
+<p>容忍暂时性错误</p>
+<p>某些时候系统会有暂时性异常，例如网络抖动，重试可以尽量规避。</p>
+</li>
+<li>
+<p>避开下游故障实例</p>
+<p>一个服务中可能会有少量实例故障，例如机器故障，重试其他实例可以成功。</p>
+</li>
+</ul>
+<h4 id="42-重试的难点"><a class="markdownIt-Anchor" href="#42-重试的难点"></a> 4.2 重试的难点</h4>
+<ul>
+<li>幂等性：多次请求可能会造成数据不一致。</li>
+<li>重试风暴：随着调用深度的增加，重试次数会指数级上涨。</li>
+<li>超时设置：间隔多少时间后发起重试请求。例如，服务 A 向服务 B 重试 3 次，但服务 B 需要向服务 C 重试 9 次，服务 C 需要向服务 D 重试 27 次，以此类推。</li>
+</ul>
+<h4 id="43-重试策略"><a class="markdownIt-Anchor" href="#43-重试策略"></a> 4.3 重试策略</h4>
+<p>重试只有在大部分请求都成功，只有少部分请求失败时，才有必要。如果大部分请求都失败，重试只会加剧问题严重性。</p>
+<h5 id="限制重试比例"><a class="markdownIt-Anchor" href="#限制重试比例"></a> 限制重试比例</h5>
+<p>设定一个重试比例阈值，例如 1%，重试次数占所有请求次数比例不能超过该阈值。</p>
+<h5 id="防止链路重试"><a class="markdownIt-Anchor" href="#防止链路重试"></a> 防止链路重试</h5>
+<p>链路层面的防重试风暴的核心是限制每层都发生重试，理想情况下是只有最下一层发生重试。可以返回特殊的 status 表明“请求失败，但不进行重试”。</p>
+<p>缺点是需要侵入性修改业务代码。</p>
+<h5 id="hedged-requests"><a class="markdownIt-Anchor" href="#hedged-requests"></a> Hedged requests</h5>
+<p>对于可能超时或延时高的请求，重新向另一个下游实例发送一个相同的请求，并等待先到达的响应。</p>
+<h4 id="44-重试效果验证"><a class="markdownIt-Anchor" href="#44-重试效果验证"></a> 4.4 重试效果验证</h4>
+<p>实际验证经过上述重试策略后，在链路上发生的重试放大效应。</p>
+<h4 id="45-总结"><a class="markdownIt-Anchor" href="#45-总结"></a> 4.5 总结</h4>
+<ul>
+<li>重试的意义及难点</li>
+<li>应对重试风暴的策略</li>
+</ul>
+<h3 id="归纳总结"><a class="markdownIt-Anchor" href="#归纳总结"></a> 归纳总结</h3>
+<ul>
+<li>微服务架构介绍</li>
+<li>微服务架构原理及特征</li>
+<li>核心服务治理功能</li>
+<li>服务治理实践</li>
+</ul>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/42671353" >什么是蓝绿部署、滚动发布和灰度发布？ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/141398230" >Motan系列6：负载均衡（LoadBalance） <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://juejin.cn/post/7194381054797905981/#heading-0" >【后端专场 学习资料四】第五届字节跳动青训营 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>青训营记录</category>
@@ -9487,355 +9836,6 @@ y=2^{E_y}\cdot M_y
 <p><a class="link"   href="https://zhuanlan.zhihu.com/p/266850866" >乐观锁、悲观锁和MVCC，今天让你一次搞懂 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://zhuanlan.zhihu.com/p/404786050" >Raft 一致性协议完整解析 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://zhuanlan.zhihu.com/p/361108372" >理解 Paxos 协议——浅谈分布式一致性协议 - 知乎 (zhihu.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>微服务架构</title>
-    <url>/2023/02/04/golang-day9/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7196678344573337656" >微服务架构 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对微服务架构原理与治理实践的学习<span id="more"></span></p>
-<h2 id="微服务架构原理与治理实践"><a class="markdownIt-Anchor" href="#微服务架构原理与治理实践"></a> 微服务架构原理与治理实践</h2>
-<h3 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h3>
-<p>微服务架构是当前大多数互联网公司的标准架构。</p>
-<p>主要学习微服务架构的由来及原理、服务治理功能工作机制。</p>
-<h3 id="1微服务架构介绍"><a class="markdownIt-Anchor" href="#1微服务架构介绍"></a> 1.微服务架构介绍</h3>
-<h4 id="11-系统架构演变历史"><a class="markdownIt-Anchor" href="#11-系统架构演变历史"></a> 1.1 系统架构演变历史</h4>
-<p>架构演变的原因</p>
-<ul>
-<li>互联网的爆炸性发展</li>
-<li>硬件设施的快速发展</li>
-<li>需求复杂性的多样化</li>
-<li>开发人员的急剧增加</li>
-<li>计算机理论及技术的发展</li>
-</ul>
-<p>单体架构 —&gt; 垂直应用架构 —&gt; 分布式架构 —&gt; SOA 架构 —&gt; 微服务架构</p>
-<h5 id="单体架构"><a class="markdownIt-Anchor" href="#单体架构"></a> 单体架构</h5>
-<ul>
-<li>
-<p>优势</p>
-<ol>
-<li>
-<p>性能最高</p>
-</li>
-<li>
-<p>冗余小</p>
-</li>
-</ol>
-</li>
-<li>
-<p>劣势</p>
-<ol>
-<li>
-<p>debug 困难</p>
-</li>
-<li>
-<p>模块相互影响（非核心功能可能导致程序崩溃）</p>
-</li>
-<li>
-<p>模块分工、依赖管理困难，开发流程几乎无法分工</p>
-</li>
-</ol>
-</li>
-</ul>
-<h5 id="垂直应用架构"><a class="markdownIt-Anchor" href="#垂直应用架构"></a> 垂直应用架构</h5>
-<p>安装业务线垂直划分</p>
-<ul>
-<li>优势：业务独立开发维护</li>
-<li>劣势
-<ol>
-<li>不同业务存在冗余，无法复用</li>
-<li>每个业务还是单体</li>
-</ol>
-</li>
-</ul>
-<h5 id="分布式架构"><a class="markdownIt-Anchor" href="#分布式架构"></a> 分布式架构</h5>
-<p>抽取出业务无关的公共模块</p>
-<ul>
-<li>优势：业务无关的独立服务</li>
-<li>劣势
-<ol>
-<li>服务模块 bug 可能导致全站瘫痪</li>
-<li>调用关系复杂</li>
-<li>不同服务冗余</li>
-</ol>
-</li>
-</ul>
-<h5 id="soa-架构service-oriented-architecture"><a class="markdownIt-Anchor" href="#soa-架构service-oriented-architecture"></a> SOA 架构（Service Oriented Architecture）</h5>
-<p>面向服务的架构</p>
-<ul>
-<li>优势：服务注册</li>
-<li>劣势
-<ol>
-<li>整个系统设计是中心化的</li>
-<li>需要从上至下设计</li>
-<li>重构困难</li>
-</ol>
-</li>
-</ul>
-<h5 id="微服务架构"><a class="markdownIt-Anchor" href="#微服务架构"></a> 微服务架构</h5>
-<p>彻底服务化的架构</p>
-<ul>
-<li>优势
-<ol>
-<li>高效的开发迭代效率</li>
-<li>业务独立设计</li>
-<li>自下而上设计</li>
-<li>故障隔离可控</li>
-</ol>
-</li>
-<li>劣势
-<ol>
-<li>治理、运维难度急剧增加</li>
-<li>观测挑战</li>
-<li>安全性问题</li>
-<li>分布式系统本身的复杂性</li>
-</ol>
-</li>
-</ul>
-<h4 id="12-微服务架构概览"><a class="markdownIt-Anchor" href="#12-微服务架构概览"></a> 1.2 微服务架构概览</h4>
-<p>从组件的维度去分析微服务架构的整体视角</p>
-<ul>
-<li>服务配置和治理：服务配置、服务治理</li>
-<li>消息队列 MQ
-<ul>
-<li>用户服务：用户数据库</li>
-<li>商品服务：商品数据库</li>
-<li>订单服务：订单数据库</li>
-<li>广告服务：数据仓库、Redis</li>
-</ul>
-</li>
-<li>链路追踪和监控：链路追踪、服务监控</li>
-<li>网关</li>
-</ul>
-<h4 id="13-微服务架构核心要素"><a class="markdownIt-Anchor" href="#13-微服务架构核心要素"></a> 1.3 微服务架构核心要素</h4>
-<ul>
-<li>服务治理：服务注册、服务发现、负载均衡、扩缩容、流量治理、稳定性治理、…</li>
-<li>可观测性：日志采集、日志分析、监控打点、监控大盘、异常报警、链路追踪、…</li>
-<li>安全：身份验证、认证授权、访问令牌、审计、传输加密、黑产攻击、…</li>
-</ul>
-<h4 id="14-总结"><a class="markdownIt-Anchor" href="#14-总结"></a> 1.4 总结</h4>
-<ul>
-<li>系统架构的演变历史</li>
-<li>微服务架构的整体概览</li>
-<li>微服务架构的核心要素</li>
-</ul>
-<h3 id="2微服务架构原理及特征"><a class="markdownIt-Anchor" href="#2微服务架构原理及特征"></a> 2.微服务架构原理及特征</h3>
-<h4 id="21-基本概念"><a class="markdownIt-Anchor" href="#21-基本概念"></a> 2.1 基本概念</h4>
-<ul>
-<li>
-<p>服务（service）</p>
-<p>一组具有相同逻辑的运行实体。</p>
-</li>
-<li>
-<p>实例（instance）</p>
-<p>一个服务中，每个运行实体即为一个实例。</p>
-</li>
-<li>
-<p>实例与进程的关系</p>
-<p>实例与进程之间没有必然对应关系，一个实例可以对应一个或多个进程（反过来不常见）。</p>
-</li>
-<li>
-<p>集群（cluster）</p>
-<p>通常指服务内部的逻辑划分，包含多个实例。</p>
-</li>
-<li>
-<p>常见的实例承载形式</p>
-<p>进程、VM、k8s pod、…</p>
-</li>
-<li>
-<p>有状态/无状态服务</p>
-<p>服务的实例是否存储了可持久化的数据，例如磁盘文件。</p>
-</li>
-<li>
-<p>服务间通信</p>
-<p>对于单体服务，不同模块通信只是简单的函数调用。</p>
-<p>对于微服务，服务间通信意味着网络传输。</p>
-</li>
-</ul>
-<h4 id="22-服务注册与发现"><a class="markdownIt-Anchor" href="#22-服务注册与发现"></a> 2.2 服务注册与发现</h4>
-<p>问题：在代码层面，如何指定调用一个目标服务的地址（ip:port）？</p>
-<h5 id="硬编码-hardcode"><a class="markdownIt-Anchor" href="#硬编码-hardcode"></a> 硬编码 hardcode</h5>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Service A want to call Service B.</span></span><br><span class="line">client := grpc.NewClient(<span class="string">&quot;10.23.45.67:8080&quot;</span>)</span><br></pre></td></tr></table></figure></div>
-<p>硬编码 hardcode 的问题：当服务存在多个实例时，hardcode 无法调用动态变化的服务地址。</p>
-<h5 id="dns"><a class="markdownIt-Anchor" href="#dns"></a> DNS</h5>
-<p>DNS 的思想就是中间层。</p>
-<p>DNS 的问题</p>
-<ul>
-<li>本地 DNS 存在缓存，导致延时。</li>
-<li>负载均衡问题。</li>
-<li>不支持服务实例的探活检查。</li>
-<li>域名无法配置端口。</li>
-</ul>
-<h5 id="服务注册中心-service-registry"><a class="markdownIt-Anchor" href="#服务注册中心-service-registry"></a> 服务注册中心 Service Registry</h5>
-<p>解决思路：新增一个统一的服务注册中心，用于存储服务名到服务实例的映射。与 DNS 类似，也是一个中间层。</p>
-<h5 id="服务实例上线及下线过程"><a class="markdownIt-Anchor" href="#服务实例上线及下线过程"></a> 服务实例上线及下线过程</h5>
-<ul>
-<li>
-<p>当一个实例还有流量时，不能直接下线，当它没有流量时，可以下线。</p>
-</li>
-<li>
-<p>当一个服务下线几个实例后访问压力过大，可以添加新的实例到服务中。</p>
-</li>
-<li>
-<p>新启用的实例会先进行健康检查，检查无误后再注册到服务中心。</p>
-</li>
-<li>
-<p>健康检查是在服务运作期间一直持续进行的。</p>
-</li>
-</ul>
-<h4 id="23-流量特征"><a class="markdownIt-Anchor" href="#23-流量特征"></a> 2.3 流量特征</h4>
-<ul>
-<li>统一网关路口</li>
-<li>内网通信多数采用 RPC</li>
-<li>网状调用链路</li>
-</ul>
-<p>弱化连接的概念，强调“请求”，即同一个客户端长连接发出的请求，理论上可以到达服务中所有实例。网关 gateway 可以用于身份认证，进而将 token 附在请求上。</p>
-<h4 id="24-总结"><a class="markdownIt-Anchor" href="#24-总结"></a> 2.4 总结</h4>
-<ul>
-<li>微服务架构中的基本组件及术语</li>
-<li>服务注册及发现中间层</li>
-<li>平滑无损的服务实例上下线流程</li>
-<li>微服务架构中的基本流量特征</li>
-</ul>
-<h3 id="3核心服务治理功能"><a class="markdownIt-Anchor" href="#3核心服务治理功能"></a> 3.核心服务治理功能</h3>
-<h4 id="31-服务发布"><a class="markdownIt-Anchor" href="#31-服务发布"></a> 3.1 服务发布</h4>
-<p>服务发布（deployment），即让一个服务升级运行新的代码的过程。</p>
-<p>服务发布的难点</p>
-<ul>
-<li>
-<p>服务不可用</p>
-</li>
-<li>
-<p>服务抖动</p>
-</li>
-<li>
-<p>服务回滚</p>
-</li>
-<li>
-<p>蓝绿部署问题</p>
-</li>
-<li>
-<p>灰度发布（金丝雀发布）问题</p>
-</li>
-</ul>
-<h4 id="32-流量治理"><a class="markdownIt-Anchor" href="#32-流量治理"></a> 3.2 流量治理</h4>
-<p>在微服务架构下，可以基于地区、集群、实例、请求等维度，对端到端流量的路由路径进行精确控制（这里就是狭义的对流量进行控制）。</p>
-<h4 id="33-负载均衡"><a class="markdownIt-Anchor" href="#33-负载均衡"></a> 3.3 负载均衡</h4>
-<p>负载均衡（Load Balance）负责分配请求在每个下游实例上以控制分布情况。</p>
-<p>常见的 LB 策略</p>
-<ul>
-<li>Round Robin</li>
-<li>Random</li>
-<li>Ring Hash</li>
-<li>Least Request</li>
-<li>…</li>
-</ul>
-<h4 id="34-稳定性治理"><a class="markdownIt-Anchor" href="#34-稳定性治理"></a> 3.4 稳定性治理</h4>
-<p>线上服务难免会出现问题，这和程序本身正确性无关。</p>
-<ul>
-<li>网络攻击</li>
-<li>流量突增</li>
-<li>机房断电</li>
-<li>光纤断开</li>
-<li>机器故障</li>
-<li>网络故障</li>
-<li>机房空调故障</li>
-<li>…</li>
-</ul>
-<p>微服务架构中典型的稳定性治理功能</p>
-<ul>
-<li>限流</li>
-<li>熔断</li>
-<li>过载保护</li>
-<li>降级</li>
-</ul>
-<h4 id="35-总结"><a class="markdownIt-Anchor" href="#35-总结"></a> 3.5 总结</h4>
-<ul>
-<li>服务发布：蓝绿部署、灰度发布</li>
-<li>基于地区、集群、实例、请求等维度的流量治理功能</li>
-<li>几种常见的负载均衡策略</li>
-<li>微服务架构中的稳定性治理功能</li>
-</ul>
-<h3 id="4服务治理实践"><a class="markdownIt-Anchor" href="#4服务治理实践"></a> 4.服务治理实践</h3>
-<h4 id="41-重试的意义"><a class="markdownIt-Anchor" href="#41-重试的意义"></a> 4.1 重试的意义</h4>
-<h5 id="本地函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#本地函数调用可能引发的异常"></a> 本地函数调用可能引发的异常</h5>
-<ul>
-<li>参数非法</li>
-<li>OOM（Out Of Memory）</li>
-<li>NPE（Null Pointer Exception）</li>
-<li>边界 case</li>
-<li>系统崩溃</li>
-<li>死循环</li>
-<li>程序异常退出</li>
-</ul>
-<p>本地函数没有重试的意义</p>
-<h5 id="远程函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#远程函数调用可能引发的异常"></a> 远程函数调用可能引发的异常</h5>
-<ul>
-<li>网络抖动</li>
-<li>下游负载高导致超时</li>
-<li>下游机器宕机</li>
-<li>本地机器负载高，调度超时</li>
-<li>下游熔断、限流</li>
-<li>…</li>
-</ul>
-<p>远程函数需要进行重试</p>
-<p><strong>重试可以避免掉偶然发生的错误，提高 SLA（Service-Level Agreement）</strong></p>
-<ul>
-<li>
-<p>降低错误率</p>
-<p>假设单次请求的错误率为 0.01，那么连续两次的错误的概率为 0.0001。</p>
-</li>
-<li>
-<p>降低长尾延时</p>
-<p>对于偶尔耗时较长的请求，重试请求有机会提前返回。</p>
-</li>
-<li>
-<p>容忍暂时性错误</p>
-<p>某些时候系统会有暂时性异常，例如网络抖动，重试可以尽量规避。</p>
-</li>
-<li>
-<p>避开下游故障实例</p>
-<p>一个服务中可能会有少量实例故障，例如机器故障，重试其他实例可以成功。</p>
-</li>
-</ul>
-<h4 id="42-重试的难点"><a class="markdownIt-Anchor" href="#42-重试的难点"></a> 4.2 重试的难点</h4>
-<ul>
-<li>幂等性：多次请求可能会造成数据不一致。</li>
-<li>重试风暴：随着调用深度的增加，重试次数会指数级上涨。</li>
-<li>超时设置：间隔多少时间后发起重试请求。例如，服务 A 向服务 B 重试 3 次，但服务 B 需要向服务 C 重试 9 次，服务 C 需要向服务 D 重试 27 次，以此类推。</li>
-</ul>
-<h4 id="43-重试策略"><a class="markdownIt-Anchor" href="#43-重试策略"></a> 4.3 重试策略</h4>
-<p>重试只有在大部分请求都成功，只有少部分请求失败时，才有必要。如果大部分请求都失败，重试只会加剧问题严重性。</p>
-<h5 id="限制重试比例"><a class="markdownIt-Anchor" href="#限制重试比例"></a> 限制重试比例</h5>
-<p>设定一个重试比例阈值，例如 1%，重试次数占所有请求次数比例不能超过该阈值。</p>
-<h5 id="防止链路重试"><a class="markdownIt-Anchor" href="#防止链路重试"></a> 防止链路重试</h5>
-<p>链路层面的防重试风暴的核心是限制每层都发生重试，理想情况下是只有最下一层发生重试。可以返回特殊的 status 表明“请求失败，但不进行重试”。</p>
-<p>缺点是需要侵入性修改业务代码。</p>
-<h5 id="hedged-requests"><a class="markdownIt-Anchor" href="#hedged-requests"></a> Hedged requests</h5>
-<p>对于可能超时或延时高的请求，重新向另一个下游实例发送一个相同的请求，并等待先到达的响应。</p>
-<h4 id="44-重试效果验证"><a class="markdownIt-Anchor" href="#44-重试效果验证"></a> 4.4 重试效果验证</h4>
-<p>实际验证经过上述重试策略后，在链路上发生的重试放大效应。</p>
-<h4 id="45-总结"><a class="markdownIt-Anchor" href="#45-总结"></a> 4.5 总结</h4>
-<ul>
-<li>重试的意义及难点</li>
-<li>应对重试风暴的策略</li>
-</ul>
-<h3 id="归纳总结"><a class="markdownIt-Anchor" href="#归纳总结"></a> 归纳总结</h3>
-<ul>
-<li>微服务架构介绍</li>
-<li>微服务架构原理及特征</li>
-<li>核心服务治理功能</li>
-<li>服务治理实践</li>
-</ul>
-<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/42671353" >什么是蓝绿部署、滚动发布和灰度发布？ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/141398230" >Motan系列6：负载均衡（LoadBalance） <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://juejin.cn/post/7194381054797905981/#heading-0" >【后端专场 学习资料四】第五届字节跳动青训营 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>青训营记录</category>
