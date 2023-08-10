@@ -139,491 +139,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MySQL基础</title>
-    <url>/2022/08/21/MySQL-Base/</url>
-    <content><![CDATA[<h3 id="mysql基础"><a class="markdownIt-Anchor" href="#mysql基础"></a> MySQL基础</h3>
-<hr />
-<h4 id="span-idhead快速导航span"><a class="markdownIt-Anchor" href="#span-idhead快速导航span"></a> <span id="head">快速导航</span></h4>
-<p>提示：本文中各个示例之间有一定数据关联性，建议先把预先准备的测试数据代码执行好。 <span id="more"></span></p>
-<p><a href="#ddl">DDL</a></p>
-<p><a href="#dml">DML</a></p>
-<p><a href="#dql">DQL</a></p>
-<p><a href="#ysf">条件查询</a></p>
-<p><a href="#px">排序</a></p>
-<p><a href="#juhe">聚合函数</a></p>
-<p><a href="#fz"> 分组查询</a></p>
-<h4 id="一-数据库管理系统"><a class="markdownIt-Anchor" href="#一-数据库管理系统"></a> 一、数据库管理系统</h4>
-<ol>
-<li>数据库管理系统：DataBaseManagement，简称DBMS。</li>
-<li>数据库管理系统是专门用来管理数据库中的数据，数据库管理系统可以对数据库中的数据进行增删改查的操作。</li>
-<li>常见的数据库管理系统：MySQL，Oracle，SqlServer，MS，DB2等。</li>
-</ol>
-<h4 id="二-sql"><a class="markdownIt-Anchor" href="#二-sql"></a> 二、SQL</h4>
-<ol>
-<li>SQL是一种结构化查询语言。</li>
-<li>通过SQL可以实现对数据库中数据的操作。</li>
-<li>SQL是一套标准，基本能在大部分数据库管理系统中使用。</li>
-</ol>
-<h4 id="三-工作流程"><a class="markdownIt-Anchor" href="#三-工作流程"></a> 三、工作流程</h4>
-<p>​	数据库管理系统SQL→执行SQL→操作数据库</p>
-<p>​	先安装数据库管理系统MySQL，然后编写SQL语句，之后DBMS对SQL语句	进行执行来完成对数据库的数据管理。</p>
-<h4 id="四-准备工作"><a class="markdownIt-Anchor" href="#四-准备工作"></a> 四、准备工作</h4>
-<ol>
-<li>
-<p>MySQL官网[下载]( <a class="link"   href="https://downloads.mysql.com/archives/installer/" >MySQL :: Download MySQL Installer (Archived Versions) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> )，Windows推荐下载<a class="link"   href="https://downloads.mysql.com/archives/get/p/25/file/mysql-installer-community-5.7.30.0.msi" >Mysql5.7社区版本 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，使用较多的版本。简易配置推荐Server only，也可以选择Custom自定义安装路径，后面填写好root用户的密码即可。其余默认下一步。MySQL环境变量配置可配可不配，需要命令行运行MySQL的相关命令可参考jdk的环境变量配置过程配置好。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 基本命令</span></span><br><span class="line">mysql -uroot -p  //登录MySQL,-p后面需要输入之前设置的密码</span><br><span class="line"><span class="comment"># 登录MySQL之后所有命令结尾必须要加英文分号;</span></span><br><span class="line">mysql&gt; <span class="built_in">exit</span>;   //退出MySQL</span><br><span class="line">mysql&gt; mysqladmin -uroot newpassword;  //root密码为空时,设置新密码</span><br><span class="line">mysql&gt; mysqladmin -uroot -pxxx password yyy; //xxx为旧密码,yyy为新密码</span><br><span class="line">mysql&gt; <span class="built_in">set</span> password <span class="keyword">for</span> 用户名@localhost = password(<span class="string">&#x27;新密码&#x27;</span>);  //修改密码的另一种方式,用户名一般是root</span><br><span class="line"></span><br><span class="line">mysql&gt; show databases; //查看全部的数据库</span><br><span class="line">mysql&gt; create database 数据库名; //创建数据库</span><br><span class="line">mysql&gt; use 数据库名; //指定需要操作的数据库</span><br><span class="line">mysql&gt; show tables; //展示指定数据库里面所有的数据表</span><br><span class="line"></span><br><span class="line"><span class="comment"># 后面的数据操作相关命令可以直接套用navicat中编写的SQL语句,记得结尾加分号;</span></span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>数据库管理工具Navicat[下载]( <a class="link"   href="https://www.navicat.com/en/download/navicat-for-mysql" >Navicat | Download Navicat for MySQL 14-day trial versions for Windows, macOS and Linux <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> )，原生的MySQL数据库管理系统缺乏管理工具比较难以使用，通过第三方数据库管理工具可以更方便地管理数据库。</p>
-</li>
-<li>
-<p>Navicat连接MySQL时需要确保MySQL服务开启，一般安装时默认开机自启动。<strong>以管理员身份运行</strong>命令提示符，输入命令。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">net start mysql57  //运行MySQL服务</span><br></pre></td></tr></table></figure></div>
-<p>MySQL服务的端口号为3306，输入用户名和密码后，完成连接。</p>
-</li>
-</ol>
-<h4 id="五-正式开始"><a class="markdownIt-Anchor" href="#五-正式开始"></a> 五、正式开始</h4>
-<h5 id="1sql语句分类"><a class="markdownIt-Anchor" href="#1sql语句分类"></a> 1.SQL语句分类</h5>
-<ul>
-<li>DQL:数据查询语言，一般以<strong>select</strong>关键字开头，查询数据</li>
-<li>DML:数据操作语言，<strong>insert</strong>、<strong>delete</strong>、<strong>update</strong>关键字，<strong>增删改数据表中的数据</strong></li>
-<li>DDL:数据定义语言，<strong>create</strong>、<strong>drop</strong>、<strong>alter</strong>关键字，<strong>增删改数据表的结构</strong></li>
-<li>TCL:事务控制语言，<strong>commit</strong>、<strong>rollback</strong>关键字，事务回滚和事务提交</li>
-<li>DCL:数据控制语言，<strong>grant</strong>、<strong>revoke</strong>关键字，定义访问权限和安全级别及创建用户</li>
-</ul>
-<h5 id="2ddl数据定义语言的使用"><a class="markdownIt-Anchor" href="#2ddl数据定义语言的使用"></a> 2.DDL数据定义语言的使用</h5>
-<ul>
-<li>
-<p>首先明确MySQL中的数据类型大致分为：**数值、日期/时间、字符串(字符)**三类。</p>
-</li>
-<li>
-<p>数值类型</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">大小</th>
-<th style="text-align:center">范围（有符号）</th>
-<th style="text-align:center">范围（无符号）</th>
-<th style="text-align:center">用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">TINYINT</td>
-<td style="text-align:center">1 Bytes</td>
-<td style="text-align:center">(-128,127)</td>
-<td style="text-align:center">(0,255)</td>
-<td style="text-align:center">小整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">SMALLINT</td>
-<td style="text-align:center">2 Bytes</td>
-<td style="text-align:center">(-32768,32767)</td>
-<td style="text-align:center">(0,65535)</td>
-<td style="text-align:center">大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">MEDIUMINT</td>
-<td style="text-align:center">3 Bytes</td>
-<td style="text-align:center">(-8388608,8388607)</td>
-<td style="text-align:center">(0,16777215)</td>
-<td style="text-align:center">大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">INT或INTEGER</td>
-<td style="text-align:center">4 Bytes</td>
-<td style="text-align:center">(-2147483648,2147483647)</td>
-<td style="text-align:center">(0,4294967295)</td>
-<td style="text-align:center">大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">BIGINT</td>
-<td style="text-align:center">8 Bytes</td>
-<td style="text-align:center">(-2<sup>63,2</sup>63-1)</td>
-<td style="text-align:center">(0,2^64-1)</td>
-<td style="text-align:center">极大整数值</td>
-</tr>
-<tr>
-<td style="text-align:center">FLOAT</td>
-<td style="text-align:center">4 Bytes</td>
-<td style="text-align:center">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0， (1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
-<td style="text-align:center">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
-<td style="text-align:center">单精度 浮点数值</td>
-</tr>
-<tr>
-<td style="text-align:center">DOUBLE</td>
-<td style="text-align:center">8 Bytes</td>
-<td style="text-align:center">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
-<td style="text-align:center">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
-<td style="text-align:center">双精度 浮点数值</td>
-</tr>
-<tr>
-<td style="text-align:center">DECIMAL</td>
-<td style="text-align:center">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
-<td style="text-align:center">依赖于M和D的值</td>
-<td style="text-align:center">依赖于M和D的值</td>
-<td style="text-align:center">小数值</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>日期和时间类型</p>
-<p>TIMESTAMP类型有专有的自动更新特性，将在后面描述。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">大小 (Bytes)</th>
-<th style="text-align:center">范围</th>
-<th style="text-align:center">格式</th>
-<th style="text-align:center">用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">DATE</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">1000-01-01/9999-12-31</td>
-<td style="text-align:center">YYYY-MM-DD</td>
-<td style="text-align:center">日期值</td>
-</tr>
-<tr>
-<td style="text-align:center">TIME</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">‘-838:59:59’/‘838:59:59’</td>
-<td style="text-align:center">HH:MM:SS</td>
-<td style="text-align:center">时间值或持续时间</td>
-</tr>
-<tr>
-<td style="text-align:center">YEAR</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">1901/2155</td>
-<td style="text-align:center">YYYY</td>
-<td style="text-align:center">年份值</td>
-</tr>
-<tr>
-<td style="text-align:center">DATETIME</td>
-<td style="text-align:center">8</td>
-<td style="text-align:center">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
-<td style="text-align:center">YYYY-MM-DD HH:MM:SS</td>
-<td style="text-align:center">混合日期和时间值</td>
-</tr>
-<tr>
-<td style="text-align:center">TIMESTAMP</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">1970-01-01 00:00:00/2038结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
-<td style="text-align:center">YYYYMMDD HHMMSS</td>
-<td style="text-align:center">混合日期和时间值，时间戳</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>字符串类型</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">类型</th>
-<th style="text-align:left">大小</th>
-<th style="text-align:left">用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">CHAR</td>
-<td style="text-align:left">0-255 bytes</td>
-<td style="text-align:left">定长字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">VARCHAR</td>
-<td style="text-align:left">0-65535 bytes</td>
-<td style="text-align:left">变长字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">TINYBLOB</td>
-<td style="text-align:left">0-255 bytes</td>
-<td style="text-align:left">不超过 255 个字符的二进制字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">TINYTEXT</td>
-<td style="text-align:left">0-255 bytes</td>
-<td style="text-align:left">短文本字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">BLOB</td>
-<td style="text-align:left">0-65 535 bytes</td>
-<td style="text-align:left">二进制形式的长文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">TEXT</td>
-<td style="text-align:left">0-65 535 bytes</td>
-<td style="text-align:left">长文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">MEDIUMBLOB</td>
-<td style="text-align:left">0-16 777 215 bytes</td>
-<td style="text-align:left">二进制形式的中等长度文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">MEDIUMTEXT</td>
-<td style="text-align:left">0-16 777 215 bytes</td>
-<td style="text-align:left">中等长度文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">LONGBLOB</td>
-<td style="text-align:left">0-4 294 967 295 bytes</td>
-<td style="text-align:left">二进制形式的极大文本数据</td>
-</tr>
-<tr>
-<td style="text-align:left">LONGTEXT</td>
-<td style="text-align:left">0-4 294 967 295 bytes</td>
-<td style="text-align:left">极大文本数据</td>
-</tr>
-</tbody>
-</table>
-<p><span id="ddl"><a href="#head">返回快速导航</a></span></p>
-</li>
-<li>
-<p>DDL语句示例一：对数据表的管理操作以及对字段的增删改操作（在Navicat中新建查询输入SQL语句或在命令行中输入SQL语句）</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create database test;</span><br><span class="line">use test;</span><br><span class="line"># 创建一张拥有一个int类型的t1字段的test_int数据表</span><br><span class="line"># 默认为有符号</span><br><span class="line"># 多个字段用英文逗号,隔开</span><br><span class="line">create table test_int(</span><br><span class="line">	t1 int</span><br><span class="line">);</span><br><span class="line"># 这里的desc作用是查看数据表的结构信息</span><br><span class="line">desc test_int;</span><br><span class="line"># 增加一条t1字段值为-11111的记录</span><br><span class="line">insert into test_int values (-11111); # 默认有符号</span><br><span class="line"></span><br><span class="line"># 增加一个t2无符号字段</span><br><span class="line">alter table test_int add column t2 int unsigned;</span><br><span class="line"># 这时候增加一条t2字段值为负数的记录,就会出现out of range的错误</span><br><span class="line">insert into test_int (t2) value (-1111); # 报错</span><br><span class="line"># 修改t2字段类型</span><br><span class="line">alter table test_int modify column t2 int;</span><br><span class="line"># 删除t2字段</span><br><span class="line">alter table test_int drop column t2;</span><br><span class="line"></span><br><span class="line"># 删除test_int数据表</span><br><span class="line">drop table if exists test_int;</span><br><span class="line"></span><br><span class="line">create table test_int(</span><br><span class="line">	t1 int,</span><br><span class="line">    t2 int unsigned</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">select * from test_int;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>示例二：对数据库的管理操作</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">语法 create database [if not exists] 数据库名; #[]中的内容选填</span><br><span class="line">    drop database [if exists] 数据库名;</span><br><span class="line"># 创建数据库book</span><br><span class="line">create database book;</span><br><span class="line"># 更改数据库的字符集</span><br><span class="line">alter database book character set utf8;</span><br><span class="line"># 查看字符集</span><br><span class="line">show create database book;</span><br><span class="line"># 删除数据库(判断该数据库是否存在,存在则进行删除)</span><br><span class="line">drop database if exists book;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>示例三：对数据表结构的操作</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table books(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    price double,</span><br><span class="line">    author varchar(20),</span><br><span class="line">    publish_date datetime</span><br><span class="line">);</span><br><span class="line">desc books;</span><br><span class="line"># 表的修改</span><br><span class="line"># alter table 数据表名 add/drop/modify/change column ...</span><br><span class="line"># 修改字段名publish_date为date</span><br><span class="line">alter table books change column publish_date date datetime;</span><br><span class="line"># 修改字段的类型或约束</span><br><span class="line">alter table books modify column date timestamp;</span><br><span class="line"></span><br><span class="line"># 关于alter中change和modify的使用区别</span><br><span class="line"># change的修改范围大于modify,change一般用于修改字段名</span><br><span class="line"># modify一般用于修改数据类型或约束,但modify不能修改字段名</span><br><span class="line"></span><br><span class="line"># 添加新的字段inventory,添加字段需要指明数据类型</span><br><span class="line">alter table books add column inventory int;</span><br><span class="line"># 删除字段inventory,删除字段只需要提供字段名</span><br><span class="line">alter table books drop column inventory;</span><br><span class="line"># 修改数据表名</span><br><span class="line">alter table books rename to works;</span><br><span class="line">desc works;</span><br></pre></td></tr></table></figure></div>
-</li>
-<li>
-<p>示例四：复制数据表</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 增加记录</span><br><span class="line">insert into works values</span><br><span class="line">(1,&#x27;《java》&#x27;,132.9,&#x27;詹姆斯·高斯林&#x27;,&#x27;2001-12-01&#x27;),</span><br><span class="line">(2,&#x27;《linux》&#x27;,156.9,&#x27;linus&#x27;,&#x27;1999-01-01&#x27;);</span><br><span class="line"></span><br><span class="line"># 仅复制数据表的结构</span><br><span class="line">create table copy like works;</span><br><span class="line"># 复制结构和数据</span><br><span class="line">create table clone select * from works;</span><br><span class="line"># 复制部分结构</span><br><span class="line">create table remake select id,name from works;</span><br><span class="line"># 仅复制部分字段,利用where进行条件判断,恒为0则只保留字段</span><br><span class="line">create table redo select id,name from works where 0;</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<h5 id="3dml数据操作语言的使用"><a class="markdownIt-Anchor" href="#3dml数据操作语言的使用"></a> 3.DML数据操作语言的使用</h5>
-<p><span id="dml"><a href="#head">返回快速导航</a></span></p>
-<ul>
-<li>
-<p><strong>insert语句</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># insert into 数据表名(字段名1,字段名2,...) values (字段值1,字段值2,...);</span><br><span class="line">create table product(</span><br><span class="line">	id int,</span><br><span class="line">	name varchar(20),</span><br><span class="line">	price double</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 在product表中增加一条记录</span><br><span class="line">insert into product(id,name,price) values (1,&#x27;phone&#x27;,500.0);</span><br><span class="line"># 在product表中指定的字段增加记录</span><br><span class="line">insert into product(id,price) values (2,399.9);</span><br><span class="line"></span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 默认给全部字段增加记录</span><br><span class="line"># insert into 数据表名 values (字段值1,字段值2,...);</span><br><span class="line"></span><br><span class="line">insert into product values (3,&#x27;mac&#x27;,21499.9);</span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 批量增加记录</span><br><span class="line"># insert into 数据表名 values (字段值1,字段值2,...),(字段值1,字段值2,...);</span><br><span class="line"></span><br><span class="line">insert into product values (4,&#x27;a&#x27;,1.1),(5,&#x27;b&#x27;,2.2),(6,&#x27;c&#x27;,3.3);</span><br><span class="line">select * from product;</span><br></pre></td></tr></table></figure></div>
-<p>注意字段名和字段值的类型对应，以及日期时间、字符字符串类型数据需要加上引号（单双引号均可）</p>
-</li>
-<li>
-<p><strong>update语句</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line">#update 数据表名 set 字段1 = 值1,字段2 = 值2,...[where 条件];</span><br><span class="line"></span><br><span class="line"># 修改phone的price为9999</span><br><span class="line">update product set price = 9999 where name=&#x27;phone&#x27;;</span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 修改mac的price为39999.9,id为0</span><br><span class="line">update product set price = 39999.9,id=0 where name=&#x27;mac&#x27;;</span><br><span class="line"></span><br><span class="line"># 修改id为2记录的name为switch</span><br><span class="line">update product set name = &#x27;switch&#x27; where id=2;</span><br></pre></td></tr></table></figure></div>
-<p>注意一般情况下update语句中不能缺少条件，否则会修改所有数据。</p>
-</li>
-<li>
-<p><strong>delete语句</strong></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># delete from 数据表名 [where 条件];</span><br><span class="line"></span><br><span class="line"># 删除product表中的switch数据</span><br><span class="line">delete from product where name=&#x27;switch&#x27;;</span><br><span class="line"></span><br><span class="line"># 删除product表中price为39999.9的数据</span><br><span class="line">delete from product where price=39999.9;</span><br><span class="line"></span><br><span class="line">select * from product;</span><br></pre></td></tr></table></figure></div>
-<p>注意delete语句中必须加上条件限制，否则所有的数据将会被删除。</p>
-<p>基本update和delete都要配合where来使用，否则和Linux系统中<code>rm -rf /</code>命令是差不多的后果。</p>
-</li>
-</ul>
-<h5 id="4dql数据查询语言的使用"><a class="markdownIt-Anchor" href="#4dql数据查询语言的使用"></a> 4.DQL数据查询语言的使用</h5>
-<p>​	<span id="dql"><a href="#head">返回快速导航</a></span></p>
-<ul>
-<li>
-<p>示例</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># select 字段名 from 数据表名;</span><br><span class="line"></span><br><span class="line"># 单独查询name字段</span><br><span class="line">select name from product;</span><br><span class="line"># 查询多个字段</span><br><span class="line">select id,name from product;</span><br><span class="line"># 查询所有字段</span><br><span class="line">select * from product;</span><br><span class="line"># 或者把*替换成数据表中所有的字段名</span><br><span class="line"></span><br><span class="line"># as关键字取别名,不改变原有数据,改变的是显示的内容,as关键字可省略</span><br><span class="line">select name as product_name from product;</span><br><span class="line"></span><br><span class="line"># 别名中有空格,使用单引号括住别名</span><br><span class="line">select name &#x27;product name&#x27; from product;</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<h5 id="5sql运算符及条件查询"><a class="markdownIt-Anchor" href="#5sql运算符及条件查询"></a> 5.SQL运算符及条件查询</h5>
-<ol>
-<li>
-<p>算术运算符</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">运算符</th>
-<th style="text-align:center"><strong>说  明</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><strong>+</strong></td>
-<td style="text-align:center"><strong>加运算，求两个数或表达式相加的和，如6+8</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>-</strong></td>
-<td style="text-align:center"><strong>减运算，求两个数或表达式相减的差</strong></td>
-</tr>
-<tr>
-<td style="text-align:center">*****</td>
-<td style="text-align:center"><strong>乘运算，求两个数或表达式相乘的积</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>/</strong></td>
-<td style="text-align:center"><strong>除运算，求两个数或表达式相除的商，如5/3的值为1</strong></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>%</strong></td>
-<td style="text-align:center"><strong>取模运算，求两个数或表达式相除的余数，如：5%3的值为2</strong></td>
-</tr>
-</tbody>
-</table>
-<p>SQL语句也可以使用数学表达式，注意SQL没有java的自增自减等运算符。</p>
-</li>
-<li>
-<p>where条件查询运算符</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">运算符</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">=</td>
-<td style="text-align:center">等于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;&gt;或!=</td>
-<td style="text-align:center">不等于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;</td>
-<td style="text-align:center">小于</td>
-</tr>
-<tr>
-<td style="text-align:center">&lt;=</td>
-<td style="text-align:center">小于等于</td>
-</tr>
-<tr>
-<td style="text-align:center">&gt;</td>
-<td style="text-align:center">大于</td>
-</tr>
-<tr>
-<td style="text-align:center">&gt;=</td>
-<td style="text-align:center">大于等于</td>
-</tr>
-<tr>
-<td style="text-align:center">between…  and…</td>
-<td style="text-align:center">两个值之间，等同于  &gt;=   and   &lt;=</td>
-</tr>
-<tr>
-<td style="text-align:center">is  null</td>
-<td style="text-align:center">为null  （is  not  null不为空）</td>
-</tr>
-<tr>
-<td style="text-align:center">and</td>
-<td style="text-align:center">并且</td>
-</tr>
-<tr>
-<td style="text-align:center">or</td>
-<td style="text-align:center">或者</td>
-</tr>
-<tr>
-<td style="text-align:center">in</td>
-<td style="text-align:center">包含，相当于多个or（not in不在这个范围中）</td>
-</tr>
-<tr>
-<td style="text-align:center">not</td>
-<td style="text-align:center">not可以取非，主要用在is  或  in中</td>
-</tr>
-<tr>
-<td style="text-align:center">like</td>
-<td style="text-align:center">like称为模糊查询，支持%或下划线匹配，%匹配任意多个字符，一个下划线值匹配一个字符</td>
-</tr>
-</tbody>
-</table>
-<p><span id="ysf"><a href="#head">返回快速导航</a></span></p>
-</li>
-<li>
-<p>示例</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create database if not exists task;</span><br><span class="line">use task;</span><br><span class="line">create table if not exists coder(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    score int,</span><br><span class="line">    grade varchar(10),</span><br><span class="line">    project int</span><br><span class="line">);</span><br><span class="line">insert into coder values</span><br><span class="line">(1,&#x27;Mike&#x27;,100,&#x27;A&#x27;,1),</span><br><span class="line">(2,&#x27;Jhon&#x27;,96,&#x27;A&#x27;,2),</span><br><span class="line">(3,&#x27;Dram&#x27;,60,&#x27;D&#x27;,null),</span><br><span class="line">(4,&#x27;Lambda&#x27;,100,&#x27;A&#x27;,null),</span><br><span class="line">(5,&#x27;LuBen&#x27;,89,&#x27;B&#x27;,3),</span><br><span class="line">(6,&#x27;K&#x27;,75,&#x27;C&#x27;,null),</span><br><span class="line">(7,&#x27;Z&#x27;,88,&#x27;C&#x27;,null),</span><br><span class="line">(8,&#x27;L&#x27;,75,&#x27;B&#x27;,null);</span><br><span class="line">select * from coder;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score等于100的name和id记录</span><br><span class="line">select name,id from coder where score=100;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中grade不等于A的name和id记录</span><br><span class="line">select name,id from coder where grade != &#x27;A&#x27;;</span><br><span class="line">select name,id from coder where grade &lt;&gt; &#x27;A&#x27;;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score小于89的name和id记录</span><br><span class="line">select name,id from coder where score &lt; 89;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score小于等于89的name和id记录</span><br><span class="line">select name,id from coder where score &lt;= 89;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score大于75的name和id记录</span><br><span class="line">select name,id from coder where score &gt; 75;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score大于等于75的name和id记录</span><br><span class="line">select name,id from coder where score &gt;= 75;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score在75和90之间的name和id记录</span><br><span class="line">select name,id from coder where score&gt;=75 and score&lt;=90;</span><br><span class="line">select name,id from coder where score between 75 and 90;</span><br><span class="line"># between 较小值 and 较大值  闭区间</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中project为null的记录</span><br><span class="line">select * from coder where project is null;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中project不为null的记录</span><br><span class="line">select * from coder where project is not null;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中grade为A且score为100的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and score=100;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中score为100或project为3的记录</span><br><span class="line">select * from coder where score=100 or project=3;</span><br><span class="line"> </span><br><span class="line"># and和or同时使用时,and优先级高于or,要使or先执行,则需用()括住or关联的条件</span><br><span class="line"># 查询coder数据表中grade为A且project为1 和 score大于74的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and project=1 or score &gt; 74;</span><br><span class="line"># 查询coder数据表中project为1或score大于74 且grade为A的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and (project=1 or score &gt; 74);</span><br><span class="line"></span><br><span class="line"># in关键字相当于多个or,但in无法关联数值范围的条件,只能关联一个具体的数值条件</span><br><span class="line"># 查询coder数据表中score为100或96的记录</span><br><span class="line">select * from coder where score=100 or score=96;</span><br><span class="line">select * from coder where score in(100,96); # 这里表示两个数值</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中project不为1且不为3的记录</span><br><span class="line">select * from coder where project&lt;&gt;1 and project&lt;&gt;3;</span><br><span class="line">select * from coder where project not in(3,1);</span><br><span class="line"></span><br><span class="line"># 模糊查询</span><br><span class="line"># like关键字,匹配符%和_</span><br><span class="line"># %匹配任意多个字符,_匹配任意一个字符</span><br><span class="line"># 转义字符\,用于处理包含%和_这两个特殊符号的记录</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中以e结尾的name记录</span><br><span class="line">select name from coder where name like &#x27;%e&#x27;;</span><br><span class="line"># 查询coder数据表中以L开头的name记录</span><br><span class="line">select name from coder where name like &#x27;L%&#x27;;</span><br><span class="line"># 查询coder数据表中包含u的name记录</span><br><span class="line">select name from coder where name like &#x27;%u%&#x27;;</span><br><span class="line"># 查询coder数据表中第二个字母为h的name记录</span><br><span class="line">select name from coder where name like &#x27;_h%&#x27;;</span><br></pre></td></tr></table></figure></div>
-</li>
-</ol>
-<h5 id="6排序"><a class="markdownIt-Anchor" href="#6排序"></a> 6.排序</h5>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">关键字</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">order by</td>
-<td style="text-align:center">排序</td>
-</tr>
-<tr>
-<td style="text-align:center">desc</td>
-<td style="text-align:center">降序</td>
-</tr>
-<tr>
-<td style="text-align:center">asc</td>
-<td style="text-align:center">升序</td>
-</tr>
-</tbody>
-</table>
-<p><span id="px"><a href="#head">返回快速导航</a></span></p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 对coder数据表中的score进行排序,默认升序</span><br><span class="line">select name,score from coder order by score;</span><br><span class="line"># 指定降序,这里的desc作用是指定降序排序</span><br><span class="line">select name,score from coder order by score desc;</span><br><span class="line"># 指定升序</span><br><span class="line">select name,score from coder order by score asc;</span><br><span class="line"></span><br><span class="line"># 多字段排序,第一字段相同时,根据第二字段排序</span><br><span class="line"># 根据score升序排序,score相同则根据name升序排序</span><br><span class="line">select name,score from coder order by score asc,name asc;</span><br><span class="line"></span><br><span class="line"># 不推荐写法</span><br><span class="line">select * from coder order by 1; # 这里的1表示第一个字段id</span><br><span class="line"># 这种写法很容易因为字段顺序的改变而出错</span><br></pre></td></tr></table></figure></div>
-<h5 id="7聚合函数"><a class="markdownIt-Anchor" href="#7聚合函数"></a> 7.聚合函数</h5>
-<p><span id="juhe"><a href="#head">返回快速导航</a></span></p>
-<p><strong>多行数据经聚合函数处理之后的结果只有一行</strong></p>
-<p><strong>聚合函数分类</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">函数名</th>
-<th style="text-align:center">功能</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">count(字段名)</td>
-<td style="text-align:center">统计数量(一般选用不为null的列)</td>
-</tr>
-<tr>
-<td style="text-align:center">max(字段名)</td>
-<td style="text-align:center">最大值</td>
-</tr>
-<tr>
-<td style="text-align:center">min(字段名)</td>
-<td style="text-align:center">最小值</td>
-</tr>
-<tr>
-<td style="text-align:center">sum(字段名)</td>
-<td style="text-align:center">求和</td>
-</tr>
-<tr>
-<td style="text-align:center">avg(字段名)</td>
-<td style="text-align:center">平均值</td>
-</tr>
-</tbody>
-</table>
-<p>注意：聚合函数需要配合分组来使用，先分组再用聚合函数处理。</p>
-<p>如果不进行分组，则默认整张数据表为一组。</p>
-<p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 找出coder数据表中score字段的最大值记录</span><br><span class="line">select max(score) from coder;</span><br><span class="line"># 找出coder数据表中score字段的最小值记录</span><br><span class="line">select min(score) from coder;</span><br><span class="line"># 计算score字段所有记录的总和</span><br><span class="line">select sum(score) from coder;</span><br><span class="line"># 计算score字段所有记录的平均值</span><br><span class="line">select avg(score) from coder;</span><br><span class="line"># 计算记录总条数,可以用任意非空字段做参数</span><br><span class="line">select count(name) from coder;</span><br></pre></td></tr></table></figure></div>
-<p>注意：</p>
-<ol>
-<li>聚合函数会自动忽略指定字段值为null的记录</li>
-<li>在count(*)情况下，每一行数据中只要有一个字段值不为null，则该数据就会被count函数统计进去</li>
-<li>聚合函数也称分组函数，不能直接在<strong>where子句</strong>中使用</li>
-<li>聚合函数之间可以相互组合使用</li>
-</ol>
-<h5 id="8分组查询"><a class="markdownIt-Anchor" href="#8分组查询"></a> 8.分组查询</h5>
-<p><span id="fz"><a href="#head">返回快速导航</a></span></p>
-<p><strong>group by关键字</strong></p>
-<p>格式：select 字段 from 数据表 where 条件 group by 分组依据字段 order by 排序依据字段 排序方式</p>
-<p>执行优先级：from→where→group by→select→order by</p>
-<p>由于where的优先级高于group by，因此聚合函数无法在where子句中使用。</p>
-<p>示例：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 计算coder数据表中grade各组的score总和</span><br><span class="line">select grade,sum(score) from coder group by grade;</span><br><span class="line"></span><br><span class="line"># 规范:使用了group by的语句,select后面的字段只能用作为分组依据的字段及聚合函数,不允许使用其他字段,否则即使不报错,数据结果也会存在问题</span><br><span class="line"></span><br><span class="line"># having关键字对group by之后的数据进行处理</span><br><span class="line"># 不同于where,having专门与group by一起使用,而不能单独使用</span><br><span class="line"></span><br><span class="line"># 找出coder数据表各grade组中score平均值大于80的记录</span><br><span class="line">select grade,avg(score) from coder group by grade having avg(score)&gt;80;</span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>MySQL5</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MarkDown进阶:表情、图标</title>
     <url>/2022/09/04/MarkDownPro-face%E3%80%81icon/</url>
     <content><![CDATA[<h1 id="markdown-emoji"><a class="markdownIt-Anchor" href="#markdown-emoji"></a> markdown-emoji</h1>
@@ -2134,6 +1649,491 @@
 ]]></content>
       <tags>
         <tag>MarkDown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL基础</title>
+    <url>/2022/08/21/MySQL-Base/</url>
+    <content><![CDATA[<h3 id="mysql基础"><a class="markdownIt-Anchor" href="#mysql基础"></a> MySQL基础</h3>
+<hr />
+<h4 id="span-idhead快速导航span"><a class="markdownIt-Anchor" href="#span-idhead快速导航span"></a> <span id="head">快速导航</span></h4>
+<p>提示：本文中各个示例之间有一定数据关联性，建议先把预先准备的测试数据代码执行好。 <span id="more"></span></p>
+<p><a href="#ddl">DDL</a></p>
+<p><a href="#dml">DML</a></p>
+<p><a href="#dql">DQL</a></p>
+<p><a href="#ysf">条件查询</a></p>
+<p><a href="#px">排序</a></p>
+<p><a href="#juhe">聚合函数</a></p>
+<p><a href="#fz"> 分组查询</a></p>
+<h4 id="一-数据库管理系统"><a class="markdownIt-Anchor" href="#一-数据库管理系统"></a> 一、数据库管理系统</h4>
+<ol>
+<li>数据库管理系统：DataBaseManagement，简称DBMS。</li>
+<li>数据库管理系统是专门用来管理数据库中的数据，数据库管理系统可以对数据库中的数据进行增删改查的操作。</li>
+<li>常见的数据库管理系统：MySQL，Oracle，SqlServer，MS，DB2等。</li>
+</ol>
+<h4 id="二-sql"><a class="markdownIt-Anchor" href="#二-sql"></a> 二、SQL</h4>
+<ol>
+<li>SQL是一种结构化查询语言。</li>
+<li>通过SQL可以实现对数据库中数据的操作。</li>
+<li>SQL是一套标准，基本能在大部分数据库管理系统中使用。</li>
+</ol>
+<h4 id="三-工作流程"><a class="markdownIt-Anchor" href="#三-工作流程"></a> 三、工作流程</h4>
+<p>​	数据库管理系统SQL→执行SQL→操作数据库</p>
+<p>​	先安装数据库管理系统MySQL，然后编写SQL语句，之后DBMS对SQL语句	进行执行来完成对数据库的数据管理。</p>
+<h4 id="四-准备工作"><a class="markdownIt-Anchor" href="#四-准备工作"></a> 四、准备工作</h4>
+<ol>
+<li>
+<p>MySQL官网[下载]( <a class="link"   href="https://downloads.mysql.com/archives/installer/" >MySQL :: Download MySQL Installer (Archived Versions) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> )，Windows推荐下载<a class="link"   href="https://downloads.mysql.com/archives/get/p/25/file/mysql-installer-community-5.7.30.0.msi" >Mysql5.7社区版本 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，使用较多的版本。简易配置推荐Server only，也可以选择Custom自定义安装路径，后面填写好root用户的密码即可。其余默认下一步。MySQL环境变量配置可配可不配，需要命令行运行MySQL的相关命令可参考jdk的环境变量配置过程配置好。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 基本命令</span></span><br><span class="line">mysql -uroot -p  //登录MySQL,-p后面需要输入之前设置的密码</span><br><span class="line"><span class="comment"># 登录MySQL之后所有命令结尾必须要加英文分号;</span></span><br><span class="line">mysql&gt; <span class="built_in">exit</span>;   //退出MySQL</span><br><span class="line">mysql&gt; mysqladmin -uroot newpassword;  //root密码为空时,设置新密码</span><br><span class="line">mysql&gt; mysqladmin -uroot -pxxx password yyy; //xxx为旧密码,yyy为新密码</span><br><span class="line">mysql&gt; <span class="built_in">set</span> password <span class="keyword">for</span> 用户名@localhost = password(<span class="string">&#x27;新密码&#x27;</span>);  //修改密码的另一种方式,用户名一般是root</span><br><span class="line"></span><br><span class="line">mysql&gt; show databases; //查看全部的数据库</span><br><span class="line">mysql&gt; create database 数据库名; //创建数据库</span><br><span class="line">mysql&gt; use 数据库名; //指定需要操作的数据库</span><br><span class="line">mysql&gt; show tables; //展示指定数据库里面所有的数据表</span><br><span class="line"></span><br><span class="line"><span class="comment"># 后面的数据操作相关命令可以直接套用navicat中编写的SQL语句,记得结尾加分号;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>数据库管理工具Navicat[下载]( <a class="link"   href="https://www.navicat.com/en/download/navicat-for-mysql" >Navicat | Download Navicat for MySQL 14-day trial versions for Windows, macOS and Linux <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> )，原生的MySQL数据库管理系统缺乏管理工具比较难以使用，通过第三方数据库管理工具可以更方便地管理数据库。</p>
+</li>
+<li>
+<p>Navicat连接MySQL时需要确保MySQL服务开启，一般安装时默认开机自启动。<strong>以管理员身份运行</strong>命令提示符，输入命令。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">net start mysql57  //运行MySQL服务</span><br></pre></td></tr></table></figure></div>
+<p>MySQL服务的端口号为3306，输入用户名和密码后，完成连接。</p>
+</li>
+</ol>
+<h4 id="五-正式开始"><a class="markdownIt-Anchor" href="#五-正式开始"></a> 五、正式开始</h4>
+<h5 id="1sql语句分类"><a class="markdownIt-Anchor" href="#1sql语句分类"></a> 1.SQL语句分类</h5>
+<ul>
+<li>DQL:数据查询语言，一般以<strong>select</strong>关键字开头，查询数据</li>
+<li>DML:数据操作语言，<strong>insert</strong>、<strong>delete</strong>、<strong>update</strong>关键字，<strong>增删改数据表中的数据</strong></li>
+<li>DDL:数据定义语言，<strong>create</strong>、<strong>drop</strong>、<strong>alter</strong>关键字，<strong>增删改数据表的结构</strong></li>
+<li>TCL:事务控制语言，<strong>commit</strong>、<strong>rollback</strong>关键字，事务回滚和事务提交</li>
+<li>DCL:数据控制语言，<strong>grant</strong>、<strong>revoke</strong>关键字，定义访问权限和安全级别及创建用户</li>
+</ul>
+<h5 id="2ddl数据定义语言的使用"><a class="markdownIt-Anchor" href="#2ddl数据定义语言的使用"></a> 2.DDL数据定义语言的使用</h5>
+<ul>
+<li>
+<p>首先明确MySQL中的数据类型大致分为：**数值、日期/时间、字符串(字符)**三类。</p>
+</li>
+<li>
+<p>数值类型</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">大小</th>
+<th style="text-align:center">范围（有符号）</th>
+<th style="text-align:center">范围（无符号）</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">TINYINT</td>
+<td style="text-align:center">1 Bytes</td>
+<td style="text-align:center">(-128,127)</td>
+<td style="text-align:center">(0,255)</td>
+<td style="text-align:center">小整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">SMALLINT</td>
+<td style="text-align:center">2 Bytes</td>
+<td style="text-align:center">(-32768,32767)</td>
+<td style="text-align:center">(0,65535)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">MEDIUMINT</td>
+<td style="text-align:center">3 Bytes</td>
+<td style="text-align:center">(-8388608,8388607)</td>
+<td style="text-align:center">(0,16777215)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">INT或INTEGER</td>
+<td style="text-align:center">4 Bytes</td>
+<td style="text-align:center">(-2147483648,2147483647)</td>
+<td style="text-align:center">(0,4294967295)</td>
+<td style="text-align:center">大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">BIGINT</td>
+<td style="text-align:center">8 Bytes</td>
+<td style="text-align:center">(-2<sup>63,2</sup>63-1)</td>
+<td style="text-align:center">(0,2^64-1)</td>
+<td style="text-align:center">极大整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">FLOAT</td>
+<td style="text-align:center">4 Bytes</td>
+<td style="text-align:center">(-3.402 823 466 E+38，-1.175 494 351 E-38)，0， (1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td style="text-align:center">0，(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td style="text-align:center">单精度 浮点数值</td>
+</tr>
+<tr>
+<td style="text-align:center">DOUBLE</td>
+<td style="text-align:center">8 Bytes</td>
+<td style="text-align:center">(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">0，(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td style="text-align:center">双精度 浮点数值</td>
+</tr>
+<tr>
+<td style="text-align:center">DECIMAL</td>
+<td style="text-align:center">对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
+<td style="text-align:center">依赖于M和D的值</td>
+<td style="text-align:center">依赖于M和D的值</td>
+<td style="text-align:center">小数值</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>日期和时间类型</p>
+<p>TIMESTAMP类型有专有的自动更新特性，将在后面描述。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">大小 (Bytes)</th>
+<th style="text-align:center">范围</th>
+<th style="text-align:center">格式</th>
+<th style="text-align:center">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">DATE</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">1000-01-01/9999-12-31</td>
+<td style="text-align:center">YYYY-MM-DD</td>
+<td style="text-align:center">日期值</td>
+</tr>
+<tr>
+<td style="text-align:center">TIME</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">‘-838:59:59’/‘838:59:59’</td>
+<td style="text-align:center">HH:MM:SS</td>
+<td style="text-align:center">时间值或持续时间</td>
+</tr>
+<tr>
+<td style="text-align:center">YEAR</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1901/2155</td>
+<td style="text-align:center">YYYY</td>
+<td style="text-align:center">年份值</td>
+</tr>
+<tr>
+<td style="text-align:center">DATETIME</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">1000-01-01 00:00:00/9999-12-31 23:59:59</td>
+<td style="text-align:center">YYYY-MM-DD HH:MM:SS</td>
+<td style="text-align:center">混合日期和时间值</td>
+</tr>
+<tr>
+<td style="text-align:center">TIMESTAMP</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">1970-01-01 00:00:00/2038结束时间是第 <strong>2147483647</strong> 秒，北京时间 <strong>2038-1-19 11:14:07</strong>，格林尼治时间 2038年1月19日 凌晨 03:14:07</td>
+<td style="text-align:center">YYYYMMDD HHMMSS</td>
+<td style="text-align:center">混合日期和时间值，时间戳</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>字符串类型</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CHAR</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">定长字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">VARCHAR</td>
+<td style="text-align:left">0-65535 bytes</td>
+<td style="text-align:left">变长字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TINYBLOB</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">不超过 255 个字符的二进制字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">TINYTEXT</td>
+<td style="text-align:left">0-255 bytes</td>
+<td style="text-align:left">短文本字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">BLOB</td>
+<td style="text-align:left">0-65 535 bytes</td>
+<td style="text-align:left">二进制形式的长文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">TEXT</td>
+<td style="text-align:left">0-65 535 bytes</td>
+<td style="text-align:left">长文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMBLOB</td>
+<td style="text-align:left">0-16 777 215 bytes</td>
+<td style="text-align:left">二进制形式的中等长度文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">MEDIUMTEXT</td>
+<td style="text-align:left">0-16 777 215 bytes</td>
+<td style="text-align:left">中等长度文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">LONGBLOB</td>
+<td style="text-align:left">0-4 294 967 295 bytes</td>
+<td style="text-align:left">二进制形式的极大文本数据</td>
+</tr>
+<tr>
+<td style="text-align:left">LONGTEXT</td>
+<td style="text-align:left">0-4 294 967 295 bytes</td>
+<td style="text-align:left">极大文本数据</td>
+</tr>
+</tbody>
+</table>
+<p><span id="ddl"><a href="#head">返回快速导航</a></span></p>
+</li>
+<li>
+<p>DDL语句示例一：对数据表的管理操作以及对字段的增删改操作（在Navicat中新建查询输入SQL语句或在命令行中输入SQL语句）</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create database test;</span><br><span class="line">use test;</span><br><span class="line"># 创建一张拥有一个int类型的t1字段的test_int数据表</span><br><span class="line"># 默认为有符号</span><br><span class="line"># 多个字段用英文逗号,隔开</span><br><span class="line">create table test_int(</span><br><span class="line">	t1 int</span><br><span class="line">);</span><br><span class="line"># 这里的desc作用是查看数据表的结构信息</span><br><span class="line">desc test_int;</span><br><span class="line"># 增加一条t1字段值为-11111的记录</span><br><span class="line">insert into test_int values (-11111); # 默认有符号</span><br><span class="line"></span><br><span class="line"># 增加一个t2无符号字段</span><br><span class="line">alter table test_int add column t2 int unsigned;</span><br><span class="line"># 这时候增加一条t2字段值为负数的记录,就会出现out of range的错误</span><br><span class="line">insert into test_int (t2) value (-1111); # 报错</span><br><span class="line"># 修改t2字段类型</span><br><span class="line">alter table test_int modify column t2 int;</span><br><span class="line"># 删除t2字段</span><br><span class="line">alter table test_int drop column t2;</span><br><span class="line"></span><br><span class="line"># 删除test_int数据表</span><br><span class="line">drop table if exists test_int;</span><br><span class="line"></span><br><span class="line">create table test_int(</span><br><span class="line">	t1 int,</span><br><span class="line">    t2 int unsigned</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">select * from test_int;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>示例二：对数据库的管理操作</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">语法 create database [if not exists] 数据库名; #[]中的内容选填</span><br><span class="line">    drop database [if exists] 数据库名;</span><br><span class="line"># 创建数据库book</span><br><span class="line">create database book;</span><br><span class="line"># 更改数据库的字符集</span><br><span class="line">alter database book character set utf8;</span><br><span class="line"># 查看字符集</span><br><span class="line">show create database book;</span><br><span class="line"># 删除数据库(判断该数据库是否存在,存在则进行删除)</span><br><span class="line">drop database if exists book;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>示例三：对数据表结构的操作</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create table books(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    price double,</span><br><span class="line">    author varchar(20),</span><br><span class="line">    publish_date datetime</span><br><span class="line">);</span><br><span class="line">desc books;</span><br><span class="line"># 表的修改</span><br><span class="line"># alter table 数据表名 add/drop/modify/change column ...</span><br><span class="line"># 修改字段名publish_date为date</span><br><span class="line">alter table books change column publish_date date datetime;</span><br><span class="line"># 修改字段的类型或约束</span><br><span class="line">alter table books modify column date timestamp;</span><br><span class="line"></span><br><span class="line"># 关于alter中change和modify的使用区别</span><br><span class="line"># change的修改范围大于modify,change一般用于修改字段名</span><br><span class="line"># modify一般用于修改数据类型或约束,但modify不能修改字段名</span><br><span class="line"></span><br><span class="line"># 添加新的字段inventory,添加字段需要指明数据类型</span><br><span class="line">alter table books add column inventory int;</span><br><span class="line"># 删除字段inventory,删除字段只需要提供字段名</span><br><span class="line">alter table books drop column inventory;</span><br><span class="line"># 修改数据表名</span><br><span class="line">alter table books rename to works;</span><br><span class="line">desc works;</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>示例四：复制数据表</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 增加记录</span><br><span class="line">insert into works values</span><br><span class="line">(1,&#x27;《java》&#x27;,132.9,&#x27;詹姆斯·高斯林&#x27;,&#x27;2001-12-01&#x27;),</span><br><span class="line">(2,&#x27;《linux》&#x27;,156.9,&#x27;linus&#x27;,&#x27;1999-01-01&#x27;);</span><br><span class="line"></span><br><span class="line"># 仅复制数据表的结构</span><br><span class="line">create table copy like works;</span><br><span class="line"># 复制结构和数据</span><br><span class="line">create table clone select * from works;</span><br><span class="line"># 复制部分结构</span><br><span class="line">create table remake select id,name from works;</span><br><span class="line"># 仅复制部分字段,利用where进行条件判断,恒为0则只保留字段</span><br><span class="line">create table redo select id,name from works where 0;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h5 id="3dml数据操作语言的使用"><a class="markdownIt-Anchor" href="#3dml数据操作语言的使用"></a> 3.DML数据操作语言的使用</h5>
+<p><span id="dml"><a href="#head">返回快速导航</a></span></p>
+<ul>
+<li>
+<p><strong>insert语句</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># insert into 数据表名(字段名1,字段名2,...) values (字段值1,字段值2,...);</span><br><span class="line">create table product(</span><br><span class="line">	id int,</span><br><span class="line">	name varchar(20),</span><br><span class="line">	price double</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 在product表中增加一条记录</span><br><span class="line">insert into product(id,name,price) values (1,&#x27;phone&#x27;,500.0);</span><br><span class="line"># 在product表中指定的字段增加记录</span><br><span class="line">insert into product(id,price) values (2,399.9);</span><br><span class="line"></span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 默认给全部字段增加记录</span><br><span class="line"># insert into 数据表名 values (字段值1,字段值2,...);</span><br><span class="line"></span><br><span class="line">insert into product values (3,&#x27;mac&#x27;,21499.9);</span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 批量增加记录</span><br><span class="line"># insert into 数据表名 values (字段值1,字段值2,...),(字段值1,字段值2,...);</span><br><span class="line"></span><br><span class="line">insert into product values (4,&#x27;a&#x27;,1.1),(5,&#x27;b&#x27;,2.2),(6,&#x27;c&#x27;,3.3);</span><br><span class="line">select * from product;</span><br></pre></td></tr></table></figure></div>
+<p>注意字段名和字段值的类型对应，以及日期时间、字符字符串类型数据需要加上引号（单双引号均可）</p>
+</li>
+<li>
+<p><strong>update语句</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line">#update 数据表名 set 字段1 = 值1,字段2 = 值2,...[where 条件];</span><br><span class="line"></span><br><span class="line"># 修改phone的price为9999</span><br><span class="line">update product set price = 9999 where name=&#x27;phone&#x27;;</span><br><span class="line">select * from product;</span><br><span class="line"></span><br><span class="line"># 修改mac的price为39999.9,id为0</span><br><span class="line">update product set price = 39999.9,id=0 where name=&#x27;mac&#x27;;</span><br><span class="line"></span><br><span class="line"># 修改id为2记录的name为switch</span><br><span class="line">update product set name = &#x27;switch&#x27; where id=2;</span><br></pre></td></tr></table></figure></div>
+<p>注意一般情况下update语句中不能缺少条件，否则会修改所有数据。</p>
+</li>
+<li>
+<p><strong>delete语句</strong></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># delete from 数据表名 [where 条件];</span><br><span class="line"></span><br><span class="line"># 删除product表中的switch数据</span><br><span class="line">delete from product where name=&#x27;switch&#x27;;</span><br><span class="line"></span><br><span class="line"># 删除product表中price为39999.9的数据</span><br><span class="line">delete from product where price=39999.9;</span><br><span class="line"></span><br><span class="line">select * from product;</span><br></pre></td></tr></table></figure></div>
+<p>注意delete语句中必须加上条件限制，否则所有的数据将会被删除。</p>
+<p>基本update和delete都要配合where来使用，否则和Linux系统中<code>rm -rf /</code>命令是差不多的后果。</p>
+</li>
+</ul>
+<h5 id="4dql数据查询语言的使用"><a class="markdownIt-Anchor" href="#4dql数据查询语言的使用"></a> 4.DQL数据查询语言的使用</h5>
+<p>​	<span id="dql"><a href="#head">返回快速导航</a></span></p>
+<ul>
+<li>
+<p>示例</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 语法</span><br><span class="line"># select 字段名 from 数据表名;</span><br><span class="line"></span><br><span class="line"># 单独查询name字段</span><br><span class="line">select name from product;</span><br><span class="line"># 查询多个字段</span><br><span class="line">select id,name from product;</span><br><span class="line"># 查询所有字段</span><br><span class="line">select * from product;</span><br><span class="line"># 或者把*替换成数据表中所有的字段名</span><br><span class="line"></span><br><span class="line"># as关键字取别名,不改变原有数据,改变的是显示的内容,as关键字可省略</span><br><span class="line">select name as product_name from product;</span><br><span class="line"></span><br><span class="line"># 别名中有空格,使用单引号括住别名</span><br><span class="line">select name &#x27;product name&#x27; from product;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h5 id="5sql运算符及条件查询"><a class="markdownIt-Anchor" href="#5sql运算符及条件查询"></a> 5.SQL运算符及条件查询</h5>
+<ol>
+<li>
+<p>算术运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center"><strong>说  明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>+</strong></td>
+<td style="text-align:center"><strong>加运算，求两个数或表达式相加的和，如6+8</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>-</strong></td>
+<td style="text-align:center"><strong>减运算，求两个数或表达式相减的差</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">*****</td>
+<td style="text-align:center"><strong>乘运算，求两个数或表达式相乘的积</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>/</strong></td>
+<td style="text-align:center"><strong>除运算，求两个数或表达式相除的商，如5/3的值为1</strong></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>%</strong></td>
+<td style="text-align:center"><strong>取模运算，求两个数或表达式相除的余数，如：5%3的值为2</strong></td>
+</tr>
+</tbody>
+</table>
+<p>SQL语句也可以使用数学表达式，注意SQL没有java的自增自减等运算符。</p>
+</li>
+<li>
+<p>where条件查询运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">=</td>
+<td style="text-align:center">等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;&gt;或!=</td>
+<td style="text-align:center">不等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;</td>
+<td style="text-align:center">小于</td>
+</tr>
+<tr>
+<td style="text-align:center">&lt;=</td>
+<td style="text-align:center">小于等于</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;</td>
+<td style="text-align:center">大于</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;=</td>
+<td style="text-align:center">大于等于</td>
+</tr>
+<tr>
+<td style="text-align:center">between…  and…</td>
+<td style="text-align:center">两个值之间，等同于  &gt;=   and   &lt;=</td>
+</tr>
+<tr>
+<td style="text-align:center">is  null</td>
+<td style="text-align:center">为null  （is  not  null不为空）</td>
+</tr>
+<tr>
+<td style="text-align:center">and</td>
+<td style="text-align:center">并且</td>
+</tr>
+<tr>
+<td style="text-align:center">or</td>
+<td style="text-align:center">或者</td>
+</tr>
+<tr>
+<td style="text-align:center">in</td>
+<td style="text-align:center">包含，相当于多个or（not in不在这个范围中）</td>
+</tr>
+<tr>
+<td style="text-align:center">not</td>
+<td style="text-align:center">not可以取非，主要用在is  或  in中</td>
+</tr>
+<tr>
+<td style="text-align:center">like</td>
+<td style="text-align:center">like称为模糊查询，支持%或下划线匹配，%匹配任意多个字符，一个下划线值匹配一个字符</td>
+</tr>
+</tbody>
+</table>
+<p><span id="ysf"><a href="#head">返回快速导航</a></span></p>
+</li>
+<li>
+<p>示例</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">create database if not exists task;</span><br><span class="line">use task;</span><br><span class="line">create table if not exists coder(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(20),</span><br><span class="line">    score int,</span><br><span class="line">    grade varchar(10),</span><br><span class="line">    project int</span><br><span class="line">);</span><br><span class="line">insert into coder values</span><br><span class="line">(1,&#x27;Mike&#x27;,100,&#x27;A&#x27;,1),</span><br><span class="line">(2,&#x27;Jhon&#x27;,96,&#x27;A&#x27;,2),</span><br><span class="line">(3,&#x27;Dram&#x27;,60,&#x27;D&#x27;,null),</span><br><span class="line">(4,&#x27;Lambda&#x27;,100,&#x27;A&#x27;,null),</span><br><span class="line">(5,&#x27;LuBen&#x27;,89,&#x27;B&#x27;,3),</span><br><span class="line">(6,&#x27;K&#x27;,75,&#x27;C&#x27;,null),</span><br><span class="line">(7,&#x27;Z&#x27;,88,&#x27;C&#x27;,null),</span><br><span class="line">(8,&#x27;L&#x27;,75,&#x27;B&#x27;,null);</span><br><span class="line">select * from coder;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score等于100的name和id记录</span><br><span class="line">select name,id from coder where score=100;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中grade不等于A的name和id记录</span><br><span class="line">select name,id from coder where grade != &#x27;A&#x27;;</span><br><span class="line">select name,id from coder where grade &lt;&gt; &#x27;A&#x27;;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score小于89的name和id记录</span><br><span class="line">select name,id from coder where score &lt; 89;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score小于等于89的name和id记录</span><br><span class="line">select name,id from coder where score &lt;= 89;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score大于75的name和id记录</span><br><span class="line">select name,id from coder where score &gt; 75;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score大于等于75的name和id记录</span><br><span class="line">select name,id from coder where score &gt;= 75;</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中score在75和90之间的name和id记录</span><br><span class="line">select name,id from coder where score&gt;=75 and score&lt;=90;</span><br><span class="line">select name,id from coder where score between 75 and 90;</span><br><span class="line"># between 较小值 and 较大值  闭区间</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中project为null的记录</span><br><span class="line">select * from coder where project is null;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中project不为null的记录</span><br><span class="line">select * from coder where project is not null;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中grade为A且score为100的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and score=100;</span><br><span class="line"> </span><br><span class="line"># 查询coder数据表中score为100或project为3的记录</span><br><span class="line">select * from coder where score=100 or project=3;</span><br><span class="line"> </span><br><span class="line"># and和or同时使用时,and优先级高于or,要使or先执行,则需用()括住or关联的条件</span><br><span class="line"># 查询coder数据表中grade为A且project为1 和 score大于74的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and project=1 or score &gt; 74;</span><br><span class="line"># 查询coder数据表中project为1或score大于74 且grade为A的记录</span><br><span class="line">select * from coder where grade=&#x27;A&#x27; and (project=1 or score &gt; 74);</span><br><span class="line"></span><br><span class="line"># in关键字相当于多个or,但in无法关联数值范围的条件,只能关联一个具体的数值条件</span><br><span class="line"># 查询coder数据表中score为100或96的记录</span><br><span class="line">select * from coder where score=100 or score=96;</span><br><span class="line">select * from coder where score in(100,96); # 这里表示两个数值</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中project不为1且不为3的记录</span><br><span class="line">select * from coder where project&lt;&gt;1 and project&lt;&gt;3;</span><br><span class="line">select * from coder where project not in(3,1);</span><br><span class="line"></span><br><span class="line"># 模糊查询</span><br><span class="line"># like关键字,匹配符%和_</span><br><span class="line"># %匹配任意多个字符,_匹配任意一个字符</span><br><span class="line"># 转义字符\,用于处理包含%和_这两个特殊符号的记录</span><br><span class="line"></span><br><span class="line"># 查询coder数据表中以e结尾的name记录</span><br><span class="line">select name from coder where name like &#x27;%e&#x27;;</span><br><span class="line"># 查询coder数据表中以L开头的name记录</span><br><span class="line">select name from coder where name like &#x27;L%&#x27;;</span><br><span class="line"># 查询coder数据表中包含u的name记录</span><br><span class="line">select name from coder where name like &#x27;%u%&#x27;;</span><br><span class="line"># 查询coder数据表中第二个字母为h的name记录</span><br><span class="line">select name from coder where name like &#x27;_h%&#x27;;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<h5 id="6排序"><a class="markdownIt-Anchor" href="#6排序"></a> 6.排序</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">关键字</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">order by</td>
+<td style="text-align:center">排序</td>
+</tr>
+<tr>
+<td style="text-align:center">desc</td>
+<td style="text-align:center">降序</td>
+</tr>
+<tr>
+<td style="text-align:center">asc</td>
+<td style="text-align:center">升序</td>
+</tr>
+</tbody>
+</table>
+<p><span id="px"><a href="#head">返回快速导航</a></span></p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 对coder数据表中的score进行排序,默认升序</span><br><span class="line">select name,score from coder order by score;</span><br><span class="line"># 指定降序,这里的desc作用是指定降序排序</span><br><span class="line">select name,score from coder order by score desc;</span><br><span class="line"># 指定升序</span><br><span class="line">select name,score from coder order by score asc;</span><br><span class="line"></span><br><span class="line"># 多字段排序,第一字段相同时,根据第二字段排序</span><br><span class="line"># 根据score升序排序,score相同则根据name升序排序</span><br><span class="line">select name,score from coder order by score asc,name asc;</span><br><span class="line"></span><br><span class="line"># 不推荐写法</span><br><span class="line">select * from coder order by 1; # 这里的1表示第一个字段id</span><br><span class="line"># 这种写法很容易因为字段顺序的改变而出错</span><br></pre></td></tr></table></figure></div>
+<h5 id="7聚合函数"><a class="markdownIt-Anchor" href="#7聚合函数"></a> 7.聚合函数</h5>
+<p><span id="juhe"><a href="#head">返回快速导航</a></span></p>
+<p><strong>多行数据经聚合函数处理之后的结果只有一行</strong></p>
+<p><strong>聚合函数分类</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数名</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">count(字段名)</td>
+<td style="text-align:center">统计数量(一般选用不为null的列)</td>
+</tr>
+<tr>
+<td style="text-align:center">max(字段名)</td>
+<td style="text-align:center">最大值</td>
+</tr>
+<tr>
+<td style="text-align:center">min(字段名)</td>
+<td style="text-align:center">最小值</td>
+</tr>
+<tr>
+<td style="text-align:center">sum(字段名)</td>
+<td style="text-align:center">求和</td>
+</tr>
+<tr>
+<td style="text-align:center">avg(字段名)</td>
+<td style="text-align:center">平均值</td>
+</tr>
+</tbody>
+</table>
+<p>注意：聚合函数需要配合分组来使用，先分组再用聚合函数处理。</p>
+<p>如果不进行分组，则默认整张数据表为一组。</p>
+<p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 找出coder数据表中score字段的最大值记录</span><br><span class="line">select max(score) from coder;</span><br><span class="line"># 找出coder数据表中score字段的最小值记录</span><br><span class="line">select min(score) from coder;</span><br><span class="line"># 计算score字段所有记录的总和</span><br><span class="line">select sum(score) from coder;</span><br><span class="line"># 计算score字段所有记录的平均值</span><br><span class="line">select avg(score) from coder;</span><br><span class="line"># 计算记录总条数,可以用任意非空字段做参数</span><br><span class="line">select count(name) from coder;</span><br></pre></td></tr></table></figure></div>
+<p>注意：</p>
+<ol>
+<li>聚合函数会自动忽略指定字段值为null的记录</li>
+<li>在count(*)情况下，每一行数据中只要有一个字段值不为null，则该数据就会被count函数统计进去</li>
+<li>聚合函数也称分组函数，不能直接在<strong>where子句</strong>中使用</li>
+<li>聚合函数之间可以相互组合使用</li>
+</ol>
+<h5 id="8分组查询"><a class="markdownIt-Anchor" href="#8分组查询"></a> 8.分组查询</h5>
+<p><span id="fz"><a href="#head">返回快速导航</a></span></p>
+<p><strong>group by关键字</strong></p>
+<p>格式：select 字段 from 数据表 where 条件 group by 分组依据字段 order by 排序依据字段 排序方式</p>
+<p>执行优先级：from→where→group by→select→order by</p>
+<p>由于where的优先级高于group by，因此聚合函数无法在where子句中使用。</p>
+<p>示例：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 计算coder数据表中grade各组的score总和</span><br><span class="line">select grade,sum(score) from coder group by grade;</span><br><span class="line"></span><br><span class="line"># 规范:使用了group by的语句,select后面的字段只能用作为分组依据的字段及聚合函数,不允许使用其他字段,否则即使不报错,数据结果也会存在问题</span><br><span class="line"></span><br><span class="line"># having关键字对group by之后的数据进行处理</span><br><span class="line"># 不同于where,having专门与group by一起使用,而不能单独使用</span><br><span class="line"></span><br><span class="line"># 找出coder数据表各grade组中score平均值大于80的记录</span><br><span class="line">select grade,avg(score) from coder group by grade having avg(score)&gt;80;</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>MySQL5</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -8113,6 +8113,155 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
+    <title>规则引擎与设计实现</title>
+    <url>/2023/02/03/golang-day6/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7195554661318967351" >规则引擎与设计实现 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对规则引擎的学习<span id="more"></span></p>
+<h2 id="规则引擎与设计实现"><a class="markdownIt-Anchor" href="#规则引擎与设计实现"></a> 规则引擎与设计实现</h2>
+<blockquote>
+<p>规则引擎的组成部分及应用场景</p>
+<p>规则引擎的核心原理——编译原理的相关概念</p>
+<p>设计并实现一个规则引擎——YoungEngine</p>
+<p>实现一个Web版规则引擎</p>
+</blockquote>
+<h3 id="1-认识规则引擎"><a class="markdownIt-Anchor" href="#1-认识规则引擎"></a> 1. 认识规则引擎</h3>
+<h4 id="规则引擎的定义"><a class="markdownIt-Anchor" href="#规则引擎的定义"></a> 规则引擎的定义</h4>
+<ul>
+<li>
+<p>规则引擎是一种嵌入在应用程序中的组件，实现了将业务决策从应用程序代码中分离出来，并使用预定义的语义模块编写业务决策。接收数据输入，解释业务规则，并根据业务逻辑做出业务决策。</p>
+</li>
+<li>
+<p>解决开发人员重复编码的问题</p>
+<p>业务决策与服务本身解耦，提高服务的可维护性，缩短开发路径，提高效率</p>
+</li>
+</ul>
+<h4 id="组成部分"><a class="markdownIt-Anchor" href="#组成部分"></a> 组成部分</h4>
+<ul>
+<li>数据输入
+<ul>
+<li>支持接受使用预定义的语义编写的规则作为策略集。比如“price &gt; 500”</li>
+<li>接受业务的数据作为执行过程中的参数。比如价格、标签等</li>
+</ul>
+</li>
+<li>规则理解
+<ul>
+<li>能够按照预先定义的词法、语法、优先级、运算符等正确理解业务规则所表达的语义。</li>
+</ul>
+</li>
+<li>规则执行
+<ul>
+<li>根据执行时输入的参数对策略集中的规则进行正确的解释和执行。</li>
+<li>同时对规则执行过程中的数据类型进行检查，确保执行结果的正确。</li>
+</ul>
+</li>
+</ul>
+<h4 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h4>
+<ul>
+<li>风控对抗。快速识别和对抗，以实现最好的风控识别效果。</li>
+<li>活动策略运营。提高运营策略的迭代效率，方便新玩法的探索和效果验证。</li>
+<li>数据分析和清洗。方便快捷地产出所需要的数据。</li>
+</ul>
+<h3 id="2编译原理基本概念"><a class="markdownIt-Anchor" href="#2编译原理基本概念"></a> 2.编译原理基本概念</h3>
+<p>规则引擎和编译原理具有一定的关联性。它们都有理解、执行、输入输出的流程。</p>
+<ul>
+<li>理解：词法分析、语法分析</li>
+<li>执行：抽象语法树</li>
+<li>输入输出：参数注入、类型检查</li>
+</ul>
+<h4 id="词法分析-lexicel-analysis"><a class="markdownIt-Anchor" href="#词法分析-lexicel-analysis"></a> 词法分析 Lexicel Analysis</h4>
+<p>词法分析就是把源代码字符串转换为词法单元（Token）的过程。</p>
+<ul>
+<li>
+<p>识别Token：有限自动机（Finite-State Automaton）</p>
+<p>有限自动机就是一个状态机，它的状态数量是有限的。该状态在任何一个状态，基于输入的字符，都能做一个确定的状态转换。</p>
+</li>
+</ul>
+<h4 id="语法分析-syntax-analysis"><a class="markdownIt-Anchor" href="#语法分析-syntax-analysis"></a> 语法分析 Syntax Analysis</h4>
+<p>语法分析就是在词法分析的基础上，识别表达式的语法结构的过程。</p>
+<ul>
+<li>抽象语法树：表达式的语法结构可以用树来表示，其每个节点（子树）是一个语法单元，这个单元的构成规则就叫语法。每个节点还可以有下级节点。</li>
+</ul>
+<h4 id="抽象语法树-abstract-syntax-tree"><a class="markdownIt-Anchor" href="#抽象语法树-abstract-syntax-tree"></a> 抽象语法树 Abstract Syntax Tree</h4>
+<ul>
+<li>
+<p>上下文无关语法 Context-Free Grammar</p>
+<p>语言句子无需考虑上下文，就可以判断正确性。可以使用巴克斯范式（BNF）来表达。</p>
+<p>产生式：一个表达式可以由另外已知类型的表达式或者符号推导产生。</p>
+<p>内置符号：字面量（string、bool、number）标识符、运算符。</p>
+<p>一个基础表达式可以由常量（string、bool、number）或标识符（identifier），一个乘法表达式可以由基础表达式或者乘法表达式+基础表达式组成。</p>
+</li>
+<li>
+<p>递归下降算法 Recursive Descent Parsing</p>
+<p>递归下降算法就是自顶向下构造语法树，不断地对Token进行语法展开（下降），展开过程中可能会遇到递归的情况。</p>
+</li>
+</ul>
+<h4 id="类型检查"><a class="markdownIt-Anchor" href="#类型检查"></a> 类型检查</h4>
+<ul>
+<li>
+<p>类型综合</p>
+<p>根据表达式的类型构造出父表达式的类型。例如，表达式A+B的类型是根据A和B的类型定义的。</p>
+</li>
+<li>
+<p>编译时检查和运行时检查</p>
+<p>类型检查可以发生在表达式的编译阶段，即在构造语法树的阶段，也可以发生在执行时的阶段。</p>
+<ul>
+<li>编译时：需要提前声明参数的类型，在构建语法树过程中进行类型检查</li>
+<li>执行时：可以根据执行时的参数输入的值类型，在执行过程中进行类型检查</li>
+</ul>
+</li>
+</ul>
+<h3 id="3设计一个规则引擎"><a class="markdownIt-Anchor" href="#3设计一个规则引擎"></a> 3.设计一个规则引擎</h3>
+<h4 id="设计目标"><a class="markdownIt-Anchor" href="#设计目标"></a> 设计目标</h4>
+<p>设计一个规则引擎，支持特定的词法、运算符、数据类型和优先级，并且支持基于以上预定义语法的规则表达式的编译和执行。</p>
+<ul>
+<li>词法（合法Token）：参数、布尔值、字符串、十进制int、十进制float、预定义运算符的规定写法</li>
+<li>数据类型：字符串、布尔值、十进制int、十进制float</li>
+<li>运算符：一元运算符、二元运算符、逻辑操作符、括号</li>
+<li>优先级：各种运算符的优先级定义</li>
+</ul>
+<h4 id="词法分析"><a class="markdownIt-Anchor" href="#词法分析"></a> 词法分析</h4>
+<ul>
+<li>设计词法分析的状态机</li>
+</ul>
+<h4 id="语法分析"><a class="markdownIt-Anchor" href="#语法分析"></a> 语法分析</h4>
+<ul>
+<li>优先级的表达</li>
+<li>语法树结构</li>
+</ul>
+<h4 id="语法树的执行与类型检查"><a class="markdownIt-Anchor" href="#语法树的执行与类型检查"></a> 语法树的执行与类型检查</h4>
+<ul>
+<li>
+<p>语法树执行</p>
+<p>预先定义好每种操作符的执行逻辑</p>
+<p>对抽象语法树进行后缀遍历执行，即</p>
+<ul>
+<li>先执行左子树，得到左节点的值</li>
+<li>再执行右子树，得到右节点的值</li>
+<li>最后根据根节点的操作符执行得到根节点的值</li>
+</ul>
+</li>
+<li>
+<p>类型检查</p>
+<p>检查时机：执行时检查</p>
+<p>检查方法：在一个节点的左右子节点执行完成后，分别校验左右子节点的类型是否符合对应操作符的类型检查预设规则。</p>
+<ul>
+<li>‘&gt;’ 符号要求左右子节点的值都存在且为int或float</li>
+<li>‘!’ 符号要求左节点为空且右节点的值为bool</li>
+</ul>
+</li>
+</ul>
+<h3 id="4规则引擎的实现"><a class="markdownIt-Anchor" href="#4规则引擎的实现"></a> 4.规则引擎的实现</h3>
+<p>可参考<a class="link"   href="https://github.com/qimengxingyuan/young_engine" >qimengxingyuan/young_engine: 简单的规则引擎  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>实现。</p>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a class="link"   href="https://juejin.cn/post/7193363381804335161/#heading-11" >【后端专场 学习资料三】第五届字节跳动青训营 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Go 框架三件套详解</title>
     <url>/2023/02/01/golang-day5/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7195211923154010168" >Go 框架三件套详解(Web/RPC/ORM) | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang web开发框架三件套的学习<span id="more"></span></p>
@@ -8521,155 +8670,6 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
-    <title>规则引擎与设计实现</title>
-    <url>/2023/02/03/golang-day6/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7195554661318967351" >规则引擎与设计实现 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对规则引擎的学习<span id="more"></span></p>
-<h2 id="规则引擎与设计实现"><a class="markdownIt-Anchor" href="#规则引擎与设计实现"></a> 规则引擎与设计实现</h2>
-<blockquote>
-<p>规则引擎的组成部分及应用场景</p>
-<p>规则引擎的核心原理——编译原理的相关概念</p>
-<p>设计并实现一个规则引擎——YoungEngine</p>
-<p>实现一个Web版规则引擎</p>
-</blockquote>
-<h3 id="1-认识规则引擎"><a class="markdownIt-Anchor" href="#1-认识规则引擎"></a> 1. 认识规则引擎</h3>
-<h4 id="规则引擎的定义"><a class="markdownIt-Anchor" href="#规则引擎的定义"></a> 规则引擎的定义</h4>
-<ul>
-<li>
-<p>规则引擎是一种嵌入在应用程序中的组件，实现了将业务决策从应用程序代码中分离出来，并使用预定义的语义模块编写业务决策。接收数据输入，解释业务规则，并根据业务逻辑做出业务决策。</p>
-</li>
-<li>
-<p>解决开发人员重复编码的问题</p>
-<p>业务决策与服务本身解耦，提高服务的可维护性，缩短开发路径，提高效率</p>
-</li>
-</ul>
-<h4 id="组成部分"><a class="markdownIt-Anchor" href="#组成部分"></a> 组成部分</h4>
-<ul>
-<li>数据输入
-<ul>
-<li>支持接受使用预定义的语义编写的规则作为策略集。比如“price &gt; 500”</li>
-<li>接受业务的数据作为执行过程中的参数。比如价格、标签等</li>
-</ul>
-</li>
-<li>规则理解
-<ul>
-<li>能够按照预先定义的词法、语法、优先级、运算符等正确理解业务规则所表达的语义。</li>
-</ul>
-</li>
-<li>规则执行
-<ul>
-<li>根据执行时输入的参数对策略集中的规则进行正确的解释和执行。</li>
-<li>同时对规则执行过程中的数据类型进行检查，确保执行结果的正确。</li>
-</ul>
-</li>
-</ul>
-<h4 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h4>
-<ul>
-<li>风控对抗。快速识别和对抗，以实现最好的风控识别效果。</li>
-<li>活动策略运营。提高运营策略的迭代效率，方便新玩法的探索和效果验证。</li>
-<li>数据分析和清洗。方便快捷地产出所需要的数据。</li>
-</ul>
-<h3 id="2编译原理基本概念"><a class="markdownIt-Anchor" href="#2编译原理基本概念"></a> 2.编译原理基本概念</h3>
-<p>规则引擎和编译原理具有一定的关联性。它们都有理解、执行、输入输出的流程。</p>
-<ul>
-<li>理解：词法分析、语法分析</li>
-<li>执行：抽象语法树</li>
-<li>输入输出：参数注入、类型检查</li>
-</ul>
-<h4 id="词法分析-lexicel-analysis"><a class="markdownIt-Anchor" href="#词法分析-lexicel-analysis"></a> 词法分析 Lexicel Analysis</h4>
-<p>词法分析就是把源代码字符串转换为词法单元（Token）的过程。</p>
-<ul>
-<li>
-<p>识别Token：有限自动机（Finite-State Automaton）</p>
-<p>有限自动机就是一个状态机，它的状态数量是有限的。该状态在任何一个状态，基于输入的字符，都能做一个确定的状态转换。</p>
-</li>
-</ul>
-<h4 id="语法分析-syntax-analysis"><a class="markdownIt-Anchor" href="#语法分析-syntax-analysis"></a> 语法分析 Syntax Analysis</h4>
-<p>语法分析就是在词法分析的基础上，识别表达式的语法结构的过程。</p>
-<ul>
-<li>抽象语法树：表达式的语法结构可以用树来表示，其每个节点（子树）是一个语法单元，这个单元的构成规则就叫语法。每个节点还可以有下级节点。</li>
-</ul>
-<h4 id="抽象语法树-abstract-syntax-tree"><a class="markdownIt-Anchor" href="#抽象语法树-abstract-syntax-tree"></a> 抽象语法树 Abstract Syntax Tree</h4>
-<ul>
-<li>
-<p>上下文无关语法 Context-Free Grammar</p>
-<p>语言句子无需考虑上下文，就可以判断正确性。可以使用巴克斯范式（BNF）来表达。</p>
-<p>产生式：一个表达式可以由另外已知类型的表达式或者符号推导产生。</p>
-<p>内置符号：字面量（string、bool、number）标识符、运算符。</p>
-<p>一个基础表达式可以由常量（string、bool、number）或标识符（identifier），一个乘法表达式可以由基础表达式或者乘法表达式+基础表达式组成。</p>
-</li>
-<li>
-<p>递归下降算法 Recursive Descent Parsing</p>
-<p>递归下降算法就是自顶向下构造语法树，不断地对Token进行语法展开（下降），展开过程中可能会遇到递归的情况。</p>
-</li>
-</ul>
-<h4 id="类型检查"><a class="markdownIt-Anchor" href="#类型检查"></a> 类型检查</h4>
-<ul>
-<li>
-<p>类型综合</p>
-<p>根据表达式的类型构造出父表达式的类型。例如，表达式A+B的类型是根据A和B的类型定义的。</p>
-</li>
-<li>
-<p>编译时检查和运行时检查</p>
-<p>类型检查可以发生在表达式的编译阶段，即在构造语法树的阶段，也可以发生在执行时的阶段。</p>
-<ul>
-<li>编译时：需要提前声明参数的类型，在构建语法树过程中进行类型检查</li>
-<li>执行时：可以根据执行时的参数输入的值类型，在执行过程中进行类型检查</li>
-</ul>
-</li>
-</ul>
-<h3 id="3设计一个规则引擎"><a class="markdownIt-Anchor" href="#3设计一个规则引擎"></a> 3.设计一个规则引擎</h3>
-<h4 id="设计目标"><a class="markdownIt-Anchor" href="#设计目标"></a> 设计目标</h4>
-<p>设计一个规则引擎，支持特定的词法、运算符、数据类型和优先级，并且支持基于以上预定义语法的规则表达式的编译和执行。</p>
-<ul>
-<li>词法（合法Token）：参数、布尔值、字符串、十进制int、十进制float、预定义运算符的规定写法</li>
-<li>数据类型：字符串、布尔值、十进制int、十进制float</li>
-<li>运算符：一元运算符、二元运算符、逻辑操作符、括号</li>
-<li>优先级：各种运算符的优先级定义</li>
-</ul>
-<h4 id="词法分析"><a class="markdownIt-Anchor" href="#词法分析"></a> 词法分析</h4>
-<ul>
-<li>设计词法分析的状态机</li>
-</ul>
-<h4 id="语法分析"><a class="markdownIt-Anchor" href="#语法分析"></a> 语法分析</h4>
-<ul>
-<li>优先级的表达</li>
-<li>语法树结构</li>
-</ul>
-<h4 id="语法树的执行与类型检查"><a class="markdownIt-Anchor" href="#语法树的执行与类型检查"></a> 语法树的执行与类型检查</h4>
-<ul>
-<li>
-<p>语法树执行</p>
-<p>预先定义好每种操作符的执行逻辑</p>
-<p>对抽象语法树进行后缀遍历执行，即</p>
-<ul>
-<li>先执行左子树，得到左节点的值</li>
-<li>再执行右子树，得到右节点的值</li>
-<li>最后根据根节点的操作符执行得到根节点的值</li>
-</ul>
-</li>
-<li>
-<p>类型检查</p>
-<p>检查时机：执行时检查</p>
-<p>检查方法：在一个节点的左右子节点执行完成后，分别校验左右子节点的类型是否符合对应操作符的类型检查预设规则。</p>
-<ul>
-<li>‘&gt;’ 符号要求左右子节点的值都存在且为int或float</li>
-<li>‘!’ 符号要求左节点为空且右节点的值为bool</li>
-</ul>
-</li>
-</ul>
-<h3 id="4规则引擎的实现"><a class="markdownIt-Anchor" href="#4规则引擎的实现"></a> 4.规则引擎的实现</h3>
-<p>可参考<a class="link"   href="https://github.com/qimengxingyuan/young_engine" >qimengxingyuan/young_engine: 简单的规则引擎  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>实现。</p>
-<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
-<p><a class="link"   href="https://juejin.cn/post/7193363381804335161/#heading-11" >【后端专场 学习资料三】第五届字节跳动青训营 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>架构初探</title>
     <url>/2023/02/03/golang-day7/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7195891149012795452" >架构初探 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对架构分析设计的学习<span id="more"></span></p>
@@ -9000,6 +9000,424 @@ y=2^{E_y}\cdot M_y
       </categories>
       <tags>
         <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微服务架构</title>
+    <url>/2023/02/04/golang-day9/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7196678344573337656" >微服务架构 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对微服务架构原理与治理实践的学习<span id="more"></span></p>
+<h2 id="微服务架构原理与治理实践"><a class="markdownIt-Anchor" href="#微服务架构原理与治理实践"></a> 微服务架构原理与治理实践</h2>
+<h3 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h3>
+<p>微服务架构是当前大多数互联网公司的标准架构。</p>
+<p>主要学习微服务架构的由来及原理、服务治理功能工作机制。</p>
+<h3 id="1微服务架构介绍"><a class="markdownIt-Anchor" href="#1微服务架构介绍"></a> 1.微服务架构介绍</h3>
+<h4 id="11-系统架构演变历史"><a class="markdownIt-Anchor" href="#11-系统架构演变历史"></a> 1.1 系统架构演变历史</h4>
+<p>架构演变的原因</p>
+<ul>
+<li>互联网的爆炸性发展</li>
+<li>硬件设施的快速发展</li>
+<li>需求复杂性的多样化</li>
+<li>开发人员的急剧增加</li>
+<li>计算机理论及技术的发展</li>
+</ul>
+<p>单体架构 —&gt; 垂直应用架构 —&gt; 分布式架构 —&gt; SOA 架构 —&gt; 微服务架构</p>
+<h5 id="单体架构"><a class="markdownIt-Anchor" href="#单体架构"></a> 单体架构</h5>
+<ul>
+<li>
+<p>优势</p>
+<ol>
+<li>
+<p>性能最高</p>
+</li>
+<li>
+<p>冗余小</p>
+</li>
+</ol>
+</li>
+<li>
+<p>劣势</p>
+<ol>
+<li>
+<p>debug 困难</p>
+</li>
+<li>
+<p>模块相互影响（非核心功能可能导致程序崩溃）</p>
+</li>
+<li>
+<p>模块分工、依赖管理困难，开发流程几乎无法分工</p>
+</li>
+</ol>
+</li>
+</ul>
+<h5 id="垂直应用架构"><a class="markdownIt-Anchor" href="#垂直应用架构"></a> 垂直应用架构</h5>
+<p>安装业务线垂直划分</p>
+<ul>
+<li>优势：业务独立开发维护</li>
+<li>劣势
+<ol>
+<li>不同业务存在冗余，无法复用</li>
+<li>每个业务还是单体</li>
+</ol>
+</li>
+</ul>
+<h5 id="分布式架构"><a class="markdownIt-Anchor" href="#分布式架构"></a> 分布式架构</h5>
+<p>抽取出业务无关的公共模块</p>
+<ul>
+<li>优势：业务无关的独立服务</li>
+<li>劣势
+<ol>
+<li>服务模块 bug 可能导致全站瘫痪</li>
+<li>调用关系复杂</li>
+<li>不同服务冗余</li>
+</ol>
+</li>
+</ul>
+<h5 id="soa-架构service-oriented-architecture"><a class="markdownIt-Anchor" href="#soa-架构service-oriented-architecture"></a> SOA 架构（Service Oriented Architecture）</h5>
+<p>面向服务的架构</p>
+<ul>
+<li>优势：服务注册</li>
+<li>劣势
+<ol>
+<li>整个系统设计是中心化的</li>
+<li>需要从上至下设计</li>
+<li>重构困难</li>
+</ol>
+</li>
+</ul>
+<h5 id="微服务架构"><a class="markdownIt-Anchor" href="#微服务架构"></a> 微服务架构</h5>
+<p>彻底服务化的架构</p>
+<ul>
+<li>优势
+<ol>
+<li>高效的开发迭代效率</li>
+<li>业务独立设计</li>
+<li>自下而上设计</li>
+<li>故障隔离可控</li>
+</ol>
+</li>
+<li>劣势
+<ol>
+<li>治理、运维难度急剧增加</li>
+<li>观测挑战</li>
+<li>安全性问题</li>
+<li>分布式系统本身的复杂性</li>
+</ol>
+</li>
+</ul>
+<h4 id="12-微服务架构概览"><a class="markdownIt-Anchor" href="#12-微服务架构概览"></a> 1.2 微服务架构概览</h4>
+<p>从组件的维度去分析微服务架构的整体视角</p>
+<ul>
+<li>服务配置和治理：服务配置、服务治理</li>
+<li>消息队列 MQ
+<ul>
+<li>用户服务：用户数据库</li>
+<li>商品服务：商品数据库</li>
+<li>订单服务：订单数据库</li>
+<li>广告服务：数据仓库、Redis</li>
+</ul>
+</li>
+<li>链路追踪和监控：链路追踪、服务监控</li>
+<li>网关</li>
+</ul>
+<h4 id="13-微服务架构核心要素"><a class="markdownIt-Anchor" href="#13-微服务架构核心要素"></a> 1.3 微服务架构核心要素</h4>
+<ul>
+<li>服务治理：服务注册、服务发现、负载均衡、扩缩容、流量治理、稳定性治理、…</li>
+<li>可观测性：日志采集、日志分析、监控打点、监控大盘、异常报警、链路追踪、…</li>
+<li>安全：身份验证、认证授权、访问令牌、审计、传输加密、黑产攻击、…</li>
+</ul>
+<h4 id="14-总结"><a class="markdownIt-Anchor" href="#14-总结"></a> 1.4 总结</h4>
+<ul>
+<li>系统架构的演变历史</li>
+<li>微服务架构的整体概览</li>
+<li>微服务架构的核心要素</li>
+</ul>
+<h3 id="2微服务架构原理及特征"><a class="markdownIt-Anchor" href="#2微服务架构原理及特征"></a> 2.微服务架构原理及特征</h3>
+<h4 id="21-基本概念"><a class="markdownIt-Anchor" href="#21-基本概念"></a> 2.1 基本概念</h4>
+<ul>
+<li>
+<p>服务（service）</p>
+<p>一组具有相同逻辑的运行实体。</p>
+</li>
+<li>
+<p>实例（instance）</p>
+<p>一个服务中，每个运行实体即为一个实例。</p>
+</li>
+<li>
+<p>实例与进程的关系</p>
+<p>实例与进程之间没有必然对应关系，一个实例可以对应一个或多个进程（反过来不常见）。</p>
+</li>
+<li>
+<p>集群（cluster）</p>
+<p>通常指服务内部的逻辑划分，包含多个实例。</p>
+</li>
+<li>
+<p>常见的实例承载形式</p>
+<p>进程、VM、k8s pod、…</p>
+</li>
+<li>
+<p>有状态/无状态服务</p>
+<p>服务的实例是否存储了可持久化的数据，例如磁盘文件。</p>
+</li>
+<li>
+<p>服务间通信</p>
+<p>对于单体服务，不同模块通信只是简单的函数调用。</p>
+<p>对于微服务，服务间通信意味着网络传输。</p>
+</li>
+</ul>
+<h4 id="22-服务注册与发现"><a class="markdownIt-Anchor" href="#22-服务注册与发现"></a> 2.2 服务注册与发现</h4>
+<p>问题：在代码层面，如何指定调用一个目标服务的地址（ip:port）？</p>
+<h5 id="硬编码-hardcode"><a class="markdownIt-Anchor" href="#硬编码-hardcode"></a> 硬编码 hardcode</h5>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Service A want to call Service B.</span></span><br><span class="line">client := grpc.NewClient(<span class="string">&quot;10.23.45.67:8080&quot;</span>)</span><br></pre></td></tr></table></figure></div>
+<p>硬编码 hardcode 的问题：当服务存在多个实例时，hardcode 无法调用动态变化的服务地址。</p>
+<h5 id="dns"><a class="markdownIt-Anchor" href="#dns"></a> DNS</h5>
+<p>DNS 的思想就是中间层。</p>
+<p>DNS 的问题</p>
+<ul>
+<li>本地 DNS 存在缓存，导致延时。</li>
+<li>负载均衡问题。</li>
+<li>不支持服务实例的探活检查。</li>
+<li>域名无法配置端口。</li>
+</ul>
+<h5 id="服务注册中心-service-registry"><a class="markdownIt-Anchor" href="#服务注册中心-service-registry"></a> 服务注册中心 Service Registry</h5>
+<p>解决思路：新增一个统一的服务注册中心，用于存储服务名到服务实例的映射。与 DNS 类似，也是一个中间层。</p>
+<h5 id="服务实例上线及下线过程"><a class="markdownIt-Anchor" href="#服务实例上线及下线过程"></a> 服务实例上线及下线过程</h5>
+<ul>
+<li>
+<p>当一个实例还有流量时，不能直接下线，当它没有流量时，可以下线。</p>
+</li>
+<li>
+<p>当一个服务下线几个实例后访问压力过大，可以添加新的实例到服务中。</p>
+</li>
+<li>
+<p>新启用的实例会先进行健康检查，检查无误后再注册到服务中心。</p>
+</li>
+<li>
+<p>健康检查是在服务运作期间一直持续进行的。</p>
+</li>
+</ul>
+<h4 id="23-流量特征"><a class="markdownIt-Anchor" href="#23-流量特征"></a> 2.3 流量特征</h4>
+<ul>
+<li>统一网关路口</li>
+<li>内网通信多数采用 RPC</li>
+<li>网状调用链路</li>
+</ul>
+<p>弱化连接的概念，强调“请求”，即同一个客户端长连接发出的请求，理论上可以到达服务中所有实例。网关 gateway 可以用于身份认证，进而将 token 附在请求上。</p>
+<h4 id="24-总结"><a class="markdownIt-Anchor" href="#24-总结"></a> 2.4 总结</h4>
+<ul>
+<li>微服务架构中的基本组件及术语</li>
+<li>服务注册及发现中间层</li>
+<li>平滑无损的服务实例上下线流程</li>
+<li>微服务架构中的基本流量特征</li>
+</ul>
+<h3 id="3核心服务治理功能"><a class="markdownIt-Anchor" href="#3核心服务治理功能"></a> 3.核心服务治理功能</h3>
+<h4 id="31-服务发布"><a class="markdownIt-Anchor" href="#31-服务发布"></a> 3.1 服务发布</h4>
+<p>服务发布（deployment），即让一个服务升级运行新的代码的过程。</p>
+<p>服务发布的难点</p>
+<ul>
+<li>
+<p>服务不可用</p>
+</li>
+<li>
+<p>服务抖动</p>
+</li>
+<li>
+<p>服务回滚</p>
+</li>
+<li>
+<p>蓝绿部署问题</p>
+</li>
+<li>
+<p>灰度发布（金丝雀发布）问题</p>
+</li>
+</ul>
+<h4 id="32-流量治理"><a class="markdownIt-Anchor" href="#32-流量治理"></a> 3.2 流量治理</h4>
+<p>在微服务架构下，可以基于地区、集群、实例、请求等维度，对端到端流量的路由路径进行精确控制（这里就是狭义的对流量进行控制）。</p>
+<h4 id="33-负载均衡"><a class="markdownIt-Anchor" href="#33-负载均衡"></a> 3.3 负载均衡</h4>
+<p>负载均衡（Load Balance）负责分配请求在每个下游实例上以控制分布情况。</p>
+<p>常见的 LB 策略</p>
+<ul>
+<li>Round Robin</li>
+<li>Random</li>
+<li>Ring Hash</li>
+<li>Least Request</li>
+<li>…</li>
+</ul>
+<h4 id="34-稳定性治理"><a class="markdownIt-Anchor" href="#34-稳定性治理"></a> 3.4 稳定性治理</h4>
+<p>线上服务难免会出现问题，这和程序本身正确性无关。</p>
+<ul>
+<li>网络攻击</li>
+<li>流量突增</li>
+<li>机房断电</li>
+<li>光纤断开</li>
+<li>机器故障</li>
+<li>网络故障</li>
+<li>机房空调故障</li>
+<li>…</li>
+</ul>
+<p>微服务架构中典型的稳定性治理功能</p>
+<ul>
+<li>限流</li>
+<li>熔断</li>
+<li>过载保护</li>
+<li>降级</li>
+</ul>
+<h4 id="35-总结"><a class="markdownIt-Anchor" href="#35-总结"></a> 3.5 总结</h4>
+<ul>
+<li>服务发布：蓝绿部署、灰度发布</li>
+<li>基于地区、集群、实例、请求等维度的流量治理功能</li>
+<li>几种常见的负载均衡策略</li>
+<li>微服务架构中的稳定性治理功能</li>
+</ul>
+<h3 id="4服务治理实践"><a class="markdownIt-Anchor" href="#4服务治理实践"></a> 4.服务治理实践</h3>
+<h4 id="41-重试的意义"><a class="markdownIt-Anchor" href="#41-重试的意义"></a> 4.1 重试的意义</h4>
+<h5 id="本地函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#本地函数调用可能引发的异常"></a> 本地函数调用可能引发的异常</h5>
+<ul>
+<li>参数非法</li>
+<li>OOM（Out Of Memory）</li>
+<li>NPE（Null Pointer Exception）</li>
+<li>边界 case</li>
+<li>系统崩溃</li>
+<li>死循环</li>
+<li>程序异常退出</li>
+</ul>
+<p>本地函数没有重试的意义</p>
+<h5 id="远程函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#远程函数调用可能引发的异常"></a> 远程函数调用可能引发的异常</h5>
+<ul>
+<li>网络抖动</li>
+<li>下游负载高导致超时</li>
+<li>下游机器宕机</li>
+<li>本地机器负载高，调度超时</li>
+<li>下游熔断、限流</li>
+<li>…</li>
+</ul>
+<p>远程函数需要进行重试</p>
+<p><strong>重试可以避免掉偶然发生的错误，提高 SLA（Service-Level Agreement）</strong></p>
+<ul>
+<li>
+<p>降低错误率</p>
+<p>假设单次请求的错误率为 0.01，那么连续两次的错误的概率为 0.0001。</p>
+</li>
+<li>
+<p>降低长尾延时</p>
+<p>对于偶尔耗时较长的请求，重试请求有机会提前返回。</p>
+</li>
+<li>
+<p>容忍暂时性错误</p>
+<p>某些时候系统会有暂时性异常，例如网络抖动，重试可以尽量规避。</p>
+</li>
+<li>
+<p>避开下游故障实例</p>
+<p>一个服务中可能会有少量实例故障，例如机器故障，重试其他实例可以成功。</p>
+</li>
+</ul>
+<h4 id="42-重试的难点"><a class="markdownIt-Anchor" href="#42-重试的难点"></a> 4.2 重试的难点</h4>
+<ul>
+<li>幂等性：多次请求可能会造成数据不一致。</li>
+<li>重试风暴：随着调用深度的增加，重试次数会指数级上涨。</li>
+<li>超时设置：间隔多少时间后发起重试请求。例如，服务 A 向服务 B 重试 3 次，但服务 B 需要向服务 C 重试 9 次，服务 C 需要向服务 D 重试 27 次，以此类推。</li>
+</ul>
+<h4 id="43-重试策略"><a class="markdownIt-Anchor" href="#43-重试策略"></a> 4.3 重试策略</h4>
+<p>重试只有在大部分请求都成功，只有少部分请求失败时，才有必要。如果大部分请求都失败，重试只会加剧问题严重性。</p>
+<h5 id="限制重试比例"><a class="markdownIt-Anchor" href="#限制重试比例"></a> 限制重试比例</h5>
+<p>设定一个重试比例阈值，例如 1%，重试次数占所有请求次数比例不能超过该阈值。</p>
+<h5 id="防止链路重试"><a class="markdownIt-Anchor" href="#防止链路重试"></a> 防止链路重试</h5>
+<p>链路层面的防重试风暴的核心是限制每层都发生重试，理想情况下是只有最下一层发生重试。可以返回特殊的 status 表明“请求失败，但不进行重试”。</p>
+<p>缺点是需要侵入性修改业务代码。</p>
+<h5 id="hedged-requests"><a class="markdownIt-Anchor" href="#hedged-requests"></a> Hedged requests</h5>
+<p>对于可能超时或延时高的请求，重新向另一个下游实例发送一个相同的请求，并等待先到达的响应。</p>
+<h4 id="44-重试效果验证"><a class="markdownIt-Anchor" href="#44-重试效果验证"></a> 4.4 重试效果验证</h4>
+<p>实际验证经过上述重试策略后，在链路上发生的重试放大效应。</p>
+<h4 id="45-总结"><a class="markdownIt-Anchor" href="#45-总结"></a> 4.5 总结</h4>
+<ul>
+<li>重试的意义及难点</li>
+<li>应对重试风暴的策略</li>
+</ul>
+<h3 id="归纳总结"><a class="markdownIt-Anchor" href="#归纳总结"></a> 归纳总结</h3>
+<ul>
+<li>微服务架构介绍</li>
+<li>微服务架构原理及特征</li>
+<li>核心服务治理功能</li>
+<li>服务治理实践</li>
+</ul>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/42671353" >什么是蓝绿部署、滚动发布和灰度发布？ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/141398230" >Motan系列6：负载均衡（LoadBalance） <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://juejin.cn/post/7194381054797905981/#heading-0" >【后端专场 学习资料四】第五届字节跳动青训营 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在Linux上配置Java环境</title>
+    <url>/2022/11/26/java-in-linux/</url>
+    <content><![CDATA[<h3 id="基于ubuntu2004lts配置java环境"><a class="markdownIt-Anchor" href="#基于ubuntu2004lts配置java环境"></a> 基于Ubuntu20.04LTS配置Java环境</h3>
+<p>在Linux上配置Java环境的方式有3种, 系统级配置、用户级配置、临时配置</p>
+<p>配置好Java环境就能够在Linux上运行基于Java环境运行的相关程序, 你可以在Linux系统上搭建基于Java实现的网站。这里以<strong>系统级配置</strong>为例, 适合个人开发者使用<span id="more"></span></p>
+<h4 id="1下载targz压缩包-java官网"><a class="markdownIt-Anchor" href="#1下载targz压缩包-java官网"></a> 1.下载tar.gz压缩包 <a class="link"   href="https://www.oracle.com/java/technologies/downloads/" >Java官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h4>
+<p>tar.gz包先下载到windows中, 再通过远程文件传输工具, 将压缩包传送到Linux的目录下, 这里是/root目录</p>
+<p>本文以<strong>jdk-8u151-linux-i586.tar.gz</strong>为例配置Java环境, 高版本可能有所区别, 32位与64位版本在不同linux发行版上可能有所区别</p>
+<h4 id="2在linux中配置环境"><a class="markdownIt-Anchor" href="#2在linux中配置环境"></a> 2.在Linux中配置环境</h4>
+<h5 id="1前提准备"><a class="markdownIt-Anchor" href="#1前提准备"></a> 1.前提准备</h5>
+<p>默认当前目录是<strong>初始目录/root</strong>, 默认当前用户权限为<strong>root权限</strong>, 默认<strong>tar.gz包已经传送到/root目录下</strong></p>
+<h5 id="2创建用于存放java文件夹的目录"><a class="markdownIt-Anchor" href="#2创建用于存放java文件夹的目录"></a> 2.创建用于存放Java文件夹的目录</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /usr/java</span><br></pre></td></tr></table></figure></div>
+<h5 id="3解压targz压缩包到该目录"><a class="markdownIt-Anchor" href="#3解压targz压缩包到该目录"></a> 3.解压tar.gz压缩包到该目录</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf jdk-8u151-linux-i586.tar.gz -C /usr/java</span><br></pre></td></tr></table></figure></div>
+<h5 id="4编辑环境变量文件"><a class="markdownIt-Anchor" href="#4编辑环境变量文件"></a> 4.编辑环境变量文件</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure></div>
+<p>在文件末尾追加下面内容, 具体目录根据实际情况编写</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></div>
+<dl>
+<dt><strong>一些特殊符号说明</strong></dt>
+<dd>表示并列符号, 说明某个变量的值有多个, 用 : 来区分。相当于Windows下的 ;</dd>
+</dl>
+<p>$ 表示引用变量, {} 则用于限定变量边界, 如上面的 ${JAVA_HOME} 就表示 /usr/java/jdk1.8.0_151</p>
+<h5 id="5使环境变量马上生效"><a class="markdownIt-Anchor" href="#5使环境变量马上生效"></a> 5.使环境变量马上生效</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></div>
+<h4 id="3测试java环境"><a class="markdownIt-Anchor" href="#3测试java环境"></a> 3.测试Java环境</h4>
+<p>运行以下命令, 如果都成功运行, 则说明Java环境配置完成</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">java -version</span><br><span class="line">java</span><br><span class="line">javac</span><br></pre></td></tr></table></figure></div>
+<h5 id="可能遇到的问题"><a class="markdownIt-Anchor" href="#可能遇到的问题"></a> 可能遇到的问题</h5>
+<p>安装i586后缀jdk, 即<strong>安装32位的jdk</strong>后测试Java环境时提示<strong>bash: /usr/lib/java/jdk1.8.0_151/bin/java: 没有那个文件或目录</strong>, 可能是由于当前Linux发行版<strong>默认没有用于amd64系统的32位libc开发包</strong></p>
+<p>可通过以下5个常用命令查看Linux发行版的架构信息</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line">dpkg --print-architecture <span class="comment"># 这条命令只适用于基于Debian和Ubuntu的Linux发行版</span></span><br><span class="line">getconf LONG_BIT</span><br><span class="line"><span class="built_in">arch</span></span><br><span class="line">file /sbin/init </span><br><span class="line"><span class="comment"># file命令需要配合它链接的另一个文件使用</span></span><br><span class="line"><span class="comment"># 在Ubuntu中是链接的是/lib/systemd/systemd</span></span><br><span class="line"><span class="comment"># 通过file /lib/systemd/systemd查看到架构信息</span></span><br></pre></td></tr></table></figure></div>
+<h5 id="安装缺失的32位开发包"><a class="markdownIt-Anchor" href="#安装缺失的32位开发包"></a> 安装缺失的32位开发包</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libc6-i386</span><br></pre></td></tr></table></figure></div>
+<p>如果安装libc6-i386失败, 请先更新软件列表, 再尝试重新安装, 并重新测试Java环境</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></div>
+<p>如果还是失败请选择64位的jdk版本重新进行配置</p>
+<h5 id="重新测试java环境"><a class="markdownIt-Anchor" href="#重新测试java环境"></a> 重新测试Java环境</h5>
+<h4 id="4update-alternatives软件版本管理"><a class="markdownIt-Anchor" href="#4update-alternatives软件版本管理"></a> 4.update-alternatives软件版本管理</h4>
+<h5 id="1系统注册jdk需要使用多个jdk版本时"><a class="markdownIt-Anchor" href="#1系统注册jdk需要使用多个jdk版本时"></a> 1.系统注册jdk(需要使用多个jdk版本时)</h5>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_151/bin/java 300</span><br></pre></td></tr></table></figure></div>
+<p><strong>参数说明</strong></p>
+<p>第一个参数: --install表示向update-alternatives注册服务名</p>
+<p>第二个参数: 注册<strong>最终地址</strong>, 成功后将会把命令在这个固定的目的地址做真实命令的<strong>软链接</strong>, 通过管理这个软链就能实现不同版本jdk的切换</p>
+<p>第三个参数: <strong>服务名</strong>, 管理时以它为关联依据</p>
+<p>第四个参数: 被管理命令的<strong>绝对路径</strong></p>
+<p>第五个参数: <strong>优先级</strong>, 数字越大优先级越高</p>
+<h5 id="2交互式修改"><a class="markdownIt-Anchor" href="#2交互式修改"></a> 2.交互式修改</h5>
+<p>如果有多个版本的jdk, 可执行下面的命令通过交互界面进行切换</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure></div>
+<p>查看多个版本的jdk以及当前状态</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --display java</span><br></pre></td></tr></table></figure></div>
+<p>调整为<strong>auto</strong>模式, 如果上面查看的状态是<strong>manual</strong>, 则还不能自动选择优先级高的jdk版本, 需要调整为auto模式</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --auto java</span><br></pre></td></tr></table></figure></div>
+<h4 id="5补充"><a class="markdownIt-Anchor" href="#5补充"></a> 5.补充</h4>
+<p><strong>将上述的/etc/profile替换成~/.bashrc就是用户级配置</strong></p>
+<p><strong>/etc/profile</strong>: 此文件为系统的每个用户设置环境信息, 当用户第一次登录时, 该文件被执行, 是<strong>系统全局</strong>对终端环境的设置, 它是login时最先被系统加载的, 是它调用了/etc/bashrc, 以及/etc/profile.d目录下的*.sh文件, 如果有一个软件包, 系统上只安装一份, 供所有开发者使用, 建议在/etc/profile.d下创建一个新的xxx.sh, 配置环境变量</p>
+<p><strong>~/.bashrc</strong>: 是<strong>用户</strong>相关的终端（shell）的环境设置, 通常打开一个新终端时, 默认会加载里面的设置, 在这里的设置不会影响其它用户。如果一个服务器多个开发者使用, 需要配置多个sdk, 则推荐使用该设置</p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -9538,425 +9956,7 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
-    <title>微服务架构</title>
-    <url>/2023/02/04/golang-day9/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7196678344573337656" >微服务架构 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对微服务架构原理与治理实践的学习<span id="more"></span></p>
-<h2 id="微服务架构原理与治理实践"><a class="markdownIt-Anchor" href="#微服务架构原理与治理实践"></a> 微服务架构原理与治理实践</h2>
-<h3 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h3>
-<p>微服务架构是当前大多数互联网公司的标准架构。</p>
-<p>主要学习微服务架构的由来及原理、服务治理功能工作机制。</p>
-<h3 id="1微服务架构介绍"><a class="markdownIt-Anchor" href="#1微服务架构介绍"></a> 1.微服务架构介绍</h3>
-<h4 id="11-系统架构演变历史"><a class="markdownIt-Anchor" href="#11-系统架构演变历史"></a> 1.1 系统架构演变历史</h4>
-<p>架构演变的原因</p>
-<ul>
-<li>互联网的爆炸性发展</li>
-<li>硬件设施的快速发展</li>
-<li>需求复杂性的多样化</li>
-<li>开发人员的急剧增加</li>
-<li>计算机理论及技术的发展</li>
-</ul>
-<p>单体架构 —&gt; 垂直应用架构 —&gt; 分布式架构 —&gt; SOA 架构 —&gt; 微服务架构</p>
-<h5 id="单体架构"><a class="markdownIt-Anchor" href="#单体架构"></a> 单体架构</h5>
-<ul>
-<li>
-<p>优势</p>
-<ol>
-<li>
-<p>性能最高</p>
-</li>
-<li>
-<p>冗余小</p>
-</li>
-</ol>
-</li>
-<li>
-<p>劣势</p>
-<ol>
-<li>
-<p>debug 困难</p>
-</li>
-<li>
-<p>模块相互影响（非核心功能可能导致程序崩溃）</p>
-</li>
-<li>
-<p>模块分工、依赖管理困难，开发流程几乎无法分工</p>
-</li>
-</ol>
-</li>
-</ul>
-<h5 id="垂直应用架构"><a class="markdownIt-Anchor" href="#垂直应用架构"></a> 垂直应用架构</h5>
-<p>安装业务线垂直划分</p>
-<ul>
-<li>优势：业务独立开发维护</li>
-<li>劣势
-<ol>
-<li>不同业务存在冗余，无法复用</li>
-<li>每个业务还是单体</li>
-</ol>
-</li>
-</ul>
-<h5 id="分布式架构"><a class="markdownIt-Anchor" href="#分布式架构"></a> 分布式架构</h5>
-<p>抽取出业务无关的公共模块</p>
-<ul>
-<li>优势：业务无关的独立服务</li>
-<li>劣势
-<ol>
-<li>服务模块 bug 可能导致全站瘫痪</li>
-<li>调用关系复杂</li>
-<li>不同服务冗余</li>
-</ol>
-</li>
-</ul>
-<h5 id="soa-架构service-oriented-architecture"><a class="markdownIt-Anchor" href="#soa-架构service-oriented-architecture"></a> SOA 架构（Service Oriented Architecture）</h5>
-<p>面向服务的架构</p>
-<ul>
-<li>优势：服务注册</li>
-<li>劣势
-<ol>
-<li>整个系统设计是中心化的</li>
-<li>需要从上至下设计</li>
-<li>重构困难</li>
-</ol>
-</li>
-</ul>
-<h5 id="微服务架构"><a class="markdownIt-Anchor" href="#微服务架构"></a> 微服务架构</h5>
-<p>彻底服务化的架构</p>
-<ul>
-<li>优势
-<ol>
-<li>高效的开发迭代效率</li>
-<li>业务独立设计</li>
-<li>自下而上设计</li>
-<li>故障隔离可控</li>
-</ol>
-</li>
-<li>劣势
-<ol>
-<li>治理、运维难度急剧增加</li>
-<li>观测挑战</li>
-<li>安全性问题</li>
-<li>分布式系统本身的复杂性</li>
-</ol>
-</li>
-</ul>
-<h4 id="12-微服务架构概览"><a class="markdownIt-Anchor" href="#12-微服务架构概览"></a> 1.2 微服务架构概览</h4>
-<p>从组件的维度去分析微服务架构的整体视角</p>
-<ul>
-<li>服务配置和治理：服务配置、服务治理</li>
-<li>消息队列 MQ
-<ul>
-<li>用户服务：用户数据库</li>
-<li>商品服务：商品数据库</li>
-<li>订单服务：订单数据库</li>
-<li>广告服务：数据仓库、Redis</li>
-</ul>
-</li>
-<li>链路追踪和监控：链路追踪、服务监控</li>
-<li>网关</li>
-</ul>
-<h4 id="13-微服务架构核心要素"><a class="markdownIt-Anchor" href="#13-微服务架构核心要素"></a> 1.3 微服务架构核心要素</h4>
-<ul>
-<li>服务治理：服务注册、服务发现、负载均衡、扩缩容、流量治理、稳定性治理、…</li>
-<li>可观测性：日志采集、日志分析、监控打点、监控大盘、异常报警、链路追踪、…</li>
-<li>安全：身份验证、认证授权、访问令牌、审计、传输加密、黑产攻击、…</li>
-</ul>
-<h4 id="14-总结"><a class="markdownIt-Anchor" href="#14-总结"></a> 1.4 总结</h4>
-<ul>
-<li>系统架构的演变历史</li>
-<li>微服务架构的整体概览</li>
-<li>微服务架构的核心要素</li>
-</ul>
-<h3 id="2微服务架构原理及特征"><a class="markdownIt-Anchor" href="#2微服务架构原理及特征"></a> 2.微服务架构原理及特征</h3>
-<h4 id="21-基本概念"><a class="markdownIt-Anchor" href="#21-基本概念"></a> 2.1 基本概念</h4>
-<ul>
-<li>
-<p>服务（service）</p>
-<p>一组具有相同逻辑的运行实体。</p>
-</li>
-<li>
-<p>实例（instance）</p>
-<p>一个服务中，每个运行实体即为一个实例。</p>
-</li>
-<li>
-<p>实例与进程的关系</p>
-<p>实例与进程之间没有必然对应关系，一个实例可以对应一个或多个进程（反过来不常见）。</p>
-</li>
-<li>
-<p>集群（cluster）</p>
-<p>通常指服务内部的逻辑划分，包含多个实例。</p>
-</li>
-<li>
-<p>常见的实例承载形式</p>
-<p>进程、VM、k8s pod、…</p>
-</li>
-<li>
-<p>有状态/无状态服务</p>
-<p>服务的实例是否存储了可持久化的数据，例如磁盘文件。</p>
-</li>
-<li>
-<p>服务间通信</p>
-<p>对于单体服务，不同模块通信只是简单的函数调用。</p>
-<p>对于微服务，服务间通信意味着网络传输。</p>
-</li>
-</ul>
-<h4 id="22-服务注册与发现"><a class="markdownIt-Anchor" href="#22-服务注册与发现"></a> 2.2 服务注册与发现</h4>
-<p>问题：在代码层面，如何指定调用一个目标服务的地址（ip:port）？</p>
-<h5 id="硬编码-hardcode"><a class="markdownIt-Anchor" href="#硬编码-hardcode"></a> 硬编码 hardcode</h5>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Service A want to call Service B.</span></span><br><span class="line">client := grpc.NewClient(<span class="string">&quot;10.23.45.67:8080&quot;</span>)</span><br></pre></td></tr></table></figure></div>
-<p>硬编码 hardcode 的问题：当服务存在多个实例时，hardcode 无法调用动态变化的服务地址。</p>
-<h5 id="dns"><a class="markdownIt-Anchor" href="#dns"></a> DNS</h5>
-<p>DNS 的思想就是中间层。</p>
-<p>DNS 的问题</p>
-<ul>
-<li>本地 DNS 存在缓存，导致延时。</li>
-<li>负载均衡问题。</li>
-<li>不支持服务实例的探活检查。</li>
-<li>域名无法配置端口。</li>
-</ul>
-<h5 id="服务注册中心-service-registry"><a class="markdownIt-Anchor" href="#服务注册中心-service-registry"></a> 服务注册中心 Service Registry</h5>
-<p>解决思路：新增一个统一的服务注册中心，用于存储服务名到服务实例的映射。与 DNS 类似，也是一个中间层。</p>
-<h5 id="服务实例上线及下线过程"><a class="markdownIt-Anchor" href="#服务实例上线及下线过程"></a> 服务实例上线及下线过程</h5>
-<ul>
-<li>
-<p>当一个实例还有流量时，不能直接下线，当它没有流量时，可以下线。</p>
-</li>
-<li>
-<p>当一个服务下线几个实例后访问压力过大，可以添加新的实例到服务中。</p>
-</li>
-<li>
-<p>新启用的实例会先进行健康检查，检查无误后再注册到服务中心。</p>
-</li>
-<li>
-<p>健康检查是在服务运作期间一直持续进行的。</p>
-</li>
-</ul>
-<h4 id="23-流量特征"><a class="markdownIt-Anchor" href="#23-流量特征"></a> 2.3 流量特征</h4>
-<ul>
-<li>统一网关路口</li>
-<li>内网通信多数采用 RPC</li>
-<li>网状调用链路</li>
-</ul>
-<p>弱化连接的概念，强调“请求”，即同一个客户端长连接发出的请求，理论上可以到达服务中所有实例。网关 gateway 可以用于身份认证，进而将 token 附在请求上。</p>
-<h4 id="24-总结"><a class="markdownIt-Anchor" href="#24-总结"></a> 2.4 总结</h4>
-<ul>
-<li>微服务架构中的基本组件及术语</li>
-<li>服务注册及发现中间层</li>
-<li>平滑无损的服务实例上下线流程</li>
-<li>微服务架构中的基本流量特征</li>
-</ul>
-<h3 id="3核心服务治理功能"><a class="markdownIt-Anchor" href="#3核心服务治理功能"></a> 3.核心服务治理功能</h3>
-<h4 id="31-服务发布"><a class="markdownIt-Anchor" href="#31-服务发布"></a> 3.1 服务发布</h4>
-<p>服务发布（deployment），即让一个服务升级运行新的代码的过程。</p>
-<p>服务发布的难点</p>
-<ul>
-<li>
-<p>服务不可用</p>
-</li>
-<li>
-<p>服务抖动</p>
-</li>
-<li>
-<p>服务回滚</p>
-</li>
-<li>
-<p>蓝绿部署问题</p>
-</li>
-<li>
-<p>灰度发布（金丝雀发布）问题</p>
-</li>
-</ul>
-<h4 id="32-流量治理"><a class="markdownIt-Anchor" href="#32-流量治理"></a> 3.2 流量治理</h4>
-<p>在微服务架构下，可以基于地区、集群、实例、请求等维度，对端到端流量的路由路径进行精确控制（这里就是狭义的对流量进行控制）。</p>
-<h4 id="33-负载均衡"><a class="markdownIt-Anchor" href="#33-负载均衡"></a> 3.3 负载均衡</h4>
-<p>负载均衡（Load Balance）负责分配请求在每个下游实例上以控制分布情况。</p>
-<p>常见的 LB 策略</p>
-<ul>
-<li>Round Robin</li>
-<li>Random</li>
-<li>Ring Hash</li>
-<li>Least Request</li>
-<li>…</li>
-</ul>
-<h4 id="34-稳定性治理"><a class="markdownIt-Anchor" href="#34-稳定性治理"></a> 3.4 稳定性治理</h4>
-<p>线上服务难免会出现问题，这和程序本身正确性无关。</p>
-<ul>
-<li>网络攻击</li>
-<li>流量突增</li>
-<li>机房断电</li>
-<li>光纤断开</li>
-<li>机器故障</li>
-<li>网络故障</li>
-<li>机房空调故障</li>
-<li>…</li>
-</ul>
-<p>微服务架构中典型的稳定性治理功能</p>
-<ul>
-<li>限流</li>
-<li>熔断</li>
-<li>过载保护</li>
-<li>降级</li>
-</ul>
-<h4 id="35-总结"><a class="markdownIt-Anchor" href="#35-总结"></a> 3.5 总结</h4>
-<ul>
-<li>服务发布：蓝绿部署、灰度发布</li>
-<li>基于地区、集群、实例、请求等维度的流量治理功能</li>
-<li>几种常见的负载均衡策略</li>
-<li>微服务架构中的稳定性治理功能</li>
-</ul>
-<h3 id="4服务治理实践"><a class="markdownIt-Anchor" href="#4服务治理实践"></a> 4.服务治理实践</h3>
-<h4 id="41-重试的意义"><a class="markdownIt-Anchor" href="#41-重试的意义"></a> 4.1 重试的意义</h4>
-<h5 id="本地函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#本地函数调用可能引发的异常"></a> 本地函数调用可能引发的异常</h5>
-<ul>
-<li>参数非法</li>
-<li>OOM（Out Of Memory）</li>
-<li>NPE（Null Pointer Exception）</li>
-<li>边界 case</li>
-<li>系统崩溃</li>
-<li>死循环</li>
-<li>程序异常退出</li>
-</ul>
-<p>本地函数没有重试的意义</p>
-<h5 id="远程函数调用可能引发的异常"><a class="markdownIt-Anchor" href="#远程函数调用可能引发的异常"></a> 远程函数调用可能引发的异常</h5>
-<ul>
-<li>网络抖动</li>
-<li>下游负载高导致超时</li>
-<li>下游机器宕机</li>
-<li>本地机器负载高，调度超时</li>
-<li>下游熔断、限流</li>
-<li>…</li>
-</ul>
-<p>远程函数需要进行重试</p>
-<p><strong>重试可以避免掉偶然发生的错误，提高 SLA（Service-Level Agreement）</strong></p>
-<ul>
-<li>
-<p>降低错误率</p>
-<p>假设单次请求的错误率为 0.01，那么连续两次的错误的概率为 0.0001。</p>
-</li>
-<li>
-<p>降低长尾延时</p>
-<p>对于偶尔耗时较长的请求，重试请求有机会提前返回。</p>
-</li>
-<li>
-<p>容忍暂时性错误</p>
-<p>某些时候系统会有暂时性异常，例如网络抖动，重试可以尽量规避。</p>
-</li>
-<li>
-<p>避开下游故障实例</p>
-<p>一个服务中可能会有少量实例故障，例如机器故障，重试其他实例可以成功。</p>
-</li>
-</ul>
-<h4 id="42-重试的难点"><a class="markdownIt-Anchor" href="#42-重试的难点"></a> 4.2 重试的难点</h4>
-<ul>
-<li>幂等性：多次请求可能会造成数据不一致。</li>
-<li>重试风暴：随着调用深度的增加，重试次数会指数级上涨。</li>
-<li>超时设置：间隔多少时间后发起重试请求。例如，服务 A 向服务 B 重试 3 次，但服务 B 需要向服务 C 重试 9 次，服务 C 需要向服务 D 重试 27 次，以此类推。</li>
-</ul>
-<h4 id="43-重试策略"><a class="markdownIt-Anchor" href="#43-重试策略"></a> 4.3 重试策略</h4>
-<p>重试只有在大部分请求都成功，只有少部分请求失败时，才有必要。如果大部分请求都失败，重试只会加剧问题严重性。</p>
-<h5 id="限制重试比例"><a class="markdownIt-Anchor" href="#限制重试比例"></a> 限制重试比例</h5>
-<p>设定一个重试比例阈值，例如 1%，重试次数占所有请求次数比例不能超过该阈值。</p>
-<h5 id="防止链路重试"><a class="markdownIt-Anchor" href="#防止链路重试"></a> 防止链路重试</h5>
-<p>链路层面的防重试风暴的核心是限制每层都发生重试，理想情况下是只有最下一层发生重试。可以返回特殊的 status 表明“请求失败，但不进行重试”。</p>
-<p>缺点是需要侵入性修改业务代码。</p>
-<h5 id="hedged-requests"><a class="markdownIt-Anchor" href="#hedged-requests"></a> Hedged requests</h5>
-<p>对于可能超时或延时高的请求，重新向另一个下游实例发送一个相同的请求，并等待先到达的响应。</p>
-<h4 id="44-重试效果验证"><a class="markdownIt-Anchor" href="#44-重试效果验证"></a> 4.4 重试效果验证</h4>
-<p>实际验证经过上述重试策略后，在链路上发生的重试放大效应。</p>
-<h4 id="45-总结"><a class="markdownIt-Anchor" href="#45-总结"></a> 4.5 总结</h4>
-<ul>
-<li>重试的意义及难点</li>
-<li>应对重试风暴的策略</li>
-</ul>
-<h3 id="归纳总结"><a class="markdownIt-Anchor" href="#归纳总结"></a> 归纳总结</h3>
-<ul>
-<li>微服务架构介绍</li>
-<li>微服务架构原理及特征</li>
-<li>核心服务治理功能</li>
-<li>服务治理实践</li>
-</ul>
-<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/42671353" >什么是蓝绿部署、滚动发布和灰度发布？ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/141398230" >Motan系列6：负载均衡（LoadBalance） <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://juejin.cn/post/7194381054797905981/#heading-0" >【后端专场 学习资料四】第五届字节跳动青训营 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在Linux上配置Java环境</title>
-    <url>/2022/11/26/java-in-linux/</url>
-    <content><![CDATA[<h3 id="基于ubuntu2004lts配置java环境"><a class="markdownIt-Anchor" href="#基于ubuntu2004lts配置java环境"></a> 基于Ubuntu20.04LTS配置Java环境</h3>
-<p>在Linux上配置Java环境的方式有3种, 系统级配置、用户级配置、临时配置</p>
-<p>配置好Java环境就能够在Linux上运行基于Java环境运行的相关程序, 你可以在Linux系统上搭建基于Java实现的网站。这里以<strong>系统级配置</strong>为例, 适合个人开发者使用<span id="more"></span></p>
-<h4 id="1下载targz压缩包-java官网"><a class="markdownIt-Anchor" href="#1下载targz压缩包-java官网"></a> 1.下载tar.gz压缩包 <a class="link"   href="https://www.oracle.com/java/technologies/downloads/" >Java官网 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></h4>
-<p>tar.gz包先下载到windows中, 再通过远程文件传输工具, 将压缩包传送到Linux的目录下, 这里是/root目录</p>
-<p>本文以<strong>jdk-8u151-linux-i586.tar.gz</strong>为例配置Java环境, 高版本可能有所区别, 32位与64位版本在不同linux发行版上可能有所区别</p>
-<h4 id="2在linux中配置环境"><a class="markdownIt-Anchor" href="#2在linux中配置环境"></a> 2.在Linux中配置环境</h4>
-<h5 id="1前提准备"><a class="markdownIt-Anchor" href="#1前提准备"></a> 1.前提准备</h5>
-<p>默认当前目录是<strong>初始目录/root</strong>, 默认当前用户权限为<strong>root权限</strong>, 默认<strong>tar.gz包已经传送到/root目录下</strong></p>
-<h5 id="2创建用于存放java文件夹的目录"><a class="markdownIt-Anchor" href="#2创建用于存放java文件夹的目录"></a> 2.创建用于存放Java文件夹的目录</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /usr/java</span><br></pre></td></tr></table></figure></div>
-<h5 id="3解压targz压缩包到该目录"><a class="markdownIt-Anchor" href="#3解压targz压缩包到该目录"></a> 3.解压tar.gz压缩包到该目录</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo tar -zxvf jdk-8u151-linux-i586.tar.gz -C /usr/java</span><br></pre></td></tr></table></figure></div>
-<h5 id="4编辑环境变量文件"><a class="markdownIt-Anchor" href="#4编辑环境变量文件"></a> 4.编辑环境变量文件</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/profile</span><br></pre></td></tr></table></figure></div>
-<p>在文件末尾追加下面内容, 具体目录根据实际情况编写</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/java/jdk1.8.0_151</span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></div>
-<dl>
-<dt><strong>一些特殊符号说明</strong></dt>
-<dd>表示并列符号, 说明某个变量的值有多个, 用 : 来区分。相当于Windows下的 ;</dd>
-</dl>
-<p>$ 表示引用变量, {} 则用于限定变量边界, 如上面的 ${JAVA_HOME} 就表示 /usr/java/jdk1.8.0_151</p>
-<h5 id="5使环境变量马上生效"><a class="markdownIt-Anchor" href="#5使环境变量马上生效"></a> 5.使环境变量马上生效</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></div>
-<h4 id="3测试java环境"><a class="markdownIt-Anchor" href="#3测试java环境"></a> 3.测试Java环境</h4>
-<p>运行以下命令, 如果都成功运行, 则说明Java环境配置完成</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">java -version</span><br><span class="line">java</span><br><span class="line">javac</span><br></pre></td></tr></table></figure></div>
-<h5 id="可能遇到的问题"><a class="markdownIt-Anchor" href="#可能遇到的问题"></a> 可能遇到的问题</h5>
-<p>安装i586后缀jdk, 即<strong>安装32位的jdk</strong>后测试Java环境时提示<strong>bash: /usr/lib/java/jdk1.8.0_151/bin/java: 没有那个文件或目录</strong>, 可能是由于当前Linux发行版<strong>默认没有用于amd64系统的32位libc开发包</strong></p>
-<p>可通过以下5个常用命令查看Linux发行版的架构信息</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line">dpkg --print-architecture <span class="comment"># 这条命令只适用于基于Debian和Ubuntu的Linux发行版</span></span><br><span class="line">getconf LONG_BIT</span><br><span class="line"><span class="built_in">arch</span></span><br><span class="line">file /sbin/init </span><br><span class="line"><span class="comment"># file命令需要配合它链接的另一个文件使用</span></span><br><span class="line"><span class="comment"># 在Ubuntu中是链接的是/lib/systemd/systemd</span></span><br><span class="line"><span class="comment"># 通过file /lib/systemd/systemd查看到架构信息</span></span><br></pre></td></tr></table></figure></div>
-<h5 id="安装缺失的32位开发包"><a class="markdownIt-Anchor" href="#安装缺失的32位开发包"></a> 安装缺失的32位开发包</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install libc6-i386</span><br></pre></td></tr></table></figure></div>
-<p>如果安装libc6-i386失败, 请先更新软件列表, 再尝试重新安装, 并重新测试Java环境</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure></div>
-<p>如果还是失败请选择64位的jdk版本重新进行配置</p>
-<h5 id="重新测试java环境"><a class="markdownIt-Anchor" href="#重新测试java环境"></a> 重新测试Java环境</h5>
-<h4 id="4update-alternatives软件版本管理"><a class="markdownIt-Anchor" href="#4update-alternatives软件版本管理"></a> 4.update-alternatives软件版本管理</h4>
-<h5 id="1系统注册jdk需要使用多个jdk版本时"><a class="markdownIt-Anchor" href="#1系统注册jdk需要使用多个jdk版本时"></a> 1.系统注册jdk(需要使用多个jdk版本时)</h5>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_151/bin/java 300</span><br></pre></td></tr></table></figure></div>
-<p><strong>参数说明</strong></p>
-<p>第一个参数: --install表示向update-alternatives注册服务名</p>
-<p>第二个参数: 注册<strong>最终地址</strong>, 成功后将会把命令在这个固定的目的地址做真实命令的<strong>软链接</strong>, 通过管理这个软链就能实现不同版本jdk的切换</p>
-<p>第三个参数: <strong>服务名</strong>, 管理时以它为关联依据</p>
-<p>第四个参数: 被管理命令的<strong>绝对路径</strong></p>
-<p>第五个参数: <strong>优先级</strong>, 数字越大优先级越高</p>
-<h5 id="2交互式修改"><a class="markdownIt-Anchor" href="#2交互式修改"></a> 2.交互式修改</h5>
-<p>如果有多个版本的jdk, 可执行下面的命令通过交互界面进行切换</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure></div>
-<p>查看多个版本的jdk以及当前状态</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --display java</span><br></pre></td></tr></table></figure></div>
-<p>调整为<strong>auto</strong>模式, 如果上面查看的状态是<strong>manual</strong>, 则还不能自动选择优先级高的jdk版本, 需要调整为auto模式</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo update-alternatives --auto java</span><br></pre></td></tr></table></figure></div>
-<h4 id="5补充"><a class="markdownIt-Anchor" href="#5补充"></a> 5.补充</h4>
-<p><strong>将上述的/etc/profile替换成~/.bashrc就是用户级配置</strong></p>
-<p><strong>/etc/profile</strong>: 此文件为系统的每个用户设置环境信息, 当用户第一次登录时, 该文件被执行, 是<strong>系统全局</strong>对终端环境的设置, 它是login时最先被系统加载的, 是它调用了/etc/bashrc, 以及/etc/profile.d目录下的*.sh文件, 如果有一个软件包, 系统上只安装一份, 供所有开发者使用, 建议在/etc/profile.d下创建一个新的xxx.sh, 配置环境变量</p>
-<p><strong>~/.bashrc</strong>: 是<strong>用户</strong>相关的终端（shell）的环境设置, 通常打开一个新终端时, 默认会加载里面的设置, 在这里的设置不会影响其它用户。如果一个服务器多个开发者使用, 需要配置多个sdk, 则推荐使用该设置</p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux-base</title>
+    <title>linux基础</title>
     <url>/2022/11/17/linux-base/</url>
     <content><![CDATA[<h3 id="关于linux的通用操作"><a class="markdownIt-Anchor" href="#关于linux的通用操作"></a> 关于Linux的通用操作</h3>
 <p>基于Ubuntu22.04发行版的环境，本文整理了一些在Linux系统下基本通用的操作，使初学者能初步学会Linux系统的操作或使老用户重新回顾一下常用操作<span id="more"></span></p>
@@ -10162,16 +10162,17 @@ y=2^{E_y}\cdot M_y
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sed [参数] 文件名</span></span><br><span class="line">sed -e <span class="string">&#x27;s/-/*/g&#x27;</span> info.txt &gt;&gt; info.txt <span class="comment"># 将info.txt中所有的字符-替换为*，并应用修改到info.txt中</span></span><br></pre></td></tr></table></figure></div>
 <h4 id="组管理与权限管理"><a class="markdownIt-Anchor" href="#组管理与权限管理"></a> 组管理与权限管理</h4>
 <h5 id="组管理"><a class="markdownIt-Anchor" href="#组管理"></a> 组管理</h5>
-<p>在linux中的每个用户必须属于一个组，不能独立于组外</p>
+<p>在linux中的每个用户必须属于一个组，不能独立于组外，一般在创建用户时就默认生成了一个同名的用户组</p>
 <p>在linux中每个文件有所有者、所在组、其它组的概念</p>
 <p>文件的所有者就是创建该文件的用户</p>
 <p>除文件的所有者和所在组的用户外，系统的其它用户都是文件的其它组</p>
+<p>一个用户可以属于多个组，用户组又分为主组(主要组)和附加组(次要组)，其中主组不能被删除，除非用户指定了新的主组，而附加组可以随意修改。</p>
 <p>提示：<strong>查看文件权限、所有者等信息</strong>可以使用<strong>ls -l 指定的文件名</strong>实现；<strong>查看用户相关信息</strong>可以使用<strong>id 指定的用户名</strong>实现</p>
 <h5 id="基本命令-2"><a class="markdownIt-Anchor" href="#基本命令-2"></a> 基本命令</h5>
-<p><strong>chown命令</strong>：修改文件所有者，但不改变组</p>
+<p><strong>chown命令</strong>：修改文件所有者和所有组，若缺省组名，则不会改变所有组</p>
 <p><strong>chgrp命令</strong>：修改文件所在组</p>
-<p><strong>usermod命令</strong>：改变用户所在组</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># chown 用户名 文件名</span></span><br><span class="line"><span class="built_in">chown</span> common info.txt <span class="comment"># info.txt所有者改为common用户</span></span><br><span class="line"><span class="built_in">ls</span> -l info.txt <span class="comment"># 查看info.txt的信息</span></span><br><span class="line"><span class="comment"># chgrp 组名 文件名</span></span><br><span class="line"><span class="built_in">chgrp</span> common info.txt <span class="comment"># info.txt所在组改为common组</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># usermod -g 组名 用户名</span></span><br><span class="line">usermod -g ok common <span class="comment"># common用户所在组改为ok组</span></span><br><span class="line"><span class="built_in">id</span> common <span class="comment"># 查看common用户的信息</span></span><br></pre></td></tr></table></figure></div>
+<p><strong>usermod命令</strong>：改变用户所在主组(<code>-g</code>参数)或追加附加组(<code>-aG</code>参数，若不加a参数则会覆盖原来的附加组)</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># chown 用户名:组名 文件名</span></span><br><span class="line"><span class="built_in">chown</span> common info.txt <span class="comment"># info.txt所有者改为common用户</span></span><br><span class="line"><span class="built_in">ls</span> -l info.txt <span class="comment"># 查看info.txt的信息</span></span><br><span class="line"><span class="comment"># chgrp 组名 文件名</span></span><br><span class="line"><span class="built_in">chgrp</span> common info.txt <span class="comment"># info.txt所在组改为common组</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># usermod -g 组名 用户名</span></span><br><span class="line">usermod -g ok common <span class="comment"># common用户所在主组改为ok组</span></span><br><span class="line"><span class="comment"># usermod -aG 组名 用户名</span></span><br><span class="line">usermod -aG two,tree,four common <span class="comment"># common用户追加多个附加组</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">id</span> common <span class="comment"># 查看common用户的信息</span></span><br></pre></td></tr></table></figure></div>
 <h5 id="权限管理"><a class="markdownIt-Anchor" href="#权限管理"></a> 权限管理</h5>
 <p>文件权限内容，通过ls -l 指定文件名查看</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 一个示例</span></span><br><span class="line">-rw-r--r-- 1 root root 320 11月 18 17:49 info.txt</span><br></pre></td></tr></table></figure></div>
@@ -10245,6 +10246,137 @@ y=2^{E_y}\cdot M_y
       </categories>
       <tags>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux中的特殊权限与隐藏属性</title>
+    <url>/2023/08/10/linux-special-permissions/</url>
+    <content><![CDATA[<p>本文主要记录一些关于linux系统中特殊权限与隐藏属性的内容<span id="more"></span></p>
+<h3 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h3>
+<p>在linux系统中，有文件属性和文件权限两个不同的概念。文件权限指的是用户对文件或目录的操作权限，包括读取、写入和执行。而文件属性则指的是文件的一些特征，例如是否可以被修改或移动。文件属性能够针对所有用户，包括root用户。</p>
+<p>但除了以上三个常见的文件权限以外还有另外三个特殊文件权限，以及文件的隐藏属性。</p>
+<h3 id="文件的特殊权限"><a class="markdownIt-Anchor" href="#文件的特殊权限"></a> 文件的特殊权限</h3>
+<p>linux文件的三种特殊权限：suid、sgid、sticky。这些权限都可以通过<code>chmod</code>命令设置，可以使用对应的符号设置也可以使用对应的数字设置。suid和guid对应的符号都是s，ticky对应的符号是t，它们依次对应所有者、用户组、其他用户的权限。suid(u+s)表示所有者权限，其对应的数字是4；sgid(g+s)表示用户组权限，其对应的数字是2；sticky(o+s)表示其他用户权限，其对应的数字是1。通常情况下，使用<code>chmod</code>命令进行八进制数字语法设置权限时，特殊权限是位于第一个数字位，其余的三个数字位就是对应所有者、用户组、其他用户的读写执行权限。</p>
+<h4 id="suid权限"><a class="markdownIt-Anchor" href="#suid权限"></a> suid权限</h4>
+<p>SUID(Set User ID)：当设置了SUID位的可执行文件被运行时，任何用户在执行该文件时都会以文件所有者的身份执行，而不是以启动它的用户的身份执行。这意味着当可执行文件属主是root用户时，且该文件设置了suid权限，那么任何用户在执行这个文件时都会临时拥有root权限。<strong>这在普通用户执行需要root权限的命令时很有用。</strong></p>
+<p>例如，普通用户正常情况下是无法在根目录直接创建文件。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/08/10/linux-special-permissions/image-20230810163953702.png"
+                      class="" title="image-20230810163953702"
+                >
+<p>但是可以通过suid权限让普通用户可以在执行<code>touch</code>命令时，以root的身份执行。</p>
+<p>使用以下命令为<code>touch</code>命令设置suid权限，并在普通用户下在根目录创建文件</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># root用户</span></span><br><span class="line"><span class="built_in">chmod</span> u+s /bin/touch</span><br><span class="line"><span class="built_in">ls</span> -l /bin/touch</span><br><span class="line"></span><br><span class="line"><span class="comment"># test用户</span></span><br><span class="line"><span class="built_in">cd</span> /</span><br><span class="line"><span class="built_in">touch</span> test.txt</span><br></pre></td></tr></table></figure></div>
+<p>查看命令，可以看到在所有者的权限上出现了<strong>s</strong>的符号，代表了suid权限。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="linux-special-permissions/image-20230810165344173.png"
+                      alt="image-20230810165344173" style="zoom:67%;" 
+                >
+<p>之后普通用户就可以直接执行具有suid权限的可执行文件或命令，直接在根目录下创建文件。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="linux-special-permissions/image-20230810165701363.png"
+                      alt="image-20230810165701363" style="zoom:67%;" 
+                >
+<p>可通过以下命令查找所有具有suid权限的文件</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo find / -perm -4000 <span class="comment"># 查找所有具有suid权限的可执行文件</span></span><br></pre></td></tr></table></figure></div>
+<h4 id="suid权限和sudo命令的比较"><a class="markdownIt-Anchor" href="#suid权限和sudo命令的比较"></a> suid权限和sudo命令的比较</h4>
+<p>从“以root身份执行”的角度来看，二者具有同样的效果，但实际使用与体验上可能大不一样。</p>
+<p>首先，suid通过<code>chmod</code>命令来设置的一种特殊文件权限(如果要获取root权限，则还必须要求这个可执行文件的所有者是root)，而<code>sudo</code>是一种可以在一定时间内以root身份进行操作的权限命令。</p>
+<p>suid是针对可执行文件，只需要使用<code>chmod</code>命令设置即可，但是获取的权限取决于这个文件的所有者，而并不一定是root。<code>sudo</code>是针对特定的用户，需要在/etc/sudoers文件中进行配置，便于这些用户使用root权限进行操作。</p>
+<p>由此可见，suid可以使得某一个具有该权限的可执行文件能被任何用户执行，但是也仅限于被赋予了suid权限的可执行文件，例如上面的示例中，笔者虽然给<code>touch</code>命令设置了suid权限，但普通用户根本无法正常地对这个文件进行写入以及删除的操作等，除非把其他一系列相关的可执行文件都设置suid权限，但这样容易导致安全问题(suid提权)。而<code>sudo</code>命令可以给受信任的用户在一定时间内以root的身份进行操作。</p>
+<p>因此在日常中，<code>sudo</code>可能是相对安全且方便的选择，而suid权限的设置需要用户具有一定的专业知识，<strong>实际上在大多数linux发行版中已经预置了一些具有suid权限的可执行文件</strong>，例如<code>passwd</code>命令，方便用户安全地修改自己的密码。这些是经过了专业的设计，内置了安全措施，所以suid权限对于普通用户来说，可能是不怎么被关注的，即使它已经存在于一些日常使用的命令中。大多数普通用户主要了解基础的三个权限即可。</p>
+<h4 id="sgid权限"><a class="markdownIt-Anchor" href="#sgid权限"></a> sgid权限</h4>
+<p>SGID(Set Group ID)：当一个目录被设置了sgid权限时，任何用户在该目录下创建的新文件都会继承该目录的属组。这意味着，如果一个目录的属组是test，则在该目录下创建的新文件都会属于test组。sgid权限通常用于设置目录权限，对文件设置sgid权限是没有什么实际意义的。这对<strong>团队在linux服务器开发项目时，成员之间共享文件和目录</strong>时很有用，<strong>每个新添加的文件和目录都会具有与父目录相同的属组</strong>。</p>
+<h4 id="sgid使用案例"><a class="markdownIt-Anchor" href="#sgid使用案例"></a> sgid使用案例</h4>
+<p>使用以下命令为webapp目录设置sgid权限，并用不同的用户在该目录下创建文件和子目录。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 准备测试用户、组和目录</span></span><br><span class="line">useradd -m <span class="built_in">test</span></span><br><span class="line">useradd -m webappdev</span><br><span class="line">groupadd webappgroup</span><br><span class="line">usermod -aG webappgroup <span class="built_in">test</span></span><br><span class="line">usermod -aG webappgroup webappdev</span><br><span class="line"><span class="built_in">mkdir</span> /webapp</span><br><span class="line"><span class="built_in">chmod</span> 775 /webapp <span class="comment"># 允组内所有用户写入执行，这是多用户共享目录的必要权限</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置webapp目录的所有者和组</span></span><br><span class="line"><span class="built_in">chown</span> webappdev:webappgroup /webapp</span><br><span class="line"><span class="comment"># 设置webapp目录的sgid权限</span></span><br><span class="line"><span class="built_in">chmod</span> g+s /webapp</span><br><span class="line"><span class="comment"># 查看权限</span></span><br><span class="line"><span class="built_in">ls</span> -ld /webapp</span><br><span class="line"></span><br><span class="line"><span class="comment"># test用户添加文件和目录</span></span><br><span class="line">su - <span class="built_in">test</span></span><br><span class="line"><span class="built_in">touch</span> test_file</span><br><span class="line"><span class="built_in">mkdir</span> test_dir</span><br><span class="line"><span class="comment"># webappdev用户添加文件和目录</span></span><br><span class="line">su - webappdev</span><br><span class="line"><span class="built_in">touch</span> dev_file</span><br><span class="line"><span class="built_in">mkdir</span> dev_dir</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看文件和目录权限</span></span><br><span class="line"><span class="built_in">cd</span> /webapp</span><br><span class="line"><span class="built_in">ls</span> -l</span><br></pre></td></tr></table></figure></div>
+<p>在没有设置sgid权限的情况下，不同用户创建的文件和目录属于各自的组</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="linux-special-permissions/image-20230810210143869.png"
+                      alt="image-20230810210143869" style="zoom:67%;" 
+                >
+<p>在设置sgid权限的情况下，不同用户创建的文件和目录统一为父目录的属组</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="linux-special-permissions/image-20230810210327163.png"
+                      alt="image-20230810210327163" style="zoom:67%;" 
+                >
+<p>sgid权限要求<strong>父目录组权限至少要有写入执行(g+wx)的权限</strong>，否则只能给目录所有者一个用户使用，那么也没有什么实际意义了。</p>
+<p>但这样还不能够满足共享文件和目录的基本要求，因为<strong>用户可以直接删除其他用户的文件和目录</strong>，而sticky权限可以弥补这一个缺点。</p>
+<h4 id="sticky权限"><a class="markdownIt-Anchor" href="#sticky权限"></a> sticky权限</h4>
+<p>sticky(sticky bit)：当一个目录被设置了sticky权限时，即使其他用户对该目录具有写入权限，也只能删除自己拥有的文件，这意味着，如果一个目录具有sticky权限，那么任何用户都不能删除该目录中其他用户拥有的文件。sticky权限也是用于目录的权限设置，对文件设置sticky权限没有什么实际意义。这对<strong>共享文件和目录时，防止普通用户删除其他用户的文件</strong>很有用。</p>
+<h4 id="sticky使用案例"><a class="markdownIt-Anchor" href="#sticky使用案例"></a> sticky使用案例</h4>
+<p>使用以下命令，可以直接使用前面sgid案例的测试数据，为目录设置sticky权限，并用不同的用户去测试上传删除自己和其他用户的文件。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建共享目录</span></span><br><span class="line"><span class="built_in">mkdir</span> /webapp</span><br><span class="line"><span class="comment"># 设置sticky权限</span></span><br><span class="line"><span class="built_in">chmod</span> o+t /webapp</span><br><span class="line"><span class="built_in">ls</span> -ld /webapp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置所有权，允许所有用户上传文件，但只允许root用户和文件对应的所有者删除对应的文件</span></span><br><span class="line"><span class="built_in">chown</span> root:webappgroup /webappgroup</span><br><span class="line"><span class="built_in">chmod</span> 3777 /webapp <span class="comment"># 这里如果使用777则会把前面设置的sticky权限覆盖掉</span></span><br><span class="line"><span class="built_in">ls</span> -ld /webapp</span><br><span class="line"></span><br><span class="line"><span class="comment"># test用户添加文件</span></span><br><span class="line">su - <span class="built_in">test</span></span><br><span class="line"><span class="built_in">cd</span> /webapp &amp;&amp; <span class="built_in">touch</span> test_file</span><br><span class="line"></span><br><span class="line"><span class="comment"># webappdev用户添加文件</span></span><br><span class="line">su - webappdev</span><br><span class="line"><span class="built_in">cd</span> /webapp &amp;&amp; <span class="built_in">touch</span> dev_file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试用户删除其他用户的文件</span></span><br><span class="line">su - <span class="built_in">test</span></span><br><span class="line"><span class="built_in">cd</span> /webapp &amp;&amp; <span class="built_in">rm</span> dev_file</span><br><span class="line">su - webappdev</span><br><span class="line"><span class="built_in">cd</span> /webapp &amp;&amp; <span class="built_in">rm</span> test_file</span><br></pre></td></tr></table></figure></div>
+<p>设置了sticky权限之后，即使拥有父目录的所有权限，只要不是该文件的所有者，就无法删除文件，每个用户只能删除自己创建的文件。另外，<strong>root用户无视sticky权限的限制</strong>。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="linux-special-permissions/image-20230810223346767.png"
+                      alt="image-20230810223346767" style="zoom:67%;" 
+                >
+<p>linux系统中，创建、删除、重命名文件至少需要父目录的写入执行(wx)权限，因此sticky权限也要至少<strong>保证目录的所有者具有相应的权限</strong>，否则任何普通用户都无法在目录下创建自己的文件了，那么也没有什么实际意义了。如果考虑和sgid权限配合使用，则还要保证<strong>组具有相应的权限</strong>。</p>
+<h3 id="文件的隐藏属性"><a class="markdownIt-Anchor" href="#文件的隐藏属性"></a> 文件的隐藏属性</h3>
+<p>linux文件属性包括文件的许多特征，通常有文件类型、文件大小、文件所有者、文件所属组、文件最后修改时间等，而隐藏属性是属于文件的特殊性质。这些隐藏属性在linux中可以通过<code>chattr</code>命令进行设置，通过<code>lsattr</code>命令查看。</p>
+<h4 id="chattr"><a class="markdownIt-Anchor" href="#chattr"></a> chattr</h4>
+<p><code>chattr</code>是一个linux命令，用于设置文件的某些隐藏属性，以保护重要文件和文件夹免受意外删除或修改，而且是少有的能够直接限制root用户的命令。</p>
+<p><code>chattr</code>的语法如下，</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">chattr [选项] [操作符] [属性] 文件...</span><br></pre></td></tr></table></figure></div>
+<p>其中操作符有以下几个符号：</p>
+<ul>
+<li><code>+</code>：将指定的属性添加到现有属性</li>
+<li><code>-</code>：从现有属性中删除指定的属性</li>
+<li><code>=</code>：将指定的属性设置为唯一属性，覆盖原来的属性</li>
+</ul>
+<p>操作符后可接多个属性，下面是一些常见属性：</p>
+<ul>
+<li><code>a</code>：文件只能以追加模式写入。</li>
+<li><code>A</code>：文件的访问时间(atime)记录不会被修改，可以减少磁盘IO。</li>
+<li><code>e</code>：文件使用extents映射磁盘上的块，这个属性无法被<code>chattr</code>修改，与文件系统有关，例如ext4文件系统。</li>
+<li><code>i</code>：文件不可变，即文件不能被删除或修改。</li>
+</ul>
+<p>更多说明内容可以使用<code>man chattr</code>查询。</p>
+<h4 id="lsattr"><a class="markdownIt-Anchor" href="#lsattr"></a> lsattr</h4>
+<p><code>lsattr</code>命令主要用于查看文件对应的隐藏属性。</p>
+<p>例如</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">lsattr /etc/passwd</span><br></pre></td></tr></table></figure></div>
+<h4 id="chattr锁定文件"><a class="markdownIt-Anchor" href="#chattr锁定文件"></a> chattr锁定文件</h4>
+<p>前面提到<code>chattr</code>是少有的能够直接限制root用户的命令，但同时它也需要谨慎使用。</p>
+<p>可以通过以下命令创建并锁定文件，即使root用户也无法直接删除和修改。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">touch</span> ~/immutable.txt</span><br><span class="line">sudo chattr +i ~/immutable.txt</span><br><span class="line">lsattr ~/immutable.txt</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">rm</span> -rf ~/immutable.txt</span><br></pre></td></tr></table></figure></div>
+<p>执行命令可以看到即使使用root权限也无法删除该文件</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="linux-special-permissions/image-20230811010112011.png"
+                      alt="image-20230811010112011" style="zoom:67%;" 
+                >
+<p>要删除文件，只能使用<code>chattr</code>重新取消<code>i</code>属性。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo chattr -i ~/immutable.txt</span><br><span class="line"></span><br><span class="line"><span class="built_in">rm</span> -rf ~/immutable.txt</span><br></pre></td></tr></table></figure></div>
+<p><code>chattr</code>命令虽然可以阻止文件被意外删除或修改，但是它所针对的文件或目录对象，通常是一些内容不会去改动的系统配置文件、日志文件、备份文件等，而且这些文件和目录不应该对其他的文件和目录有依赖关系。例如，你对那些linux命令的可执行文件使用<code>chattr</code>锁定，那它们大概率会无法正常工作。</p>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
+<p>以上，主要介绍了suid、sgid、sticky三个特殊权限和文件的隐藏属性。</p>
+<p>说明了如何使用sgid权限创建一个能够自动继承父目录属组的共享目录，使用sticky权限来限制共享目录的多个用户对共享文件的删除权限，以及整合sgid和sticky权限来打造一个安全且便于协作的共享文件目录。</p>
+<p>最后介绍了如何利用文件的隐藏属性来限制root用户及其他任何用户的误操作以保护重要文件。</p>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a class="link"   href="https://www.runoob.com/linux/linux-comm-chattr.html" >Linux chattr命令 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://www.cnblogs.com/poloyy/p/12586677.html" >Linux - 文件的三种时间之atime、ctime、mtime的区别和简单用法 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>特殊文件属性</tag>
+        <tag>特殊文件权限</tag>
       </tags>
   </entry>
   <entry>
