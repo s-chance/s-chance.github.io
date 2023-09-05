@@ -11616,7 +11616,7 @@ a*b=(a_1*10^{n/2}+a_0)*(b_1*10^{m/2}+b_0)\\
 </ul>
 </li>
 <li>
-<p>libguestfs：虚拟机磁盘镜像处理工具，用于查看和修改虚拟机镜像、转换镜像格式等。具体使用参考这篇<a href="">文章</a></p>
+<p>libguestfs：虚拟机磁盘镜像处理工具，用于查看和修改虚拟机镜像、转换镜像格式等。具体使用参考这篇<a class="link"   href="https://thiscute.world/posts/qemu-kvm-usage/" >文章 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 </li>
 </ul>
 <p>如果只是需要简单地使用qemu创建单一虚拟机，那么安装以下包即可。</p>
