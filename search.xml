@@ -6740,383 +6740,6 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
-    <title>Go 工程进阶</title>
-    <url>/2023/01/26/golang-day2/</url>
-    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7193685237723824187" >golang工程进阶 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang工程开发的学习<span id="more"></span></p>
-<h2 id="语言进阶"><a class="markdownIt-Anchor" href="#语言进阶"></a> 语言进阶</h2>
-<h3 id="1并发-vs-并行"><a class="markdownIt-Anchor" href="#1并发-vs-并行"></a> 1.并发 VS 并行</h3>
-<ul>
-<li>并发：多线程程序在一个核的CPU上运行</li>
-<li>并行：多线程程序在多个核的CPU上运行</li>
-</ul>
-<p>go语言可以充分发挥多核优势，高效运行</p>
-<h4 id="11-goroutine"><a class="markdownIt-Anchor" href="#11-goroutine"></a> 1.1 Goroutine</h4>
-<ul>
-<li>线程：用户态，轻量级线程，栈MB级别</li>
-<li>协程：内核态，线程跑多个协程，栈KB级别</li>
-</ul>
-<p><strong>关于用户态和内核态的区别</strong></p>
-<p>用户态和内核态是操作系统的两种运行级别。</p>
-<p>当程序运行在3级特权级上时，就可以称之为运行在用户态，这是最低特权级，是普通用户进程运行的特权级，大部分用户直接面对的程序都是运行在用户态。</p>
-<p>当程序运行在0级特权级上时，就可以称之为运行在内核态。</p>
-<p>运行在用户态下的程序不能直接访问操作系统内核数据结构和程序。用户态下的程序在其需要操作系统帮助完成某些它没有权限和能力完成的工作时就会切换到内核态，比如操作硬件。</p>
-<p>这两种状态的主要差别是</p>
-<ul>
-<li>处于用户态执行时，进程所能访问的内存空间和对象受到限制，其处于占用的处理器是可被抢占的</li>
-<li>处于内核态执行时，能够访问使用的内存空间和对象，且所占有的处理器是不允许被抢占的</li>
-</ul>
-<p><strong>快速打印</strong></p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hello</span><span class="params">(i <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="built_in">println</span>(<span class="string">&quot;hello goroutine: &quot;</span> + fmt.Sprint(i))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HelloGoRoutine</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(j <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">            hello(j)</span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line">    time.Sleep(time.Second)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="12-csp"><a class="markdownIt-Anchor" href="#12-csp"></a> 1.2 CSP</h4>
-<p>CSP(Communicating Sequential Processes)是一种并发模型。在go语言中提倡通过通信共享内存而不是通过共享内存而实现通信（像Java、C++、Python等都是通过共享内存来实现通信），go语言通过goroutine和channel实现通过通信共享内存，这是go语言的独特优势。</p>
-<h4 id="13-channel"><a class="markdownIt-Anchor" href="#13-channel"></a> 1.3 Channel</h4>
-<p>通道channel是用来传递数据的一个数据结构。通道可用于两个goroutine之间通过传递一个指定类型的值来同步运行和通讯。操作符&lt;-用于指定通道的方向，发送或接收。如果未指定方向，则为双向通道。</p>
-<p>创建通道，通道分为无缓冲通道和有缓冲通道，在创建时指定参数即可。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>) <span class="comment">//无缓冲通道</span></span><br><span class="line">buf := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">100</span>) <span class="comment">//有缓冲通道,缓冲区大小为100</span></span><br></pre></td></tr></table></figure></div>
-<p>通道的基本使用</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">ch &lt;- v    <span class="comment">//把v发送到通道ch</span></span><br><span class="line">v := &lt;- ch <span class="comment">//从通道ch接收数据,并赋值给v</span></span><br></pre></td></tr></table></figure></div>
-<p>一个示例</p>
-<ul>
-<li>
-<p>一个子协程发送0~9数字</p>
-</li>
-<li>
-<p>另一个子协程计算输入数字的平方</p>
-</li>
-<li>
-<p>主协程输出结果</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CalSqrt</span><span class="params">()</span></span> &#123;</span><br><span class="line">    src := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line">    dest := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">defer</span> <span class="built_in">close</span>(src)</span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">            src &lt;- i</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">defer</span> <span class="built_in">close</span>(dest)</span><br><span class="line">        <span class="keyword">for</span> i := <span class="keyword">range</span> src &#123;</span><br><span class="line">            dest &lt;- i * i</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">for</span> i := <span class="keyword">range</span> dest &#123;</span><br><span class="line">        <span class="built_in">println</span>(i)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</li>
-</ul>
-<h4 id="14-并发安全-lock"><a class="markdownIt-Anchor" href="#14-并发安全-lock"></a> 1.4 并发安全 Lock</h4>
-<p>对变量执行大量重复操作，使用多个协程并发执行，利用锁来保证最终结果的正确性</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	x    <span class="type">int64</span></span><br><span class="line">    lock sync.Mutex</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addWithLock</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">2000</span>; i++ &#123;</span><br><span class="line">        lock.Lock()</span><br><span class="line">        x += <span class="number">1</span></span><br><span class="line">        lock.Unlock()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Add</span><span class="params">()</span></span> &#123;</span><br><span class="line">    x = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> addWithLock()</span><br><span class="line">    &#125;</span><br><span class="line">    time.Sleep(time.Second)</span><br><span class="line">    <span class="built_in">println</span>(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="15-waitgroup"><a class="markdownIt-Anchor" href="#15-waitgroup"></a> 1.5 WaitGroup</h4>
-<p>waitgroup是go语言应用开发过程中经常使用的并发控制技术。其内部通过一个计数器来统计协程，这个计数器的值需要在启动协程之前用Add方法初始化，在结束一个协程的时候使用Done方法将计数器-1</p>
-<p>当开启一个协程时，计数器+1；当一个协程执行完时，计数器-1；主线程会一直阻塞直到计数器为0。</p>
-<p>改造前面的协程快速打印的示例，使用waitgroup实现协程的同步阻塞。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GoWait</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">    wg.Add(<span class="number">5</span>)  <span class="comment">//先初始化计数器再启动协程</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(j <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">            <span class="keyword">defer</span> wg.Done()</span><br><span class="line">            hello(j) <span class="comment">//hello函数参考前面的例子</span></span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line">    wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h2 id="依赖管理"><a class="markdownIt-Anchor" href="#依赖管理"></a> 依赖管理</h2>
-<p>go语言依赖管理的演进路线和go module实践。</p>
-<p>依赖指各种开发包或者库，利用已经封装好的、经过验证的开发组件或工具，能够大大提升开发效率。</p>
-<p>对于简单的程序来说，只需要依赖原生的SDK即可。对于实际工程来说，更多的是关注业务逻辑的实现，涉及框架、日志、驱动driver以及collection等一系列依赖都会通过sdk的方式引入，因此就需要对依赖包进行管理。</p>
-<p>go依赖管理的演进主要经历了3个阶段，从GOPATH到Go Vendor再到目前被广泛应用的Go Module。主要围绕实现两个目标来迭代发展</p>
-<ul>
-<li>不同环境（项目）依赖的版本不同</li>
-<li>控制依赖库的版本</li>
-</ul>
-<h3 id="gopath"><a class="markdownIt-Anchor" href="#gopath"></a> GOPATH</h3>
-<p>GOPATH是go语言支持的一个环境变量，是go项目的工作区。根目录有以下结构</p>
-<ul>
-<li>src：存放go项目的源码</li>
-<li>pkg：存放编译的中间产物，加快编译速度</li>
-<li>bin：存在go项目编译生成的二进制文件</li>
-</ul>
-<p><strong>GOPATH的弊端</strong></p>
-<p>GOPATH无法实现package的多版本控制。同一个pkg，存在两个版本，有两个项目依赖不同的版本，但是src下只能存放一个版本，那么就无法保证两个版本的项目都能通过编译。就是说在GOPATH管理模式下，如果多个项目依赖同一个库，则该库只能是同一份代码，无法实现多个项目依赖同一个库的不同版本。于是Go Vendor应运而生。</p>
-<h3 id="go-vendor"><a class="markdownIt-Anchor" href="#go-vendor"></a> Go Vendor</h3>
-<p>Go Vendor在GOPATH的基础上增加了vendor目录，用于存放当前项目依赖的副本。在Vendor机制下，如果当前目录存在vendor目录，则会优先使用该目录下的依赖，如果依赖不存在，再从GOPATH中寻找。这样，通过每个项目引入一份依赖副本，解决了多个项目需要同一个package依赖的冲突问题。但是vendor无法很好解决依赖包版本变动问题和一个项目依赖同一个包的不同版本的问题。实质上，vendor并不能很清晰地标识依赖的版本概念，无法控制依赖的版本，更新项目又可能导致依赖冲突、编译出错。于是又诞生了Go Module。</p>
-<h3 id="go-module"><a class="markdownIt-Anchor" href="#go-module"></a> Go Module</h3>
-<p>Go Module是go语言官方推出的依赖管理系统，解决了之前依赖管理系统存在的诸多问题。Go Module在go语言1.11版本开始引入，在go语言1.16版本默认开启。习惯上将Go Module称为go mod。</p>
-<ul>
-<li>通过go.mod文件管理依赖包版本</li>
-<li>通过go get/go mod指令工具管理依赖包</li>
-</ul>
-<p>go mod最终目标是定义版本规则和管理项目依赖关系。（相当于Java中的Maven）</p>
-<h3 id="依赖管理三要素"><a class="markdownIt-Anchor" href="#依赖管理三要素"></a> 依赖管理三要素</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">要素</th>
-<th style="text-align:center">对应工具</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">配置文件，描述依赖</td>
-<td style="text-align:center">go.mod</td>
-</tr>
-<tr>
-<td style="text-align:center">中心仓库管理依赖库</td>
-<td style="text-align:center">Proxy</td>
-</tr>
-<tr>
-<td style="text-align:center">本地工具</td>
-<td style="text-align:center">go get / go mod</td>
-</tr>
-</tbody>
-</table>
-<h3 id="依赖配置go-mod"><a class="markdownIt-Anchor" href="#依赖配置go-mod"></a> 依赖配置——go mod</h3>
-<p>使用模块路径来标识一个模块，从模块路径找到该模块，如果是github前缀则表示可以从github仓库中找到该模块，依赖包的源代码由github托管，如果项目的子包需要被单独引用，则通过单独的init go.mod文件进行管理。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">module example/project/app <span class="comment">//依赖管理基本单元</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="number">1.16</span> <span class="comment">//原生sdk版本</span></span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">    <span class="comment">// 单元依赖</span></span><br><span class="line">    <span class="comment">// 依赖标识:模块路径+版本</span></span><br><span class="line">	example/lib1 v1<span class="number">.0</span><span class="number">.2</span></span><br><span class="line">    example/lib2 v1<span class="number">.0</span><span class="number">.0</span></span><br><span class="line">    ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
-<h3 id="依赖配置version"><a class="markdownIt-Anchor" href="#依赖配置version"></a> 依赖配置——version</h3>
-<p>GOPATH和Go Vendor都是源码副本形式的依赖，没有版本规则的概念，而go mod为了方便管理定义了版本规则，分为语义化版本和基于commit的伪版本。</p>
-<ul>
-<li>
-<p>语义化版本有三个部分<code>$&#123;MAJOR&#125;.$&#123;MINOR&#125;.$&#123;PATCH&#125;</code>，如v1.3.0，v2.3.0</p>
-<p>不同的MAJOR版本表示是不兼容的API，所以即使是同一个库，MAJOR版本不同也会被认为是不同的模块。</p>
-<p>MINOR版本通常是新增函数或功能，向后兼容。</p>
-<p>PATCH版本一般是修复bug。</p>
-</li>
-<li>
-<p>基于commit的伪版本也有三个部分<code>vX.0.0-yyyymmddhhmmss-abcdefgh1234</code></p>
-<p>基础版本前缀和语义化版本是一样的。</p>
-<p>时间戳，也就是提交commit的时间。</p>
-<p>最后是校验码，包含12位的哈希前缀。每次commit后go都会默认生成一个伪版本号。</p>
-</li>
-</ul>
-<h3 id="依赖配置indirect"><a class="markdownIt-Anchor" href="#依赖配置indirect"></a> 依赖配置——indirect</h3>
-<p>依赖单元中的特殊标识符，indirect后缀，表示go.mod对应的当前模块没有直接导入该依赖模块的包，也就是间接依赖。</p>
-<h3 id="依赖配置incompatible"><a class="markdownIt-Anchor" href="#依赖配置incompatible"></a> 依赖配置——incompatible</h3>
-<p>在主版本为v2及以上的模块后面会有+incompatible后缀，这让go mod能够按照不同的模块来处理同一个项目不同主版本的依赖。由于go mod是在go1.11版本才开始引入，在这个更新之前已经有一些仓库打上了v2或者更高的版本tag。为了兼容这部分仓库，对于没有go.mod文件且MAJOR主版本在v2及以上的依赖，会在版本号后面加上<code>+incompatible</code>的后缀，表示可能存在不兼容的源代码。</p>
-<h3 id="依赖配置依赖图"><a class="markdownIt-Anchor" href="#依赖配置依赖图"></a> 依赖配置——依赖图</h3>
-<p>如果一个主项目依赖A、B两个项目，A、B分别依赖C项目v1.3、v1.4的两个版本，则最终编译时所使用的C项目版本为最低的兼容版本，即v1.4。</p>
-<h3 id="依赖分发回源"><a class="markdownIt-Anchor" href="#依赖分发回源"></a> 依赖分发——回源</h3>
-<p>依赖分发，也就是指go mod从哪里下载，如何下载。</p>
-<p>Go Modules系统中定义的依赖最终可以对应到多版本代码管理系统中某一项目的特定提交或版本，这样的话，对于go.mod中定义的依赖，则直接可以从对应仓库中下载指定软件依赖，从而完成依赖分发。</p>
-<p>但直接使用版本管理仓库下载依赖，存在诸多问题</p>
-<ul>
-<li>无法保证构建确定性，软件作者可以直接在代码平台 增加/修改/删除 软件版本，导致下次构建时使用另外版本的依赖或者找不到依赖版本。</li>
-<li>无法保证依赖可用性，依赖软件作者可以直接在代码平台删除软件，导致依赖不可用。</li>
-<li>增加第三方压力，每次从第三方代码托管平台下载依赖时都会增加第三方代码托管平台的压力。</li>
-</ul>
-<h3 id="依赖分发proxy"><a class="markdownIt-Anchor" href="#依赖分发proxy"></a> 依赖分发——Proxy</h3>
-<p>Go Proxy就是解决上述的依赖分发问题。Go Proxy是一个服务站点，它会缓存源站中的软件内容，缓存的软件版本不会改变，并且在源站软件删除之后依然能够下载，从而实现了immutability（不变性）和available（可用的）的依赖分发。</p>
-<p>使用Go Proxy之后，构建时会直接从Go Proxy站点拉取依赖。</p>
-<h3 id="依赖分发变量-goproxy"><a class="markdownIt-Anchor" href="#依赖分发变量-goproxy"></a> 依赖分发——变量 GOPROXY</h3>
-<p>Go Modules通过GOPROXY环境变量使用Go Proxy服务。GOPROXY是一个Go Proxy站点URL列表，可以使用&quot;direct&quot;表示源站。</p>
-<p>示例配置</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">GOPROXY=<span class="string">&quot;https://proxy1.cn, https://proxy2.cn, direct&quot;</span></span><br></pre></td></tr></table></figure></div>
-<p>对于以上配置，整体的依赖寻址路径会先从proxy1下载，如果proxy1不存在，再从proxy2寻找，如果proxy2不存在，则回源到源站直接下载依赖，并缓存到proxy站点中。</p>
-<h3 id="工具go-get"><a class="markdownIt-Anchor" href="#工具go-get"></a> 工具——go get</h3>
-<p>go get是Go Module的两个重要工具之一。</p>
-<p>go get使用命令</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go get example.org/pkg...</span><br></pre></td></tr></table></figure></div>
-<p>以上命令后面接不同的指令，这些指令具有不同的作用</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">指令</th>
-<th style="text-align:center">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">@update</td>
-<td style="text-align:center">默认</td>
-</tr>
-<tr>
-<td style="text-align:center">@none</td>
-<td style="text-align:center">删除依赖</td>
-</tr>
-<tr>
-<td style="text-align:center">@v1.1.2</td>
-<td style="text-align:center">下载指定tag版本，语义版本</td>
-</tr>
-<tr>
-<td style="text-align:center">@23dfdd5</td>
-<td style="text-align:center">特定的commit</td>
-</tr>
-<tr>
-<td style="text-align:center">@master</td>
-<td style="text-align:center">分支的最新commit</td>
-</tr>
-</tbody>
-</table>
-<h3 id="工具go-mod"><a class="markdownIt-Anchor" href="#工具go-mod"></a> 工具——go mod</h3>
-<p>go mod也是Go Module中的重要工具。</p>
-<p>go mod 使用命令</p>
-<p>初始化，创建go.mod文件</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go mod init</span><br></pre></td></tr></table></figure></div>
-<p>下载模块到本地缓存</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go mod download</span><br></pre></td></tr></table></figure></div>
-<p>增加需要的依赖，删除不需要的依赖</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go mod tidy</span><br></pre></td></tr></table></figure></div>
-<p>在实际开发中，建议在向仓库提交代码之前执行<code>go mod tidy</code>，可以减少构建时无效依赖包的拉取。</p>
-<p><strong>使用go mod前的一些注意事项</strong></p>
-<ul>
-<li>设置GO111MODULE=on，表示只使用Go Module而不会使用GOPATH。具体配置参考<a class="link"   href="https://goproxy.cn/" >七牛云 - Goproxy.cn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>清空IDE中的所有的GOPATH。go mod和GOPATH不能并存，开启go mod之后需要在IDE中把项目从GOPATH移除，否则可能会出错。</li>
-<li>在项目中创建go.mod文件，如果已经存在则不需要重新创建。创建完go.mod文件后先执行<code>go mod tidy</code>来增加项目启动所需的最小依赖。</li>
-</ul>
-<h2 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h2>
-<p>在实际工程开发中，除了依赖管理，还有另一个重要概念就是单元测试，包括单元测试规范、Mock测试、基准测试。测试关系着系统的质量，质量决定线上系统的稳定性，一旦出现问题就会引起事故。测试就是为了避免这些事故。</p>
-<p>测试一般分为回归测试，集成测试和单元测试。回归测试一般是手动通过终端回归一些固定的主流场景，集成测试是对系统功能维度做测试验证，而单元测试阶段，开发者对单独的函数、模块做功能验证，层级至上而下，测试成本逐渐降低，测试覆盖率逐步上升。因此单元测试的覆盖率一定程度上决定了代码的质量。</p>
-<h3 id="单元测试"><a class="markdownIt-Anchor" href="#单元测试"></a> 单元测试</h3>
-<p>单元测试主要包括输入、测试单元、输出，以及校对。单元的概念比较广泛，包括接口、函数、模块等。最后的校对用于保证代码的功能符合预期。单元测试一方面可以保证质量，在整体覆盖率足够的情况下，一定程度上即保证了新功能本身的正确性，又保护了原有代码的完整性；另一方面可以提升效率，在代码存在bug的情况下，通过单元测试，可以在较短周期内定位和修复问题。</p>
-<h4 id="规则"><a class="markdownIt-Anchor" href="#规则"></a> 规则</h4>
-<p>单元测试的一些基本规范</p>
-<ul>
-<li>所有测试文件名称以_test.go结尾</li>
-<li>所有用于测试的函数声明为<code>func TestXxx(t *testing.T)</code></li>
-<li>初始化逻辑放到TestMain函数中实现</li>
-</ul>
-<p>这样就很好地区分了源代码和测试代码。</p>
-<h4 id="示例"><a class="markdownIt-Anchor" href="#示例"></a> 示例</h4>
-<p>源代码</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HelloTom</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Jerry&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>测试代码</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloTom</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    output := HelloTom()</span><br><span class="line">    expectOutput := <span class="string">&quot;Tom&quot;</span></span><br><span class="line">    <span class="keyword">if</span> output != expectOutput &#123;</span><br><span class="line">        t.Errorf(<span class="string">&quot;Expected %s do not match actual %s&quot;</span>, expectOutput, output)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="运行"><a class="markdownIt-Anchor" href="#运行"></a> 运行</h4>
-<p>运行查看结果</p>
-<h4 id="assert"><a class="markdownIt-Anchor" href="#assert"></a> assert</h4>
-<p>assert包提供了对代码测试的支持，能够快速方便地进行代码测试</p>
-<p>获取assert包，在当前项目中使用以下命令</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go get github.com/stretchr/testify/assert</span><br></pre></td></tr></table></figure></div>
-<p>改造原来的测试代码</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloTom</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    output := HelloTom()</span><br><span class="line">    expectOutput := <span class="string">&quot;Tom&quot;</span></span><br><span class="line">    assert.Equal(t, expectOutput, output)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>运行查看结果，使用assert测试能够输出更加详细的信息。</p>
-<h4 id="覆盖率"><a class="markdownIt-Anchor" href="#覆盖率"></a> 覆盖率</h4>
-<p>代码覆盖率用于衡量代码是否经过了足够的测试，评价项目的测试水准，评估项目是否达到了高水准测试等级。</p>
-<p><strong>示例代码</strong></p>
-<p>judgment.go</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">JudgePassLine</span><span class="params">(score <span class="type">int16</span>)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> score &gt;= <span class="number">60</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>judgment_test.go</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestJudgePassLineTrue</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    isPass := JudgePassLine(<span class="number">70</span>)</span><br><span class="line">    assert.Equal(t, <span class="literal">true</span>, isPass)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>使用以下命令进行测试</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">test</span> judgment_test.go judgment.go --cover</span><br></pre></td></tr></table></figure></div>
-<p>通过指定cover参数，可以看到覆盖率，表示执行到的代码行数占实际代码总行数。</p>
-<p><strong>提升覆盖率</strong></p>
-<p>可以在测试代码中增加其他的情况，重新执行所有单元测试，最终使覆盖率达到100%</p>
-<p>新增测试函数</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestJudgePassLineFail</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    isPass := JudgePassLine(<span class="number">50</span>)</span><br><span class="line">    assert.Equal(t, <span class="literal">false</span>, isPass)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>重新执行测试命令，指定cover参数，查看测试结果。</p>
-<h4 id="tips"><a class="markdownIt-Anchor" href="#tips"></a> Tips</h4>
-<ul>
-<li>实际项目中，一般要求覆盖率是50%~60%，对于资金型服务，覆盖率要求达到80%以上。</li>
-<li>在进行单元测试时，要求测试分支相互独立、全面覆盖。</li>
-<li>测试单元粒度足够小，函数职责单一，即要求函数体足够小，这样能比较简单地提升覆盖率，也符合函数设计的单一职责。</li>
-</ul>
-<h3 id="mock测试"><a class="markdownIt-Anchor" href="#mock测试"></a> Mock测试</h3>
-<p>工程中复杂的项目一般会依赖File、DB、Cache等外部依赖，而单元测试需要保证稳定性和幂等性。稳定性指相互隔离，能在任何时间、任何环境下运行测试；幂等是指每次测试运行都应该产生与之前一样的结果。而实现这些目的就需要Mock机制。</p>
-<h4 id="文件处理"><a class="markdownIt-Anchor" href="#文件处理"></a> 文件处理</h4>
-<p>将测试文件进行删除，进行单元测试，测试通过，但单元测试需要依赖本地的文件，如果文件被修改或者删除测试就会失败，也就是说删除文件的测试普通情况下只能测试一次。为了保证测试case的稳定性，需要对删除文件函数进行mock，屏蔽对文件的依赖。</p>
-<h4 id="快速mock函数"><a class="markdownIt-Anchor" href="#快速mock函数"></a> 快速Mock函数</h4>
-<p>这里提供了一个开源的mock测试库<a class="link"   href="https://github.com/bouk/monkey" >Monkey patching in Go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，可以对函数或者实例的方法进行mock测试，原理是反射和指针赋值。这里引入了一个打桩的概念，桩或者桩代码就是指用来代替关联代码或者未实现代码的代码，目的主要是隔离、补齐、控制。</p>
-<p>快速Mock函数能为一个函数打桩或为一个方法打桩。Monkey Patch的作用域在Runtime，在运行时通过Go的unsafe包，能够将内存中函数的地址替换为运行时函数的地址，将待打桩函数或方法的实现跳转到运行时。</p>
-<h4 id="示例-2"><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h4>
-<p>通过patch对ReadFirstLine进行打桩mock，通过defer卸载mock，使整个测试函数脱离了对本地文件的依赖。</p>
-<p>源代码</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ReadFirstLine</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    open, err := os.Open(<span class="string">&quot;log&quot;</span>)</span><br><span class="line">    <span class="keyword">defer</span> open.Close()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    scanner := bufio.NewScanner(open)</span><br><span class="line">    <span class="keyword">for</span> scanner.Scan() &#123;</span><br><span class="line">        <span class="keyword">return</span> scanner.Text()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ProcessFirstLine</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    line := ReadFirstLine()</span><br><span class="line">    destLine := strings.ReplaceAll(line, <span class="string">&quot;11&quot;</span>, <span class="string">&quot;00&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> destLine</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>测试代码</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestProcessFirstLine</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    firstLine := ProcessFirstLine()</span><br><span class="line">    assert.Equal(t, <span class="string">&quot;line00&quot;</span>, firstLine)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>测试文件内容</p>
-<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="code"><pre><span class="line">line11</span><br><span class="line">line22</span><br><span class="line">line33</span><br><span class="line">line44</span><br><span class="line">line55</span><br></pre></td></tr></table></figure></div>
-<p>monkey的部分源代码实现，主要通过这些函数实现打桩</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Patch</span><span class="params">(target, replacement <span class="keyword">interface</span>&#123;&#125;)</span></span> *PatchGuard &#123;</span><br><span class="line">    t := reflect.ValueOf(target)</span><br><span class="line">    r := reflect.ValueOf(replacement)</span><br><span class="line">    patchValue(t, r)</span><br><span class="line">    <span class="keyword">return</span> &amp;PatchGuard&#123;t, r&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Unpatch</span><span class="params">(target <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> unpatchValue(reflect.ValueOf(target))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>改造测试代码增加函数实现打桩，通过patch对ReadFirstLine进行打桩mock，使其默认返回line110</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestReadFirstLineWithMock</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	monkey.Patch(ReadFirstLine, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;line110&quot;</span></span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">defer</span> monkey.Unpatch(ReadFirstLine)</span><br><span class="line">	line := ProcessFirstLine()</span><br><span class="line">	assert.Equal(t, <span class="string">&quot;line000&quot;</span>, line)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>这样即使没有本地文件，也能够模拟读取、修改或删除文件的测试。</p>
-<h3 id="基准测试"><a class="markdownIt-Anchor" href="#基准测试"></a> 基准测试</h3>
-<p>go语言还提供了基准测试框架，基准测试是指测试一段程序的运行性能及耗费CPU的程度。在实际项目开发中，经常会遇到代码性能瓶颈，为了定位问题经常要对代码做性能分析，这就用到了基准测试。</p>
-<h4 id="示例-3"><a class="markdownIt-Anchor" href="#示例-3"></a> 示例</h4>
-<p>服务器负载均衡问题。</p>
-<p>源代码，假设有10台服务器，每次随机选择其中1台执行。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">InitServerIndex</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">		ServerIndex[i] = i + <span class="number">100</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Select</span><span class="params">()</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> ServerIndex[rand.Intn(<span class="number">10</span>)]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>测试代码，基准测试以Benchmark开头，参数类型是testing.B，用b中的N值反复递增循环测试。基准测试对于一个测试用例的默认测试时间是1秒，当测试用例函数返回时还不到1秒，那么testing.B中的N值将按1、2、5、10、20、50…递增，并以递增后的值重新进行用例函数测试。</p>
-<p>ResetTimer重置计时器，在重置之前的初始化或其他准备操作，不属于基准测试的范围，通过选择重置的时间点来跳过不必要的测试。</p>
-<p>RunParallel是多协程并发测试。执行两个基准测试，可以发现代码在并发情况下存在劣化，主要原因是rand包为了保证全局的随机性和并发安全，使用了全局锁。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkSelect</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	InitServerIndex()</span><br><span class="line">	b.ResetTimer()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		Select()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkSelectParallel</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	InitServerIndex()</span><br><span class="line">	b.ResetTimer()</span><br><span class="line">	b.RunParallel(<span class="function"><span class="keyword">func</span><span class="params">(pb *testing.PB)</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> pb.Next() &#123;</span><br><span class="line">			Select()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="运行-2"><a class="markdownIt-Anchor" href="#运行-2"></a> 运行</h4>
-<p>在IDE中使用<code>gobench benchmark</code>选项进行测试，不要直接运行。</p>
-<h4 id="优化"><a class="markdownIt-Anchor" href="#优化"></a> 优化</h4>
-<p>为了解决上述的随机性能瓶颈问题，有一个开源的高性能随机数方法fastrand，仓库地址<a class="link"   href="https://github.com/bytedance/gopkg" >bytedance/gopkg <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。主要思路是牺牲了一定的数列一致性来换取性能，在大多数场景下适用，相比原始方法的性能有大幅提升。</p>
-<p>引入fastrand</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go get github.com/bytedance/gopkg</span><br></pre></td></tr></table></figure></div>
-<p>将源代码中的rand替换为fastrand即可。</p>
-<h2 id="项目实战"><a class="markdownIt-Anchor" href="#项目实战"></a> 项目实战</h2>
-<p>在并发编程，依赖管理以及单元测试的基础上，通过项目实践来理解项目开发的思路和流程，主要包括需求设计，代码开发和测试运行。</p>
-<h3 id="需求设计"><a class="markdownIt-Anchor" href="#需求设计"></a> 需求设计</h3>
-<h4 id="需求背景"><a class="markdownIt-Anchor" href="#需求背景"></a> 需求背景</h4>
-<p>开发一个类似掘金社区的服务端小功能。</p>
-<h4 id="需求描述"><a class="markdownIt-Anchor" href="#需求描述"></a> 需求描述</h4>
-<p>社区话题页面</p>
-<ul>
-<li>展示话题（标题、文字描述）和回帖列表</li>
-<li>暂不考虑前端页面实现，仅仅实现一个本地web服务</li>
-<li>话题和回帖数据用文件存储</li>
-</ul>
-<h4 id="需求用例"><a class="markdownIt-Anchor" href="#需求用例"></a> 需求用例</h4>
-<p>主要涉及用户浏览消费，页面的展示，包括话题内容和回帖的列表。可以先抽象出两个实体，话题内容和回帖列表，分析它们所具有的属性以及联系，定义出结构体。</p>
-<h4 id="er-图entity-relationship-diagram"><a class="markdownIt-Anchor" href="#er-图entity-relationship-diagram"></a> ER 图——Entity Relationship Diagram</h4>
-<p>ER图用于描述现实世界的概念模型。有了模型实体、属性以及联系，就能进入下一步，思考代码结构设计。</p>
-<p>参考ER图设计：Topic话题有id、titile、content、create_time四个属性。Post帖子有id、topic_id、content、create_time四个属性，其中id和topic_id和Topic相联系。</p>
-<p>这里采用典型的分层结构设计。</p>
-<h3 id="代码开发"><a class="markdownIt-Anchor" href="#代码开发"></a> 代码开发</h3>
-<h4 id="分层结构"><a class="markdownIt-Anchor" href="#分层结构"></a> 分层结构</h4>
-<p>分层结构整体分为三层，repository数据层，service逻辑层，controller视图层。</p>
-<ul>
-<li>数据层关联底层数据模型，也就是model，封装外部数据的增删改查。这里的数据存储在本地文件，通过文件操作拉取话题，帖子数据。</li>
-<li>数据层面向逻辑层，也就是对service层透明，屏蔽下游数据差异，即逻辑层不需要考虑数据的来源是本地文件、数据库还是微服务等。逻辑层只处理核心业务逻辑，接口模型保持不变，计算打包业务实体Entity，对应需求并上传给视图层。</li>
-<li>视图层controller负责处理与外部交互的逻辑，以view视图的形式返回给客户端。这里只考虑封装为json格式化的请求结果，通过API形式访问即可。</li>
-</ul>
-<h4 id="组件工具"><a class="markdownIt-Anchor" href="#组件工具"></a> 组件工具</h4>
-<p>开发涉及的基础组件工具。Gin：开源的高性能go web框架，源地址<a class="link"   href="https://github.com/gin-gonic/gin" >gin-gonic <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。这里基于gin搭建web服务器，本项目主要涉及路由分发的概念，不涉及其他复杂概念。</p>
-<p>使用web框架，需要用Go Module依赖管理。先用go mod init初始化go.mod管理配置文件。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go mod init main</span><br><span class="line">go mod tidy</span><br></pre></td></tr></table></figure></div>
-<p>下载gin依赖</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go get -u github.com/gin-gonic/gin</span><br></pre></td></tr></table></figure></div>
-<p>在框架依赖的基础上，只需要关注业务本身的实现，从repository到service再到controller逐步实现。</p>
-<h4 id="repository"><a class="markdownIt-Anchor" href="#repository"></a> Repository</h4>
-<h5 id="struct"><a class="markdownIt-Anchor" href="#struct"></a> struct</h5>
-<p>根据之前的ER图定义结构体</p>
-<h5 id="index"><a class="markdownIt-Anchor" href="#index"></a> index</h5>
-<p>查询数据可以使用全扫描遍历的方式，但是效率不高，所以这里引入索引的概念。</p>
-<p>索引就像书的目录，可以快速查找定位到需要的结果。这里利用map实现内存索引，在服务对外暴露前，利用文件元数据初始化全局内存索引，实现O(1)时间复杂度的查找操作。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	topicIndexMap <span class="keyword">map</span>[<span class="type">int64</span>]*Topic</span><br><span class="line">    postIndexMap  <span class="keyword">map</span>[<span class="type">int64</span>][]*Post</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
-<p>具体实现，打开文件，基于file初始化scanner，通过迭代器方式遍历数据行，转化为结构体存储至内存map，完成初始化话题内存索引。同理实现帖子的内存索引初始化</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initTopicIndexMap</span><span class="params">(filePath <span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    open, err := os.Open(filePath + <span class="string">&quot;topic&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    scanner := bufio.NewScanner(open)</span><br><span class="line">    topicTmpMap := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int64</span>]*Topic)</span><br><span class="line">    <span class="keyword">for</span> scanner.Scan() &#123;</span><br><span class="line">        text := scanner.Text()</span><br><span class="line">        <span class="keyword">var</span> topic Topic</span><br><span class="line">        <span class="keyword">if</span> err := json.Unmarshal([]<span class="type">byte</span>(text), &amp;topic); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> err</span><br><span class="line">        &#125;</span><br><span class="line">        topicTmpMap[topic.Id] = &amp;topic</span><br><span class="line">    &#125;</span><br><span class="line">    topicIndexMap = topicTmpMap</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h5 id="查询"><a class="markdownIt-Anchor" href="#查询"></a> 查询</h5>
-<p>实现查询操作，直接查询key获取map中的value。这里使用了sync.Once，主要适用于高并发的情况下只执行一次的场景。基于Once的实现模式就是单例模式，减少存储的浪费。</p>
-<p>topic查询实现，这里的topic结构体自行设计。同理实现post的查询</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> TopicDao <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	topicDao  *TopicDao</span><br><span class="line">    topicOnce sync.Once</span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewTopicDaoInstance</span><span class="params">()</span></span> *TopicDao &#123;</span><br><span class="line">    topicOnce.Do(</span><br><span class="line">        <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">            topicDao = &amp;TopicDao&#123;&#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="keyword">return</span> topicDao</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*TopicDao)</span></span> QueryTopicById(id <span class="type">int64</span>) *Topic &#123;</span><br><span class="line">    <span class="keyword">return</span> topicIndexMap[id]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="service"><a class="markdownIt-Anchor" href="#service"></a> Service</h4>
-<p>实现了repository层之后就是service层。</p>
-<p>定义service层实体</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> PageInfo <span class="keyword">struct</span> &#123;</span><br><span class="line">    Topic *repository.Topic</span><br><span class="line">    PostList []*repository.Post</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>实现流程是参数校验、准备数据、组装实体。</p>
-<p>代码流程编排，通过err控制流程退出，正常的话会返回页面信息。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f *QueryPageInfoFlow)</span></span> Do() (*PageInfo, <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> err := f.checkParam(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> err := f.prepareInfo(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> err := f.packPageInfo(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f.pageInfo, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>prepareInfo方法实现，由于话题和回帖信息的获取都需要topicId，这就可以考虑并行执行，提高效率。并行可以充分利用多核CPU的资源，降低接口耗时。</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f *QueryPageInfoFlow)</span></span> prepareInfo() <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">    wg.Add(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;...&#125; <span class="comment">//获取topic信息</span></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;...&#125; <span class="comment">//获取post列表</span></span><br><span class="line">    wg.Wait()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="controller"><a class="markdownIt-Anchor" href="#controller"></a> Controller</h4>
-<p>service层之后是controller层。定义一个view对象，通过code msg打包业务状态信息，用data承载业务实体信息。</p>
-<p>参考代码</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> PageData <span class="keyword">struct</span> &#123;</span><br><span class="line">    Code <span class="type">int64</span>       <span class="string">`json:&quot;code&quot;`</span></span><br><span class="line">    Msg  <span class="type">string</span>      <span class="string">`json:&quot;msg&quot;`</span></span><br><span class="line">    Data <span class="keyword">interface</span>&#123;&#125; <span class="string">`json:&quot;data&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">QueryPageInfo</span><span class="params">(topicIdStr <span class="type">string</span>)</span></span> *PageData &#123;</span><br><span class="line">    topicId, err := strconv.ParseInt(topicIdStr, <span class="number">10</span>, <span class="number">64</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;...&#125;</span><br><span class="line">    pageInfo, err := service.QueryPageInfo(topicId)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;...&#125;</span><br><span class="line">    <span class="keyword">return</span> &amp;PageData&#123;</span><br><span class="line">        Code: <span class="number">0</span>,</span><br><span class="line">        Msg: <span class="string">&quot;success&quot;</span>,</span><br><span class="line">        Data: <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int64</span>&#123;</span><br><span class="line">            <span class="string">&quot;post_id&quot;</span>: postId,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h4 id="router"><a class="markdownIt-Anchor" href="#router"></a> Router</h4>
-<p>最后是web服务的引擎配置，包括</p>
-<ul>
-<li>初始化数据索引</li>
-<li>初始化引擎配置</li>
-<li>构建路由</li>
-<li>启动服务</li>
-</ul>
-<p>path映射到具体的controller，通过path变量传递话题id。</p>
-<p>参考写法</p>
-<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> err := Init(<span class="string">&quot;./data/&quot;</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        os.Exit(<span class="number">-1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/community/page/get/:id&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        topicId := c.Param(<span class="string">&quot;id&quot;</span>)</span><br><span class="line">        data := controller.QueryPageInfo(topicId)</span><br><span class="line">        c.JSON(<span class="number">200</span>, data)</span><br><span class="line">    &#125;)</span><br><span class="line">    err := r.Run()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<h3 id="测试运行"><a class="markdownIt-Anchor" href="#测试运行"></a> 测试运行</h3>
-<p>通过go run命令运行本地web服务，main.go是这里main方法所在的go文件，文件名称可以自定义</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure></div>
-<p>通过curl命令请求服务暴露的接口，查看结果。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">curl --location --request GET <span class="string">&quot;http://0.0.0.0:8080/community/get/1&quot;</span> | json</span><br></pre></td></tr></table></figure></div>
-<p>这里的json命令是通过nodejs的npm安装的，用于格式化curl输出的json信息。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g json</span><br></pre></td></tr></table></figure></div>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<p><a class="link"   href="https://www.cnblogs.com/gizing/p/10925286.html" >用户态和内核态的区别 - Gizing - 博客园 (cnblogs.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://segmentfault.com/a/1190000018150987" >Go goroutine理解 - golang开发笔记 - SegmentFault 思否 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://www.runoob.com/go/go-concurrent.html" >Go 并发 | 菜鸟教程 (runoob.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://juejin.cn/post/7181812988461252667" >深入理解 go sync.Waitgroup - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://blog.csdn.net/Sihang_Xie/article/details/124851399" >【Go语言入门】一文搞懂Go语言的最新依赖管理：go mod的使用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>青训营记录</category>
-      </categories>
-      <tags>
-        <tag>学习笔记</tag>
-        <tag>golang</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Go 高质量编程与性能调优</title>
     <url>/2023/01/28/golang-day3/</url>
     <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7194132732492906551" >golang高质量编程与性能调优 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang高质量编程与性能调优的学习<span id="more"></span></p>
@@ -7813,6 +7436,383 @@ y=2^{E_y}\cdot M_y
 <p><a class="link"   href="https://pkg.go.dev/testing#hdr-Benchmarks" >testing package - testing - Go Packages <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://geektutu.com/post/hpg-slice.html" >切片(slice)性能及陷阱 | Go 语言高性能编程 | 极客兔兔  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://cloud.tencent.com/developer/article/1496302" >什么是A/B test？有哪些流程？有什么用？ - 腾讯云开发者社区-腾讯云 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>青训营记录</category>
+      </categories>
+      <tags>
+        <tag>学习笔记</tag>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Go 工程进阶</title>
+    <url>/2023/01/26/golang-day2/</url>
+    <content><![CDATA[<p>本文来源于第五届字节跳动青训营活动，已收录到<a class="link"   href="https://juejin.cn/post/7193685237723824187" >golang工程进阶 | 青训营笔记 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，主要记录了对golang工程开发的学习<span id="more"></span></p>
+<h2 id="语言进阶"><a class="markdownIt-Anchor" href="#语言进阶"></a> 语言进阶</h2>
+<h3 id="1并发-vs-并行"><a class="markdownIt-Anchor" href="#1并发-vs-并行"></a> 1.并发 VS 并行</h3>
+<ul>
+<li>并发：多线程程序在一个核的CPU上运行</li>
+<li>并行：多线程程序在多个核的CPU上运行</li>
+</ul>
+<p>go语言可以充分发挥多核优势，高效运行</p>
+<h4 id="11-goroutine"><a class="markdownIt-Anchor" href="#11-goroutine"></a> 1.1 Goroutine</h4>
+<ul>
+<li>线程：用户态，轻量级线程，栈MB级别</li>
+<li>协程：内核态，线程跑多个协程，栈KB级别</li>
+</ul>
+<p><strong>关于用户态和内核态的区别</strong></p>
+<p>用户态和内核态是操作系统的两种运行级别。</p>
+<p>当程序运行在3级特权级上时，就可以称之为运行在用户态，这是最低特权级，是普通用户进程运行的特权级，大部分用户直接面对的程序都是运行在用户态。</p>
+<p>当程序运行在0级特权级上时，就可以称之为运行在内核态。</p>
+<p>运行在用户态下的程序不能直接访问操作系统内核数据结构和程序。用户态下的程序在其需要操作系统帮助完成某些它没有权限和能力完成的工作时就会切换到内核态，比如操作硬件。</p>
+<p>这两种状态的主要差别是</p>
+<ul>
+<li>处于用户态执行时，进程所能访问的内存空间和对象受到限制，其处于占用的处理器是可被抢占的</li>
+<li>处于内核态执行时，能够访问使用的内存空间和对象，且所占有的处理器是不允许被抢占的</li>
+</ul>
+<p><strong>快速打印</strong></p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hello</span><span class="params">(i <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="built_in">println</span>(<span class="string">&quot;hello goroutine: &quot;</span> + fmt.Sprint(i))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HelloGoRoutine</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(j <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">            hello(j)</span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line">    time.Sleep(time.Second)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="12-csp"><a class="markdownIt-Anchor" href="#12-csp"></a> 1.2 CSP</h4>
+<p>CSP(Communicating Sequential Processes)是一种并发模型。在go语言中提倡通过通信共享内存而不是通过共享内存而实现通信（像Java、C++、Python等都是通过共享内存来实现通信），go语言通过goroutine和channel实现通过通信共享内存，这是go语言的独特优势。</p>
+<h4 id="13-channel"><a class="markdownIt-Anchor" href="#13-channel"></a> 1.3 Channel</h4>
+<p>通道channel是用来传递数据的一个数据结构。通道可用于两个goroutine之间通过传递一个指定类型的值来同步运行和通讯。操作符&lt;-用于指定通道的方向，发送或接收。如果未指定方向，则为双向通道。</p>
+<p>创建通道，通道分为无缓冲通道和有缓冲通道，在创建时指定参数即可。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>) <span class="comment">//无缓冲通道</span></span><br><span class="line">buf := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">100</span>) <span class="comment">//有缓冲通道,缓冲区大小为100</span></span><br></pre></td></tr></table></figure></div>
+<p>通道的基本使用</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">ch &lt;- v    <span class="comment">//把v发送到通道ch</span></span><br><span class="line">v := &lt;- ch <span class="comment">//从通道ch接收数据,并赋值给v</span></span><br></pre></td></tr></table></figure></div>
+<p>一个示例</p>
+<ul>
+<li>
+<p>一个子协程发送0~9数字</p>
+</li>
+<li>
+<p>另一个子协程计算输入数字的平方</p>
+</li>
+<li>
+<p>主协程输出结果</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CalSqrt</span><span class="params">()</span></span> &#123;</span><br><span class="line">    src := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line">    dest := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">defer</span> <span class="built_in">close</span>(src)</span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">            src &lt;- i</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">defer</span> <span class="built_in">close</span>(dest)</span><br><span class="line">        <span class="keyword">for</span> i := <span class="keyword">range</span> src &#123;</span><br><span class="line">            dest &lt;- i * i</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">for</span> i := <span class="keyword">range</span> dest &#123;</span><br><span class="line">        <span class="built_in">println</span>(i)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h4 id="14-并发安全-lock"><a class="markdownIt-Anchor" href="#14-并发安全-lock"></a> 1.4 并发安全 Lock</h4>
+<p>对变量执行大量重复操作，使用多个协程并发执行，利用锁来保证最终结果的正确性</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	x    <span class="type">int64</span></span><br><span class="line">    lock sync.Mutex</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addWithLock</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">2000</span>; i++ &#123;</span><br><span class="line">        lock.Lock()</span><br><span class="line">        x += <span class="number">1</span></span><br><span class="line">        lock.Unlock()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Add</span><span class="params">()</span></span> &#123;</span><br><span class="line">    x = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> addWithLock()</span><br><span class="line">    &#125;</span><br><span class="line">    time.Sleep(time.Second)</span><br><span class="line">    <span class="built_in">println</span>(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="15-waitgroup"><a class="markdownIt-Anchor" href="#15-waitgroup"></a> 1.5 WaitGroup</h4>
+<p>waitgroup是go语言应用开发过程中经常使用的并发控制技术。其内部通过一个计数器来统计协程，这个计数器的值需要在启动协程之前用Add方法初始化，在结束一个协程的时候使用Done方法将计数器-1</p>
+<p>当开启一个协程时，计数器+1；当一个协程执行完时，计数器-1；主线程会一直阻塞直到计数器为0。</p>
+<p>改造前面的协程快速打印的示例，使用waitgroup实现协程的同步阻塞。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GoWait</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">    wg.Add(<span class="number">5</span>)  <span class="comment">//先初始化计数器再启动协程</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(j <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">            <span class="keyword">defer</span> wg.Done()</span><br><span class="line">            hello(j) <span class="comment">//hello函数参考前面的例子</span></span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line">    wg.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="依赖管理"><a class="markdownIt-Anchor" href="#依赖管理"></a> 依赖管理</h2>
+<p>go语言依赖管理的演进路线和go module实践。</p>
+<p>依赖指各种开发包或者库，利用已经封装好的、经过验证的开发组件或工具，能够大大提升开发效率。</p>
+<p>对于简单的程序来说，只需要依赖原生的SDK即可。对于实际工程来说，更多的是关注业务逻辑的实现，涉及框架、日志、驱动driver以及collection等一系列依赖都会通过sdk的方式引入，因此就需要对依赖包进行管理。</p>
+<p>go依赖管理的演进主要经历了3个阶段，从GOPATH到Go Vendor再到目前被广泛应用的Go Module。主要围绕实现两个目标来迭代发展</p>
+<ul>
+<li>不同环境（项目）依赖的版本不同</li>
+<li>控制依赖库的版本</li>
+</ul>
+<h3 id="gopath"><a class="markdownIt-Anchor" href="#gopath"></a> GOPATH</h3>
+<p>GOPATH是go语言支持的一个环境变量，是go项目的工作区。根目录有以下结构</p>
+<ul>
+<li>src：存放go项目的源码</li>
+<li>pkg：存放编译的中间产物，加快编译速度</li>
+<li>bin：存在go项目编译生成的二进制文件</li>
+</ul>
+<p><strong>GOPATH的弊端</strong></p>
+<p>GOPATH无法实现package的多版本控制。同一个pkg，存在两个版本，有两个项目依赖不同的版本，但是src下只能存放一个版本，那么就无法保证两个版本的项目都能通过编译。就是说在GOPATH管理模式下，如果多个项目依赖同一个库，则该库只能是同一份代码，无法实现多个项目依赖同一个库的不同版本。于是Go Vendor应运而生。</p>
+<h3 id="go-vendor"><a class="markdownIt-Anchor" href="#go-vendor"></a> Go Vendor</h3>
+<p>Go Vendor在GOPATH的基础上增加了vendor目录，用于存放当前项目依赖的副本。在Vendor机制下，如果当前目录存在vendor目录，则会优先使用该目录下的依赖，如果依赖不存在，再从GOPATH中寻找。这样，通过每个项目引入一份依赖副本，解决了多个项目需要同一个package依赖的冲突问题。但是vendor无法很好解决依赖包版本变动问题和一个项目依赖同一个包的不同版本的问题。实质上，vendor并不能很清晰地标识依赖的版本概念，无法控制依赖的版本，更新项目又可能导致依赖冲突、编译出错。于是又诞生了Go Module。</p>
+<h3 id="go-module"><a class="markdownIt-Anchor" href="#go-module"></a> Go Module</h3>
+<p>Go Module是go语言官方推出的依赖管理系统，解决了之前依赖管理系统存在的诸多问题。Go Module在go语言1.11版本开始引入，在go语言1.16版本默认开启。习惯上将Go Module称为go mod。</p>
+<ul>
+<li>通过go.mod文件管理依赖包版本</li>
+<li>通过go get/go mod指令工具管理依赖包</li>
+</ul>
+<p>go mod最终目标是定义版本规则和管理项目依赖关系。（相当于Java中的Maven）</p>
+<h3 id="依赖管理三要素"><a class="markdownIt-Anchor" href="#依赖管理三要素"></a> 依赖管理三要素</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">要素</th>
+<th style="text-align:center">对应工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">配置文件，描述依赖</td>
+<td style="text-align:center">go.mod</td>
+</tr>
+<tr>
+<td style="text-align:center">中心仓库管理依赖库</td>
+<td style="text-align:center">Proxy</td>
+</tr>
+<tr>
+<td style="text-align:center">本地工具</td>
+<td style="text-align:center">go get / go mod</td>
+</tr>
+</tbody>
+</table>
+<h3 id="依赖配置go-mod"><a class="markdownIt-Anchor" href="#依赖配置go-mod"></a> 依赖配置——go mod</h3>
+<p>使用模块路径来标识一个模块，从模块路径找到该模块，如果是github前缀则表示可以从github仓库中找到该模块，依赖包的源代码由github托管，如果项目的子包需要被单独引用，则通过单独的init go.mod文件进行管理。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line">module example/project/app <span class="comment">//依赖管理基本单元</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">go</span> <span class="number">1.16</span> <span class="comment">//原生sdk版本</span></span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">    <span class="comment">// 单元依赖</span></span><br><span class="line">    <span class="comment">// 依赖标识:模块路径+版本</span></span><br><span class="line">	example/lib1 v1<span class="number">.0</span><span class="number">.2</span></span><br><span class="line">    example/lib2 v1<span class="number">.0</span><span class="number">.0</span></span><br><span class="line">    ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<h3 id="依赖配置version"><a class="markdownIt-Anchor" href="#依赖配置version"></a> 依赖配置——version</h3>
+<p>GOPATH和Go Vendor都是源码副本形式的依赖，没有版本规则的概念，而go mod为了方便管理定义了版本规则，分为语义化版本和基于commit的伪版本。</p>
+<ul>
+<li>
+<p>语义化版本有三个部分<code>$&#123;MAJOR&#125;.$&#123;MINOR&#125;.$&#123;PATCH&#125;</code>，如v1.3.0，v2.3.0</p>
+<p>不同的MAJOR版本表示是不兼容的API，所以即使是同一个库，MAJOR版本不同也会被认为是不同的模块。</p>
+<p>MINOR版本通常是新增函数或功能，向后兼容。</p>
+<p>PATCH版本一般是修复bug。</p>
+</li>
+<li>
+<p>基于commit的伪版本也有三个部分<code>vX.0.0-yyyymmddhhmmss-abcdefgh1234</code></p>
+<p>基础版本前缀和语义化版本是一样的。</p>
+<p>时间戳，也就是提交commit的时间。</p>
+<p>最后是校验码，包含12位的哈希前缀。每次commit后go都会默认生成一个伪版本号。</p>
+</li>
+</ul>
+<h3 id="依赖配置indirect"><a class="markdownIt-Anchor" href="#依赖配置indirect"></a> 依赖配置——indirect</h3>
+<p>依赖单元中的特殊标识符，indirect后缀，表示go.mod对应的当前模块没有直接导入该依赖模块的包，也就是间接依赖。</p>
+<h3 id="依赖配置incompatible"><a class="markdownIt-Anchor" href="#依赖配置incompatible"></a> 依赖配置——incompatible</h3>
+<p>在主版本为v2及以上的模块后面会有+incompatible后缀，这让go mod能够按照不同的模块来处理同一个项目不同主版本的依赖。由于go mod是在go1.11版本才开始引入，在这个更新之前已经有一些仓库打上了v2或者更高的版本tag。为了兼容这部分仓库，对于没有go.mod文件且MAJOR主版本在v2及以上的依赖，会在版本号后面加上<code>+incompatible</code>的后缀，表示可能存在不兼容的源代码。</p>
+<h3 id="依赖配置依赖图"><a class="markdownIt-Anchor" href="#依赖配置依赖图"></a> 依赖配置——依赖图</h3>
+<p>如果一个主项目依赖A、B两个项目，A、B分别依赖C项目v1.3、v1.4的两个版本，则最终编译时所使用的C项目版本为最低的兼容版本，即v1.4。</p>
+<h3 id="依赖分发回源"><a class="markdownIt-Anchor" href="#依赖分发回源"></a> 依赖分发——回源</h3>
+<p>依赖分发，也就是指go mod从哪里下载，如何下载。</p>
+<p>Go Modules系统中定义的依赖最终可以对应到多版本代码管理系统中某一项目的特定提交或版本，这样的话，对于go.mod中定义的依赖，则直接可以从对应仓库中下载指定软件依赖，从而完成依赖分发。</p>
+<p>但直接使用版本管理仓库下载依赖，存在诸多问题</p>
+<ul>
+<li>无法保证构建确定性，软件作者可以直接在代码平台 增加/修改/删除 软件版本，导致下次构建时使用另外版本的依赖或者找不到依赖版本。</li>
+<li>无法保证依赖可用性，依赖软件作者可以直接在代码平台删除软件，导致依赖不可用。</li>
+<li>增加第三方压力，每次从第三方代码托管平台下载依赖时都会增加第三方代码托管平台的压力。</li>
+</ul>
+<h3 id="依赖分发proxy"><a class="markdownIt-Anchor" href="#依赖分发proxy"></a> 依赖分发——Proxy</h3>
+<p>Go Proxy就是解决上述的依赖分发问题。Go Proxy是一个服务站点，它会缓存源站中的软件内容，缓存的软件版本不会改变，并且在源站软件删除之后依然能够下载，从而实现了immutability（不变性）和available（可用的）的依赖分发。</p>
+<p>使用Go Proxy之后，构建时会直接从Go Proxy站点拉取依赖。</p>
+<h3 id="依赖分发变量-goproxy"><a class="markdownIt-Anchor" href="#依赖分发变量-goproxy"></a> 依赖分发——变量 GOPROXY</h3>
+<p>Go Modules通过GOPROXY环境变量使用Go Proxy服务。GOPROXY是一个Go Proxy站点URL列表，可以使用&quot;direct&quot;表示源站。</p>
+<p>示例配置</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">GOPROXY=<span class="string">&quot;https://proxy1.cn, https://proxy2.cn, direct&quot;</span></span><br></pre></td></tr></table></figure></div>
+<p>对于以上配置，整体的依赖寻址路径会先从proxy1下载，如果proxy1不存在，再从proxy2寻找，如果proxy2不存在，则回源到源站直接下载依赖，并缓存到proxy站点中。</p>
+<h3 id="工具go-get"><a class="markdownIt-Anchor" href="#工具go-get"></a> 工具——go get</h3>
+<p>go get是Go Module的两个重要工具之一。</p>
+<p>go get使用命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go get example.org/pkg...</span><br></pre></td></tr></table></figure></div>
+<p>以上命令后面接不同的指令，这些指令具有不同的作用</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">指令</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">@update</td>
+<td style="text-align:center">默认</td>
+</tr>
+<tr>
+<td style="text-align:center">@none</td>
+<td style="text-align:center">删除依赖</td>
+</tr>
+<tr>
+<td style="text-align:center">@v1.1.2</td>
+<td style="text-align:center">下载指定tag版本，语义版本</td>
+</tr>
+<tr>
+<td style="text-align:center">@23dfdd5</td>
+<td style="text-align:center">特定的commit</td>
+</tr>
+<tr>
+<td style="text-align:center">@master</td>
+<td style="text-align:center">分支的最新commit</td>
+</tr>
+</tbody>
+</table>
+<h3 id="工具go-mod"><a class="markdownIt-Anchor" href="#工具go-mod"></a> 工具——go mod</h3>
+<p>go mod也是Go Module中的重要工具。</p>
+<p>go mod 使用命令</p>
+<p>初始化，创建go.mod文件</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go mod init</span><br></pre></td></tr></table></figure></div>
+<p>下载模块到本地缓存</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go mod download</span><br></pre></td></tr></table></figure></div>
+<p>增加需要的依赖，删除不需要的依赖</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go mod tidy</span><br></pre></td></tr></table></figure></div>
+<p>在实际开发中，建议在向仓库提交代码之前执行<code>go mod tidy</code>，可以减少构建时无效依赖包的拉取。</p>
+<p><strong>使用go mod前的一些注意事项</strong></p>
+<ul>
+<li>设置GO111MODULE=on，表示只使用Go Module而不会使用GOPATH。具体配置参考<a class="link"   href="https://goproxy.cn/" >七牛云 - Goproxy.cn <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>清空IDE中的所有的GOPATH。go mod和GOPATH不能并存，开启go mod之后需要在IDE中把项目从GOPATH移除，否则可能会出错。</li>
+<li>在项目中创建go.mod文件，如果已经存在则不需要重新创建。创建完go.mod文件后先执行<code>go mod tidy</code>来增加项目启动所需的最小依赖。</li>
+</ul>
+<h2 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h2>
+<p>在实际工程开发中，除了依赖管理，还有另一个重要概念就是单元测试，包括单元测试规范、Mock测试、基准测试。测试关系着系统的质量，质量决定线上系统的稳定性，一旦出现问题就会引起事故。测试就是为了避免这些事故。</p>
+<p>测试一般分为回归测试，集成测试和单元测试。回归测试一般是手动通过终端回归一些固定的主流场景，集成测试是对系统功能维度做测试验证，而单元测试阶段，开发者对单独的函数、模块做功能验证，层级至上而下，测试成本逐渐降低，测试覆盖率逐步上升。因此单元测试的覆盖率一定程度上决定了代码的质量。</p>
+<h3 id="单元测试"><a class="markdownIt-Anchor" href="#单元测试"></a> 单元测试</h3>
+<p>单元测试主要包括输入、测试单元、输出，以及校对。单元的概念比较广泛，包括接口、函数、模块等。最后的校对用于保证代码的功能符合预期。单元测试一方面可以保证质量，在整体覆盖率足够的情况下，一定程度上即保证了新功能本身的正确性，又保护了原有代码的完整性；另一方面可以提升效率，在代码存在bug的情况下，通过单元测试，可以在较短周期内定位和修复问题。</p>
+<h4 id="规则"><a class="markdownIt-Anchor" href="#规则"></a> 规则</h4>
+<p>单元测试的一些基本规范</p>
+<ul>
+<li>所有测试文件名称以_test.go结尾</li>
+<li>所有用于测试的函数声明为<code>func TestXxx(t *testing.T)</code></li>
+<li>初始化逻辑放到TestMain函数中实现</li>
+</ul>
+<p>这样就很好地区分了源代码和测试代码。</p>
+<h4 id="示例"><a class="markdownIt-Anchor" href="#示例"></a> 示例</h4>
+<p>源代码</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HelloTom</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Jerry&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>测试代码</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloTom</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    output := HelloTom()</span><br><span class="line">    expectOutput := <span class="string">&quot;Tom&quot;</span></span><br><span class="line">    <span class="keyword">if</span> output != expectOutput &#123;</span><br><span class="line">        t.Errorf(<span class="string">&quot;Expected %s do not match actual %s&quot;</span>, expectOutput, output)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="运行"><a class="markdownIt-Anchor" href="#运行"></a> 运行</h4>
+<p>运行查看结果</p>
+<h4 id="assert"><a class="markdownIt-Anchor" href="#assert"></a> assert</h4>
+<p>assert包提供了对代码测试的支持，能够快速方便地进行代码测试</p>
+<p>获取assert包，在当前项目中使用以下命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go get github.com/stretchr/testify/assert</span><br></pre></td></tr></table></figure></div>
+<p>改造原来的测试代码</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestHelloTom</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    output := HelloTom()</span><br><span class="line">    expectOutput := <span class="string">&quot;Tom&quot;</span></span><br><span class="line">    assert.Equal(t, expectOutput, output)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>运行查看结果，使用assert测试能够输出更加详细的信息。</p>
+<h4 id="覆盖率"><a class="markdownIt-Anchor" href="#覆盖率"></a> 覆盖率</h4>
+<p>代码覆盖率用于衡量代码是否经过了足够的测试，评价项目的测试水准，评估项目是否达到了高水准测试等级。</p>
+<p><strong>示例代码</strong></p>
+<p>judgment.go</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">JudgePassLine</span><span class="params">(score <span class="type">int16</span>)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> score &gt;= <span class="number">60</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>judgment_test.go</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestJudgePassLineTrue</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    isPass := JudgePassLine(<span class="number">70</span>)</span><br><span class="line">    assert.Equal(t, <span class="literal">true</span>, isPass)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>使用以下命令进行测试</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">test</span> judgment_test.go judgment.go --cover</span><br></pre></td></tr></table></figure></div>
+<p>通过指定cover参数，可以看到覆盖率，表示执行到的代码行数占实际代码总行数。</p>
+<p><strong>提升覆盖率</strong></p>
+<p>可以在测试代码中增加其他的情况，重新执行所有单元测试，最终使覆盖率达到100%</p>
+<p>新增测试函数</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestJudgePassLineFail</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    isPass := JudgePassLine(<span class="number">50</span>)</span><br><span class="line">    assert.Equal(t, <span class="literal">false</span>, isPass)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>重新执行测试命令，指定cover参数，查看测试结果。</p>
+<h4 id="tips"><a class="markdownIt-Anchor" href="#tips"></a> Tips</h4>
+<ul>
+<li>实际项目中，一般要求覆盖率是50%~60%，对于资金型服务，覆盖率要求达到80%以上。</li>
+<li>在进行单元测试时，要求测试分支相互独立、全面覆盖。</li>
+<li>测试单元粒度足够小，函数职责单一，即要求函数体足够小，这样能比较简单地提升覆盖率，也符合函数设计的单一职责。</li>
+</ul>
+<h3 id="mock测试"><a class="markdownIt-Anchor" href="#mock测试"></a> Mock测试</h3>
+<p>工程中复杂的项目一般会依赖File、DB、Cache等外部依赖，而单元测试需要保证稳定性和幂等性。稳定性指相互隔离，能在任何时间、任何环境下运行测试；幂等是指每次测试运行都应该产生与之前一样的结果。而实现这些目的就需要Mock机制。</p>
+<h4 id="文件处理"><a class="markdownIt-Anchor" href="#文件处理"></a> 文件处理</h4>
+<p>将测试文件进行删除，进行单元测试，测试通过，但单元测试需要依赖本地的文件，如果文件被修改或者删除测试就会失败，也就是说删除文件的测试普通情况下只能测试一次。为了保证测试case的稳定性，需要对删除文件函数进行mock，屏蔽对文件的依赖。</p>
+<h4 id="快速mock函数"><a class="markdownIt-Anchor" href="#快速mock函数"></a> 快速Mock函数</h4>
+<p>这里提供了一个开源的mock测试库<a class="link"   href="https://github.com/bouk/monkey" >Monkey patching in Go <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，可以对函数或者实例的方法进行mock测试，原理是反射和指针赋值。这里引入了一个打桩的概念，桩或者桩代码就是指用来代替关联代码或者未实现代码的代码，目的主要是隔离、补齐、控制。</p>
+<p>快速Mock函数能为一个函数打桩或为一个方法打桩。Monkey Patch的作用域在Runtime，在运行时通过Go的unsafe包，能够将内存中函数的地址替换为运行时函数的地址，将待打桩函数或方法的实现跳转到运行时。</p>
+<h4 id="示例-2"><a class="markdownIt-Anchor" href="#示例-2"></a> 示例</h4>
+<p>通过patch对ReadFirstLine进行打桩mock，通过defer卸载mock，使整个测试函数脱离了对本地文件的依赖。</p>
+<p>源代码</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ReadFirstLine</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    open, err := os.Open(<span class="string">&quot;log&quot;</span>)</span><br><span class="line">    <span class="keyword">defer</span> open.Close()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    scanner := bufio.NewScanner(open)</span><br><span class="line">    <span class="keyword">for</span> scanner.Scan() &#123;</span><br><span class="line">        <span class="keyword">return</span> scanner.Text()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ProcessFirstLine</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    line := ReadFirstLine()</span><br><span class="line">    destLine := strings.ReplaceAll(line, <span class="string">&quot;11&quot;</span>, <span class="string">&quot;00&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> destLine</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>测试代码</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestProcessFirstLine</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">    firstLine := ProcessFirstLine()</span><br><span class="line">    assert.Equal(t, <span class="string">&quot;line00&quot;</span>, firstLine)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>测试文件内容</p>
+<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="code"><pre><span class="line">line11</span><br><span class="line">line22</span><br><span class="line">line33</span><br><span class="line">line44</span><br><span class="line">line55</span><br></pre></td></tr></table></figure></div>
+<p>monkey的部分源代码实现，主要通过这些函数实现打桩</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Patch</span><span class="params">(target, replacement <span class="keyword">interface</span>&#123;&#125;)</span></span> *PatchGuard &#123;</span><br><span class="line">    t := reflect.ValueOf(target)</span><br><span class="line">    r := reflect.ValueOf(replacement)</span><br><span class="line">    patchValue(t, r)</span><br><span class="line">    <span class="keyword">return</span> &amp;PatchGuard&#123;t, r&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Unpatch</span><span class="params">(target <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> unpatchValue(reflect.ValueOf(target))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>改造测试代码增加函数实现打桩，通过patch对ReadFirstLine进行打桩mock，使其默认返回line110</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestReadFirstLineWithMock</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	monkey.Patch(ReadFirstLine, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;line110&quot;</span></span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">defer</span> monkey.Unpatch(ReadFirstLine)</span><br><span class="line">	line := ProcessFirstLine()</span><br><span class="line">	assert.Equal(t, <span class="string">&quot;line000&quot;</span>, line)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>这样即使没有本地文件，也能够模拟读取、修改或删除文件的测试。</p>
+<h3 id="基准测试"><a class="markdownIt-Anchor" href="#基准测试"></a> 基准测试</h3>
+<p>go语言还提供了基准测试框架，基准测试是指测试一段程序的运行性能及耗费CPU的程度。在实际项目开发中，经常会遇到代码性能瓶颈，为了定位问题经常要对代码做性能分析，这就用到了基准测试。</p>
+<h4 id="示例-3"><a class="markdownIt-Anchor" href="#示例-3"></a> 示例</h4>
+<p>服务器负载均衡问题。</p>
+<p>源代码，假设有10台服务器，每次随机选择其中1台执行。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">InitServerIndex</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">		ServerIndex[i] = i + <span class="number">100</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Select</span><span class="params">()</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> ServerIndex[rand.Intn(<span class="number">10</span>)]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>测试代码，基准测试以Benchmark开头，参数类型是testing.B，用b中的N值反复递增循环测试。基准测试对于一个测试用例的默认测试时间是1秒，当测试用例函数返回时还不到1秒，那么testing.B中的N值将按1、2、5、10、20、50…递增，并以递增后的值重新进行用例函数测试。</p>
+<p>ResetTimer重置计时器，在重置之前的初始化或其他准备操作，不属于基准测试的范围，通过选择重置的时间点来跳过不必要的测试。</p>
+<p>RunParallel是多协程并发测试。执行两个基准测试，可以发现代码在并发情况下存在劣化，主要原因是rand包为了保证全局的随机性和并发安全，使用了全局锁。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkSelect</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	InitServerIndex()</span><br><span class="line">	b.ResetTimer()</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; b.N; i++ &#123;</span><br><span class="line">		Select()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkSelectParallel</span><span class="params">(b *testing.B)</span></span> &#123;</span><br><span class="line">	InitServerIndex()</span><br><span class="line">	b.ResetTimer()</span><br><span class="line">	b.RunParallel(<span class="function"><span class="keyword">func</span><span class="params">(pb *testing.PB)</span></span> &#123;</span><br><span class="line">		<span class="keyword">for</span> pb.Next() &#123;</span><br><span class="line">			Select()</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="运行-2"><a class="markdownIt-Anchor" href="#运行-2"></a> 运行</h4>
+<p>在IDE中使用<code>gobench benchmark</code>选项进行测试，不要直接运行。</p>
+<h4 id="优化"><a class="markdownIt-Anchor" href="#优化"></a> 优化</h4>
+<p>为了解决上述的随机性能瓶颈问题，有一个开源的高性能随机数方法fastrand，仓库地址<a class="link"   href="https://github.com/bytedance/gopkg" >bytedance/gopkg <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。主要思路是牺牲了一定的数列一致性来换取性能，在大多数场景下适用，相比原始方法的性能有大幅提升。</p>
+<p>引入fastrand</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go get github.com/bytedance/gopkg</span><br></pre></td></tr></table></figure></div>
+<p>将源代码中的rand替换为fastrand即可。</p>
+<h2 id="项目实战"><a class="markdownIt-Anchor" href="#项目实战"></a> 项目实战</h2>
+<p>在并发编程，依赖管理以及单元测试的基础上，通过项目实践来理解项目开发的思路和流程，主要包括需求设计，代码开发和测试运行。</p>
+<h3 id="需求设计"><a class="markdownIt-Anchor" href="#需求设计"></a> 需求设计</h3>
+<h4 id="需求背景"><a class="markdownIt-Anchor" href="#需求背景"></a> 需求背景</h4>
+<p>开发一个类似掘金社区的服务端小功能。</p>
+<h4 id="需求描述"><a class="markdownIt-Anchor" href="#需求描述"></a> 需求描述</h4>
+<p>社区话题页面</p>
+<ul>
+<li>展示话题（标题、文字描述）和回帖列表</li>
+<li>暂不考虑前端页面实现，仅仅实现一个本地web服务</li>
+<li>话题和回帖数据用文件存储</li>
+</ul>
+<h4 id="需求用例"><a class="markdownIt-Anchor" href="#需求用例"></a> 需求用例</h4>
+<p>主要涉及用户浏览消费，页面的展示，包括话题内容和回帖的列表。可以先抽象出两个实体，话题内容和回帖列表，分析它们所具有的属性以及联系，定义出结构体。</p>
+<h4 id="er-图entity-relationship-diagram"><a class="markdownIt-Anchor" href="#er-图entity-relationship-diagram"></a> ER 图——Entity Relationship Diagram</h4>
+<p>ER图用于描述现实世界的概念模型。有了模型实体、属性以及联系，就能进入下一步，思考代码结构设计。</p>
+<p>参考ER图设计：Topic话题有id、titile、content、create_time四个属性。Post帖子有id、topic_id、content、create_time四个属性，其中id和topic_id和Topic相联系。</p>
+<p>这里采用典型的分层结构设计。</p>
+<h3 id="代码开发"><a class="markdownIt-Anchor" href="#代码开发"></a> 代码开发</h3>
+<h4 id="分层结构"><a class="markdownIt-Anchor" href="#分层结构"></a> 分层结构</h4>
+<p>分层结构整体分为三层，repository数据层，service逻辑层，controller视图层。</p>
+<ul>
+<li>数据层关联底层数据模型，也就是model，封装外部数据的增删改查。这里的数据存储在本地文件，通过文件操作拉取话题，帖子数据。</li>
+<li>数据层面向逻辑层，也就是对service层透明，屏蔽下游数据差异，即逻辑层不需要考虑数据的来源是本地文件、数据库还是微服务等。逻辑层只处理核心业务逻辑，接口模型保持不变，计算打包业务实体Entity，对应需求并上传给视图层。</li>
+<li>视图层controller负责处理与外部交互的逻辑，以view视图的形式返回给客户端。这里只考虑封装为json格式化的请求结果，通过API形式访问即可。</li>
+</ul>
+<h4 id="组件工具"><a class="markdownIt-Anchor" href="#组件工具"></a> 组件工具</h4>
+<p>开发涉及的基础组件工具。Gin：开源的高性能go web框架，源地址<a class="link"   href="https://github.com/gin-gonic/gin" >gin-gonic <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。这里基于gin搭建web服务器，本项目主要涉及路由分发的概念，不涉及其他复杂概念。</p>
+<p>使用web框架，需要用Go Module依赖管理。先用go mod init初始化go.mod管理配置文件。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go mod init main</span><br><span class="line">go mod tidy</span><br></pre></td></tr></table></figure></div>
+<p>下载gin依赖</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go get -u github.com/gin-gonic/gin</span><br></pre></td></tr></table></figure></div>
+<p>在框架依赖的基础上，只需要关注业务本身的实现，从repository到service再到controller逐步实现。</p>
+<h4 id="repository"><a class="markdownIt-Anchor" href="#repository"></a> Repository</h4>
+<h5 id="struct"><a class="markdownIt-Anchor" href="#struct"></a> struct</h5>
+<p>根据之前的ER图定义结构体</p>
+<h5 id="index"><a class="markdownIt-Anchor" href="#index"></a> index</h5>
+<p>查询数据可以使用全扫描遍历的方式，但是效率不高，所以这里引入索引的概念。</p>
+<p>索引就像书的目录，可以快速查找定位到需要的结果。这里利用map实现内存索引，在服务对外暴露前，利用文件元数据初始化全局内存索引，实现O(1)时间复杂度的查找操作。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	topicIndexMap <span class="keyword">map</span>[<span class="type">int64</span>]*Topic</span><br><span class="line">    postIndexMap  <span class="keyword">map</span>[<span class="type">int64</span>][]*Post</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<p>具体实现，打开文件，基于file初始化scanner，通过迭代器方式遍历数据行，转化为结构体存储至内存map，完成初始化话题内存索引。同理实现帖子的内存索引初始化</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initTopicIndexMap</span><span class="params">(filePath <span class="type">string</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    open, err := os.Open(filePath + <span class="string">&quot;topic&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    scanner := bufio.NewScanner(open)</span><br><span class="line">    topicTmpMap := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int64</span>]*Topic)</span><br><span class="line">    <span class="keyword">for</span> scanner.Scan() &#123;</span><br><span class="line">        text := scanner.Text()</span><br><span class="line">        <span class="keyword">var</span> topic Topic</span><br><span class="line">        <span class="keyword">if</span> err := json.Unmarshal([]<span class="type">byte</span>(text), &amp;topic); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> err</span><br><span class="line">        &#125;</span><br><span class="line">        topicTmpMap[topic.Id] = &amp;topic</span><br><span class="line">    &#125;</span><br><span class="line">    topicIndexMap = topicTmpMap</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="查询"><a class="markdownIt-Anchor" href="#查询"></a> 查询</h5>
+<p>实现查询操作，直接查询key获取map中的value。这里使用了sync.Once，主要适用于高并发的情况下只执行一次的场景。基于Once的实现模式就是单例模式，减少存储的浪费。</p>
+<p>topic查询实现，这里的topic结构体自行设计。同理实现post的查询</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> TopicDao <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	topicDao  *TopicDao</span><br><span class="line">    topicOnce sync.Once</span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewTopicDaoInstance</span><span class="params">()</span></span> *TopicDao &#123;</span><br><span class="line">    topicOnce.Do(</span><br><span class="line">        <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">            topicDao = &amp;TopicDao&#123;&#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="keyword">return</span> topicDao</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*TopicDao)</span></span> QueryTopicById(id <span class="type">int64</span>) *Topic &#123;</span><br><span class="line">    <span class="keyword">return</span> topicIndexMap[id]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="service"><a class="markdownIt-Anchor" href="#service"></a> Service</h4>
+<p>实现了repository层之后就是service层。</p>
+<p>定义service层实体</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> PageInfo <span class="keyword">struct</span> &#123;</span><br><span class="line">    Topic *repository.Topic</span><br><span class="line">    PostList []*repository.Post</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>实现流程是参数校验、准备数据、组装实体。</p>
+<p>代码流程编排，通过err控制流程退出，正常的话会返回页面信息。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f *QueryPageInfoFlow)</span></span> Do() (*PageInfo, <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> err := f.checkParam(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> err := f.prepareInfo(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> err := f.packPageInfo(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> f.pageInfo, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>prepareInfo方法实现，由于话题和回帖信息的获取都需要topicId，这就可以考虑并行执行，提高效率。并行可以充分利用多核CPU的资源，降低接口耗时。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f *QueryPageInfoFlow)</span></span> prepareInfo() <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> wg sync.WaitGroup</span><br><span class="line">    wg.Add(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;...&#125; <span class="comment">//获取topic信息</span></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;...&#125; <span class="comment">//获取post列表</span></span><br><span class="line">    wg.Wait()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="controller"><a class="markdownIt-Anchor" href="#controller"></a> Controller</h4>
+<p>service层之后是controller层。定义一个view对象，通过code msg打包业务状态信息，用data承载业务实体信息。</p>
+<p>参考代码</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> PageData <span class="keyword">struct</span> &#123;</span><br><span class="line">    Code <span class="type">int64</span>       <span class="string">`json:&quot;code&quot;`</span></span><br><span class="line">    Msg  <span class="type">string</span>      <span class="string">`json:&quot;msg&quot;`</span></span><br><span class="line">    Data <span class="keyword">interface</span>&#123;&#125; <span class="string">`json:&quot;data&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">QueryPageInfo</span><span class="params">(topicIdStr <span class="type">string</span>)</span></span> *PageData &#123;</span><br><span class="line">    topicId, err := strconv.ParseInt(topicIdStr, <span class="number">10</span>, <span class="number">64</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;...&#125;</span><br><span class="line">    pageInfo, err := service.QueryPageInfo(topicId)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;...&#125;</span><br><span class="line">    <span class="keyword">return</span> &amp;PageData&#123;</span><br><span class="line">        Code: <span class="number">0</span>,</span><br><span class="line">        Msg: <span class="string">&quot;success&quot;</span>,</span><br><span class="line">        Data: <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int64</span>&#123;</span><br><span class="line">            <span class="string">&quot;post_id&quot;</span>: postId,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="router"><a class="markdownIt-Anchor" href="#router"></a> Router</h4>
+<p>最后是web服务的引擎配置，包括</p>
+<ul>
+<li>初始化数据索引</li>
+<li>初始化引擎配置</li>
+<li>构建路由</li>
+<li>启动服务</li>
+</ul>
+<p>path映射到具体的controller，通过path变量传递话题id。</p>
+<p>参考写法</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> err := Init(<span class="string">&quot;./data/&quot;</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        os.Exit(<span class="number">-1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/community/page/get/:id&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        topicId := c.Param(<span class="string">&quot;id&quot;</span>)</span><br><span class="line">        data := controller.QueryPageInfo(topicId)</span><br><span class="line">        c.JSON(<span class="number">200</span>, data)</span><br><span class="line">    &#125;)</span><br><span class="line">    err := r.Run()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="测试运行"><a class="markdownIt-Anchor" href="#测试运行"></a> 测试运行</h3>
+<p>通过go run命令运行本地web服务，main.go是这里main方法所在的go文件，文件名称可以自定义</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure></div>
+<p>通过curl命令请求服务暴露的接口，查看结果。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">curl --location --request GET <span class="string">&quot;http://0.0.0.0:8080/community/get/1&quot;</span> | json</span><br></pre></td></tr></table></figure></div>
+<p>这里的json命令是通过nodejs的npm安装的，用于格式化curl输出的json信息。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g json</span><br></pre></td></tr></table></figure></div>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<p><a class="link"   href="https://www.cnblogs.com/gizing/p/10925286.html" >用户态和内核态的区别 - Gizing - 博客园 (cnblogs.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://segmentfault.com/a/1190000018150987" >Go goroutine理解 - golang开发笔记 - SegmentFault 思否 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://www.runoob.com/go/go-concurrent.html" >Go 并发 | 菜鸟教程 (runoob.com) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://juejin.cn/post/7181812988461252667" >深入理解 go sync.Waitgroup - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://blog.csdn.net/Sihang_Xie/article/details/124851399" >【Go语言入门】一文搞懂Go语言的最新依赖管理：go mod的使用 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>青训营记录</category>
@@ -10603,248 +10603,6 @@ y=2^{E_y}\cdot M_y
       </tags>
   </entry>
   <entry>
-    <title>linux下的后台进程管理</title>
-    <url>/2023/04/20/managing-background-processes-in-linux/</url>
-    <content><![CDATA[<p>后台进程管理对于任何一个操作系统来说都是非常重要的，它们在维持操作系统的基本功能运作时，还能运行更多用户自定义的进程服务。<span id="more"></span></p>
-<p>通过对后台进程管理的学习可以进一步了解操作系统的运作机制以及系统资源的分配调度。</p>
-<p>本文主要介绍几种在<code>linux</code>系统下长时间运行后台进程的方法。即使断开<code>	ssh</code>连接或者是关闭终端后，依然能够保持在后台运行。</p>
-<h2 id="nohup"><a class="markdownIt-Anchor" href="#nohup"></a> nohup</h2>
-<h3 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h3>
-<p><code>nohup</code>命令是一个最简单的长时间运行后台进程的命令，通常它和</p>
-<p><code>&amp;</code>符号一起使用。</p>
-<p><code>nohup</code>命令能够忽略<code>SIGHUP</code>信号的影响，在退出终端之后也能保持进程运行。(但是可以用<code>Ctrl+C</code>终止，即不忽略<code>SIGINT</code>信号)</p>
-<p><code>&amp;</code>符号能够忽略<code>SIGINT</code>信号，并让命令和进程在后台运行，不在终端显示进程的输出信息，输出被重定向到指定的文件里，默认是<code>nohup.out</code>文件。(但是需要保持终端打开，退出终端后会终止)</p>
-<p>将<code>nohup</code>和<code>&amp;</code>结合使用就能可靠实现长时间在后台运行。</p>
-<h3 id="基本使用"><a class="markdownIt-Anchor" href="#基本使用"></a> 基本使用</h3>
-<h4 id="运行"><a class="markdownIt-Anchor" href="#运行"></a> 运行</h4>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">nohup</span> <span class="built_in">command</span> &gt; ./out.file 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure></div>
-<p><code>command</code>是具体要在后台运行的命令。</p>
-<p><code>out.file</code>是指定的输出文件路径和文件名，如果缺省则默认输出到<code>nohup.out</code>文件中。</p>
-<p><code>2&gt;&amp;1</code>表示将标准错误<code>2</code>重定向到标准输出<code>&amp;1</code>，标准输出<code>&amp;1</code>再被重定向输入到输出文件中。</p>
-<p><code>&amp;</code>表示在后台运行。</p>
-<h4 id="终止"><a class="markdownIt-Anchor" href="#终止"></a> 终止</h4>
-<p><code>nohup</code>+<code>&amp;</code>的进程可以通过<code>ps</code>命令搜索关键词得到进程号<code>pid</code>，再用<code>kill</code>命令终止。(一般来说，成功执行<code>nohup</code>后会输出<code>pid</code>的信息)</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ps -aux | grep [...]</span><br><span class="line"><span class="built_in">kill</span> -9 [pid]</span><br></pre></td></tr></table></figure></div>
-<h3 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h3>
-<p><code>nohup</code>命令是<code>linux</code>自带的命令，它提供了最简单的长时间运行后台进程的方案，但是功能也相对较少，不足以应付一些复杂的<strong>交互性</strong>的任务，一般用于临时性地长时间运行某个命令。后面介绍的命令则提供了更多的功能。</p>
-<h2 id="screen"><a class="markdownIt-Anchor" href="#screen"></a> screen</h2>
-<h3 id="概述-2"><a class="markdownIt-Anchor" href="#概述-2"></a> 概述</h3>
-<p><code>screen</code>命令(全称<code>GNU Screen</code>)用于多重视窗管理程序，可以在不同的终端连接到同一个<strong>会话</strong>，是一种<strong>终端多路复用器</strong>。<code>screen</code>的使用可以很方便地保留会话，并解决了<code>nohup</code>在交互性任务上的不足。</p>
-<h3 id="基本使用-2"><a class="markdownIt-Anchor" href="#基本使用-2"></a> 基本使用</h3>
-<h4 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h4>
-<p><code>screen</code>命令可能需要先手动安装</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Debian/Ubuntu</span></span><br><span class="line">sudo apt install screen</span><br></pre></td></tr></table></figure></div>
-<h4 id="创建"><a class="markdownIt-Anchor" href="#创建"></a> 创建</h4>
-<p>创建一个名为<code>test</code>的虚拟终端(默认用<code>hostname</code>命名，推荐自定义名称)</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">screen -S <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
-<p>或者使用</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">screen -R <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
-<p><code>-R</code>参数会先试图恢复已经存在的名为<code>test</code>的虚拟终端，如果找不到则创建新的虚拟终端。</p>
-<p>使用<code>-S</code>参数可能会有重名的问题(<code>pid</code>不会重复)，如下</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/2023/04/20/managing-background-processes-in-linux/image-20230421000557507.png"
-                      class="" title="image-20230421000557507"
-                >
-<h4 id="水平分割"><a class="markdownIt-Anchor" href="#水平分割"></a> 水平分割</h4>
-<p>在<code>screen</code>窗口中，先输入<code>Ctrl+a</code>，再输入<code>|</code>，将当前窗口左右划分。</p>
-<h4 id="垂直分割"><a class="markdownIt-Anchor" href="#垂直分割"></a> 垂直分割</h4>
-<p>在<code>screen</code>窗口中，先输入<code>Ctrl+a</code>，再输入<code>S</code>，将当前窗口上下划分。</p>
-<blockquote>
-<p>这里的<code>S</code>必须大写</p>
-</blockquote>
-<h4 id="窗口切换"><a class="markdownIt-Anchor" href="#窗口切换"></a> 窗口切换</h4>
-<p>在<code>screen</code>窗口中，先输入<code>Ctrl+a</code>，再输入<code>Tab</code>，切换不同的窗口。</p>
-<h4 id="重连会话"><a class="markdownIt-Anchor" href="#重连会话"></a> 重连会话</h4>
-<p>重新进入虚拟终端，可以使用以下命令</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">screen -r [name/pid]</span><br></pre></td></tr></table></figure></div>
-<h4 id="退出"><a class="markdownIt-Anchor" href="#退出"></a> 退出</h4>
-<p>在<code>screen</code>中，先输入<code>Ctrl+a</code>，再输入<code>d</code>会保留并退出该<code>screen</code>。</p>
-<blockquote>
-<p>注意输入的顺序，否则会误删screen</p>
-</blockquote>
-<h4 id="查询"><a class="markdownIt-Anchor" href="#查询"></a> 查询</h4>
-<p>列出所有<code>screen</code>创建的虚拟终端以及其状态</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">screen -<span class="built_in">ls</span></span><br></pre></td></tr></table></figure></div>
-<p>或者在<code>screen</code>虚拟终端中，先输入<code>Ctrl+a</code>，再输入<code>&quot;</code>即可查询。</p>
-<p>虚拟终端具有两种状态</p>
-<ul>
-<li>Attached：激活状态，表示该<code>screen</code>正在作为当前终端使用。</li>
-<li>Detached：非激活状态，表示该<code>screen</code>正在作为后台进程运行。</li>
-</ul>
-<h4 id="终止-2"><a class="markdownIt-Anchor" href="#终止-2"></a> 终止</h4>
-<p>在进程处理完毕后，已经不需要虚拟终端了，就可以释放资源。</p>
-<p>在对应的虚拟终端下时，可以用<code>exit</code>命令退出并释放资源。(推荐使用这种方式，因为能够直接确认当前终端是否处理完进程)</p>
-<blockquote>
-<p>tips：在<code>screen</code>中，输入<code>Ctrl+d</code>也可以释放该<code>screen</code>。</p>
-</blockquote>
-<p>在主终端下，如果确定某个虚拟终端可以终止，也可以使用以下命令释放</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">screen -R/-r/-S [name/pid] -X quit</span><br></pre></td></tr></table></figure></div>
-<p>更多信息参考<a href="https://www.mintimate.cn/2021/09/02/howToUseScreen/"> <strong>雨月空间站</strong> </a></p>
-<h3 id="小结-2"><a class="markdownIt-Anchor" href="#小结-2"></a> 小结</h3>
-<p><code>screen</code>虽然解决了<code>nohup</code>存在的局限性，但是功能相对后面的<code>tmux</code>还是稍微欠缺，不过基本能够满足大部分日常使用。用户可以根据自身的需求和习惯来选择<code>GNU</code>的<code>screen</code>或者是更加现代化的<code>tmux</code>。</p>
-<h2 id="tmux"><a class="markdownIt-Anchor" href="#tmux"></a> tmux</h2>
-<h3 id="概述-3"><a class="markdownIt-Anchor" href="#概述-3"></a> 概述</h3>
-<p><code>tmux</code>是一个类似于<code>screen</code>的终端复用器，总体功能上比<code>screen</code>更加丰富，且风格更加现代化。</p>
-<p><code>tmux</code>具有会话(session)、窗口(window)、窗格(pane)的三层结构。会话是所有虚拟终端的集合，窗口是整个屏幕，窗格是各个虚拟终端。一个会话可以创建多个窗口，一个窗口可以创建多个窗格。</p>
-<h3 id="基本使用-3"><a class="markdownIt-Anchor" href="#基本使用-3"></a> 基本使用</h3>
-<h4 id="安装-2"><a class="markdownIt-Anchor" href="#安装-2"></a> 安装</h4>
-<p><code>tmux</code>的安装</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install tmux</span><br></pre></td></tr></table></figure></div>
-<h4 id="创建会话"><a class="markdownIt-Anchor" href="#创建会话"></a> 创建会话</h4>
-<p>创建会话session</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux</span><br></pre></td></tr></table></figure></div>
-<p>在tmux创建的会话底部会有一条状态栏，表示了当前的<code>session name</code>，<code>session number</code>，shell的类型以及<code>hostname</code>等。</p>
-<p>创建一个名为<code>test</code>的会话session</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux new-session -s <span class="built_in">test</span></span><br><span class="line">tmux new -s <span class="built_in">test</span> <span class="comment"># 简写格式</span></span><br></pre></td></tr></table></figure></div>
-<p>会话管理：在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>s</code>，可以查看并管理所有会话。</p>
-<h4 id="窗口分割"><a class="markdownIt-Anchor" href="#窗口分割"></a> 窗口分割</h4>
-<p>在一个<code>tmux</code>的会话中可以分割出多个窗格</p>
-<p><strong>水平分割</strong></p>
-<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>%</code>，将窗口左右划分。</p>
-<p><strong>垂直分割</strong></p>
-<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>&quot;</code>，将窗口上下划分。</p>
-<h4 id="多窗格管理"><a class="markdownIt-Anchor" href="#多窗格管理"></a> 多窗格管理</h4>
-<p><strong>编号展示</strong></p>
-<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>q</code>，可以知道窗格创建的先后顺序。</p>
-<p><strong>窗格切换</strong></p>
-<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>;</code>，切换到上一个窗格；</p>
-<p>先输入<code>Ctrl+b</code>，再输入<code>o</code>，切换到下一个窗格。</p>
-<p><strong>窗格关闭</strong></p>
-<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>x</code>，可以关闭当前选中的窗格。也可以使用<code>Ctrl+d</code>或者<code>exit</code>命令，直接退出窗格。</p>
-<h4 id="多窗口管理"><a class="markdownIt-Anchor" href="#多窗口管理"></a> 多窗口管理</h4>
-<p><strong>创建窗口</strong></p>
-<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>c</code>，可以创建新的窗口，新窗口会覆盖当前窗口，同时底部状态栏会多出一个shell的信息。</p>
-<p><strong>切换窗口</strong></p>
-<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>p</code>，切换到上一个窗口；</p>
-<p>先输入<code>Ctrl+b</code>，再输入<code>n</code>，切换到下一个窗口；</p>
-<p>先输入<code>Ctrl+b</code>，再输入<code>w</code>，可以在列表中选择窗口。</p>
-<p>更多快捷键参考<a class="link"   href="https://zhuanlan.zhihu.com/p/137715607" >Tmux的常用快捷键 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h4 id="查询会话"><a class="markdownIt-Anchor" href="#查询会话"></a> 查询会话</h4>
-<p>列出所有已创建的<code>tmux</code></p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux <span class="built_in">ls</span></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p>tips：也可以用前面提到的方法，在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>s</code>，也可以查询已创建的<code>tmux</code></p>
-</blockquote>
-<h4 id="脱离会话"><a class="markdownIt-Anchor" href="#脱离会话"></a> 脱离会话</h4>
-<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>d</code>，或者使用以下命令</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux detach</span><br></pre></td></tr></table></figure></div>
-<p>就能保存会话并脱离。</p>
-<blockquote>
-<p>注意：如果输入的是<code>Ctrl+d</code>，则会直接删除会话。</p>
-</blockquote>
-<h4 id="重连会话-2"><a class="markdownIt-Anchor" href="#重连会话-2"></a> 重连会话</h4>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux attach -t [session-name]</span><br><span class="line">tmux a -t [session-name] <span class="comment"># 简写格式</span></span><br></pre></td></tr></table></figure></div>
-<h4 id="删除会话"><a class="markdownIt-Anchor" href="#删除会话"></a> 删除会话</h4>
-<p>在主终端下，执行以下命令</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux kill-session -t [session-name]</span><br></pre></td></tr></table></figure></div>
-<p>或者在tmux窗口中，输入<code>Ctrl+d</code>，即可将会话删除。</p>
-<h3 id="小结-3"><a class="markdownIt-Anchor" href="#小结-3"></a> 小结</h3>
-<p><code>tmux</code>拥有比<code>screen</code>更加友好的信息提示，交互体验更加好。<code>tmux</code>也基本满足了日常使用需求，是适合广大用户的选择。</p>
-<blockquote>
-<p>不过，如果习惯了<code>screen</code>的快捷键操作等，也可以使用<code>screen</code>，同样可以很好地满足需求，而不必在多个工具间切换。</p>
-<p>另外，不建议同时使用<code>screen</code>和<code>tmux</code>管理后台进程，一方面，它们的操作方式不同，另一方面，它们在管理后台进程时可能会冲突。</p>
-</blockquote>
-<p>关于<code>tmux</code>更多的技巧操作可以参考<a class="link"   href="https://zhuanlan.zhihu.com/p/414295937" >你需要知道的tmux使用技巧 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>以及对<code>tmux</code>的美化配置可以参考<a class="link"   href="https://zhuanlan.zhihu.com/p/122277982" >推荐神器Tmux和巨好看的配置文件 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="byobu"><a class="markdownIt-Anchor" href="#byobu"></a> byobu</h2>
-<h3 id="概述-4"><a class="markdownIt-Anchor" href="#概述-4"></a> 概述</h3>
-<p><code>byobu</code>是基于<code>screen</code>和<code>tmux</code>的终端多路复用器包装器，它通常和<code>screen</code>或<code>tmux</code>组合使用，在<code>screen</code>或<code>tmux</code>的基础上提供更多的功能支持。它本身无法独立实现<code>screen</code>和<code>tmux</code>的功能。</p>
-<blockquote>
-<p><code>byobu</code>早期是为<code>screen</code>开发的前端包装器，默认使用<code>screen</code>作为后端，目的是降低配置和操作成本。</p>
-<p>现在的<code>byobu</code>默认使用<code>tmux</code>后端，相当于<code>tmux</code>的增强版，习惯<code>screen</code>的用户也可以手动配置<code>byobu</code>使用<code>screen</code>后端。</p>
-</blockquote>
-<h3 id="基本使用-4"><a class="markdownIt-Anchor" href="#基本使用-4"></a> 基本使用</h3>
-<p><code>byobu</code>可以直接套用其后端的命令格式，如果使用的是<code>tmux</code>后端，只需要在<code>tmux</code>命令的基础上把<code>tmux</code>换成<code>byobu</code>即可，<code>screen</code>同理。</p>
-<blockquote>
-<p>实际上，使用<code>byobu</code>的功能主要是通过各种快捷键。</p>
-</blockquote>
-<h4 id="安装-3"><a class="markdownIt-Anchor" href="#安装-3"></a> 安装</h4>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install byobu</span><br></pre></td></tr></table></figure></div>
-<h4 id="操作"><a class="markdownIt-Anchor" href="#操作"></a> 操作</h4>
-<p><code>byobu</code>的命令可以直接套用其后端的命令，也可以直接使用其后端的快捷键操作。</p>
-<p>以下是基于<code>tmux</code>后端的几个命令示例，直接套用<code>tmux</code>的命令格式即可</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建会话</span></span><br><span class="line">byobu new -s <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 查询会话</span></span><br><span class="line">byobu <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># 脱离会话</span></span><br><span class="line">byobu detach</span><br><span class="line"><span class="comment"># 重连会话</span></span><br><span class="line">byobu a -t <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 删除会话</span></span><br><span class="line">byobu kill-session -t <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
-<blockquote>
-<p>快捷键操作可参考<a class="link"   href="https://zhuanlan.zhihu.com/p/113680062" >byobu常用快捷键 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，里面是以<code>screen</code>为后端的例子</p>
-<p>注意：<code>screen</code>的前置快捷键是<code>Ctrl+a</code>，<code>tmux</code>的前置快捷键是<code>Ctrl+b</code></p>
-</blockquote>
-<h3 id="补充"><a class="markdownIt-Anchor" href="#补充"></a> 补充</h3>
-<p><code>byobu</code>的默认配置和<code>tmux</code>很相似，一开始看不出明显的区别，需要手动配置<code>byobu</code>。</p>
-<h2 id="zellij"><a class="markdownIt-Anchor" href="#zellij"></a> Zellij</h2>
-<h3 id="概述-5"><a class="markdownIt-Anchor" href="#概述-5"></a> 概述</h3>
-<p><code>Zellij</code>是基于<code>Rust</code>实现的终端多路复用器，与<code>WebAssembly</code>原生兼容。<code>Zellij</code>的最大特点是支持插件，并且预先包装好了一个开箱即用的友好用户界面。它的用户窗口底部展示了一些键位以及其对应的功能类，能够帮助用户快速适应基本操作。另外对于<code>tmux</code>用户来说，<code>Zellij</code>兼容<code>tmux</code>的主要快捷键，因此<code>tmux</code>用户可以更快地适应<code>Zellij</code>。</p>
-<h3 id="基本使用-5"><a class="markdownIt-Anchor" href="#基本使用-5"></a> 基本使用</h3>
-<p><code>Zellij</code>的下载方式可参考官网 <a class="link"   href="https://zellij.dev/" >https://zellij.dev/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><code>Zellij</code>的使用哲学是：先进入对应的功能类，然后使用提示的按键进行操作，最后按下<code>enter</code>键确认。这种方式使得<code>Zellij</code>的操作非常直观和易用。</p>
-<blockquote>
-<p><code>Zellij</code>的基本操作说明已经整合到了它那开箱即用的用户界面中，可以根据它的界面提示来进行操作。从笔者个人角度来看，<code>Zellij</code>可能是最容易学习的。</p>
-</blockquote>
-<h3 id="小结-4"><a class="markdownIt-Anchor" href="#小结-4"></a> 小结</h3>
-<p><code>Zellij</code>的诞生揭示了几个重要的趋势和需求</p>
-<ul>
-<li>
-<p>跨平台兼容性：<code>Zellij</code>使用<code>Rust</code>编写，可以在多种操作系统上运行，用户和开发者都可以在多个平台上无缝切换使用它。</p>
-<blockquote>
-<p>实际上，从跨平台的概念出现到现在，已经诞生了一大批跨平台的工具。</p>
-</blockquote>
-</li>
-<li>
-<p>插件化和可定制性：<code>Zellij</code>拥有插件系统，这是传统的终端复用器所不具备的。用户可以通过插件系统定制和扩展工具的功能或外观布局。(不过目前<code>Zellij</code>的插件生态仍在完善中)</p>
-<blockquote>
-<p>插件系统也是一种设计哲学，典型的例子就是<code>vscode</code>和<code>Neovim</code>。</p>
-</blockquote>
-</li>
-<li>
-<p>易用性和直观性：<code>Zellij</code>提供了预先配置的开箱即用的用户界面，使得新用户可以更容易地上手，且不需要过多的配置。</p>
-<blockquote>
-<p>这点在另一个<code>Rust</code>工具——<code>helix</code>的设计理念中也有所体现。借助<code>helix</code>的内置文档和提示，初学者在面对<code>helix</code>或<code>vim</code>及其分支<code>Neovim</code>时，学习<code>helix</code>的成本远远低于<code>vim</code>系列的工具。</p>
-</blockquote>
-</li>
-<li>
-<p>性能和效率：<code>Zellij</code>是由<code>Rust</code>实现的工具，而<code>Rust</code>语言本身就是为了提供高性能和内存安全。</p>
-<blockquote>
-<p>目前也涌现出了一大批由<code>Rust</code>重写的工具，不过<code>Rust</code>总体生态还需要开发者和用户群体双方的支持和投入。</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h2>
-<p>这部分方案适用于有特定需求的开发者。网站开发者，游戏服务器开发者或者是深度学习开发者等大型项目开发者，<code>screen</code>和<code>tmux</code>不适合管理这些大项目，因为它们不具有因程序崩溃或意外终止而<strong>自动重启</strong>的功能及其他的一些高级功能。</p>
-<h3 id="systemd"><a class="markdownIt-Anchor" href="#systemd"></a> systemd</h3>
-<p><code>systemd</code>是大部分主流<code>linux</code>系统的默认初始化系统，它通过<code>systemctl</code>这个命令来控制，具有<code>screen</code>和<code>tmux</code>所不具备的高级功能。</p>
-<p>但是<code>systemd</code>与系统耦合度较高，而且其自定义配置<strong>需要具备一定的专业知识</strong>，通常一般的用户很少使用<code>systemd</code>来作为首选方案。</p>
-<blockquote>
-<p>这里指的是配置<code>systemd</code>管理用户自定义的程序，不是指使用<code>systemd</code>，<code>systemd</code>在日常生活就已经很频繁地在使用了。</p>
-</blockquote>
-<p>不过，有很多专业软件程序都有对<code>systemd</code>的支持，例如<code>mysql</code>、<code>nginx</code>、<code>NetworkManager</code>等，对于特定的<code>linux</code>系统开发者来说。</p>
-<h3 id="supervisor"><a class="markdownIt-Anchor" href="#supervisor"></a> supervisor</h3>
-<p><code>supervisor</code>是一个专注后台进程管理的程序，它使用<code>supervisorctl</code>命令来控制，可以让开发人员方便地管理和监控进程，它基于<code>python</code>开发，是开发者快速管理项目的一套简单易用的方案，不需要考虑过高的系统耦合性问题。</p>
-<blockquote>
-<p>有一部分<code>linux</code>发行版并不是使用<code>systemd</code>作为初始化系统(尽管大多数发行版都在支持<code>systemd</code>)，这部分的系统就无法使用<code>systemd</code>的方案。因此，<code>supervisor</code>可能会是一种方案。</p>
-</blockquote>
-<p>相关使用和配置可以参考<a class="link"   href="https://zhuanlan.zhihu.com/p/147305277" >Linux进程管理工具 Supervisor详解 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<p><a class="link"   href="https://cloud.tencent.com/developer/article/1763384" >Linux：Nohup命令详解 ｜ 腾讯云开发者社区 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://www.runoob.com/linux/linux-comm-nohup.html" >linux nohup命令 | 菜鸟教程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a href="https://www.mintimate.cn/2021/09/02/howToUseScreen/">Linux终端命令神器–Screen命令详解 | <strong>雨月空间站</strong></a></p>
-<p><a href="https://qianxu.run/2021/03/28/tmux-vs-screen/">tmux vs screen | <strong>qxdn 的乐园</strong></a></p>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/122277982" >推荐神器Tmux和巨好看的配置文件 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/414295937" >你需要知道的tmux使用技巧 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://cloud.tencent.com/developer/article/1526675" >可能是东半球最全面易懂的 Tmux 使用教程！( 强烈建议收藏 ) | 腾讯云开发者社区 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p><a class="link"   href="https://zhuanlan.zhihu.com/p/147305277" >Linux进程管理工具 Supervisor详解 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>后台管理</tag>
-        <tag>screen</tag>
-        <tag>tmux</tag>
-        <tag>byobu</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>一些现代化的linux命令</title>
     <url>/2023/07/24/modern-linux-commands/</url>
     <content><![CDATA[<p>本文主要介绍一些现代化的linux基础命令。对比传统的命令，它们在实现了原有功能的基础上或多或少有一些不同于传统命令的特性。<span id="more"></span></p>
@@ -11832,6 +11590,105 @@ a*b=(a_1*10^{n/2}+a_0)*(b_1*10^{m/2}+b_0)\\
       </tags>
   </entry>
   <entry>
+    <title>简单配置 Linux 上的 NVIDIA</title>
+    <url>/2024/01/25/simple-nvidia-setup-for-linux/</url>
+    <content><![CDATA[<p>本文主要介绍在 Linux 上简单地配置 NVIDIA 用于特定应用程序(例如游戏)的图形加速，而非全局性的设置。<span id="more"></span></p>
+<p>以 <a class="link"   href="https://github.com/HMCL-dev/HMCL" >HMCL <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 为例，只需安装一些基础包，进行简单的配置即可让 Minecraft 在 NVIDIA 显卡下工作。</p>
+<h3 id="基础安装"><a class="markdownIt-Anchor" href="#基础安装"></a> 基础安装</h3>
+<blockquote>
+<p>这里仅列举需要安装的包，大部分包可能已经被安装了。</p>
+</blockquote>
+<p><code>nvidia nvidia-settings lib32-nvidia-utils</code>：这三个是必须安装的包，是 NVIDIA 的基础驱动。</p>
+<p><code>nvidia-prime</code>：可选安装，是用于指定应用程序使用 NVIDIA 显卡加速。本质上是通过设置环境变量实现。</p>
+<blockquote>
+<p>以下是用于监控 NVIDIA 工作情况的一些选项。</p>
+</blockquote>
+<p>命令行工具</p>
+<ol>
+<li>
+<p><strong>nvidia-smi（NVIDIA System Management Interface）：</strong></p>
+<ul>
+<li><code>nvidia-smi</code> 是 NVIDIA 提供的一个命令行工具，它能够显示 NVIDIA GPU 的详细状态，包括温度、使用率、显存使用情况等。</li>
+<li>使用方法：在终端中输入 <code>nvidia-smi</code>。你也可以使用 <code>watch -n 1 nvidia-smi</code> 命令来每秒刷新显示状态。</li>
+</ul>
+</li>
+<li>
+<p><strong>nvtop：</strong></p>
+<ul>
+<li>
+<p><code>nvtop</code> 是一个类似于 <code>htop</code> 的工具，但专门用于 NVIDIA GPU。它提供了一个基于文本的用户界面，显示 GPU 的使用率、显存使用情况、正在运行的进程等信息。</p>
+</li>
+<li>
+<p>安装方法：在许多 Linux 发行版中，<code>nvtop</code> 可以通过包管理器安装，如 <code>sudo apt install nvtop</code>（在基于 Debian 的系统上）或 <code>sudo pacman -S nvtop</code>（在 Arch Linux 上）。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>图形化工具</p>
+<ol>
+<li>
+<p><strong>NVIDIA X Server Settings：</strong></p>
+<ul>
+<li>如果你使用的是 NVIDIA 官方驱动，那么 NVIDIA X Server Settings 工具应该已经包含在驱动安装包中。</li>
+<li>这个图形界面工具提供了关于显卡状态的信息，包括温度、显存使用量等。</li>
+</ul>
+</li>
+<li>
+<p><strong>Conky：</strong></p>
+<ul>
+<li>Conky 是一个轻量级的系统监控工具，它可以配置为显示 NVIDIA GPU 的状态。</li>
+<li>Conky 需要一些配置工作才能显示 GPU 信息，但它提供了很高的可定制性。</li>
+</ul>
+</li>
+</ol>
+<h3 id="使用-prime-run-命令控制"><a class="markdownIt-Anchor" href="#使用-prime-run-命令控制"></a> 使用 prime-run 命令控制</h3>
+<p>如果选择安装<code>nvidia-prime</code>包，可以直接执行如下格式的命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">prime-run program</span><br></pre></td></tr></table></figure></div>
+<p>在一些启动应用程序的命令之前添加<code>prime-run</code>命令即可使其工作在NVIDIA 显卡下。</p>
+<h3 id="设置环境变量控制"><a class="markdownIt-Anchor" href="#设置环境变量控制"></a> 设置环境变量控制</h3>
+<p>如果选择手动设置环境，大部分时候只需要关注三个环境变量，过多时候可能只需要关注两个环境变量。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">__NV_PRIME_RENDER_OFFLOAD=1			<span class="comment"># 启用 PRIME Render Offload，允许应用程序使用 NVIDIA GPU</span></span><br><span class="line">__GLX_VENDOR_LIBRARY_NAME=<span class="string">&quot;nvidia&quot;</span>	<span class="comment"># 指定使用 NVIDIA 的 GLX 实现，确保 OpenGL 调用通过 NVIDIA GPU</span></span><br><span class="line">__VK_LAYER_NV_optimus=<span class="string">&quot;NVIDIA_only&quot;</span>	<span class="comment"># 专门用于 Vulkan 应用程序强制使用 NVIDIA GPU</span></span><br></pre></td></tr></table></figure></div>
+<p>对于大部分不使用<code>vulkan</code>图形 API 的应用程序来说，不需要关心<code>__VK_LAYER_NV_optimus</code>这个环境变量。</p>
+<p>以该方式运行一个应用程序，手动执行命令如下</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">__NV_PRIME_LIBRARY_RENDER_OFFLOAD=1 __CLX_VENDOR_LIBRARY_NAME=nvidia program</span><br></pre></td></tr></table></figure></div>
+<p>如果觉得该方式比较繁琐，也可自行编写脚本并进行软链接，用于自定义需要使用 NVIDIA 的应用程序</p>
+<p>参考脚本如下</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置环境变量以使用NVIDIA显卡</span></span><br><span class="line"><span class="built_in">export</span> __NV_PRIME_RENDER_OFFLOAD=1</span><br><span class="line"><span class="built_in">export</span> __GLX_VENDOR_LIBRARY_NAME=nvidia</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动你的应用程序</span></span><br><span class="line"><span class="built_in">exec</span> program</span><br></pre></td></tr></table></figure></div>
+<h3 id="在-hmcl-中配置-nvidia-加速游戏"><a class="markdownIt-Anchor" href="#在-hmcl-中配置-nvidia-加速游戏"></a> 在 HMCL 中配置 NVIDIA 加速游戏</h3>
+<blockquote>
+<p>HMCL 本身是一个游戏启动器，这里需要加速的是游戏，而非启动器本身。</p>
+</blockquote>
+<p>先启动 HMCL，进入“设置”页面，选择“修改高级设置”</p>
+<style>.gwnnwfwidkjy{zoom: 50%;}</style><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/01/25/simple-nvidia-setup-for-linux/image-20240125175909038.png"
+                      class="gwnnwfwidkjy" alt="image-20240125175909038"
+                >
+<p>如果选择使用<code>prime-run</code>的方式，可以在“自定义命令”模块的“包装命令”中填入<code>prime-run</code></p>
+<style>.zjkwwyltodcb{zoom:50%;}</style><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/01/25/simple-nvidia-setup-for-linux/image-20240125182631549.png"
+                      class="zjkwwyltodcb" alt="image-20240125182631549"
+                >
+<p>如果选择设置环境变量的方式，可以在“Java 虚拟机设置”模块的”环境变量“中填入<code>__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia</code></p>
+<style>.qkodjoiiofgz{zoom:50%;}</style><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/01/25/simple-nvidia-setup-for-linux/image-20240125182927742.png"
+                      class="qkodjoiiofgz" alt="image-20240125182927742"
+                >
+<p>接下来就可以运行游戏，在 NVIDIA 显卡下工作，可以通过前面提到的 NVIDIA 的监控工具查看 NVIDIA 显卡是否在工作。</p>
+<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
+<p><a class="link"   href="https://archlinuxstudio.github.io/ArchLinuxTutorial/#/rookie/graphic_driver" >显卡驱动 | archlinuxstudio <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <tags>
+        <tag>nvidia</tag>
+        <tag>hmcl</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git中的特殊文件</title>
     <url>/2023/09/18/special-git-files/</url>
     <content><![CDATA[<p>对于经常使用Git来进行版本控制的用户来说，接触最多的可能就是那几个核心的命令了。不过这篇文章的主要目的并不是研究命令，而是了解一些可能比较冷门的知识。<span id="more"></span></p>
@@ -12087,102 +11944,245 @@ a*b=(a_1*10^{n/2}+a_0)*(b_1*10^{m/2}+b_0)\\
       </tags>
   </entry>
   <entry>
-    <title>简单配置 Linux 上的 NVIDIA</title>
-    <url>/2024/01/25/simple-nvidia-setup-for-linux/</url>
-    <content><![CDATA[<p>本文主要介绍在<code>Archlinux</code>上简单地配置<code>NVIDIA</code>用于特定应用程序(例如游戏)的图形加速，而非全局性的设置。<span id="more"></span></p>
-<p>以<a href="https://github.com/HMCL-dev/HMCL"><code>HMCL</code></a>为例，只需安装一些基础包，进行简单的配置即可让<code>Minecraft</code>在<code>NVIDIA</code>显卡下工作。</p>
-<h3 id="基础安装"><a class="markdownIt-Anchor" href="#基础安装"></a> 基础安装</h3>
-<blockquote>
-<p>这里仅列举需要安装的包，大部分包可能已经被安装了。</p>
-</blockquote>
-<p><code>nvidia nvidia-settings lib32-nvidia-utils</code>：这三个是必须安装的包，是<code>NVIDIA</code>的基础驱动。</p>
-<p><code>nvidia-prime</code>：可选安装，是用于指定应用程序使用<code>NVIDIA</code>显卡加速。本质上是通过设置环境变量实现。</p>
-<blockquote>
-<p>以下是用于监控<code>NVIDIA</code>工作情况的一些选项。</p>
-</blockquote>
-<p>命令行工具</p>
-<ol>
-<li>
-<p><strong>nvidia-smi（NVIDIA System Management Interface）：</strong></p>
-<ul>
-<li><code>nvidia-smi</code> 是 NVIDIA 提供的一个命令行工具，它能够显示 NVIDIA GPU 的详细状态，包括温度、使用率、显存使用情况等。</li>
-<li>使用方法：在终端中输入 <code>nvidia-smi</code>。你也可以使用 <code>watch -n 1 nvidia-smi</code> 命令来每秒刷新显示状态。</li>
-</ul>
-</li>
-<li>
-<p><strong>nvtop：</strong></p>
-<ul>
-<li>
-<p><code>nvtop</code> 是一个类似于 <code>htop</code> 的工具，但专门用于 NVIDIA GPU。它提供了一个基于文本的用户界面，显示 GPU 的使用率、显存使用情况、正在运行的进程等信息。</p>
-</li>
-<li>
-<p>安装方法：在许多 Linux 发行版中，<code>nvtop</code> 可以通过包管理器安装，如 <code>sudo apt install nvtop</code>（在基于 Debian 的系统上）或 <code>sudo pacman -S nvtop</code>（在 Arch Linux 上）。</p>
-</li>
-</ul>
-</li>
-</ol>
-<p>图形化工具</p>
-<ol>
-<li>
-<p><strong>NVIDIA X Server Settings：</strong></p>
-<ul>
-<li>如果你使用的是 NVIDIA 官方驱动，那么 NVIDIA X Server Settings 工具应该已经包含在驱动安装包中。</li>
-<li>这个图形界面工具提供了关于显卡状态的信息，包括温度、显存使用量等。</li>
-</ul>
-</li>
-<li>
-<p><strong>Conky：</strong></p>
-<ul>
-<li>Conky 是一个轻量级的系统监控工具，它可以配置为显示 NVIDIA GPU 的状态。</li>
-<li>Conky 需要一些配置工作才能显示 GPU 信息，但它提供了很高的可定制性。</li>
-</ul>
-</li>
-</ol>
-<h3 id="使用-prime-run-命令控制"><a class="markdownIt-Anchor" href="#使用-prime-run-命令控制"></a> 使用 prime-run 命令控制</h3>
-<p>如果选择安装<code>nvidia-prime</code>包，可以直接执行如下格式的命令</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">prime-run program</span><br></pre></td></tr></table></figure></div>
-<p>在一些启动应用程序的命令之前添加<code>prime-run</code>命令即可使其工作在<code>NVIDIA</code>下。</p>
-<h3 id="设置环境变量控制"><a class="markdownIt-Anchor" href="#设置环境变量控制"></a> 设置环境变量控制</h3>
-<p>如果选择手动设置环境，大部分时候只需要关注三个环境变量，过多时候可能只需要关注两个环境变量。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">__NV_PRIME_RENDER_OFFLOAD=1			<span class="comment"># 启用 PRIME Render Offload，允许应用程序使用 NVIDIA GPU</span></span><br><span class="line">__GLX_VENDOR_LIBRARY_NAME=<span class="string">&quot;nvidia&quot;</span>	<span class="comment"># 指定使用 NVIDIA 的 GLX 实现，确保 OpenGL 调用通过 NVIDIA GPU</span></span><br><span class="line">__VK_LAYER_NV_optimus=<span class="string">&quot;NVIDIA_only&quot;</span>	<span class="comment"># 专门用于 Vulkan 应用程序强制使用 NVIDIA GPU</span></span><br></pre></td></tr></table></figure></div>
-<p>对于大部分不使用<code>vulkan</code>图形 API 的应用程序来说，不需要关心<code>__VK_LAYER_NV_optimus</code>这个环境变量。</p>
-<p>以该方式运行一个应用程序，手动执行命令如下</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">__NV_PRIME_LIBRARY_RENDER_OFFLOAD=1 __CLX_VENDOR_LIBRARY_NAME=nvidia program</span><br></pre></td></tr></table></figure></div>
-<p>如果觉得该方式比较繁琐，也可自行编写脚本并进行软链接，用于自定义需要使用<code>NVIDIA</code>的应用程序</p>
-<p>参考脚本如下</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置环境变量以使用NVIDIA显卡</span></span><br><span class="line"><span class="built_in">export</span> __NV_PRIME_RENDER_OFFLOAD=1</span><br><span class="line"><span class="built_in">export</span> __GLX_VENDOR_LIBRARY_NAME=nvidia</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动你的应用程序</span></span><br><span class="line"><span class="built_in">exec</span> program</span><br></pre></td></tr></table></figure></div>
-<h3 id="在-hmcl-中配置-nvidia-加速游戏"><a class="markdownIt-Anchor" href="#在-hmcl-中配置-nvidia-加速游戏"></a> 在 HMCL 中配置 NVIDIA 加速游戏</h3>
-<blockquote>
-<p>HMCL 本身是一个游戏启动器，这里需要加速的是游戏，而非启动器本身。</p>
-</blockquote>
-<p>先启动 HMCL，进入“设置”页面，选择“修改高级设置”</p>
-<style>.kohfffrjymlc{zoom: 50%;}</style><img  
+    <title>linux下的后台进程管理</title>
+    <url>/2023/04/20/managing-background-processes-in-linux/</url>
+    <content><![CDATA[<p>后台进程管理对于任何一个操作系统来说都是非常重要的，它们在维持操作系统的基本功能运作时，还能运行更多用户自定义的进程服务。<span id="more"></span></p>
+<p>通过对后台进程管理的学习可以进一步了解操作系统的运作机制以及系统资源的分配调度。</p>
+<p>本文主要介绍几种在<code>linux</code>系统下长时间运行后台进程的方法。即使断开<code>	ssh</code>连接或者是关闭终端后，依然能够保持在后台运行。</p>
+<h2 id="nohup"><a class="markdownIt-Anchor" href="#nohup"></a> nohup</h2>
+<h3 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h3>
+<p><code>nohup</code>命令是一个最简单的长时间运行后台进程的命令，通常它和</p>
+<p><code>&amp;</code>符号一起使用。</p>
+<p><code>nohup</code>命令能够忽略<code>SIGHUP</code>信号的影响，在退出终端之后也能保持进程运行。(但是可以用<code>Ctrl+C</code>终止，即不忽略<code>SIGINT</code>信号)</p>
+<p><code>&amp;</code>符号能够忽略<code>SIGINT</code>信号，并让命令和进程在后台运行，不在终端显示进程的输出信息，输出被重定向到指定的文件里，默认是<code>nohup.out</code>文件。(但是需要保持终端打开，退出终端后会终止)</p>
+<p>将<code>nohup</code>和<code>&amp;</code>结合使用就能可靠实现长时间在后台运行。</p>
+<h3 id="基本使用"><a class="markdownIt-Anchor" href="#基本使用"></a> 基本使用</h3>
+<h4 id="运行"><a class="markdownIt-Anchor" href="#运行"></a> 运行</h4>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">nohup</span> <span class="built_in">command</span> &gt; ./out.file 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure></div>
+<p><code>command</code>是具体要在后台运行的命令。</p>
+<p><code>out.file</code>是指定的输出文件路径和文件名，如果缺省则默认输出到<code>nohup.out</code>文件中。</p>
+<p><code>2&gt;&amp;1</code>表示将标准错误<code>2</code>重定向到标准输出<code>&amp;1</code>，标准输出<code>&amp;1</code>再被重定向输入到输出文件中。</p>
+<p><code>&amp;</code>表示在后台运行。</p>
+<h4 id="终止"><a class="markdownIt-Anchor" href="#终止"></a> 终止</h4>
+<p><code>nohup</code>+<code>&amp;</code>的进程可以通过<code>ps</code>命令搜索关键词得到进程号<code>pid</code>，再用<code>kill</code>命令终止。(一般来说，成功执行<code>nohup</code>后会输出<code>pid</code>的信息)</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ps -aux | grep [...]</span><br><span class="line"><span class="built_in">kill</span> -9 [pid]</span><br></pre></td></tr></table></figure></div>
+<h3 id="小结"><a class="markdownIt-Anchor" href="#小结"></a> 小结</h3>
+<p><code>nohup</code>命令是<code>linux</code>自带的命令，它提供了最简单的长时间运行后台进程的方案，但是功能也相对较少，不足以应付一些复杂的<strong>交互性</strong>的任务，一般用于临时性地长时间运行某个命令。后面介绍的命令则提供了更多的功能。</p>
+<h2 id="screen"><a class="markdownIt-Anchor" href="#screen"></a> screen</h2>
+<h3 id="概述-2"><a class="markdownIt-Anchor" href="#概述-2"></a> 概述</h3>
+<p><code>screen</code>命令(全称<code>GNU Screen</code>)用于多重视窗管理程序，可以在不同的终端连接到同一个<strong>会话</strong>，是一种<strong>终端多路复用器</strong>。<code>screen</code>的使用可以很方便地保留会话，并解决了<code>nohup</code>在交互性任务上的不足。</p>
+<h3 id="基本使用-2"><a class="markdownIt-Anchor" href="#基本使用-2"></a> 基本使用</h3>
+<h4 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h4>
+<p><code>screen</code>命令可能需要先手动安装</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Debian/Ubuntu</span></span><br><span class="line">sudo apt install screen</span><br></pre></td></tr></table></figure></div>
+<h4 id="创建"><a class="markdownIt-Anchor" href="#创建"></a> 创建</h4>
+<p>创建一个名为<code>test</code>的虚拟终端(默认用<code>hostname</code>命名，推荐自定义名称)</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">screen -S <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
+<p>或者使用</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">screen -R <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
+<p><code>-R</code>参数会先试图恢复已经存在的名为<code>test</code>的虚拟终端，如果找不到则创建新的虚拟终端。</p>
+<p>使用<code>-S</code>参数可能会有重名的问题(<code>pid</code>不会重复)，如下</p>
+<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2024/01/25/simple-nvidia-setup-for-linux/image-20240125175909038.png"
-                      class="kohfffrjymlc" alt="image-20240125175909038"
+                     data-src="/2023/04/20/managing-background-processes-in-linux/image-20230421000557507.png"
+                      class="" title="image-20230421000557507"
                 >
-<p>如果选择使用<code>prime-run</code>的方式，可以在“自定义命令”模块的“包装命令”中填入<code>prime-run</code></p>
-<style>.tpjyrljdrdbt{zoom:50%;}</style><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/2024/01/25/simple-nvidia-setup-for-linux/image-20240125182631549.png"
-                      class="tpjyrljdrdbt" alt="image-20240125182631549"
-                >
-<p>如果选择设置环境变量的方式，可以在“Java 虚拟机设置”模块的”环境变量“中填入<code>__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia</code></p>
-<style>.ppocifkhujki{zoom:50%;}</style><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/2024/01/25/simple-nvidia-setup-for-linux/image-20240125182927742.png"
-                      class="ppocifkhujki" alt="image-20240125182927742"
-                >
-<p>接下来就可以运行游戏，在<code>NVIDIA</code>显卡下工作，可以通过前面提到的<code>NVIDIA</code>的监控工具查看<code>NVIDIA</code>显卡是否在工作。</p>
-<h3 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h3>
-<p><a class="link"   href="https://archlinuxstudio.github.io/ArchLinuxTutorial/#/rookie/graphic_driver" >显卡驱动 | archlinuxstudio <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h4 id="水平分割"><a class="markdownIt-Anchor" href="#水平分割"></a> 水平分割</h4>
+<p>在<code>screen</code>窗口中，先输入<code>Ctrl+a</code>，再输入<code>|</code>，将当前窗口左右划分。</p>
+<h4 id="垂直分割"><a class="markdownIt-Anchor" href="#垂直分割"></a> 垂直分割</h4>
+<p>在<code>screen</code>窗口中，先输入<code>Ctrl+a</code>，再输入<code>S</code>，将当前窗口上下划分。</p>
+<blockquote>
+<p>这里的<code>S</code>必须大写</p>
+</blockquote>
+<h4 id="窗口切换"><a class="markdownIt-Anchor" href="#窗口切换"></a> 窗口切换</h4>
+<p>在<code>screen</code>窗口中，先输入<code>Ctrl+a</code>，再输入<code>Tab</code>，切换不同的窗口。</p>
+<h4 id="重连会话"><a class="markdownIt-Anchor" href="#重连会话"></a> 重连会话</h4>
+<p>重新进入虚拟终端，可以使用以下命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">screen -r [name/pid]</span><br></pre></td></tr></table></figure></div>
+<h4 id="退出"><a class="markdownIt-Anchor" href="#退出"></a> 退出</h4>
+<p>在<code>screen</code>中，先输入<code>Ctrl+a</code>，再输入<code>d</code>会保留并退出该<code>screen</code>。</p>
+<blockquote>
+<p>注意输入的顺序，否则会误删screen</p>
+</blockquote>
+<h4 id="查询"><a class="markdownIt-Anchor" href="#查询"></a> 查询</h4>
+<p>列出所有<code>screen</code>创建的虚拟终端以及其状态</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">screen -<span class="built_in">ls</span></span><br></pre></td></tr></table></figure></div>
+<p>或者在<code>screen</code>虚拟终端中，先输入<code>Ctrl+a</code>，再输入<code>&quot;</code>即可查询。</p>
+<p>虚拟终端具有两种状态</p>
+<ul>
+<li>Attached：激活状态，表示该<code>screen</code>正在作为当前终端使用。</li>
+<li>Detached：非激活状态，表示该<code>screen</code>正在作为后台进程运行。</li>
+</ul>
+<h4 id="终止-2"><a class="markdownIt-Anchor" href="#终止-2"></a> 终止</h4>
+<p>在进程处理完毕后，已经不需要虚拟终端了，就可以释放资源。</p>
+<p>在对应的虚拟终端下时，可以用<code>exit</code>命令退出并释放资源。(推荐使用这种方式，因为能够直接确认当前终端是否处理完进程)</p>
+<blockquote>
+<p>tips：在<code>screen</code>中，输入<code>Ctrl+d</code>也可以释放该<code>screen</code>。</p>
+</blockquote>
+<p>在主终端下，如果确定某个虚拟终端可以终止，也可以使用以下命令释放</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">screen -R/-r/-S [name/pid] -X quit</span><br></pre></td></tr></table></figure></div>
+<p>更多信息参考<a href="https://www.mintimate.cn/2021/09/02/howToUseScreen/"> <strong>雨月空间站</strong> </a></p>
+<h3 id="小结-2"><a class="markdownIt-Anchor" href="#小结-2"></a> 小结</h3>
+<p><code>screen</code>虽然解决了<code>nohup</code>存在的局限性，但是功能相对后面的<code>tmux</code>还是稍微欠缺，不过基本能够满足大部分日常使用。用户可以根据自身的需求和习惯来选择<code>GNU</code>的<code>screen</code>或者是更加现代化的<code>tmux</code>。</p>
+<h2 id="tmux"><a class="markdownIt-Anchor" href="#tmux"></a> tmux</h2>
+<h3 id="概述-3"><a class="markdownIt-Anchor" href="#概述-3"></a> 概述</h3>
+<p><code>tmux</code>是一个类似于<code>screen</code>的终端复用器，总体功能上比<code>screen</code>更加丰富，且风格更加现代化。</p>
+<p><code>tmux</code>具有会话(session)、窗口(window)、窗格(pane)的三层结构。会话是所有虚拟终端的集合，窗口是整个屏幕，窗格是各个虚拟终端。一个会话可以创建多个窗口，一个窗口可以创建多个窗格。</p>
+<h3 id="基本使用-3"><a class="markdownIt-Anchor" href="#基本使用-3"></a> 基本使用</h3>
+<h4 id="安装-2"><a class="markdownIt-Anchor" href="#安装-2"></a> 安装</h4>
+<p><code>tmux</code>的安装</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install tmux</span><br></pre></td></tr></table></figure></div>
+<h4 id="创建会话"><a class="markdownIt-Anchor" href="#创建会话"></a> 创建会话</h4>
+<p>创建会话session</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux</span><br></pre></td></tr></table></figure></div>
+<p>在tmux创建的会话底部会有一条状态栏，表示了当前的<code>session name</code>，<code>session number</code>，shell的类型以及<code>hostname</code>等。</p>
+<p>创建一个名为<code>test</code>的会话session</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux new-session -s <span class="built_in">test</span></span><br><span class="line">tmux new -s <span class="built_in">test</span> <span class="comment"># 简写格式</span></span><br></pre></td></tr></table></figure></div>
+<p>会话管理：在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>s</code>，可以查看并管理所有会话。</p>
+<h4 id="窗口分割"><a class="markdownIt-Anchor" href="#窗口分割"></a> 窗口分割</h4>
+<p>在一个<code>tmux</code>的会话中可以分割出多个窗格</p>
+<p><strong>水平分割</strong></p>
+<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>%</code>，将窗口左右划分。</p>
+<p><strong>垂直分割</strong></p>
+<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>&quot;</code>，将窗口上下划分。</p>
+<h4 id="多窗格管理"><a class="markdownIt-Anchor" href="#多窗格管理"></a> 多窗格管理</h4>
+<p><strong>编号展示</strong></p>
+<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>q</code>，可以知道窗格创建的先后顺序。</p>
+<p><strong>窗格切换</strong></p>
+<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>;</code>，切换到上一个窗格；</p>
+<p>先输入<code>Ctrl+b</code>，再输入<code>o</code>，切换到下一个窗格。</p>
+<p><strong>窗格关闭</strong></p>
+<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>x</code>，可以关闭当前选中的窗格。也可以使用<code>Ctrl+d</code>或者<code>exit</code>命令，直接退出窗格。</p>
+<h4 id="多窗口管理"><a class="markdownIt-Anchor" href="#多窗口管理"></a> 多窗口管理</h4>
+<p><strong>创建窗口</strong></p>
+<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>c</code>，可以创建新的窗口，新窗口会覆盖当前窗口，同时底部状态栏会多出一个shell的信息。</p>
+<p><strong>切换窗口</strong></p>
+<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>p</code>，切换到上一个窗口；</p>
+<p>先输入<code>Ctrl+b</code>，再输入<code>n</code>，切换到下一个窗口；</p>
+<p>先输入<code>Ctrl+b</code>，再输入<code>w</code>，可以在列表中选择窗口。</p>
+<p>更多快捷键参考<a class="link"   href="https://zhuanlan.zhihu.com/p/137715607" >Tmux的常用快捷键 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h4 id="查询会话"><a class="markdownIt-Anchor" href="#查询会话"></a> 查询会话</h4>
+<p>列出所有已创建的<code>tmux</code></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux <span class="built_in">ls</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>tips：也可以用前面提到的方法，在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>s</code>，也可以查询已创建的<code>tmux</code></p>
+</blockquote>
+<h4 id="脱离会话"><a class="markdownIt-Anchor" href="#脱离会话"></a> 脱离会话</h4>
+<p>在<code>tmux</code>窗口中，先输入<code>Ctrl+b</code>，再输入<code>d</code>，或者使用以下命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux detach</span><br></pre></td></tr></table></figure></div>
+<p>就能保存会话并脱离。</p>
+<blockquote>
+<p>注意：如果输入的是<code>Ctrl+d</code>，则会直接删除会话。</p>
+</blockquote>
+<h4 id="重连会话-2"><a class="markdownIt-Anchor" href="#重连会话-2"></a> 重连会话</h4>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux attach -t [session-name]</span><br><span class="line">tmux a -t [session-name] <span class="comment"># 简写格式</span></span><br></pre></td></tr></table></figure></div>
+<h4 id="删除会话"><a class="markdownIt-Anchor" href="#删除会话"></a> 删除会话</h4>
+<p>在主终端下，执行以下命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tmux kill-session -t [session-name]</span><br></pre></td></tr></table></figure></div>
+<p>或者在tmux窗口中，输入<code>Ctrl+d</code>，即可将会话删除。</p>
+<h3 id="小结-3"><a class="markdownIt-Anchor" href="#小结-3"></a> 小结</h3>
+<p><code>tmux</code>拥有比<code>screen</code>更加友好的信息提示，交互体验更加好。<code>tmux</code>也基本满足了日常使用需求，是适合广大用户的选择。</p>
+<blockquote>
+<p>不过，如果习惯了<code>screen</code>的快捷键操作等，也可以使用<code>screen</code>，同样可以很好地满足需求，而不必在多个工具间切换。</p>
+<p>另外，不建议同时使用<code>screen</code>和<code>tmux</code>管理后台进程，一方面，它们的操作方式不同，另一方面，它们在管理后台进程时可能会冲突。</p>
+</blockquote>
+<p>关于<code>tmux</code>更多的技巧操作可以参考<a class="link"   href="https://zhuanlan.zhihu.com/p/414295937" >你需要知道的tmux使用技巧 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>以及对<code>tmux</code>的美化配置可以参考<a class="link"   href="https://zhuanlan.zhihu.com/p/122277982" >推荐神器Tmux和巨好看的配置文件 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="byobu"><a class="markdownIt-Anchor" href="#byobu"></a> byobu</h2>
+<h3 id="概述-4"><a class="markdownIt-Anchor" href="#概述-4"></a> 概述</h3>
+<p><code>byobu</code>是基于<code>screen</code>和<code>tmux</code>的终端多路复用器包装器，它通常和<code>screen</code>或<code>tmux</code>组合使用，在<code>screen</code>或<code>tmux</code>的基础上提供更多的功能支持。它本身无法独立实现<code>screen</code>和<code>tmux</code>的功能。</p>
+<blockquote>
+<p><code>byobu</code>早期是为<code>screen</code>开发的前端包装器，默认使用<code>screen</code>作为后端，目的是降低配置和操作成本。</p>
+<p>现在的<code>byobu</code>默认使用<code>tmux</code>后端，相当于<code>tmux</code>的增强版，习惯<code>screen</code>的用户也可以手动配置<code>byobu</code>使用<code>screen</code>后端。</p>
+</blockquote>
+<h3 id="基本使用-4"><a class="markdownIt-Anchor" href="#基本使用-4"></a> 基本使用</h3>
+<p><code>byobu</code>可以直接套用其后端的命令格式，如果使用的是<code>tmux</code>后端，只需要在<code>tmux</code>命令的基础上把<code>tmux</code>换成<code>byobu</code>即可，<code>screen</code>同理。</p>
+<blockquote>
+<p>实际上，使用<code>byobu</code>的功能主要是通过各种快捷键。</p>
+</blockquote>
+<h4 id="安装-3"><a class="markdownIt-Anchor" href="#安装-3"></a> 安装</h4>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install byobu</span><br></pre></td></tr></table></figure></div>
+<h4 id="操作"><a class="markdownIt-Anchor" href="#操作"></a> 操作</h4>
+<p><code>byobu</code>的命令可以直接套用其后端的命令，也可以直接使用其后端的快捷键操作。</p>
+<p>以下是基于<code>tmux</code>后端的几个命令示例，直接套用<code>tmux</code>的命令格式即可</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建会话</span></span><br><span class="line">byobu new -s <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 查询会话</span></span><br><span class="line">byobu <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># 脱离会话</span></span><br><span class="line">byobu detach</span><br><span class="line"><span class="comment"># 重连会话</span></span><br><span class="line">byobu a -t <span class="built_in">test</span></span><br><span class="line"><span class="comment"># 删除会话</span></span><br><span class="line">byobu kill-session -t <span class="built_in">test</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>快捷键操作可参考<a class="link"   href="https://zhuanlan.zhihu.com/p/113680062" >byobu常用快捷键 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>，里面是以<code>screen</code>为后端的例子</p>
+<p>注意：<code>screen</code>的前置快捷键是<code>Ctrl+a</code>，<code>tmux</code>的前置快捷键是<code>Ctrl+b</code></p>
+</blockquote>
+<h3 id="补充"><a class="markdownIt-Anchor" href="#补充"></a> 补充</h3>
+<p><code>byobu</code>的默认配置和<code>tmux</code>很相似，一开始看不出明显的区别，需要手动配置<code>byobu</code>。</p>
+<h2 id="zellij"><a class="markdownIt-Anchor" href="#zellij"></a> Zellij</h2>
+<h3 id="概述-5"><a class="markdownIt-Anchor" href="#概述-5"></a> 概述</h3>
+<p><code>Zellij</code>是基于<code>Rust</code>实现的终端多路复用器，与<code>WebAssembly</code>原生兼容。<code>Zellij</code>的最大特点是支持插件，并且预先包装好了一个开箱即用的友好用户界面。它的用户窗口底部展示了一些键位以及其对应的功能类，能够帮助用户快速适应基本操作。另外对于<code>tmux</code>用户来说，<code>Zellij</code>兼容<code>tmux</code>的主要快捷键，因此<code>tmux</code>用户可以更快地适应<code>Zellij</code>。</p>
+<h3 id="基本使用-5"><a class="markdownIt-Anchor" href="#基本使用-5"></a> 基本使用</h3>
+<p><code>Zellij</code>的下载方式可参考官网 <a class="link"   href="https://zellij.dev/" >https://zellij.dev/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><code>Zellij</code>的使用哲学是：先进入对应的功能类，然后使用提示的按键进行操作，最后按下<code>enter</code>键确认。这种方式使得<code>Zellij</code>的操作非常直观和易用。</p>
+<blockquote>
+<p><code>Zellij</code>的基本操作说明已经整合到了它那开箱即用的用户界面中，可以根据它的界面提示来进行操作。从笔者个人角度来看，<code>Zellij</code>可能是最容易学习的。</p>
+</blockquote>
+<h3 id="小结-4"><a class="markdownIt-Anchor" href="#小结-4"></a> 小结</h3>
+<p><code>Zellij</code>的诞生揭示了几个重要的趋势和需求</p>
+<ul>
+<li>
+<p>跨平台兼容性：<code>Zellij</code>使用<code>Rust</code>编写，可以在多种操作系统上运行，用户和开发者都可以在多个平台上无缝切换使用它。</p>
+<blockquote>
+<p>实际上，从跨平台的概念出现到现在，已经诞生了一大批跨平台的工具。</p>
+</blockquote>
+</li>
+<li>
+<p>插件化和可定制性：<code>Zellij</code>拥有插件系统，这是传统的终端复用器所不具备的。用户可以通过插件系统定制和扩展工具的功能或外观布局。(不过目前<code>Zellij</code>的插件生态仍在完善中)</p>
+<blockquote>
+<p>插件系统也是一种设计哲学，典型的例子就是<code>vscode</code>和<code>Neovim</code>。</p>
+</blockquote>
+</li>
+<li>
+<p>易用性和直观性：<code>Zellij</code>提供了预先配置的开箱即用的用户界面，使得新用户可以更容易地上手，且不需要过多的配置。</p>
+<blockquote>
+<p>这点在另一个<code>Rust</code>工具——<code>helix</code>的设计理念中也有所体现。借助<code>helix</code>的内置文档和提示，初学者在面对<code>helix</code>或<code>vim</code>及其分支<code>Neovim</code>时，学习<code>helix</code>的成本远远低于<code>vim</code>系列的工具。</p>
+</blockquote>
+</li>
+<li>
+<p>性能和效率：<code>Zellij</code>是由<code>Rust</code>实现的工具，而<code>Rust</code>语言本身就是为了提供高性能和内存安全。</p>
+<blockquote>
+<p>目前也涌现出了一大批由<code>Rust</code>重写的工具，不过<code>Rust</code>总体生态还需要开发者和用户群体双方的支持和投入。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h2>
+<p>这部分方案适用于有特定需求的开发者。网站开发者，游戏服务器开发者或者是深度学习开发者等大型项目开发者，<code>screen</code>和<code>tmux</code>不适合管理这些大项目，因为它们不具有因程序崩溃或意外终止而<strong>自动重启</strong>的功能及其他的一些高级功能。</p>
+<h3 id="systemd"><a class="markdownIt-Anchor" href="#systemd"></a> systemd</h3>
+<p><code>systemd</code>是大部分主流<code>linux</code>系统的默认初始化系统，它通过<code>systemctl</code>这个命令来控制，具有<code>screen</code>和<code>tmux</code>所不具备的高级功能。</p>
+<p>但是<code>systemd</code>与系统耦合度较高，而且其自定义配置<strong>需要具备一定的专业知识</strong>，通常一般的用户很少使用<code>systemd</code>来作为首选方案。</p>
+<blockquote>
+<p>这里指的是配置<code>systemd</code>管理用户自定义的程序，不是指使用<code>systemd</code>，<code>systemd</code>在日常生活就已经很频繁地在使用了。</p>
+</blockquote>
+<p>不过，有很多专业软件程序都有对<code>systemd</code>的支持，例如<code>mysql</code>、<code>nginx</code>、<code>NetworkManager</code>等，对于特定的<code>linux</code>系统开发者来说。</p>
+<h3 id="supervisor"><a class="markdownIt-Anchor" href="#supervisor"></a> supervisor</h3>
+<p><code>supervisor</code>是一个专注后台进程管理的程序，它使用<code>supervisorctl</code>命令来控制，可以让开发人员方便地管理和监控进程，它基于<code>python</code>开发，是开发者快速管理项目的一套简单易用的方案，不需要考虑过高的系统耦合性问题。</p>
+<blockquote>
+<p>有一部分<code>linux</code>发行版并不是使用<code>systemd</code>作为初始化系统(尽管大多数发行版都在支持<code>systemd</code>)，这部分的系统就无法使用<code>systemd</code>的方案。因此，<code>supervisor</code>可能会是一种方案。</p>
+</blockquote>
+<p>相关使用和配置可以参考<a class="link"   href="https://zhuanlan.zhihu.com/p/147305277" >Linux进程管理工具 Supervisor详解 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<p><a class="link"   href="https://cloud.tencent.com/developer/article/1763384" >Linux：Nohup命令详解 ｜ 腾讯云开发者社区 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://www.runoob.com/linux/linux-comm-nohup.html" >linux nohup命令 | 菜鸟教程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a href="https://www.mintimate.cn/2021/09/02/howToUseScreen/">Linux终端命令神器–Screen命令详解 | <strong>雨月空间站</strong></a></p>
+<p><a href="https://qianxu.run/2021/03/28/tmux-vs-screen/">tmux vs screen | <strong>qxdn 的乐园</strong></a></p>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/122277982" >推荐神器Tmux和巨好看的配置文件 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/414295937" >你需要知道的tmux使用技巧 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://cloud.tencent.com/developer/article/1526675" >可能是东半球最全面易懂的 Tmux 使用教程！( 强烈建议收藏 ) | 腾讯云开发者社区 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/147305277" >Linux进程管理工具 Supervisor详解 | 知乎 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
       <tags>
-        <tag>nvidia</tag>
-        <tag>hmcl</tag>
+        <tag>后台管理</tag>
+        <tag>screen</tag>
+        <tag>tmux</tag>
+        <tag>byobu</tag>
       </tags>
   </entry>
 </search>
