@@ -13535,4 +13535,283 @@ a*b=(a_1*10^{n/2}+a_0)*(b_1*10^{m/2}+b_0)\\
         <tag>typescript</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Linux FireWall</title>
+    <url>/2024/02/27/linux-firewall/</url>
+    <content><![CDATA[<p>记录关于 Linux 防火墙的一些简单使用和说明<span id="more"></span></p>
+<p>Linux  防火墙可能在很多时候对初学者部署网络服务造成了一定的“阻碍”。由于不清楚防火墙的重要性，许多用户选择直接关闭防火墙。对于一些大型云服务商来说，他们在防火墙之外还提供了安全组，能类似地起到防火墙的作用，使得 Linux 自带的防火墙似乎没有使用的必要性。但是对于 VPS 服务来说，他们是不提供安全组服务的，这意味着用户需要自己为服务器的安全负责，这时就很有必要学习 Linux 自带的防火墙技术——iptables。</p>
+<h2 id="linux-防火墙"><a class="markdownIt-Anchor" href="#linux-防火墙"></a> Linux 防火墙</h2>
+<p>以下内容大部分参考自<a class="link"   href="https://www.bilibili.com/video/BV1Jz4y1u7Lz/" >iptables核心运作原理和数据包过滤方法 | 技术蛋老师 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
+<h3 id="iptables-的由来"><a class="markdownIt-Anchor" href="#iptables-的由来"></a> iptables 的由来</h3>
+<p>以常见的 linux 服务器为例，可以划分为<strong>硬件、内核空间、用户空间</strong>三部分。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/f825b099b593ad097431dba7b71d966e5cc3a9d1.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<p>流量的流动是先从网卡，再到 linux 内核，最后抵达到网络应用。</p>
+<p><strong>过滤</strong>就是先让流量从网卡进来，然后在 linux 内核里进行过滤处理，最后进入网络应用。这样网络应用前面就有一道防火墙，防火墙就位于 linux 内核的实现中。</p>
+<p>在 linux 内核中存在一个叫 <strong>netfilter</strong> 的框架，一旦有流量进来，就会触发 netfilter的机制对流量进行过滤。</p>
+<p>为了方便操作 netfilter 框架， iptables 工具应运而生，iptables 相当于 netfilter 的接口。使用 iptables 命令就可以执行 netfilter 的复杂流量过滤逻辑。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/bdc4747c99a88429a6b10cc47f5a2d2d34985993.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<p>不过 iptables 对于初学者来说还是具有一定的学习难度。</p>
+<h3 id="tables-表格"><a class="markdownIt-Anchor" href="#tables-表格"></a> tables 表格</h3>
+<p>iptables 具有多个 table (表格)，即 filter、nat、mangle、raw、security，常见的是前 4 个表格，最常用的则是 <strong>filter</strong> 和 <strong>nat</strong></p>
+<p>这两个表中，filter 负责过滤，nat 负责网络地址转换。nat 表可以支持负载均衡等强大功能。不过，绝大多数用户可能只需要关心 filter 表。</p>
+<h3 id="chains-链路"><a class="markdownIt-Anchor" href="#chains-链路"></a> chains 链路</h3>
+<p>数据包抵达网络应用程序，最简单的链路就是一进一出。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/dd704f8f01fdde09c64efda5937a02110f980c8c.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<p>但实际上 linux 系统本身也可以作为路由器存在，有些数据包会经过这台 linux 主机，并且被转发到其它设备，这样就会多一条转发链路，加上前面的一进一出链路，就可能发生很多情况。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/346ad17db7da14cb8b89af5117b0d9438cd2366c.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<p>不过处于内核的 netfilter 已经对链路的各个部分进行了管理。</p>
+<p>当数据包一抵达到系统时，就由 <strong>PREROUTING</strong> 链负责。</p>
+<p>如果数据包的目标是本机，就由 <strong>INPUT</strong> 链负责。</p>
+<p>数据包如果从本机出去，就由 <strong>OUTPUT</strong> 链负责。</p>
+<p>数据包如果不是要到本机，只是经过本机路由，就由 <strong>FORWARD</strong> 链负责。</p>
+<p>数据包如果要离开本机，或者路由后，还有个 <strong>POSTROUTING</strong> 链负责。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/e71c211f7afef61efca10acde5a35cb042b5ecc0.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<p>单从过滤数据包的使用需求上，用户不需要了解所有的链。如果使用 filter 表，只需要管理 INPUT、OUTPUT 和 FORWARD 链。</p>
+<p>filter 链路简单来说就是<strong>数据包的目标是本机可以过滤、数据包的转发可以过滤、数据包的目标是主机以外的其它地址可以过滤。</strong></p>
+<p><strong>具体实现过滤就是在对应的链里加入规则。</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/0f693be352f258e9c231179c3463db57c03cbdc0.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<p>iptables 含有不同的表，表里面有着不同的链，链里面可以制定不同的规则。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/1b74a15809579860fd87b760eec1f502ce4cda5f.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<h3 id="命令使用"><a class="markdownIt-Anchor" href="#命令使用"></a> 命令使用</h3>
+<p>使用 iptables 命令通常需要 root 权限，测试时为了方便可以切换到 root 操作。</p>
+<h4 id="查看表内容"><a class="markdownIt-Anchor" href="#查看表内容"></a> 查看表内容</h4>
+<p><strong>iptables --table filter --list</strong> 这个命令会列出 filter 表里面的内容，不使用 --table 指定任何表，则默认选用 filter 表。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/0056ade209dfeb03992da54355f3f9e18263b55f.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<p>可以看到这里的三条链，这里初始没有设置任何规则。使用另一台处于同一局域网内的主机可以 ping 通。</p>
+<p>接下来，使用 iptables 阻止另一台主机直接访问。</p>
+<h4 id="设置规则"><a class="markdownIt-Anchor" href="#设置规则"></a> 设置规则</h4>
+<p>先指定表格，再指定链，然后设置具体的规则</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">iptables \</span><br><span class="line">--table filter \</span><br><span class="line">--append INPUT \</span><br><span class="line">--<span class="built_in">source</span> 192.168.3.20 \</span><br><span class="line">--jump REJECT</span><br></pre></td></tr></table></figure></div>
+<p>上面的命令在 filter 表的 INPUT 链中添加了规则：所有来自 192.168.3.20 (同一局域网的另一台主机 IP) 源地址的数据包，会被 INPUT 链拒绝处理。</p>
+<p>重新查看 filter 表的信息如下</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/159d1000070c56b00209091c0c9d9b006cbc7d54.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<p>这里还需要注意 prot (protocol 协议)，因为没有指定具体协议，所以默认为 all。</p>
+<p>此时另一台主机应该无法顺利 ping 通，当本机去 ping 该主机也会收不到来自该主机的响应。</p>
+<p>除了使用 <strong>REJECT</strong> 拒绝处理，还可以使用 <strong>DROP</strong> 进行丢弃。</p>
+<p>可以在上面命令的基础上将 REJECT 替换为 DROP 执行。不过需要注意此时 INPUT 链中会先后包含 REJECT 和 DROP 两条规则，并且会根据先后顺序依次执行，但是 REJECT 规则会直接拒绝掉，导致 DORP 规则无法执行。需要先删除 REJECT 规则才能让 DROP 顺利执行。</p>
+<p>查看表内容时可以加上 <strong>–line-numbers 参数</strong>方便查看规则</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/7df3b0f7b10e163649bb89a77c6e3de0470202f7.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<h4 id="删除规则"><a class="markdownIt-Anchor" href="#删除规则"></a> 删除规则</h4>
+<p><strong>iptables --table filter --delete INPUT 1</strong></p>
+<p>上面的命令会删除 INPUT 链的第一条规则，即 REJECT 规则。删除之后，原来的 DROP 会成为新的第一条规则</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/02/27/linux-firewall/e2fa90c7f20c58be5196acdc1f3d1edc34a94976.png@690w_!web-note.webp"
+                      class="" title="img"
+                >
+<p>因此，使用序号连续删除规则的时候需要注意。</p>
+<p>重新 ping 会出现另外的失败提示。</p>
+<h4 id="批量屏蔽-ip-地址"><a class="markdownIt-Anchor" href="#批量屏蔽-ip-地址"></a> 批量屏蔽 IP 地址</h4>
+<p>可以在 <a class="link"   href="https://ipdeny.com" >https://ipdeny.com <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 上找到对应的地址段，使用 wget 下载对应的文件，查看文件内容，有大量的 IP 段。这里使用命令手动添加和普通的脚本添加都不是最推荐的方式。</p>
+<p>使用 ipset 指令就可以将大量的 IP 段单独汇集为一个集合，生成唯一 的哈希值。</p>
+<p>当为 iptables 添加 IP 地址时，只需要使用该哈希值来代表背后的 IP 地址段集合。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ipset create asan <span class="built_in">hash</span>:net</span><br></pre></td></tr></table></figure></div>
+<p>上面的命令会创建一个名为 asan 的集合，使用 net 表示网络号，而非主机号。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ipset list asan</span><br></pre></td></tr></table></figure></div>
+<p>上面的命令会列出 asan 集合的信息，此时集合里面还没有添加 IP 地址段。</p>
+<p>接下来是将 IP 地址段添加到集合中，使用 iptables 和 ipset 编写脚本。</p>
+<p>首先，创建一个名为 <a class="link"   href="http://block-india.sh" >block-india.sh <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 的文件，然后在脚本里填入以下内容</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">ipset create asan hash:net -exist # -exist 避免重复创建导致失败</span><br><span class="line">ipset flush asan # 清除旧地址</span><br><span class="line">[ -f &quot;in-aggregated.zone&quot; ] &amp;&amp; rm in-aggregated.zone # 删除旧文件</span><br><span class="line"></span><br><span class="line">wget .... # 下载 url 对应的文件</span><br><span class="line"></span><br><span class="line">if [ $? -eq 0 ] # 判断是否下载成功</span><br><span class="line">then</span><br><span class="line">	echo &quot;********** Downloaded **************&quot;</span><br><span class="line">	for address in `cat in-aggregatd.zone`</span><br><span class="line">	do</span><br><span class="line">		ipset add asan $address # 循环添加到 asan 集合中</span><br><span class="line">	done</span><br><span class="line">else</span><br><span class="line">	echo &quot;********** Failed to download **************&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">iptables \</span><br><span class="line">--table filter \</span><br><span class="line">--append INPUT \</span><br><span class="line">--match set --match-set asan src \</span><br><span class="line">--jump DROP</span><br></pre></td></tr></table></figure></div>
+<p>脚本编写完成，赋予文件可执行权限。</p>
+<p>在执行之前先 ping 一下集合中的一个 IP 确认没有问题。</p>
+<p>执行完脚本后，可以执行 <strong>ipset list asan | less</strong> 或结合 <strong>grep</strong> 查看是否添加成功。</p>
+<p>重新 ping 之前测试用的 IP 发现 ping 不通，表示设置成功。</p>
+<h4 id="持久化规则"><a class="markdownIt-Anchor" href="#持久化规则"></a> 持久化规则</h4>
+<p>重启服务器后一般会自动清空 iptables 和 ipset 的设置。可以使用以下命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ipset save &gt; /etc/rules.ipset</span><br><span class="line">iptables-save &gt; /etc/rules.iptables</span><br></pre></td></tr></table></figure></div>
+<p>对于 ipset 可以使用 <strong>ipset save &gt; /etc/rules.ipset</strong> 将规则保存到 rules.ipset 文件。</p>
+<p>对于 iptables 可以使用 <strong>iptables-save &gt; /etc/rules.iptables</strong> 将规则保存到 rules.iptables 文件。</p>
+<p>重启服务器，使用以下命令分别恢复设置</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ipset restore &lt; /etc/rules.ipset</span><br><span class="line">iptables-restore &lt; /etc/rules.iptables</span><br></pre></td></tr></table></figure></div>
+<p>如果在恢复设置之前还添加了新的设置，不想在恢复时被覆盖掉，可以<strong>在 iptables-restore 后面加上 --noflush 或者 -n，在 ipset restore 后加上 -exist。</strong></p>
+<blockquote>
+<p>其它永久保存规则和集合的方法：deb 系提供了 iptables-persistent 包，rehl 系提供了iptables-services 包。</p>
+</blockquote>
+<p>iptables 在 Linux 服务器发展中有着很重要的地位。到了现代，即使已经出现了 nftables (iptables 的现代化替代)，还是有大量的服务器依旧使用 iptables 管理防火墙。</p>
+<p>以下是一些补充资料的整理说明，简单地介绍为了简化 Linux 防火墙管理的一些工具。这些工具基本都是基于 iptables/nftables 实现的，本质上是对底层的 iptables/nftables 的抽象化实现，使得非专业用户也能很好地管理防火墙，满足日常需求。</p>
+<h2 id="防火墙简化管理"><a class="markdownIt-Anchor" href="#防火墙简化管理"></a> 防火墙简化管理</h2>
+<p><code>ufw</code>、<code>firewalld</code>、<code>iptables</code>和<code>nftables</code>都是Linux防火墙工具，它们可以独立使用，也有一些底层联系。</p>
+<ul>
+<li><strong>ufw</strong>：全称 Uncomplicated Firewall，是 Ubuntu 提供的一个 iptables 的接口，因为原生的 iptables 配置麻烦，学习成本较高。ufw 支持 IPv4 和 IPv6，最新版的 UFW 默认启用了 IPv6 配置。</li>
+<li><strong>firewalld</strong>：Centos7 及以上的发行版自带了 firewalld 防火墙，firewalld 带有 iptables 防火墙。其原因是 iptables 的防火墙策略是交由内核层面的 netfilter 网络过滤器来处理的，而 firewalld 则是交由内核层面的 nftables 包过滤框架来处理。相较于 iptables 防火墙而言，firewalld 支持动态更新技术并加入了区域（zone）的概念。</li>
+<li><strong>iptables</strong>：iptables 是最底层、最古老的防火墙系统，所有系统都会存在此防火墙，但一般而言使用其它上层管理工具的时候，只需保证该防火墙处于完全开放状态即可。</li>
+<li><strong>nftables</strong>：nftables 是用于替换 iptables 的工具。</li>
+</ul>
+<blockquote>
+<p>一些历史发展：iptables 是最早的防火墙工具，后来出现了 ufw 和 firewalld，这两个工具都是对 iptables 进行了封装，使得管理员在配置防火墙时可以通过执行相对简单，更容易理解的命令配置防火墙，而不是通过执行复杂难懂的 iptables 命令。最后，nftables 出现，作为 iptables 的替代品。</p>
+</blockquote>
+<h3 id="iptables-迁移到-nftables"><a class="markdownIt-Anchor" href="#iptables-迁移到-nftables"></a> iptables 迁移到 nftables</h3>
+<p>在 Debian 12 上，可以按照以下步骤从 iptables 过渡到 nftables</p>
+<ol>
+<li>
+<p><strong>停用 iptables</strong>：首先，需要停用 iptables 服务。</p>
+<p>可以使用以下命令来停用 iptables</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop iptables</span><br><span class="line">sudo systemctl <span class="built_in">disable</span> iptables</span><br></pre></td></tr></table></figure></div>
+<p>这些命令会停止 iptables 服务，并禁止它在系统启动时自动启动。</p>
+</li>
+<li>
+<p><strong>设置 iptables</strong>：然后，选择将其配置为允许所有流量，这样它就不会干扰 nftables 的操作。</p>
+<p>要让 iptables 允许所有流量，可以使用以下命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo iptables -P INPUT ACCEPT</span><br><span class="line">sudo iptables -P FORWARD ACCEPT</span><br><span class="line">sudo iptables -P OUTPUT ACCEPT</span><br><span class="line">sudo iptables -F</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p><strong>安装并启用 nftables</strong>：最后，安装并启用 nftables。</p>
+<p>可以使用以下命令来安装 nftables</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install nftables</span><br></pre></td></tr></table></figure></div>
+<p>使用以下命令来启用 nftables 服务</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> nftables</span><br><span class="line">sudo systemctl start nftables</span><br></pre></td></tr></table></figure></div>
+<p>这些命令会启动nftables服务，并设置它在系统启动时自动启动。</p>
+</li>
+</ol>
+<p>请注意，这些步骤可能需要root权限才能执行。在执行这些步骤时，请确保已经备份了系统和数据，以防万一。</p>
+<h3 id="firewalld-使用"><a class="markdownIt-Anchor" href="#firewalld-使用"></a> firewalld 使用</h3>
+<p><code>firewalld</code> 是一个动态管理防火墙规则的守护进程，使用 <code>zones</code> 和 <code>services</code> 的概念来简化防火墙管理。它提供了更直观的方式来组织规则和管理网络流量的访问权限。以下是 <code>firewalld</code> 的一些基本用法：</p>
+<h4 id="安装和启动-firewalld"><a class="markdownIt-Anchor" href="#安装和启动-firewalld"></a> 安装和启动 firewalld</h4>
+<p>在大多数基于 RPM 的发行版（如 Fedora、CentOS、RHEL）上，<code>firewalld</code> 默认已安装。如果没有，可以使用包管理器进行安装：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum install firewalld    <span class="comment"># CentOS/RHEL</span></span><br><span class="line">sudo dnf install firewalld    <span class="comment"># Fedora</span></span><br></pre></td></tr></table></figure></div>
+<p>安装后，启动并使 <code>firewalld</code> 服务在启动时自动运行：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl start firewalld</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> firewalld</span><br></pre></td></tr></table></figure></div>
+<h4 id="检查状态"><a class="markdownIt-Anchor" href="#检查状态"></a> 检查状态</h4>
+<p>要检查 <code>firewalld</code> 的状态，使用：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --state</span><br></pre></td></tr></table></figure></div>
+<h4 id="zones"><a class="markdownIt-Anchor" href="#zones"></a> Zones</h4>
+<p><code>firewalld</code> 使用 zones 来定义网络的安全级别。每个 zone 都有一套规则，用于决定哪些流量可以进入。默认 zone 通常是 <code>public</code>。</p>
+<ul>
+<li>
+<p>查看所有可用的 zones：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>查看活动的 zones 和它们的配置：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>查看当前接口所属的 zone：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>将接口添加到特定的 zone（更改立即生效，但不持久）：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --change-interface=enp3s0</span><br></pre></td></tr></table></figure></div>
+<p>要永久更改，添加 <code>--permanent</code> 标志。</p>
+</li>
+</ul>
+<h4 id="管理规则"><a class="markdownIt-Anchor" href="#管理规则"></a> 管理规则</h4>
+<ul>
+<li>
+<p>允许/禁止服务：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br></pre></td></tr></table></figure></div>
+<p>添加 <code>--permanent</code> 标志以使更改永久。</p>
+</li>
+<li>
+<p>允许/禁止端口：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-port=8080/tcp</span><br><span class="line">sudo firewall-cmd --zone=public --remove-port=8080/tcp</span><br></pre></td></tr></table></figure></div>
+<p>同样，添加 <code>--permanent</code> 标志以使更改永久。</p>
+</li>
+</ul>
+<h4 id="重新加载配置"><a class="markdownIt-Anchor" href="#重新加载配置"></a> 重新加载配置</h4>
+<p>更改 <code>firewalld</code> 的配置后，您需要重新加载规则，以便更改生效：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure></div>
+<p>这不会中断活动连接。</p>
+<h4 id="查看和添加服务"><a class="markdownIt-Anchor" href="#查看和添加服务"></a> 查看和添加服务</h4>
+<p><code>firewalld</code> 使用服务（services）来简化管理。服务是预定义的端口和协议的组合，这使得开放对特定类型网络服务的访问变得简单。每个服务都有一个与之关联的配置文件，定义了所需的端口和协议。</p>
+<p>查看所有预定义的服务：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-services</span><br></pre></td></tr></table></figure></div>
+<p>查看特定服务的详细信息：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --info-service=http</span><br></pre></td></tr></table></figure></div>
+<p>添加自定义服务：</p>
+<ol>
+<li>
+<p>创建一个 XML 文件定义服务。例如，为自定义应用<code>myapp</code>创建<code>/etc/firewalld/services/myapp.xml</code>：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">short</span>&gt;</span>MyApp<span class="tag">&lt;/<span class="name">short</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>This is my custom application.<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">port</span> <span class="attr">protocol</span>=<span class="string">&quot;tcp&quot;</span> <span class="attr">port</span>=<span class="string">&quot;8080&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>重新加载<code>firewalld</code>以识别新服务：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>将新服务添加到防火墙规则中：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=myapp</span><br></pre></td></tr></table></figure></div>
+<p>同样，添加<code>--permanent</code>标志以使更改永久。</p>
+</li>
+</ol>
+<p>永久性规则：</p>
+<p>当使用 <code>--permanent</code> 标志时，规则会被保存在配置文件中，即使 <code>firewalld</code> 服务重启也会保留这些规则。不使用 <code>--permanent</code> 标志的更改仅在当前会话中有效，重启 <code>firewalld</code> 服务后会丢失。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --zone=public --add-service=myapp</span><br></pre></td></tr></table></figure></div>
+<h4 id="富规则rich-rules"><a class="markdownIt-Anchor" href="#富规则rich-rules"></a> 富规则（Rich Rules）</h4>
+<p><code>firewalld</code> 的富规则（Rich Rules）提供了更复杂的规则定义方式，允许您创建包含源地址、端口、协议等多种条件的细致规则。</p>
+<ul>
+<li>
+<p>添加富规则</p>
+<p>例如，拒绝来自特定 IP 地址的所有访问：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-rich-rule=<span class="string">&#x27;rule family=&quot;ipv4&quot; source address=&quot;192.168.1.100&quot; drop&#x27;</span> --permanent</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h4 id="注意事项"><a class="markdownIt-Anchor" href="#注意事项"></a> 注意事项</h4>
+<ul>
+<li>每次使用 <code>--permanent</code> 标志修改了防火墙规则后，都需要重新加载 <code>firewalld</code> 服务（使用 <code>sudo firewall-cmd --reload</code>）来应用这些更改。</li>
+<li>使用 <code>--list-all</code> 参数定期检查区域配置，确保您的规则按预期工作。</li>
+</ul>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<p><a class="link"   href="https://www.bilibili.com/video/BV1Jz4y1u7Lz/" >iptables核心运作原理和数据包过滤方法 | 技术蛋老师 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>firewall</tag>
+        <tag>iptables</tag>
+      </tags>
+  </entry>
 </search>
