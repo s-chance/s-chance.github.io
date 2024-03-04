@@ -13692,80 +13692,191 @@ a*b=(a_1*10^{n/2}+a_0)*(b_1*10^{m/2}+b_0)\\
 <p>一些历史发展：iptables 是最早的防火墙工具，后来出现了 ufw 和 firewalld，这两个工具都是对 iptables 进行了封装，使得管理员在配置防火墙时可以通过执行相对简单，更容易理解的命令配置防火墙，而不是通过执行复杂难懂的 iptables 命令。最后，nftables 出现，作为 iptables 的替代品。</p>
 </blockquote>
 <h3 id="iptables-迁移到-nftables"><a class="markdownIt-Anchor" href="#iptables-迁移到-nftables"></a> iptables 迁移到 nftables</h3>
-<p>在 Debian 12 上，可以按照以下步骤从 iptables 过渡到 nftables</p>
+<p>可以按照以下步骤从 iptables 过渡到 nftables</p>
 <ol>
 <li>
-<p><strong>停用 iptables</strong>：首先，需要停用 iptables 服务。</p>
-<p>可以使用以下命令来停用 iptables</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop iptables</span><br><span class="line">sudo systemctl <span class="built_in">disable</span> iptables</span><br></pre></td></tr></table></figure></div>
+<p><strong>停用 iptables</strong>：首先，需要停用 iptables 相关服务。</p>
+<p>可以使用以下命令来停用 iptables、ip6tables</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop iptables</span><br><span class="line">sudo systemctl <span class="built_in">disable</span> iptables</span><br><span class="line">sudo systemctl stop ip6tables</span><br><span class="line">sudo systemctl <span class="built_in">disable</span> ip6tables</span><br></pre></td></tr></table></figure></div>
 <p>这些命令会停止 iptables 服务，并禁止它在系统启动时自动启动。</p>
 </li>
 <li>
 <p><strong>设置 iptables</strong>：然后，选择将其配置为允许所有流量，这样它就不会干扰 nftables 的操作。</p>
 <p>要让 iptables 允许所有流量，可以使用以下命令</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo iptables -P INPUT ACCEPT</span><br><span class="line">sudo iptables -P FORWARD ACCEPT</span><br><span class="line">sudo iptables -P OUTPUT ACCEPT</span><br><span class="line">sudo iptables -F</span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>这一步看起来似乎是多余的，但这实际上是一个谨慎的做法，旨在确保在迁移到 <code>nftables</code> 的过程中网络流量不会受到意外的中断或干扰。</p>
+</blockquote>
 </li>
 <li>
 <p><strong>安装并启用 nftables</strong>：最后，安装并启用 nftables。</p>
 <p>可以使用以下命令来安装 nftables</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install nftables</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install nftables</span><br></pre></td></tr></table></figure></div>
 <p>使用以下命令来启用 nftables 服务</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> nftables</span><br><span class="line">sudo systemctl start nftables</span><br></pre></td></tr></table></figure></div>
 <p>这些命令会启动nftables服务，并设置它在系统启动时自动启动。</p>
 </li>
+<li>
+<p><strong>验证 nftables 规则</strong></p>
+<p>查看当前的规则集来验证 <code>nftables</code> 的配置是否按预期工作。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo nft list ruleset</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p><strong>规则集转换</strong></p>
+<p>redhat 官方推出以下参考的资料，用于将 iptabls 的规则集转换为 nftables 的规则集。</p>
+<p><a class="link"   href="https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/getting-started-with-nftables_configuring-and-managing-networking" >配置和管理网络——nftables 入门 | Red Hat <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html/securing_networks/getting-started-with-nftables_securing-networks" >安全网络——nftables 入门 | Red Hat <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
 </ol>
-<p>请注意，这些步骤可能需要root权限才能执行。在执行这些步骤时，请确保已经备份了系统和数据，以防万一。</p>
+<p>注意：这些步骤通常都需要root权限才能执行。在执行这些步骤时，请确保已经备份了系统和数据，以防万一。</p>
 <h3 id="firewalld-使用"><a class="markdownIt-Anchor" href="#firewalld-使用"></a> firewalld 使用</h3>
+<blockquote>
+<p><code>firewalld</code>支持<code>nftables</code>后端。</p>
+</blockquote>
 <p><code>firewalld</code> 是一个动态管理防火墙规则的守护进程，使用 <code>zones</code> 和 <code>services</code> 的概念来简化防火墙管理。它提供了更直观的方式来组织规则和管理网络流量的访问权限。以下是 <code>firewalld</code> 的一些基本用法：</p>
 <h4 id="安装和启动-firewalld"><a class="markdownIt-Anchor" href="#安装和启动-firewalld"></a> 安装和启动 firewalld</h4>
 <p>在大多数基于 RPM 的发行版（如 Fedora、CentOS、RHEL）上，<code>firewalld</code> 默认已安装。如果没有，可以使用包管理器进行安装：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum install firewalld    <span class="comment"># CentOS/RHEL</span></span><br><span class="line">sudo dnf install firewalld    <span class="comment"># Fedora</span></span><br></pre></td></tr></table></figure></div>
-<p>安装后，启动并使 <code>firewalld</code> 服务在启动时自动运行：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl start firewalld</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> firewalld</span><br></pre></td></tr></table></figure></div>
-<h4 id="检查状态"><a class="markdownIt-Anchor" href="#检查状态"></a> 检查状态</h4>
-<p>要检查 <code>firewalld</code> 的状态，使用：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum install firewalld    <span class="comment"># CentOS/RHEL</span></span><br><span class="line">sudo dnf install firewalld    <span class="comment"># Fedora</span></span><br><span class="line">sudo apt install firewalld    <span class="comment"># Ubuntu/Debian</span></span><br></pre></td></tr></table></figure></div>
+<h4 id="基本管理"><a class="markdownIt-Anchor" href="#基本管理"></a> 基本管理</h4>
+<p><strong>启动和停止 firewalld</strong>：</p>
+<ul>
+<li>
+<p>启动</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl start firewalld</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>停止</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl stop firewalld</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>使 firewalld 服务在系统启动时自动启动</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> firewalld</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>禁用自动启动</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">disable</span> firewalld</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p><strong>重载 firewalld</strong>：不中断当前连接的情况下，应用更改。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure></div>
+<p><strong>查看 firewalld 状态</strong>：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --state</span><br></pre></td></tr></table></figure></div>
-<h4 id="zones"><a class="markdownIt-Anchor" href="#zones"></a> Zones</h4>
+<h4 id="区域管理"><a class="markdownIt-Anchor" href="#区域管理"></a> 区域管理</h4>
 <p><code>firewalld</code> 使用 zones 来定义网络的安全级别。每个 zone 都有一套规则，用于决定哪些流量可以进入。默认 zone 通常是 <code>public</code>。</p>
 <ul>
 <li>
 <p>查看所有可用的 zones：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-zones</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>这个命令用于列出 <code>firewalld</code> 所知的所有可用防火墙区域。</li>
+<li>这些区域包括预定义的区域和用户自定义的区域。</li>
+<li>输出只是区域的名称列表，不包括每个区域的具体规则或配置详情。</li>
+<li>这个命令非常有用，当你想要快速查看所有可用的防火墙区域时，比如在创建新规则或者修改现有规则时确定要使用哪个区域。</li>
+</ul>
 </li>
 <li>
-<p>查看活动的 zones 和它们的配置：</p>
+<p>详细查看所有的 zones 和配置：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>这个命令用于详细列出所有防火墙区域及其当前配置，包括每个区域的规则、服务、接口、源地址等。</li>
+<li>输出会显示每个区域的完整配置，这对于审查当前防火墙的配置和确定各个区域的作用非常有帮助。</li>
+<li>因为输出可能会很长（取决于有多少区域以及它们的配置如何），所以通常在需要详细了解防火墙设置时使用这个命令。</li>
+</ul>
+</li>
+<li>
+<p>查看默认的 zones：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">firewall-cmd --get-default-zone</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>这个命令用于查询当前的默认防火墙区域。</li>
+<li>默认区域是新加入网络接口或源未被指定为其他区域的情况下所使用的区域。</li>
+<li>它是系统上所有未明确分配到其他区域的网络流量的默认处理区域。</li>
+</ul>
 </li>
 <li>
 <p>查看当前接口所属的 zone：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-active-zones</span><br></pre></td></tr></table></figure></div>
+<ul>
+<li>这个命令用于列出当前所有活跃的防火墙区域及其关联的网络接口和源地址。</li>
+<li>活跃区域是指当前已经有网络接口或源地址被分配的区域。这表示这些区域正在被用于管理进出这些接口或源地址的网络流量。</li>
+<li>这个命令提供了一个快照，展示了哪些区域是配置中的，以及它们是如何关联到特定的网络接口或源地址的。</li>
+</ul>
 </li>
 <li>
-<p>将接口添加到特定的 zone（更改立即生效，但不持久）：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --change-interface=enp3s0</span><br></pre></td></tr></table></figure></div>
-<p>要永久更改，添加 <code>--permanent</code> 标志。</p>
+<p>设置默认的 zones：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">firewall-cmd --set-default-zone=[zonename]</span><br></pre></td></tr></table></figure></div>
 </li>
 </ul>
-<h4 id="管理规则"><a class="markdownIt-Anchor" href="#管理规则"></a> 管理规则</h4>
+<p><strong>修改区域配置</strong>：临时（直到下次重启或重载）或永久（持久化存储）修改防火墙规则</p>
 <ul>
 <li>
-<p>允许/禁止服务：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br></pre></td></tr></table></figure></div>
-<p>添加 <code>--permanent</code> 标志以使更改永久。</p>
+<p>临时添加服务：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=&lt;zone&gt; --add-service=&lt;service&gt;</span><br></pre></td></tr></table></figure></div>
 </li>
 <li>
-<p>允许/禁止端口：</p>
+<p>永久添加服务：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --zone=&lt;zone&gt; --add-service=&lt;service&gt;</span><br></pre></td></tr></table></figure></div>
+<p>还可以使用以下命令对当前修改过的规则即时保存为永久配置，不过是截止到这条命令执行的时间点之前，后续添加新的规则不会受影响。</p>
+ <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo fiewall-cmd --runtime-to-permanent</span><br></pre></td></tr></table></figure></div>
+<p>该命令可以在确定当前的运行时配置满足需求后，快速将其保存为永久配置，避免了手动重新添加规则的麻烦。</p>
+<p>对于任何新的规则更改，如果希望它们即刻生效并持久化，应该继续使用 <code>--permanent</code> 参数并在需要时使用 <code>--reload</code> 命令来应用更改。</p>
+</li>
+</ul>
+<h4 id="规则管理"><a class="markdownIt-Anchor" href="#规则管理"></a> 规则管理</h4>
+<p><strong>允许/禁止服务</strong>：启用或禁用特定的服务。</p>
+<ul>
+<li>
+<p>允许服务：<code>sudo firewall-cmd --zone=&lt;zone&gt; --add-service=&lt;service&gt;</code></p>
+</li>
+<li>
+<p>禁止服务：<code>sudo firewall-cmd --zone=&lt;zone&gt; --remove-service=&lt;service&gt;</code></p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=http</span><br><span class="line">sudo firewall-cmd --zone=public --remove-service=http</span><br></pre></td></tr></table></figure></div>
+<p>添加 <code>--permanent</code> 参数以使更改永久。</p>
+</li>
+</ul>
+<p><strong>允许/禁止端口</strong>：开放或关闭特定的端口。</p>
+<ul>
+<li>
+<p>允许端口：<code>sudo firewall-cmd --zone=&lt;zone&gt; --add-port=&lt;port&gt;/&lt;protocol&gt;</code></p>
+</li>
+<li>
+<p>禁止端口：<code>sudo firewall-cmd --zone=&lt;zone&gt; --remove-port=&lt;port&gt;/&lt;protocol&gt;</code></p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-port=8080/tcp</span><br><span class="line">sudo firewall-cmd --zone=public --remove-port=8080/tcp</span><br></pre></td></tr></table></figure></div>
-<p>同样，添加 <code>--permanent</code> 标志以使更改永久。</p>
+<p>同样，添加 <code>--permanent</code> 参数以使更改永久。</p>
+</li>
+</ul>
+<p><strong>查看配置</strong></p>
+<ol>
+<li>
+<p><strong>列出区域中的服务和端口</strong>：查看区域中当前允许的服务和端口。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=&lt;zone&gt; --list-services</span><br><span class="line">sudo firewall-cmd --zone=&lt;zone&gt; --list-ports</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p><strong>列出所有配置</strong>：查看特定区域或所有区域的详细配置。</p>
+<p>列出特定区域的所有配置：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=&lt;zone&gt; --list-all</span><br></pre></td></tr></table></figure></div>
+<p>列出所有区域的配置：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --list-all-zones</span><br></pre></td></tr></table></figure></div>
+</li>
+</ol>
+<p><strong>高级功能</strong></p>
+<p>直接规则：直接操作 iptables/nftables 规则。</p>
+<ul>
+<li>
+<p>添加直接规则：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 80 -j ACCEPT</span><br></pre></td></tr></table></figure></div>
+</li>
+<li>
+<p>删除直接规则：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --direct --remove-rule ipv4 filter INPUT 0 -p tcp --dport 80 -j ACCEPT</span><br></pre></td></tr></table></figure></div>
 </li>
 </ul>
 <h4 id="重新加载配置"><a class="markdownIt-Anchor" href="#重新加载配置"></a> 重新加载配置</h4>
-<p>更改 <code>firewalld</code> 的配置后，您需要重新加载规则，以便更改生效：</p>
+<p>更改 <code>firewalld</code> 的配置后，尤其是对于使用<code>--permanent</code>参数的配置，需要显式地重新加载规则，以便更改生效：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure></div>
-<p>这不会中断活动连接。</p>
+<p>使用 <code>--list-all</code> 参数定期检查区域配置，确保规则按预期工作。</p>
 <h4 id="查看和添加服务"><a class="markdownIt-Anchor" href="#查看和添加服务"></a> 查看和添加服务</h4>
 <p><code>firewalld</code> 使用服务（services）来简化管理。服务是预定义的端口和协议的组合，这使得开放对特定类型网络服务的访问变得简单。每个服务都有一个与之关联的配置文件，定义了所需的端口和协议。</p>
-<p>查看所有预定义的服务：</p>
+<p>查看所有预定义的服务(这里不指定<code>zone</code>会使用默认的设置，如<code>public</code>)：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --get-services</span><br></pre></td></tr></table></figure></div>
 <p>查看特定服务的详细信息：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --info-service=http</span><br></pre></td></tr></table></figure></div>
@@ -13782,14 +13893,13 @@ a*b=(a_1*10^{n/2}+a_0)*(b_1*10^{m/2}+b_0)\\
 <li>
 <p>将新服务添加到防火墙规则中：</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-service=myapp</span><br></pre></td></tr></table></figure></div>
-<p>同样，添加<code>--permanent</code>标志以使更改永久。</p>
+<p>添加<code>--permanent</code>参数以使更改永久</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --zone=public --add-service=myapp</span><br></pre></td></tr></table></figure></div>
+<p>当使用<code>--permanent</code>参数时，规则会被保存在配置文件中，即使<code>firewalld</code>服务重启也会保留这些规则。不使用<code>--permanent</code>参数的更改仅在当前会话中有效，重启<code>firewalld</code>服务后会丢失。</p>
 </li>
 </ol>
-<p>永久性规则：</p>
-<p>当使用 <code>--permanent</code> 标志时，规则会被保存在配置文件中，即使 <code>firewalld</code> 服务重启也会保留这些规则。不使用 <code>--permanent</code> 标志的更改仅在当前会话中有效，重启 <code>firewalld</code> 服务后会丢失。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --zone=public --add-service=myapp</span><br></pre></td></tr></table></figure></div>
 <h4 id="富规则rich-rules"><a class="markdownIt-Anchor" href="#富规则rich-rules"></a> 富规则（Rich Rules）</h4>
-<p><code>firewalld</code> 的富规则（Rich Rules）提供了更复杂的规则定义方式，允许您创建包含源地址、端口、协议等多种条件的细致规则。</p>
+<p><code>firewalld</code> 的富规则（Rich Rules）提供了更复杂的规则定义方式，允许创建包含源地址、端口、协议等多种条件的细致规则。</p>
 <ul>
 <li>
 <p>添加富规则</p>
@@ -13797,13 +13907,65 @@ a*b=(a_1*10^{n/2}+a_0)*(b_1*10^{m/2}+b_0)\\
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --zone=public --add-rich-rule=<span class="string">&#x27;rule family=&quot;ipv4&quot; source address=&quot;192.168.1.100&quot; drop&#x27;</span> --permanent</span><br></pre></td></tr></table></figure></div>
 </li>
 </ul>
-<h4 id="注意事项"><a class="markdownIt-Anchor" href="#注意事项"></a> 注意事项</h4>
+<h4 id="恐慌模式"><a class="markdownIt-Anchor" href="#恐慌模式"></a> 恐慌模式</h4>
+<p><code>firewalld</code> 提供了一个非常有用的功能，即“恐慌模式”（panic mode），它允许管理员在遇到网络安全威胁时，快速地切断所有外部网络通信，有效防止潜在的攻击。这个功能对于紧急情况下保护系统免受进一步损害非常有帮助。</p>
+<ol>
+<li>
+<p><strong>启用恐慌模式</strong>：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --panic-on</span><br></pre></td></tr></table></figure></div>
+<p>启用恐慌模式会立即阻断所有进出的网络流量，这相当于一个紧急的“断网”开关。</p>
+</li>
+<li>
+<p><strong>禁用恐慌模式</strong>：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --panic-off</span><br></pre></td></tr></table></figure></div>
+<p>当安全威胁已经被处理，或者确定网络可以安全恢复时，可以使用此命令禁用恐慌模式，恢复正常的网络通信。</p>
+</li>
+<li>
+<p><strong>查询恐慌模式状态</strong>：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --query-panic</span><br></pre></td></tr></table></figure></div>
+<p>这个命令可以让你查询当前防火墙是否处于恐慌模式。这对于确认防火墙的当前状态非常有用。</p>
+</li>
+</ol>
+<p><strong>注意事项</strong></p>
 <ul>
-<li>每次使用 <code>--permanent</code> 标志修改了防火墙规则后，都需要重新加载 <code>firewalld</code> 服务（使用 <code>sudo firewall-cmd --reload</code>）来应用这些更改。</li>
-<li>使用 <code>--list-all</code> 参数定期检查区域配置，确保您的规则按预期工作。</li>
+<li><strong>恐慌模式的使用场景</strong>：只有在确信系统正遭受攻击，且需要立即切断所有网络连接以保护系统和数据安全时，才应该启用恐慌模式。这是一个极端措施，会影响到所有网络服务和通信。</li>
+<li><strong>恢复网络通信</strong>：在禁用恐慌模式后，系统的网络通信会恢复正常。但是，根据攻击的性质和系统的配置，可能需要进一步的检查和修复工作，以确保系统的安全性。</li>
+<li><strong>规划应急响应</strong>：将恐慌模式作为应急响应计划的一部分，确保相关人员了解如何正确使用这一功能，并了解启用和禁用恐慌模式后的后续步骤。</li>
 </ul>
+<p>恐慌模式是 <code>firewalld</code> 提供的一个强大工具，能够在遭受攻击时提供即时的保护措施。然而，它应该谨慎使用，并伴随着全面的安全策略和事后分析。</p>
+<h4 id="锁闭机制"><a class="markdownIt-Anchor" href="#锁闭机制"></a> 锁闭机制</h4>
+<p><code>firewalld</code> 提供了一个锁闭机制（lockdown mode），这是一种安全特性，用于限制本地程序比如 KVM 虚拟机组件或一些代理服务组件对防火墙配置的修改。当启用锁闭模式时，通常只有 root 用户才能修改防火墙规则。</p>
+<ol>
+<li>
+<p><strong>查询防火墙的锁闭状态</strong>：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --query-lockdown</span><br></pre></td></tr></table></figure></div>
+<p>这个命令会返回当前防火墙的锁闭状态，如果启用了锁闭模式，它会返回 <code>yes</code>，否则返回 <code>no</code>。</p>
+</li>
+<li>
+<p><strong>启用锁闭模式</strong>：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --lockdown-on</span><br></pre></td></tr></table></figure></div>
+<p>执行这个命令后，防火墙将进入锁闭模式，限制未授权的防火墙配置更改。</p>
+</li>
+<li>
+<p><strong>禁用锁闭模式</strong>：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --lockdown-off</span><br></pre></td></tr></table></figure></div>
+<p>使用这个命令可以禁用锁闭模式，恢复到允许更改防火墙配置的状态。</p>
+</li>
+</ol>
+<p><strong>注意事项</strong></p>
+<ul>
+<li><strong>使用场景</strong>：锁闭模式特别适用于生产环境，或者任何对安全性要求较高的环境，它可以帮助确保防火墙配置不会被未授权的更改所破坏。</li>
+<li><strong>权限</strong>：这些操作需要 root 用户权限，这意味着只有系统管理员和有适当权限的用户可以启用或禁用锁闭模式。</li>
+<li><strong>影响</strong>：启用锁闭模式可能会影响那些需要修改防火墙规则的合法程序和服务，因此在启用之前需要仔细考虑。</li>
+</ul>
+<p><code>firewalld</code> 的锁闭机制提供了一个额外的安全层，帮助防止未授权的防火墙配置更改。管理员可以根据需要启用或禁用锁闭模式，以适应不同的安全需求和操作环境。在启用锁闭模式时，确保考虑到对合法服务和应用程序的潜在影响。</p>
 <h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
 <p><a class="link"   href="https://www.bilibili.com/video/BV1Jz4y1u7Lz/" >iptables核心运作原理和数据包过滤方法 | 技术蛋老师 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://wiki.nftables.org/wiki-nftables/index.php/Main_Page" >nftables wiki <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://farkasity.gitbooks.io/nftables-howto-zh/content/" >Nftables HOWTO 中文翻译 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/getting-started-with-nftables_configuring-and-managing-networking" >配置和管理网络——nftables 入门 | Red Hat <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux/8/html/securing_networks/getting-started-with-nftables_securing-networks" >安全网络——nftables 入门 | Red Hat <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p><a class="link"   href="https://firewalld.org/documentation/" >Documentation | firewalld.org <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p><a class="link"   href="https://zhuanlan.zhihu.com/p/141473859" >FirewallD 防火墙使用概述 | Linux 中国 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
