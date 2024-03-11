@@ -11370,6 +11370,21 @@ y=2^{E_y}\cdot M_y
     <title>Monorepo 规范实践</title>
     <url>/2024/02/20/monorepo-setup-guide/</url>
     <content><![CDATA[<p>本文主要记录关于 Monorepo 的项目规范实践，借助 pnpm 包管理器和 NodeJs 环境等，通过各种配置实现对项目的自动化或半自动化规范。<span id="more"></span></p>
+<p>更新日志 2024-03-11：</p>
+<ul>
+<li>
+<p><strong>新增</strong>：无</p>
+</li>
+<li>
+<p><strong>改进</strong>：husky 新版本<code>V9</code>使用方式变更，查看<a class="link"   href="https://github.com/typicode/husky/releases/tag/v9.0.1" >changelog <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+<li>
+<p><strong>修复</strong>：commitlint 在新版 husky 下的使用，参考<a class="link"   href="https://commitlint.js.org/guides/local-setup" >Guide: Local setup | commitlint.js.org  <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</li>
+</ul>
+<blockquote>
+<p>可以在当前页全文搜索<code>新版 husky </code>关键词查看博客变更内容</p>
+</blockquote>
 <h2 id="基础工具"><a class="markdownIt-Anchor" href="#基础工具"></a> 基础工具</h2>
 <h3 id="nodejs"><a class="markdownIt-Anchor" href="#nodejs"></a> NodeJs</h3>
 <p>安装可参考<a class="link"   href="https://www.runoob.com/nodejs/nodejs-install-setup.html" >菜鸟教程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
@@ -11464,17 +11479,17 @@ y=2^{E_y}\cdot M_y
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pnpm run format</span><br></pre></td></tr></table></figure></div>
 <p>上面的配置方式仍需要手动格式化代码，不过实际编码过程中往往是持续、自动地根据对代码进行格式化。在对于 vscode、vim 等有 prettier 插件支持的编辑器中很容易实现，不过对于记事本这些无插件支持的编辑器可以考虑官方推荐的另一种方式 <a class="link"   href="https://www.npmjs.com/package/onchange" >onchange <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。</p>
 <p>对于 VsCode 编辑器，安装以下两个插件即可</p>
-<style>.cgtiermxavih{zoom:50%;}</style><img  
+<style>.fsugezfvbvwn{zoom:50%;}</style><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2024/02/20/monorepo-setup-guide/image-20240220153025970.png"
-                      class="cgtiermxavih" alt="image-20240220153025970"
+                      class="fsugezfvbvwn" alt="image-20240220153025970"
                 >
-<style>.mnhsppnlnebi{zoom:50%;}</style><img  
+<style>.prvoknhwcccp{zoom:50%;}</style><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="/2024/02/20/monorepo-setup-guide/image-20240220153115691.png"
-                      class="mnhsppnlnebi" alt="image-20240220153115691"
+                      class="prvoknhwcccp" alt="image-20240220153115691"
                 >
 <p>以下配置对于有 prettier 插件支持的编辑器来说是可选的。</p>
 <p>安装 onchange 依赖</p>
@@ -11503,11 +11518,18 @@ y=2^{E_y}\cdot M_y
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">pnpm add -w -D husky</span><br></pre></td></tr></table></figure></div>
 <p>启用 git hook，该命令会在项目根目录下生成 .husky 文件夹</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npx husky install</span><br></pre></td></tr></table></figure></div>
+<p>新版 husky 使用以下命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npx husky init</span><br></pre></td></tr></table></figure></div>
 <p>在项目根目录下的 package.json 中配置</p>
 <div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="comment">// 自动在git clone时自动通过husky启用git hook</span></span><br><span class="line">        <span class="attr">&quot;prepare&quot;</span><span class="punctuation">:</span> <span class="string">&quot;husky install&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
+<blockquote>
+<p>新版 husky 将上面的<code>husky install</code>简化为<code>husky</code></p>
+</blockquote>
 <p>第一个 git hook 是在提交 commit 之前执行 eslint 工具对代码进行质量和格式检查，即执行 package.json 中的 lint 脚本。</p>
 <p>创建该 git hook，该命令会在 .husky 文件夹下生成 pre-commit 脚本。</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npx husky add .husky/pre-commit <span class="string">&quot;pnpm run lint&quot;</span></span><br></pre></td></tr></table></figure></div>
+<p>新版 husky 使用以下命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;pnpm run lint&quot;</span> &gt;&gt; .husky/pre-commit</span><br></pre></td></tr></table></figure></div>
 <p>如果在提交 commit 时检测到代码不符合 eslint 规则，会终止本次提交。在执行<code>pnpm run format-watch</code>格式化代码之后就能正常提交。</p>
 <blockquote>
 <p>不过这种方式还是会对所有文件进行检查，后面会介绍一种增量格式化的工具。</p>
@@ -11523,6 +11545,9 @@ y=2^{E_y}\cdot M_y
 <p>这段脚本的作用是对所有被 lint-staged 检测到的文件，过滤掉被忽略的文件，然后对这些文件执行 lint 脚本。</p>
 <p>接下来需要手动更改 pre-commit 脚本如下</p>
 <div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env sh</span></span><br><span class="line">. <span class="string">&quot;<span class="subst">$(dirname -- <span class="string">&quot;<span class="variable">$0</span>&quot;</span>)</span>/_/husky.sh&quot;</span></span><br><span class="line"></span><br><span class="line">npx lint-staged</span><br></pre></td></tr></table></figure></div>
+<p>新版 husky 只需要修改脚本如下</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">npx lint-staged</span><br></pre></td></tr></table></figure></div>
+<p>使用命令<code>echo &quot;npx lint-staged&quot; &gt; ./husky/pre-commit</code>即可</p>
 <p>之后提交 commit 时就只会对发生更改的文件进行检查。</p>
 <h4 id="5commitlint-commitizen-规范提交"><a class="markdownIt-Anchor" href="#5commitlint-commitizen-规范提交"></a> 5.Commitlint + Commitizen 规范提交</h4>
 <blockquote>
@@ -11535,7 +11560,9 @@ y=2^{E_y}\cdot M_y
  <div class="highlight-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;extends&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;@commitlint/config-conventional&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;rules&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;scope-empty&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">2</span><span class="punctuation">,</span> <span class="string">&quot;never&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
 <p>这里的<code>extends</code>是扩展 commitlint 官方的配置，<code>scope-empty</code>表示的是提交 commit 时，scope 范围不能为空。</p>
 <p>创建 commit-msg 的git hook</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npx husky add .husky/commit-msg <span class="string">&#x27;npx --no --commitlint --edit &quot;$1&quot;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npx husky add .husky/commit-msg <span class="string">&#x27;npx --no -- commitlint --edit &quot;$1&quot;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+<p>新版 husky 使用以下命令</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;npx --no -- commitlint --edit \$1&quot;</span> &gt; .husky/commit-msg</span><br></pre></td></tr></table></figure></div>
 <p>该脚本的作用是在提交或修改 commit message 时进行校验，以确保项目拥有统一规范的 commit messgae。</p>
 <h5 id="commitizen"><a class="markdownIt-Anchor" href="#commitizen"></a> Commitizen</h5>
 <p>安装 commitizen 依赖</p>
