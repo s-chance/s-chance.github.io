@@ -3441,7 +3441,7 @@ y=2^{E_y}\cdot M_y
 <h3 id="上传新固件"><a class="markdownIt-Anchor" href="#上传新固件"></a> 上传新固件</h3>
 <p>上传 Breed 固件</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">rsync -avz -e <span class="string">&quot;ssh -o KexAlgorithms=+diffie-hellman-group1-sha1 -o HostKeyAlgorithms=+ssh-rsa -c 3des-cbc -o UserKnownHostsFile=/dev/null&quot;</span> breed-mt7621-pbr-m1.bin root@miwifi.com:/tmp/</span><br></pre></td></tr></table></figure></div>
-<p>检查文件 md5 值是否为 <code>24e62762809c15ba3872e610a37451a3</code>，可参考 <a class="link"   href="https://breed.hackpascal.net/md5sum.txt%EF%BC%8C%E8%BF%99%E4%B8%80%E6%AD%A5%E6%98%AF%E4%B8%BA%E4%BA%86%E7%A1%AE%E4%BF%9D%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%AE%8C%E6%95%B4%E3%80%82" >https://breed.hackpascal.net/md5sum.txt，这一步是为了确保文件传输完整。 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>检查文件 md5 值是否为 <code>24e62762809c15ba3872e610a37451a3</code>，这一步是为了确保文件传输完整。md5 列表清单可参考 <a class="link"   href="https://breed.hackpascal.net/md5sum.txt" >https://breed.hackpascal.net/md5sum.txt <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <p>刷入 Breed 固件并自动重启</p>
 <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">mtd -r write /tmp/breed-mt7621-pbr-m1.bin Bootloader</span><br></pre></td></tr></table></figure></div>
 <p>使用网线将路由器的 LAN 口与电脑连接，访问 192.168.1.1 可以看到如下页面</p>
