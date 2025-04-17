@@ -12637,12 +12637,12 @@ y=2^{E_y}\cdot M_y
 <li>扩展包描述</li>
 <li>使用 git 管理 <code>Yes</code></li>
 </ul>
-<img  
+<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/2025/03/04/make-your-own-vscode-extension-pack/image-20250304172757460.png"
-                      class="" title="image-20250304172757460"
-                >
+                     data-src="image-20250304172757460.png"
+                      alt="image-20250304172757460" 
+                ></p>
 <p>生成的配置文件示例</p>
 <p>package.json</p>
 <div class="code-container" data-rel="Json"><figure class="iseeu highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;oh-my-extension&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;displayName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;oh-my-extension&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;the collection of extensions for personal use&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;engines&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;vscode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^1.97.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;categories&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;Extension Packs&quot;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;extensionPack&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span> </span><br><span class="line">    <span class="string">&quot;alduncanson.react-hooks-snippets&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;astro-build.astro-vscode&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;aykutsarac.jsoncrack-vscode&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;biomejs.biome&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;bradlc.vscode-tailwindcss&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;dracula-theme.theme-dracula&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;dsznajder.es7-react-js-snippets&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;formulahendry.auto-close-tag&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;formulahendry.auto-complete-tag&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;formulahendry.auto-rename-tag&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;gruntfuggly.todo-tree&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;quicktype.quicktype&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;rooveterinaryinc.roo-cline&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;rust-lang.rust-analyzer&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;sdras.vue-vscode-snippets&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;simonsiefke.svg-preview&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;tamasfe.even-better-toml&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;usernamehw.errorlens&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;vscode-icons-team.vscode-icons&quot;</span><span class="punctuation">,</span> </span><br><span class="line">    <span class="string">&quot;wscats.vue&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></div>
@@ -12660,7 +12660,7 @@ y=2^{E_y}\cdot M_y
 <h2 id="手动发布到-marketplace"><a class="markdownIt-Anchor" href="#手动发布到-marketplace"></a> 手动发布到 Marketplace</h2>
 <p>默认生成的文件模块还无法直接发布，需要补充 publisher 信息，可以参考这份<a class="link"   href="https://code.visualstudio.com/api/get-started/extension-anatomy#extension-manifest" >官方模板<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
 <blockquote>
-<p>publisher 的信息需要与在 Marketplace 创建的 publisher 一致，扩展包最终的 Identifier 是由 <publisher>.<name> 组成的。</p>
+<p>publisher 的信息需要与在 Marketplace 创建的 publisher 一致，扩展包最终的 Identifier 是由 &lt;publisher&gt;.&lt;name&gt; 组成的。</p>
 </blockquote>
 <p>在 package.json 中补充完 publisher 信息后，需要重新打包 vsix 文件。手动发布的方式需要依赖 vsix 文件。</p>
 <p>在 <a class="link"   href="https://marketplace.visualstudio.com/vscode" >Marketplace<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 中手动上传 vsix 文件进行发布。一般等待几分钟的验证之后，就能在 VsCode 的扩展市场搜索到发布的扩展包。</p>
@@ -16128,6 +16128,92 @@ a*b=(a_1*10^{n/2}+a_0)*(b_1*10^{m/2}+b_0)\\
 ]]></content>
       <tags>
         <tag>Spring Webflux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>现代化环境管理</title>
+    <url>/2025/04/17/modern-multi-env-manager/</url>
+    <content><![CDATA[<p>聊聊一种可能是环境管理的现代化方案<span id="more"></span></p>
+<p>在讨论环境管理之前，先看看环境搭建这个从古至今的问题。</p>
+<blockquote>
+<p>这里讨论的环境，主要是指 sdk 的环境、多版本 sdk 动态选择的环境，也可以是指一套容器化的环境。</p>
+</blockquote>
+<h2 id="环境搭建的传统方式"><a class="markdownIt-Anchor" href="#环境搭建的传统方式"></a> 环境搭建的传统方式</h2>
+<p>在以前，搭建环境的一般步骤就是手动从官方网站下载具体的 sdk ，然后安装 sdk 、配置环境变量，最后验证环境的可用性。这样看来，搭建环境似乎不是一件很麻烦的事情，每个步骤都很清晰，搭建完环境后就可以专心投入新项目的开发。</p>
+<p>后来，有了更多的新项目，并且这些项目对 sdk 的要求各不相同，于是按照这些项目的要求手动搭建环境。起初还好，每套 sdk 互不干扰，基本一套环境搭建完，后续可以一直使用。</p>
+<p>不过，随着时间发展，sdk 也在不断迭代升级。出于对新特性的好奇，你再次从官方网站上手动重复了一遍环境搭建工作。有一部分 sdk 似乎变得“智能”了一些，环境变量配置的工作被内置在特定格式 sdk 文件中，但是升级 sdk 还是需要手动从官方网站上下载。</p>
+<p>另一方面，云服务器的流行，使得你开始接触不同的操作系统，你可能会需要在不同的新机器中反复搭建环境。当你在新的操作系统上搭建环境时，可能会发现过去的经验并不能很好的工作。</p>
+<h2 id="脚本化搭建与包管理器搭建"><a class="markdownIt-Anchor" href="#脚本化搭建与包管理器搭建"></a> 脚本化搭建与包管理器搭建</h2>
+<p>在学习了终端 cli 安装之后，你可能意识到之前环境搭建的很多过程是可以自动化的，并且注意到一些新兴的 sdk 并非是以安装包的形式直接提供，而是给出了一串奇怪的命令。在终端执行这串命令之后，环境便完成了搭建。</p>
+<p>你尝试理解了这串命令的含义，知道它包含了一个脚本，不过是通过网络的形式下载执行的。为了了解具体的脚本是如何做到自动化搭建环境的，你访问了这个脚本实际的内容，发现它是以代码的形式记录了一个环境搭建的行为。</p>
+<p>因此，通过编写脚本记录环境搭建的步骤，你实现了自动化环境搭建，但是脚本的编写与维护工作可能是一件更耗费精力的事情：你可能希望这个脚本能实现安装、更新、卸载以及更加高级的功能。</p>
+<p>脚本并非完全包含了环境搭建的所有可能性。一个脚本可能只在特定的操作系统上工作，针对不同的系统你可能还需要编写不同格式的脚本，且考虑环境配置的幂等性等情况，一部分配置工作还是设计为用户手动处理。</p>
+<p>脚本虽然解决了一部分手动操作的问题，但是引入了新的问题。这些问题很大程度上受脚本编写质量的影响：如果一个脚本编写的非常出色，那么几乎不需要用户操劳。如果一个脚本编写的质量不好，甚至可能造成损失的，那么用户可能得自行为执行这个脚本的过失负责。因此，除非用户审阅并正确理解脚本的行为，不然无法估计执行脚本所带来的变数。（然而这和仔细阅读用户须知等协议是类似的，大部分用户并没有这么多的耐心）</p>
+<p>你希望有一个相对规范统一的平台来处理这些事情，于是你接触了专属于操作系统的包管理器。包管理器相对于脚本提供了更好的保障和统一性，虽然这种保障并不是绝对的，但是这比纯粹的脚本管理带来了更多的高级功能和体验。尽管包管理器的运作需要特定的权限，但是目前你拥有最高权限。你使用包管理器在几条命令之后就完成了环境搭建，环境搭建基本上由包管理器统一承担。</p>
+<p>但正因为包管理器是系统专属的，它的运作只适用于它所对应的操作系统，无法在多台系统各异的机器上重复相同的操作。此外，包管理器由于总是将环境置于一个全局的位置，导致系统可能会变得不太稳定。你或许需要一个具有隔离性的环境管理方案。</p>
+<h2 id="容器化搭建与跨平台-sdk-管理器搭建"><a class="markdownIt-Anchor" href="#容器化搭建与跨平台-sdk-管理器搭建"></a> 容器化搭建与跨平台 sdk 管理器搭建</h2>
+<p>云原生时代，容器化部署开始流行，环境的搭建可以转移到容器中实现。基于容器仓库可以快速获取定制好的各种环境，并且定制自己的环境使用。<br />
+容器化主要有应用容器和系统容器两个方向。</p>
+<p>应用容器主要是以单个应用进程为中心。<a class="link"   href="https://github.com/89luca89/distrobox" >89luca89/distrobox<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 是一个容器包装层，主要是提供不同的容器化 linux 版本，依赖 docker 或 podman 运作。本质上是一系列脚本，自动化处理复杂的容器集成逻辑，实现高度系统集成的容器环境。此外，还有类似的 <a class="link"   href="https://github.com/containers/toolbox" >containers/toolbox<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+<p>系统容器旨在模拟完整的操作系统环境，能同时运行多个进程与服务。<a class="link"   href="https://github.com/lxc/lxc" >lxc<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 是比较典型的系统级容器虚拟化工具。lxc 本身比较底层，基于 lxc 开发的高级管理工具有 <a class="link"   href="https://github.com/canonical/lxd" >lxd<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 和 <a class="link"   href="https://github.com/lxc/incus" >incus<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>(lxd 的社区分支)。</p>
+<p>如果使用过基于 systemd 的操作系统，可能会知道 systemd-nspawn 这个工具，它是由 systemd 生态所提供的系统级容器。</p>
+<p>容器化引入新的学习成本，定制符合个人需求的环境需要熟练掌握容器化技术的使用方法，似乎对于个人环境搭建来说有些沉重了。</p>
+<p>在另外一条道路上，一些新兴的跨平台 sdk 管理器出现，它们不同于传统的包管理器，不绑定单一的系统。这些 sdk 管理器基本涵盖了常见的 sdk 包，能够爬取各种 sdk 的版本号，具有下载、安装、卸载、特定版本控制等一系列功能，可以快速地搭建环境，适应复杂多变的环境需求。</p>
+<blockquote>
+<p>我在<a href="https://www.entropy-tree.top/2023/03/12/more-env-control/">过去的文章</a>中有提到过一些 sdk 管理器，但是它们局限于各自的生态。<br />
+以下几个工具包含了相对全面的 sdk 管理：</p>
+<ul>
+<li><a class="link"   href="https://github.com/asdf-vm/asdf" >asdf-vm/asdf<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   href="https://github.com/version-fox/vfox" >version-fox/vfox<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   href="https://github.com/gvcgo/version-manager" >gvcgo/version-manager<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   href="https://github.com/jdx/mise" >jdx/mise<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+</blockquote>
+<p>直到多版本 sdk 管理器出现之前开发环境都是基于固定的环境变量 PATH 来识别。</p>
+<h2 id="多版本环境管理问题"><a class="markdownIt-Anchor" href="#多版本环境管理问题"></a> 多版本环境管理问题</h2>
+<p>前面说到，出于对新版本 sdk 的需求，你可能已经在系统中积累了多个版本的 sdk 或者是只留下了最新版本的 sdk。sdk 的迭代升级并不总是一帆风顺的，有时候迁移到新的 sdk 可能会付出较大的代价，因为新的 sdk 无法再兼容旧 sdk 的产物。</p>
+<p>同时，多次重复的 sdk 配置工作，使得环境变量变得杂乱不堪。你可能需要一种能管理多版本 sdk 且不会污染环境变量的方案，例如 vfox.</p>
+<p>在多版本 sdk 管理器的时代，为了实现多版本切换，引入了 shims 机制。最初是通过 shims 脚本动态切换软链接的指向实现 sdk 版本的切换，不过 shims 中间层的存在，造成了一定的性能损失。于是，后续出现了读取目录下特定文件动态改变环境变量的方案 <a class="link"   href="https://github.com/direnv/direnv" >direnv<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>、<a class="link"   href="https://github.com/jdx/mise" >mise<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，通过维护动态的环境变量来实现高效的 sdk 版本切换。</p>
+<h2 id="声明式的环境管理"><a class="markdownIt-Anchor" href="#声明式的环境管理"></a> 声明式的环境管理</h2>
+<p>在大部分多版本 sdk 管理方案还是基于动态选择思想设计时，一些不走寻常路的工具采取了基于声明式配置的静态解析。</p>
+<p>声明式配置的一个例子就是 <a class="link"   href="https://github.com/NixOS/nix" >nix<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。nix 的设计受到了 haskell 函数式编程范式的影响，使用 nix 需要一定的函数式经验。不过基于 nix 已经出现了相对容易使用的工具：<a class="link"   href="https://github.com/jetify-com/devbox" >jetify-com/devbox<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 和 <a class="link"   href="https://github.com/flox/flox" >flox/flox<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>.</p>
+<blockquote>
+<p>devbox 可以在 <a class="link"   href="https://www.nixhub.io/" >Nixhub.io | A Nix Packages Registry<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 中搜索包，并支持导出 devcontainers 供其他容器使用。</p>
+</blockquote>
+<h2 id="现状"><a class="markdownIt-Anchor" href="#现状"></a> 现状</h2>
+<p>传统的环境搭建方式，在简单场景下依然是最符合直觉的不二选择。但是环境的变化总是会趋向于更复杂的情况，越发庞大的环境，越发混乱的环境。于是开始使用容器管理环境，但是容器的初衷并不是提供开发用途的环境，更多的是提供长期的服务。</p>
+<p>当然在容器发展过程中也出现了 <a class="link"   href="https://code.visualstudio.com/docs/devcontainers/containers" >Developing inside a Container<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 这种在容器内开发的形式。<br />
+<a class="link"   href="https://codesandbox.io/" >codesandbox<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 就是一个基于容器化环境开发的在线平台，并且很多开发工具提供了对容器化开发的支持。</p>
+<blockquote>
+<p><a class="link"   href="https://www.youtube.com/watch?v=SDa3v4Quj7Y" >My Favorite Way To Handle Dev Environments | VS Code Devcontainers - YouTube<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 介绍了如何在 vscode 中使用 devcontainers 插件来实现通过容器管理开发环境。</p>
+</blockquote>
+<p>但是环境并不总是单一地服务于开发、测试。很多程序也需要一个稳定运行的环境，而一些程序与容器化的相性不合，更多时候还是需要一个在本地可用的环境。于是又回到本地，但是这时候有了 sdk 管理器的选择。</p>
+<p>而 sdk 管理器则从原本的单一 sdk 管理趋向于更加全面的 sdk 管理，并且通过与 direnv 等工具配合实现了更灵活的开发环境管理。sdk 管理器的出现，算是很好地解决了大部分问题。但是某天你需要在另一台新的机器上准备这些环境，你会发现你又需要重复做一篇历史工作。容器化一定程度上能解决这个问题，但是容器化并不适用所有的场景。你可能希望有一种方案，能像脚本一样记录、能像 sdk 管理器一样控制版本、能像容器一样迁移。于是声明式环境管理可能是一种较好的方案。</p>
+<p>声明式环境管理使得环境可以被记录和控制，基于这些配置元信息，能便捷地将环境转移到其他地方。</p>
+<p>那么最终的环境管理形态可能有两种：一种是基于声明式配置 + 容器化开发(devcontainers) + 容器化生产的组合，适合大规模的环境共享以及对环境有较高的一致性要求；另一种是基于 sdk 管理器，适合个人灵活使用和临时测试。</p>
+<h2 id="参考文章"><a class="markdownIt-Anchor" href="#参考文章"></a> 参考文章</h2>
+<p><a class="link"   href="https://wiki.archlinux.org/title/Toolbox" >Toolbox - ArchWiki<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://wiki.archlinux.org/title/Distrobox" >Distrobox - ArchWiki<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://wiki.archlinux.org/title/Linux_Containers" >Linux Containers - ArchWiki<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://wiki.archlinux.org/title/LXD" >LXD - ArchWiki<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://wiki.archlinux.org/title/Incus" >Incus - ArchWiki<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://wiki.archlinux.org/title/Systemd-nspawn" >systemd-nspawn - ArchWiki<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://blog.mkacg.com/2025/01/02/use-docker-and-distrobx-and-nix-to-develop-uos/" >使用 distrobox 和 nix 加速 UOS 开发 | 小竹’s blog<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://www.v2ex.com/t/1036639" >SDK 版本管理器之 vmr 和 vfox 对比 - V2EX<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://zhaochunqi.com/posts/using-mise-to-manager-your-packages/" >Mise：跨语言开发环境的高效配置工具 | 小赵的技术手记<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://zhaochunqi.com/posts/direnv/" >利用 direnv 管理项目环境变量，提高开发效率 | 小赵的技术手记<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://www.jetify.com/blog/devbox-turn-a-1000-container-script-into-10-lines/" >Devbox vs Docker: light &amp; repeatable dev envs w/o container<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://zhuanlan.zhihu.com/p/391525180" >docker容器技术基础之linux cgroup、namespace - 知乎<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://code.visualstudio.com/docs/devcontainers/tutorial" >Dev Containers tutorial<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><a class="link"   href="https://sspai.com/post/89358" >devcontainer 容器化你的开发环境-理论篇 - 少数派<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+]]></content>
+      <categories>
+        <category>环境管理</category>
+      </categories>
+      <tags>
+        <tag>shims</tag>
+        <tag>containers</tag>
+        <tag>declarative</tag>
       </tags>
   </entry>
 </search>
